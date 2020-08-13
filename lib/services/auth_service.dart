@@ -24,6 +24,7 @@ class AuthService extends AuthServiceSkel {
         return User.fromData(str);
       }
     }
+    print("str is null");
     return null;
   }
 
@@ -41,7 +42,7 @@ class AuthService extends AuthServiceSkel {
     if (res.statusCode == 200) {
       if (res.body != null) {
         await storage.write(
-            key: "user", value: jsonToString(json.decode(res.body)));
+            key: "user", value: User.jsonToString(json.decode(res.body)));
         return User.fromJson(json.decode(res.body));
       } else {
         print('Wrong credntials');
@@ -63,26 +64,5 @@ class AuthService extends AuthServiceSkel {
   Future<int> signUp(
       {String name, String email, String profession, String password}) {
     return null;
-  }
-
-  String jsonToString(var json) {
-    String token = json['token'];
-    String id = json['user']['id'];
-    String name = json['user']['name'];
-    String email = json['user']['email'];
-    String role = json['user']['role'];
-    String profileimg = json['user']['profileimg'];
-
-    return token +
-        ",," +
-        id +
-        ",," +
-        name +
-        ",," +
-        email +
-        ",," +
-        role +
-        ",," +
-        profileimg;
   }
 }

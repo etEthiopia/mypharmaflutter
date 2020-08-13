@@ -40,8 +40,6 @@ class __LoginFormState extends State<_LoginForm> {
               _emailController.text, _passwordController.text);
         } on AuthException catch (e) {
           showError(e.message, context);
-        } catch (err) {
-          showError(err.toString(), context);
         }
       } else {
         setState(() {

@@ -17,7 +17,7 @@ class User {
   var payload;
   String is_representative;
 
-  User({@required this.token, var user}) {
+  User({@required this.token, dynamic user}) {
     final parts = token.split('.');
     if (parts.length != 3) {
       throw Exception('invalid token');
@@ -33,6 +33,9 @@ class User {
     }
 
     payload = payloadMap;
+
+    // Map userp = user;
+    // print(userp.keys);
 
     id = user['id'];
     name = user['name'];
@@ -77,16 +80,40 @@ class User {
   }
 
   factory User.fromData(String data) {
-    List<String> dict = data.split(',,');
-    return User(
-        token: dict[0],
-        user: jsonEncode(<String, String>{
-          "id": dict[1],
-          "name": dict[2],
-          "email": dict[3],
-          "role": dict[4],
-          "profileimg": dict[5]
-        }));
+    List<dynamic> dict = data.split(',,');
+
+    return User(token: dict[0], user: <String, dynamic>{
+      "id": int.parse(dict[1]),
+      "name": dict[2],
+      "email": dict[3],
+      "role": int.parse(dict[4]),
+      "profileimg": dict[5]
+    });
+  }
+
+  static String jsonToString(var json) {
+    String token = json['token'];
+    String id = json['user']['id'].toString();
+    String name = json['user']['name'];
+    String email = json['user']['email'];
+    String role = json['user']['role'].toString();
+    var pi = json['user']['profileimg'];
+    String profileimg = "null";
+    if (pi != null) {
+      profileimg = pi.toString();
+    }
+
+    return token +
+        ",," +
+        id +
+        ",," +
+        name +
+        ",," +
+        email +
+        ",," +
+        role +
+        ",," +
+        profileimg;
   }
 
   String _decodeBase64(String str) {
