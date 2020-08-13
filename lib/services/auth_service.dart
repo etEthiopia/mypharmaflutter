@@ -13,13 +13,13 @@ abstract class AuthServiceSkel {
 class AuthService extends AuthServiceSkel {
   @override
   Future<User> getCurrentUser() async {
-    var str = await storage.read(key: "user_token");
+    var str = await storage.read(key: "token");
 
     if (str != null) {
       var jwt = str.split(".");
 
       if (jwt.length == 3) {
-        return User(user_token: str);
+        return User(token: str);
       }
     }
     return null;
@@ -33,9 +33,12 @@ class AuthService extends AuthServiceSkel {
         },
         body:
             jsonEncode(<String, String>{"email": email, "password": password}));
+    print("url: $SERVER_IP/login");
+    print("email: $email");
+    print("password: $password");
     if (res.statusCode == 200) {
       if (res.body != null) {
-        await storage.write(key: "jwt", value: json.decode(res.body)['token']);
+        //await storage.write(key: "jwt", value: json.decode(res.body)['token']);
         return User.fromJson(json.decode(res.body));
       } else {
         print('Wrong credntials');

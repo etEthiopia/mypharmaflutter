@@ -13,15 +13,18 @@ class User {
   String profession;
   String user_activation_key;
   String status;
-  String user_token;
+  String token;
   var payload;
   String is_representative;
 
-  User({@required this.user_token}) {
-    final parts = user_token.split('.');
+  User({@required this.token, var user}) {
+    final parts = token.split('.');
     if (parts.length != 3) {
       throw Exception('invalid token');
     }
+    // print("part0: ${parts[0]}");
+    // print("part1: ${parts[1]}");
+    // print("part2: ${parts[2]}");
 
     final ppayload = _decodeBase64(parts[1]);
     final payloadMap = json.decode(ppayload);
@@ -30,20 +33,22 @@ class User {
     }
 
     payload = payloadMap;
-    name = payload['name'];
-    email = payload['email'];
-    print(this.toString());
+    // print("payload $payload");
+    // name = payload['name'];
+    // email = payload['email'];
+    // print(this.toString());
 
-    // id = user['id'];
-    // name = user['name'];
-    // email = user['email'];
-    // email_verified_at = user['email_verified_at'];
-    // created_at = user['created_at'];
-    // updated_at = user['updated_at'];
-    // role = _numberToRole(user['role']);
-    // profileimg = user['profileimg'];
-    // user_activation_key = user['user_activation_key'];
-    // is_representative = user['is_representative'];
+    id = user['id'];
+    name = user['name'];
+    email = user['email'];
+    email_verified_at = user['email_verified_at'];
+    created_at = user['created_at'];
+    updated_at = user['updated_at'];
+    role = _numberToRole(user['role']);
+    profileimg = user['profileimg'];
+    user_activation_key = user['user_activation_key'];
+    is_representative = user['is_representative'];
+    print(this.toString());
   }
 
   Role _numberToRole(int roleint) {
@@ -72,7 +77,7 @@ class User {
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return User(user_token: json['user_token']);
+    return User(token: json['token'], user: json['user']);
   }
 
   String _decodeBase64(String str) {
