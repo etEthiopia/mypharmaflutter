@@ -38,9 +38,11 @@ class AuthService extends AuthServiceSkel {
         await storage.write(key: "jwt", value: json.decode(res.body)['token']);
         return User.fromJson(json.decode(res.body));
       } else {
+        print('Wrong credntials');
         throw AuthException(message: 'Wrong credntials');
       }
     } else {
+      print('Wrong username or password');
       throw AuthException(message: 'Wrong username or password');
     }
   }

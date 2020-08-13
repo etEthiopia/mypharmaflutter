@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mypharma/main.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
@@ -32,6 +33,7 @@ class __LoginFormState extends State<_LoginForm> {
       print("FORM KEY: " + _key.currentState.toString());
       if (_key.currentState.validate()) {
         print("validated");
+        authService.signIn(_emailController.text, _passwordController.text);
       } else {
         setState(() {
           _autoValidate = true;

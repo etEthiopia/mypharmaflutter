@@ -32,6 +32,7 @@ class User {
     payload = payloadMap;
     name = payload['name'];
     email = payload['email'];
+    print(this.toString());
 
     // id = user['id'];
     // name = user['name'];
