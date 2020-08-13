@@ -37,7 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapAppLoadedToState(AppLoaded event) async* {
     yield AuthLoading(); // to display splash screen
     try {
-      await Future.delayed(Duration(milliseconds: 500)); // a simulated delay
+      // await Future.delayed(Duration(milliseconds: 500)); // a simulated delay
       final currentUser = await _AuthService.getCurrentUser();
 
       if (currentUser != null) {

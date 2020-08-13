@@ -4,6 +4,7 @@ import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/auth/auth_state.dart';
 import 'package:mypharma/screens/auth/joinus.dart';
 import 'package:mypharma/screens/auth/login.dart';
+import 'package:mypharma/screens/front_splash.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -13,6 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'MyPharma',
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
+          if (state is AuthLoading) {
+            return FrontSplash();
+          }
           if (state is AuthAuthenticated) {
             // show home page
             return JoinUs();
