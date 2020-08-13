@@ -8,6 +8,9 @@ import '../main.dart';
 abstract class AuthServiceSkel {
   Future<User> getCurrentUser();
   Future<User> signIn(String email, String password);
+  Future<int> signUp(
+      {String name, String email, String profession, String password});
+  Future<void> signOut();
 }
 
 class AuthService extends AuthServiceSkel {
@@ -48,5 +51,17 @@ class AuthService extends AuthServiceSkel {
       print('Wrong username or password');
       throw AuthException(message: 'Wrong username or password');
     }
+  }
+
+  @override
+  Future<void> signOut() async {
+    await storage.delete(key: "user");
+    return null;
+  }
+
+  @override
+  Future<int> signUp(
+      {String name, String email, String profession, String password}) {
+    return null;
   }
 }
