@@ -33,10 +33,6 @@ class User {
     }
 
     payload = payloadMap;
-    // print("payload $payload");
-    // name = payload['name'];
-    // email = payload['email'];
-    // print(this.toString());
 
     id = user['id'];
     name = user['name'];

@@ -38,7 +38,7 @@ class AuthService extends AuthServiceSkel {
     print("password: $password");
     if (res.statusCode == 200) {
       if (res.body != null) {
-        //await storage.write(key: "jwt", value: json.decode(res.body)['token']);
+        await storage.write(key: "user", value: res.body);
         return User.fromJson(json.decode(res.body));
       } else {
         print('Wrong credntials');
