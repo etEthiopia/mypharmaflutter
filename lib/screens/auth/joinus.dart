@@ -1,6 +1,6 @@
-import 'package:chat_app/theme/colors.dart';
-import 'package:chat_app/theme/font.dart';
 import 'package:flutter/material.dart';
+import 'package:mypharma/theme/colors.dart';
+import 'package:mypharma/theme/font.dart';
 
 class JoinUs extends StatefulWidget {
   @override
