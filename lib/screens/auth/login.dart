@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/blocs/auth/auth_bloc.dart';
+import 'package:mypharma/blocs/login/login_bloc.dart';
+import 'package:mypharma/blocs/login/login_event.dart';
+import 'package:mypharma/blocs/login/login_state.dart';
+import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/exceptions/exceptions.dart';
 import 'package:mypharma/main.dart';
+import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
@@ -31,16 +38,22 @@ class __LoginFormState extends State<_LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = RepositoryProvider.of<AuthService>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final _loginBloc = BlocProvider.of<LoginBloc>(context);
+
     _signin() async {
       print("FORM KEY: " + _key.currentState.toString());
       if (_key.currentState.validate()) {
         print("validated");
-        try {
-          await authService.signIn(
-              _emailController.text, _passwordController.text);
-        } on AuthException catch (e) {
-          showError(e.message, context);
-        }
+        _loginBloc.add(LoginInWithEmailButtonPressed(
+            email: _emailController.text, password: _passwordController.text));
+        // try {
+        //   await authService.signIn(
+        //       _emailController.text, _passwordController.text);
+        // } on AuthException catch (e) {
+        //   showError(e.message, context);
+        // }
       } else {
         setState(() {
           _autoValidate = true;
@@ -213,76 +226,85 @@ class __LoginFormState extends State<_LoginForm> {
       );
     }
 
-    Orientation orientation = MediaQuery.of(context).orientation;
-    if (orientation == Orientation.portrait) {
-      return Container(
-        padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-        child: SingleChildScrollView(
-            reverse: true,
-            child: Column(
-              children: <Widget>[
-                Form(
-                  key: _key,
-                  autovalidate: _autoValidate,
-                  child: Column(children: <Widget>[
-                    _logoSection(),
-                    _sizedBox(),
-                    _emailPrompt(),
-                    _passwordPrompt(),
-                    _sizedBox(),
-                    _signinBtn(),
-                    _sizedBox(),
-                    _forgotpassword(),
-                    _sizedBox(),
-                    _orText(),
-                    _divider(),
-                    _createaccountBtn()
-                  ]),
-                ),
-              ],
-            )),
-      );
-    } else {
-      return Container(
+    return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
+      if (state is LoginFailure) {
+        showError(state.error, context);
+      }
+    }, child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      if (state is LoginLoading) {
+        return LoadingLogin(context);
+      }
+      Orientation orientation = MediaQuery.of(context).orientation;
+      if (orientation == Orientation.portrait) {
+        return Container(
+          padding: EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
           child: SingleChildScrollView(
-        reverse: true,
-        child: Container(
-          padding: EdgeInsets.only(top: 30.0),
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Column(
-                    children: <Widget>[
+              reverse: true,
+              child: Column(
+                children: <Widget>[
+                  Form(
+                    key: _key,
+                    autovalidate: _autoValidate,
+                    child: Column(children: <Widget>[
                       _logoSection(),
+                      _sizedBox(),
+                      _emailPrompt(),
+                      _passwordPrompt(),
+                      _sizedBox(),
+                      _signinBtn(),
+                      _sizedBox(),
+                      _forgotpassword(),
+                      _sizedBox(),
+                      _orText(),
                       _divider(),
                       _createaccountBtn()
-                    ],
+                    ]),
+                  ),
+                ],
+              )),
+        );
+      } else {
+        return Container(
+            child: SingleChildScrollView(
+          reverse: true,
+          child: Container(
+            padding: EdgeInsets.only(top: 30.0),
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      children: <Widget>[
+                        _logoSection(),
+                        _divider(),
+                        _createaccountBtn()
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Form(
-                      key: _key,
-                      autovalidate: _autoValidate,
-                      child: Column(children: <Widget>[
-                        _emailPrompt(),
-                        _passwordPrompt(),
-                        _sizedBox(),
-                        _signinBtn(),
-                        _sizedBox(),
-                        _forgotpassword(),
-                      ]),
-                    )),
-              ),
-            ],
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Form(
+                        key: _key,
+                        autovalidate: _autoValidate,
+                        child: Column(children: <Widget>[
+                          _emailPrompt(),
+                          _passwordPrompt(),
+                          _sizedBox(),
+                          _signinBtn(),
+                          _sizedBox(),
+                          _forgotpassword(),
+                        ]),
+                      )),
+                ),
+              ],
+            ),
           ),
-        ),
-      ));
-    }
+        ));
+      }
+    }));
   }
 }

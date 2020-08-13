@@ -3,7 +3,7 @@ import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/auth/auth_event.dart';
 import 'package:mypharma/blocs/register/register_event.dart';
 import 'package:mypharma/blocs/register/register_state.dart';
-import 'package:mypharma/services/auth_service.dart';
+
 import 'package:mypharma/services/services.dart';
 //import 'package:bloc_pattern_full/blocs/auth/auth_bloc.dart';
 //import 'package:bloc_pattern_full/blocs/auth/Auth_event.dart';
@@ -36,7 +36,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     try {
       print("ABOUT to fire method");
       final code = await _AuthService.signUp(
-        name: event.name, 
+        name: event.name,
       );
       if (code == 201) {
         // push new Auth event

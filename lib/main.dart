@@ -5,7 +5,7 @@ import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/auth/auth_event.dart';
 import 'package:mypharma/blocs/auth_form/form_bloc.dart';
 import 'package:mypharma/screens/my_app.dart';
-import 'package:mypharma/services/auth_service.dart';
+import 'package:mypharma/services/services.dart';
 
 const SERVER_IP = 'http://192.168.1.3/mypharma/public/api';
 final storage = FlutterSecureStorage();

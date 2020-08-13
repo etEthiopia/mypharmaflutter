@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/auth/auth_event.dart';
-import 'package:mypharma/services/auth_service.dart';
+
 import 'package:mypharma/services/services.dart';
 //import 'package:bloc_pattern_full/blocs/auth/auth_bloc.dart';
 //import 'package:bloc_pattern_full/blocs/auth/Auth_event.dart';
