@@ -37,13 +37,13 @@ class User {
     id = user['id'];
     name = user['name'];
     email = user['email'];
-    email_verified_at = user['email_verified_at'];
-    created_at = user['created_at'];
-    updated_at = user['updated_at'];
+    //email_verified_at = user['email_verified_at'];
+    // created_at = user['created_at'];
+    // updated_at = user['updated_at'];
     role = _numberToRole(user['role']);
     profileimg = user['profileimg'];
-    user_activation_key = user['user_activation_key'];
-    is_representative = user['is_representative'];
+    // user_activation_key = user['user_activation_key'];
+    // is_representative = user['is_representative'];
     print(this.toString());
   }
 
@@ -74,6 +74,19 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(token: json['token'], user: json['user']);
+  }
+
+  factory User.fromData(String data) {
+    List<String> dict = data.split(',,');
+    return User(
+        token: dict[0],
+        user: jsonEncode(<String, String>{
+          "id": dict[1],
+          "name": dict[2],
+          "email": dict[3],
+          "role": dict[4],
+          "profileimg": dict[5]
+        }));
   }
 
   String _decodeBase64(String str) {

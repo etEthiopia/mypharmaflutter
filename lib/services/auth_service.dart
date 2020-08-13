@@ -16,13 +16,12 @@ abstract class AuthServiceSkel {
 class AuthService extends AuthServiceSkel {
   @override
   Future<User> getCurrentUser() async {
-    var str = await storage.read(key: "token");
-
+    var str = await storage.read(key: "user");
     if (str != null) {
-      var jwt = str.split(".");
+      var long = str.split(",,");
 
-      if (jwt.length == 3) {
-        return User(token: str);
+      if (long.length == 6) {
+        return User.fromData(str);
       }
     }
     return null;
@@ -41,7 +40,8 @@ class AuthService extends AuthServiceSkel {
     print("password: $password");
     if (res.statusCode == 200) {
       if (res.body != null) {
-        await storage.write(key: "user", value: res.body);
+        await storage.write(
+            key: "user", value: jsonToString(json.decode(res.body)));
         return User.fromJson(json.decode(res.body));
       } else {
         print('Wrong credntials');
@@ -63,5 +63,26 @@ class AuthService extends AuthServiceSkel {
   Future<int> signUp(
       {String name, String email, String profession, String password}) {
     return null;
+  }
+
+  String jsonToString(var json) {
+    String token = json['token'];
+    String id = json['user']['id'];
+    String name = json['user']['name'];
+    String email = json['user']['email'];
+    String role = json['user']['role'];
+    String profileimg = json['user']['profileimg'];
+
+    return token +
+        ",," +
+        id +
+        ",," +
+        name +
+        ",," +
+        email +
+        ",," +
+        role +
+        ",," +
+        profileimg;
   }
 }
