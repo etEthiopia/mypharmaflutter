@@ -80,13 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: pharmacyDrawer(),
       body: SafeArea(
         child: Column(
-          children: <Widget>[
-            Container(
-              color: Colors.yellow,
-              height: 100,
-              child: Row(children: <Widget>[]),
-            ),
-          ],
+          children: <Widget>[_sizedbox(), _menuBtn("Login", "login")],
         ),
       ),
     );
