@@ -17,7 +17,7 @@ class User {
   var payload;
   String is_representative;
 
-  User({@required this.user_token, var user}) {
+  User({@required this.user_token}) {
     final parts = user_token.split('.');
     if (parts.length != 3) {
       throw Exception('invalid token');
@@ -30,16 +30,19 @@ class User {
     }
 
     payload = payloadMap;
-    id = user['id'];
-    name = user['name'];
-    email = user['email'];
-    email_verified_at = user['email_verified_at'];
-    created_at = user['created_at'];
-    updated_at = user['updated_at'];
-    role = _numberToRole(user['role']);
-    profileimg = user['profileimg'];
-    user_activation_key = user['user_activation_key'];
-    is_representative = user['is_representative'];
+    name = payload['name'];
+    email = payload['email'];
+
+    // id = user['id'];
+    // name = user['name'];
+    // email = user['email'];
+    // email_verified_at = user['email_verified_at'];
+    // created_at = user['created_at'];
+    // updated_at = user['updated_at'];
+    // role = _numberToRole(user['role']);
+    // profileimg = user['profileimg'];
+    // user_activation_key = user['user_activation_key'];
+    // is_representative = user['is_representative'];
   }
 
   Role _numberToRole(int roleint) {
@@ -65,6 +68,10 @@ class User {
       throw Exception('role unknown');
     }
     return x;
+  }
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(user_token: json['user_token']);
   }
 
   String _decodeBase64(String str) {
