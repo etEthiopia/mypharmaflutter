@@ -21,7 +21,16 @@ class _LoginState extends State<Login> {
   //_layout(authService: authService)
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: _LoginForm()));
+    final authService = RepositoryProvider.of<AuthService>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    return Scaffold(
+      body: BlocProvider<LoginBloc>(
+        create: (context) => LoginBloc(authBloc, authService),
+        child: SafeArea(
+          child: _LoginForm(),
+        ),
+      ),
+    );
   }
 }
 
@@ -38,8 +47,6 @@ class __LoginFormState extends State<_LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final authService = RepositoryProvider.of<AuthService>(context);
-    final authBloc = BlocProvider.of<AuthBloc>(context);
     final _loginBloc = BlocProvider.of<LoginBloc>(context);
 
     _signin() async {
