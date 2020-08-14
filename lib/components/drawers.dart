@@ -1,5 +1,29 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/blocs/auth/auth_bloc.dart';
+import 'package:mypharma/blocs/auth/auth_state.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:flutter/material.dart';
+
+// class Drawer extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     StreamBuilder<Location>(
+//       // 1
+//       stream: BlocProvider.of<LocationBloc>(context).locationStream,
+//       builder: (context, snapshot) {
+//         final location = snapshot.data;
+
+//         // 2
+//         if (location == null) {
+//           return LocationScreen();
+//         }
+
+//         // This will be changed this later
+//         return Container();
+//       },
+//     );
+//   }
+// }
 
 Drawer anonDrawer() {
   return Drawer(

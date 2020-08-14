@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
           }
           if (state is AuthAuthenticated) {
             // show home page
+            print("state: " + state.props.toString());
             return JoinUs();
           }
           // otherwise show login page
