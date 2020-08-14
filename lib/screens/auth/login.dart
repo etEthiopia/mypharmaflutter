@@ -55,12 +55,6 @@ class __LoginFormState extends State<_LoginForm> {
         print("validated");
         _loginBloc.add(LoginInWithEmailButtonPressed(
             email: _emailController.text, password: _passwordController.text));
-        // try {
-        //   await authService.signIn(
-        //       _emailController.text, _passwordController.text);
-        // } on AuthException catch (e) {
-        //   showError(e.message, context);
-        // }
       } else {
         setState(() {
           _autoValidate = true;

@@ -46,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthNotAuthenticated();
       }
     } catch (e) {
-      yield AuthFailure(message: e.message ?? 'An unknown error occurred');
+      yield AuthFailure(error: e.message ?? 'An unknown error occurred');
     }
   }
 

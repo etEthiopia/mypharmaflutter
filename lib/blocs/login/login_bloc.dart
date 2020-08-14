@@ -45,7 +45,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } on AuthException catch (e) {
       yield LoginFailure(error: e.message);
     } catch (err) {
-      yield LoginFailure(error: err.message ?? 'An unknown error occured');
+      yield LoginFailure(error: err.toString() ?? 'An unknown error occured');
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
@@ -148,35 +149,37 @@ class _JoinUsState extends State<JoinUs> {
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       return Scaffold(
+          drawer: Drawer(child: UserDrawer()),
           body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(flex: 3, child: _introSection()),
-            Expanded(
-              flex: 3,
-              child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
-                  child: _joinusSection()),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                alignment: AlignmentDirectional.bottomEnd,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    _joinasphyBtn(),
-                    _divider(),
-                    _loginBtn(),
-                  ],
+            child: Column(
+              children: <Widget>[
+                Expanded(flex: 3, child: _introSection()),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 30.0),
+                      child: _joinusSection()),
                 ),
-              ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        _joinasphyBtn(),
+                        _divider(),
+                        _loginBtn(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ));
+          ));
     } else {
       return Scaffold(
         body: SafeArea(

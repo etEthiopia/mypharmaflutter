@@ -39,18 +39,24 @@ class AuthService extends AuthServiceSkel {
     print("url: $SERVER_IP/login");
     print("email: $email");
     print("password: $password");
+    print(json.decode(res.body)['sucess']);
     if (res.statusCode == 200) {
       if (res.body != null) {
-        await storage.write(
-            key: "user", value: User.jsonToString(json.decode(res.body)));
-        return User.fromJson(json.decode(res.body));
+        if (json.decode(res.body)['sucess']) {
+          await storage.write(
+              key: "user", value: User.jsonToString(json.decode(res.body)));
+          return User.fromJson(json.decode(res.body));
+        } else {
+          print('Wrong Email or Password');
+          throw AuthException(message: 'Wrong Email or Password');
+        }
       } else {
         print('Wrong credntials');
         throw AuthException(message: 'Wrong credntials');
       }
     } else {
-      print('Wrong username or password');
-      throw AuthException(message: 'Wrong username or password');
+      print('Connection Error');
+      throw AuthException(message: 'Connection Error');
     }
   }
 
