@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/auth/auth_event.dart';
@@ -191,8 +192,26 @@ class UserDrawer extends StatelessWidget {
             accountEmail: Text(email),
             currentAccountPicture: GestureDetector(
               child: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: AssetImage('assets/images/logo/logo50.png'),
+                child: CachedNetworkImage(
+                  imageUrl: 'http://via.placeholder.com/350x200',
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  fadeOutDuration: const Duration(seconds: 1),
+                  fadeInDuration: const Duration(seconds: 3),
+                ),
+                // backgroundColor: Colors.white,
+                // backgroundImage: Image(
+                //   image: CachedNetworkImage(
+                //     imageUrl: "http://via.placeholder.com/350x150",
+                //     progressIndicatorBuilder:
+                //         (context, url, downloadProgress) =>
+                //             CircularProgressIndicator(
+                //                 value: downloadProgress.progress),
+                //     errorWidget: (context, url, error) => Icon(Icons.error),
+                //   ),
+                // ),
+                // //AssetImage('assets/images/logo/logo50.png'),
               ),
             ),
             decoration: BoxDecoration(color: primary),
