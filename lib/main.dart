@@ -13,7 +13,7 @@ AuthService authService = AuthService();
 void main() {
   runApp(
       // Injects the Authentication service
-      RepositoryProvider<AuthServiceSkel>(
+      RepositoryProvider<AuthService>(
           create: (context) {
             return AuthService();
           },
@@ -27,6 +27,7 @@ void main() {
                   return AuthBloc(authService)..add(AppLoaded());
                 },
               ),
+              
               // BlocProvider<AuthFormBloc>(
               //   create: (BuildContext context) => AuthFormBloc(),
               // )

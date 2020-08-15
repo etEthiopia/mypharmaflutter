@@ -4,6 +4,7 @@ import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/login/login_bloc.dart';
 import 'package:mypharma/blocs/login/login_event.dart';
 import 'package:mypharma/blocs/login/login_state.dart';
+import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/exceptions/exceptions.dart';
@@ -24,6 +25,7 @@ class _LoginState extends State<Login> {
     final authService = RepositoryProvider.of<AuthService>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
+      drawer: UserDrawer(),
       body: BlocProvider<LoginBloc>(
         create: (context) => LoginBloc(authBloc, authService),
         child: SafeArea(
@@ -53,7 +55,6 @@ class __LoginFormState extends State<_LoginForm> {
       if (_key.currentState.validate()) {
         _loginBloc.add(LoginInWithEmailButtonPressed(
             email: _emailController.text, password: _passwordController.text));
-        
       } else {
         setState(() {
           _autoValidate = true;

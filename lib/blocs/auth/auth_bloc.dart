@@ -56,7 +56,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _mapUserRegisteredToState(UserRegistered event) async* {
-    yield Registered();
+    print("user: ${event.user.name}");
+    yield AuthAuthenticated(user: event.user);
   }
 
   Stream<AuthState> _mapUserLoggedOutToState(UserLoggedOut event) async* {

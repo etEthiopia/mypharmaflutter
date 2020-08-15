@@ -26,7 +26,14 @@ class UserLoggedIn extends AuthEvent {
 }
 
 // Fired when a user has successfully signed up
-class UserRegistered extends AuthEvent {}
+class UserRegistered extends AuthEvent {
+  final User user;
+
+  UserRegistered({@required this.user});
+
+  @override
+  List<Object> get props => [user];
+}
 
 // Fired when the user has logged out
 class UserLoggedOut extends AuthEvent {}

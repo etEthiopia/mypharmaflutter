@@ -4,6 +4,7 @@ import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/register/register_bloc.dart';
 import 'package:mypharma/blocs/register/register_event.dart';
 import 'package:mypharma/blocs/register/register_state.dart';
+import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/services/services.dart';
@@ -21,6 +22,7 @@ class _RegisterPhyState extends State<RegisterPhy> {
     final authService = RepositoryProvider.of<AuthService>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
+      drawer: UserDrawer(),
       body: BlocProvider<RegisterBloc>(
         create: (context) => RegisterBloc(authBloc, authService),
         child: SafeArea(

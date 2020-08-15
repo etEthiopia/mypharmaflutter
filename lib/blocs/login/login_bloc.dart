@@ -38,7 +38,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         // push new Auth event
         _AuthBloc.add(UserLoggedIn(user: user));
         yield LoginSuccess();
-        yield LoginInitial();
+        //yield LoginInitial();
       } else {
         yield LoginFailure(error: 'Something very weird just happened');
       }

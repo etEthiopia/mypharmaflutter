@@ -41,8 +41,8 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           profession: event.profession,
           password: event.password);
 
-      if (user != null) { 
-        _authBloc.add(UserLoggedIn(user: user));
+      if (user != null) {
+        _authBloc.add(UserRegistered(user: user));
         yield RegisterSuccess();
         yield RegisterInitial();
       } else {
