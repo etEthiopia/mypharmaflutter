@@ -9,7 +9,7 @@ abstract class RegisterEvent extends Equatable {
 
 class RegisterPressed extends RegisterEvent {
   final String name;
-  final String profession;
+  final int profession;
   final String email;
   final String password;
 

@@ -903,6 +903,9 @@ class UserDrawer extends StatelessWidget {
           ),
           Divider(),
           InkWell(
+            onTap: () async {
+              _logout();
+            },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Row(

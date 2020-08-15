@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/auth/auth_event.dart';
+import 'package:mypharma/blocs/login/login_state.dart';
 import 'package:mypharma/blocs/register/register_event.dart';
 import 'package:mypharma/blocs/register/register_state.dart';
 
@@ -11,14 +12,14 @@ import 'package:mypharma/services/services.dart';
 import '../../exceptions/exceptions.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
-  final AuthBloc _AuthBloc;
-  final AuthService _AuthService;
+  final AuthBloc _authBloc;
+  final AuthService _authService;
 
-  RegisterBloc(AuthBloc AuthBloc, AuthService AuthService)
+  RegisterBloc(AuthBloc authBloc, AuthService authService)
       : assert(AuthBloc != null),
         assert(AuthService != null),
-        _AuthBloc = AuthBloc,
-        _AuthService = AuthService;
+        _authBloc = authBloc,
+        _authService = authService;
 
   @override
   RegisterState get initialState => RegisterInitial();
@@ -34,17 +35,18 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       RegisterPressed event) async* {
     yield RegisterLoading();
     try {
-      print("ABOUT to fire method");
-      final code = await _AuthService.signUp(
-        name: event.name,
-      );
-      if (code == 201) {
-        // push new Auth event
-        _AuthBloc.add(UserRegistered());
+      final user = await _authService.signUp(
+          name: event.name,
+          email: event.email,
+          profession: event.profession,
+          password: event.password);
+
+      if (user != null) { 
+        _authBloc.add(UserLoggedIn(user: user));
         yield RegisterSuccess();
         yield RegisterInitial();
       } else {
-        yield RegisterFailure(error: 'Something very weird just happened');
+        yield RegisterFailure(error: 'Sth very weird just happened');
       }
     } on AuthException catch (e) {
       yield RegisterFailure(error: e.message);

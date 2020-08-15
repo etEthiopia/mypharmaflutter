@@ -8,8 +8,8 @@ import '../main.dart';
 abstract class AuthServiceSkel {
   Future<User> getCurrentUser();
   Future<User> signIn(String email, String password);
-  Future<int> signUp(
-      {String name, String email, String profession, String password});
+  Future<User> signUp(
+      {String name, String email, int profession, String password});
   Future<void> signOut();
 }
 
@@ -30,16 +30,18 @@ class AuthService extends AuthServiceSkel {
 
   @override
   Future<User> signIn(String email, String password) async {
-    var res = await http.post("$SERVER_IP/login",
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body:
-            jsonEncode(<String, String>{"email": email, "password": password}));
-    print("url: $SERVER_IP/login");
-    print("email: $email");
-    print("password: $password");
-    print(json.decode(res.body)['sucess']);
+    var res = await http
+        .post("$SERVER_IP/login",
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(
+                <String, String>{"email": email, "password": password}))
+        .timeout(Duration(seconds: 20));
+    // print("url: $SERVER_IP/login");
+    // print("email: $email");
+    // print("password: $password");
+    // print(json.decode(res.body)['sucess']);
     if (res.statusCode == 200) {
       if (res.body != null) {
         if (json.decode(res.body)['sucess']) {
@@ -67,8 +69,43 @@ class AuthService extends AuthServiceSkel {
   }
 
   @override
-  Future<int> signUp(
-      {String name, String email, String profession, String password}) {
-    return null;
+  Future<User> signUp(
+      {String name, String email, int profession, String password}) async {
+    var res = await http
+        .post("$SERVER_IP/register",
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(<String, dynamic>{
+              "email": email,
+              "password": password,
+              "name": name,
+              "profession": profession,
+              "role": 5
+            }))
+        .timeout(Duration(seconds: 20));
+
+    print("url: $SERVER_IP/register");
+    print("email: $email");
+    print("password: $password");
+    print("name: $name");
+    print("profession: $profession");
+    print(json.decode(res.body)['sucess']);
+    if (res.statusCode == 200) {
+      if (res.body != null) {
+        if (json.decode(res.body)['sucess']) {
+          await storage.write(
+              key: "user", value: User.jsonToString(json.decode(res.body)));
+          return User.fromJson(json.decode(res.body));
+        } else {
+          throw AuthException(message: 'Registeration Unsuccessful');
+        }
+      } else {
+        throw AuthException(message: 'Registration Failed');
+      }
+    } else {
+      print('Connection Error');
+      throw AuthException(message: 'Connection Error');
+    }
   }
 }

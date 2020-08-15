@@ -50,11 +50,10 @@ class __LoginFormState extends State<_LoginForm> {
     final _loginBloc = BlocProvider.of<LoginBloc>(context);
 
     _signin() async {
-      print("FORM KEY: " + _key.currentState.toString());
       if (_key.currentState.validate()) {
-        print("validated");
         _loginBloc.add(LoginInWithEmailButtonPressed(
             email: _emailController.text, password: _passwordController.text));
+        
       } else {
         setState(() {
           _autoValidate = true;

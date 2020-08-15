@@ -4,6 +4,7 @@ import 'package:mypharma/blocs/auth/auth_bloc.dart';
 import 'package:mypharma/blocs/auth/auth_state.dart';
 import 'package:mypharma/screens/auth/joinus.dart';
 import 'package:mypharma/screens/auth/login.dart';
+import 'package:mypharma/screens/auth/registerphy.dart';
 import 'package:mypharma/screens/front_splash.dart';
 
 class MyApp extends StatelessWidget {
@@ -12,6 +13,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MyPharma',
+      routes: {
+        '/login': (context) => Login(),
+        '/joinus': (context) => JoinUs(),
+        '/registerphy': (context) => RegisterPhy(),
+      },
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthLoading) {
