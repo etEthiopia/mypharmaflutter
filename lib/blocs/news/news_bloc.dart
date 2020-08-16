@@ -1,12 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:mypharma/blocs/news/bloc.dart';
-import 'package:mypharma/services/news_service.dart';
 import 'package:mypharma/services/services.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   final AuthService _newsService;
   NewsBloc(AuthService newsService)
-      : assert(NewsService != null),
+      : assert(AuthService != null),
         _newsService = newsService;
 
   @override

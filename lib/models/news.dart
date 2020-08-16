@@ -34,7 +34,7 @@ class News {
           title: news['title'],
           description: news['description'],
           category: news['category'],
-          date: news['date'],
+          date: news['updated_at'],
           image: news['image']));
     }
     return newsfetched;
@@ -46,7 +46,7 @@ class News {
       title: json['title'],
       description: json['description'],
       category: json['category'],
-      date: json['date'],
+      date: json['updated_at'],
       image: json['image'],
     );
   }

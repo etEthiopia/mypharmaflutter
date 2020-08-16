@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:mypharma/main.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,7 @@ Widget article({String title, String content, String image, String time}) {
                   ),
                 ],
               ),
+              //descriptioin
               child: InkWell(
                   onTap: () {},
                   child: GridTile(
@@ -59,6 +62,7 @@ Widget article({String title, String content, String image, String time}) {
                       child: Column(
                         children: <Widget>[
                           Container(
+                            width: double.maxFinite,
                             color: Colors.grey[50],
                             padding: EdgeInsets.only(
                                 left: 10, right: 10, top: 30, bottom: 5),
@@ -73,14 +77,21 @@ Widget article({String title, String content, String image, String time}) {
                           Expanded(
                             child: Container(
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(15),
-                                      bottomRight: Radius.circular(15)),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                        "assets/images/article/$image",
-                                      ))),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(15),
+                                    bottomRight: Radius.circular(15)),
+                                // image: DecorationImage(
+                                //     fit: BoxFit.cover,
+                                //     image: AssetImage(
+                                //       "${SERVER_IP_FILE}news/$image",
+                                //     ))
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: '${SERVER_IP_FILE}news/$image',
+                                //placeholder: _loader,
+                                progressIndicatorBuilder: _progress,
+                                errorWidget: _error,
+                              ),
                             ),
                           )
                         ],
@@ -132,4 +143,18 @@ Widget article({String title, String content, String image, String time}) {
                           ),
                         )),
                   )))));
+}
+
+Widget _error(BuildContext context, String url, dynamic error) {
+  print(error);
+  return const Center(child: Icon(Icons.error));
+}
+
+Widget _progress(BuildContext context, String url, dynamic downloadProgress) {
+  return Center(
+      child: CircularProgressIndicator(value: downloadProgress.progress));
+}
+
+Widget image(String url) {
+  return const Center(child: Icon(Icons.error));
 }

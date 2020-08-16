@@ -77,9 +77,9 @@ class _FeedListState extends State<FeedList> {
         return LoadingLogin(context);
       }
       if (state is NewsLoaded) {
-        return Container(
-          color: Colors.grey[300],
-          child: SafeArea(
+        return Scaffold(
+          backgroundColor: Colors.grey[300],
+          body: SafeArea(
               child: Padding(
             padding: EdgeInsets.symmetric(horizontal: padd),
             child: Material(
@@ -88,20 +88,16 @@ class _FeedListState extends State<FeedList> {
                   padding: orientation == Orientation.portrait
                       ? EdgeInsets.all(0)
                       : EdgeInsets.symmetric(horizontal: 20),
-                  child: ListView.builder(
+                  child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1),
                       itemCount: state.newsList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          color: Colors.grey,
-                          margin: EdgeInsets.all(5),
-                          child: Column(
-                            children: <Widget>[
-                              Text("title: " +
-                                  state.newsList[index].title.toString()),
-                              Text("title: " +
-                                  state.newsList[index].description.toString()),
-                            ],
-                          ),
+                        return article(
+                          title: state.newsList[index].title.toString(),
+                          image: state.newsList[index].image.toString(),
+                          content: state.newsList[index].description.toString(),
+                          time: state.newsList[index].date.toString(),
                         );
                       })
                   // Text(state.newsList.length.toString())

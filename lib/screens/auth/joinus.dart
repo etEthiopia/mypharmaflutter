@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/components/drawers.dart';
-import 'package:mypharma/services/news_service.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
@@ -12,7 +11,6 @@ class JoinUs extends StatefulWidget {
 }
 
 class _JoinUsState extends State<JoinUs> {
-  final newsService = NewsService();
   @override
   Widget build(BuildContext context) {
     Widget _introSection() {
@@ -116,9 +114,6 @@ class _JoinUsState extends State<JoinUs> {
           borderRadius: BorderRadius.circular(15.0),
           child: FlatButton(
             onPressed: () async {
-              var result = await newsService.fetchNews();
-              print(result[1]);
-              print(result[2]);
               //Navigator.pushNamed(context, '/login');
             },
             child: Text(
