@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:mypharma/exceptions/exceptions.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:http/http.dart' as http;
@@ -35,15 +36,15 @@ class NewsService extends NewsServiceSkel {
           return result;
         } else {
           print('Wrong Request');
-          throw Exception();
+          throw NewsException(message: 'Wrong Request');
         }
       } else {
         print('Wrong Question');
-        throw Exception();
+        throw NewsException(message: 'Wrong Question');
       }
     } else {
       print('Wrong Connection');
-      throw Exception();
+      throw NewsException(message: 'Wrong Connection');
     }
   }
 }
