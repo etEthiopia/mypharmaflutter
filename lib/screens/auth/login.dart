@@ -25,19 +25,19 @@ class _LoginState extends State<Login> {
       body: BlocProvider<LoginBloc>(
         create: (context) => LoginBloc(authBloc, authService),
         child: SafeArea(
-          child: _LoginForm(),
+          child: LoginForm(),
         ),
       ),
     );
   }
 }
 
-class _LoginForm extends StatefulWidget {
+class LoginForm extends StatefulWidget {
   @override
-  __LoginFormState createState() => __LoginFormState();
+  _LoginFormState createState() => _LoginFormState();
 }
 
-class __LoginFormState extends State<_LoginForm> {
+class _LoginFormState extends State<LoginForm> {
   final _key = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();

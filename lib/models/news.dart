@@ -17,16 +17,27 @@ class News {
       @required this.image});
 
   static List<News> generateNewsList(List<dynamic> newslist) {
+    List<News> newsfetched = List<News>();
+
     for (var news in newslist) {
-      print(News(
-              id: news['id'],
-              title: news['title'],
-              description: news['description'],
-              category: news['category'],
-              date: news['date'],
-              image: news['image'])
-          .toString());
+      // print(
+      //   News(
+      //         id: news['id'],
+      //         title: news['title'],
+      //         description: news['description'],
+      //         category: news['category'],
+      //         date: news['date'],
+      //         image: news['image'])
+      //     .toString());
+      newsfetched.add(News(
+          id: news['id'],
+          title: news['title'],
+          description: news['description'],
+          category: news['category'],
+          date: news['date'],
+          image: news['image']));
     }
+    return newsfetched;
   }
 
   factory News.fromJson(Map<String, dynamic> json) {

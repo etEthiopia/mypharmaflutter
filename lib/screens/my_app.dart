@@ -5,6 +5,7 @@ import 'package:mypharma/screens/auth/joinus.dart';
 import 'package:mypharma/screens/auth/login.dart';
 import 'package:mypharma/screens/auth/registerphy.dart';
 import 'package:mypharma/screens/front_splash.dart';
+import 'package:mypharma/screens/posts/feed.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/joinus': (context) => JoinUs(),
         '/registerphy': (context) => RegisterPhy(),
+        '/feed': (context) => Feed(),
       },
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
           }
           if (state is AuthAuthenticated) {
             // show home page
-            return JoinUs();
+            return Feed();
           }
           // otherwise show login page
           return Login();

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:mypharma/models/models.dart';
 
 abstract class NewsState extends Equatable {
   const NewsState();
@@ -15,7 +16,7 @@ class NewsLoading extends NewsState {}
 class NewsLoaded extends NewsState {
   final int current;
   final int last;
-  dynamic newsList;
+  final List<News> newsList;
 
   NewsLoaded(this.last, this.current, this.newsList);
 
