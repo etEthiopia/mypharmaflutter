@@ -64,6 +64,8 @@ dependencies:
 
   cached_network_image: ^2.2.0+1
 
+  flushbar: ^1.10.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
