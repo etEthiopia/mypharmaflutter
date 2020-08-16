@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mypharma/blocs/auth/auth_bloc.dart';
-import 'package:mypharma/blocs/auth/auth_state.dart';
+import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';

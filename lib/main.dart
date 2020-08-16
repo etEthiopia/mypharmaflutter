@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mypharma/blocs/auth/auth_bloc.dart';
-import 'package:mypharma/blocs/auth/auth_event.dart';
+import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/screens/my_app.dart';
 import 'package:mypharma/services/services.dart';
 
@@ -27,7 +26,7 @@ void main() {
                   return AuthBloc(authService)..add(AppLoaded());
                 },
               ),
-              
+
               // BlocProvider<AuthFormBloc>(
               //   create: (BuildContext context) => AuthFormBloc(),
               // )

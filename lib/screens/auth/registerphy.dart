@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mypharma/blocs/auth/auth_bloc.dart';
-import 'package:mypharma/blocs/register/register_bloc.dart';
-import 'package:mypharma/blocs/register/register_event.dart';
-import 'package:mypharma/blocs/register/register_state.dart';
+import 'package:mypharma/blocs/auth/bloc.dart';
+import 'package:mypharma/blocs/register/bloc.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/show_error.dart';

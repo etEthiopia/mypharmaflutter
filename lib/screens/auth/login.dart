@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mypharma/blocs/auth/auth_bloc.dart';
-import 'package:mypharma/blocs/login/login_bloc.dart';
-import 'package:mypharma/blocs/login/login_event.dart';
-import 'package:mypharma/blocs/login/login_state.dart';
+import 'package:mypharma/blocs/auth/bloc.dart';
+import 'package:mypharma/blocs/login/bloc.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/show_error.dart';
-import 'package:mypharma/exceptions/exceptions.dart';
-import 'package:mypharma/main.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
