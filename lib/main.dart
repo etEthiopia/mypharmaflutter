@@ -5,8 +5,8 @@ import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/screens/my_app.dart';
 import 'package:mypharma/services/services.dart';
 
-const SERVER_IP = 'http://192.168.1.2/mypharma/public/api';
-const SERVER_IP_FILE = 'http://192.168.1.2/mypharma/public/storage/';
+const SERVER_IP = 'http://192.168.1.3/mypharma/public/api';
+const SERVER_IP_FILE = 'http://192.168.1.3/mypharma/public/storage/';
 final storage = FlutterSecureStorage();
 AuthService authService = AuthService();
 
@@ -31,4 +31,3 @@ void main() {
             child: MyApp(),
           )));
 }
-

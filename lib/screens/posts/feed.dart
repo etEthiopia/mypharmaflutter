@@ -171,12 +171,14 @@ class _FeedListState extends State<FeedList> {
                             itemBuilder: (BuildContext context, int index) {
                               last = state.last;
                               return article(
-                                title: state.newsList[index].title.toString(),
-                                image: state.newsList[index].image.toString(),
-                                content: state.newsList[index].description
-                                    .toString(),
-                                time: state.newsList[index].date.toString(),
-                              );
+                                  title: state.newsList[index].title.toString(),
+                                  image: state.newsList[index].image.toString(),
+                                  content: state.newsList[index].description
+                                      .toString(),
+                                  time: state.newsList[index].date.toString(),
+                                  category: state.newsList[index].category,
+                                  context: context,
+                                  id: state.newsList[index].id);
                             }),
                       )
                     ],
