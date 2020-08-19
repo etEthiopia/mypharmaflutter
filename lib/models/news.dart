@@ -20,20 +20,11 @@ class News {
     List<News> newsfetched = List<News>();
 
     for (var news in newslist) {
-      // print(
-      //   News(
-      //         id: news['id'],
-      //         title: news['title'],
-      //         description: news['description'],
-      //         category: news['category'],
-      //         date: news['date'],
-      //         image: news['image'])
-      //     .toString());
       newsfetched.add(News(
           id: news['id'],
           title: news['title'],
           description: news['description'],
-          category: news['category'],
+          category: news['category_id'],
           date: news['updated_at'],
           image: news['image']));
     }
@@ -45,7 +36,7 @@ class News {
       id: json['id'],
       title: json['title'],
       description: json['description'],
-      category: json['category'],
+      category: json['category_id'],
       date: json['updated_at'],
       image: json['image'],
     );

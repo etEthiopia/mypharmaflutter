@@ -170,6 +170,7 @@ class _FeedListState extends State<FeedList> {
                             controller: _controller,
                             itemBuilder: (BuildContext context, int index) {
                               last = state.last;
+
                               return article(
                                   title: state.newsList[index].title.toString(),
                                   image: state.newsList[index].image.toString(),
