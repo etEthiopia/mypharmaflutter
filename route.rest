@@ -3,7 +3,7 @@ POST http://localhost/mypharma/public/api/login
 Content-Type: application/json
 
 {
-    "email": "abe@gmail.com",
+    "email": "as@gmail.com",
     "password": "12345678"
 }
 
@@ -23,5 +23,9 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost/mypharma/public/api/news
+POST http://localhost/mypharma/public/api/news?page=4
 //token:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTc1NjIwNzUsImV4cCI6MTU5NzU2NTY3NSwibmJmIjoxNTk3NTYyMDc1LCJqdGkiOiJKemlCY1FjSVhkNElNNEc3Iiwic3ViIjo1LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.w4wch0zSukluZoT2juud1eRNwW491zUOVeh5bj40vmw
+
+###
+
+GET http://192.168.1.2/mypharma/public/storage/news/2020052113533279714.PNG

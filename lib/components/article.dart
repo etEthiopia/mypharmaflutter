@@ -76,23 +76,17 @@ Widget article({String title, String content, String image, String time}) {
                           ),
                           Expanded(
                             child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(15),
-                                    bottomRight: Radius.circular(15)),
-                                // image: DecorationImage(
-                                //     fit: BoxFit.cover,
-                                //     image: AssetImage(
-                                //       "${SERVER_IP_FILE}news/$image",
-                                //     ))
-                              ),
-                              child: CachedNetworkImage(
-                                imageUrl: '${SERVER_IP_FILE}news/$image',
-                                //placeholder: _loader,
-                                progressIndicatorBuilder: _progress,
-                                errorWidget: _error,
-                              ),
-                            ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(15),
+                                      bottomRight: Radius.circular(15)),
+                                  // image: DecorationImage(
+                                  //     fit: BoxFit.cover,
+                                  //     image: AssetImage(
+                                  //       "${SERVER_IP_FILE}news/$image",
+                                  //     ))
+                                ),
+                                child: loadimage(image)),
                           )
                         ],
                       ),
@@ -155,6 +149,10 @@ Widget _progress(BuildContext context, String url, dynamic downloadProgress) {
       child: CircularProgressIndicator(value: downloadProgress.progress));
 }
 
-Widget image(String url) {
-  return const Center(child: Icon(Icons.error));
+Widget loadimage(String image) {
+  return CachedNetworkImage(
+    imageUrl: '${SERVER_IP_FILE}news/$image',
+    progressIndicatorBuilder: _progress,
+    errorWidget: _error,
+  );
 }

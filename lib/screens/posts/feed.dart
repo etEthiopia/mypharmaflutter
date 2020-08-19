@@ -5,11 +5,13 @@ import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/article.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
+import 'package:mypharma/components/page_end.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/screens/front_splash.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:mypharma/theme/font.dart';
 
 class Feed extends StatefulWidget {
   @override
@@ -42,6 +44,9 @@ class _FeedListState extends State<FeedList> {
   // }
 
   double padd = 0;
+  int page = 1;
+  int last = 1;
+  ScrollController _controller;
 
   void _paddingFix(bool por, double size) {
     if (por) {
@@ -55,25 +60,57 @@ class _FeedListState extends State<FeedList> {
     }
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     final _feedBloc = BlocProvider.of<NewsBloc>(context);
+    _feedBloc.add(NewsFetched(page: page));
+
+    _scrollListener() {
+      if (_controller.offset >= _controller.position.maxScrollExtent &&
+          !_controller.position.outOfRange) {
+        setState(() {
+          page = page + 1;
+        });
+        print("reach the bottom");
+
+        // if (page <= last) {
+        //   _feedBloc.add(NewsFetched(page: page));
+        // }
+      }
+      if (_controller.offset <= _controller.position.minScrollExtent &&
+          !_controller.position.outOfRange) {
+        print("reach the top");
+      }
+    }
+
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
+
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       _paddingFix(true, 0);
     } else {
       _paddingFix(false, MediaQuery.of(context).size.width / 8);
     }
-    print("about to");
-    _feedBloc.add(NewsFetched());
-    print("did");
     return BlocListener<NewsBloc, NewsState>(listener: (context, state) {
       if (state is NewsFailure) {
         showError(state.error, context);
       }
+
       // ignore: missing_return
     }, child: BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
+      if (state is NewsAllLoaded) {
+        return PageEnd(context, 'feed');
+      }
       if (state is NewsLoading || state is NewsInital) {
+        return LoadingLogin(context);
+      }
+      if (state is NewsFailure) {
         return LoadingLogin(context);
       }
       if (state is NewsLoaded) {
@@ -88,34 +125,62 @@ class _FeedListState extends State<FeedList> {
                   padding: orientation == Orientation.portrait
                       ? EdgeInsets.all(0)
                       : EdgeInsets.symmetric(horizontal: 20),
-                  child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1),
-                      itemCount: state.newsList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return article(
-                          title: state.newsList[index].title.toString(),
-                          image: state.newsList[index].image.toString(),
-                          content: state.newsList[index].description.toString(),
-                          time: state.newsList[index].date.toString(),
-                        );
-                      })
-                  // Text(state.newsList.length.toString())
-
-                  // child: GridView.builder(
-                  //   itemCount: feedList.length,
-                  //   gridDelegate:
-                  //       SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     return article(
-                  //       title: feedList[index]["title"],
-                  //       image: feedList[index]["image"],
-                  //       content: feedList[index]["content"],
-                  //       time: feedList[index]["time"],
-                  //     );
-                  //   },
-                  // ),
-                  ),
+                  child: Column(
+                    children: <Widget>[
+                      page > 1
+                          ? Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    page = 1;
+                                  });
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.timer,
+                                      color: dark,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Go back to the latest news",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                          color: dark,
+                                          fontSize: 20,
+                                          fontFamily: defaultFont),
+                                    ),
+                                  ],
+                                ),
+                              ))
+                          : SizedBox(
+                              height: 0,
+                            ),
+                      Expanded(
+                        child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 1),
+                            itemCount: state.newsList.length,
+                            controller: _controller,
+                            itemBuilder: (BuildContext context, int index) {
+                              last = state.last;
+                              return article(
+                                title: state.newsList[index].title.toString(),
+                                image: state.newsList[index].image.toString(),
+                                content: state.newsList[index].description
+                                    .toString(),
+                                time: state.newsList[index].date.toString(),
+                              );
+                            }),
+                      )
+                    ],
+                  )),
             ),
           )),
         );

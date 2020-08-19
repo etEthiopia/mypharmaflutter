@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:mypharma/exceptions/exceptions.dart';
 import 'package:mypharma/models/models.dart';
@@ -116,35 +117,48 @@ class AuthService extends AuthServiceSkel {
     if (page != 1) {
       news += "?page=$page";
     }
+    try {
+      var res = await http.post(
+        "$SERVER_IP/$news",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      ).timeout(Duration(seconds: 20));
 
-    var res = await http.post(
-      "$SERVER_IP/$news",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    ).timeout(Duration(seconds: 20));
+      if (res.statusCode == 200) {
+        if (res.body != null) {
+          if (json.decode(res.body)['sucess']) {
+            int from = json.decode(res.body)['0']['news']['current_page'];
+            int last = json.decode(res.body)['0']['news']['last_page'];
+            if (from > last) {
+              print("End of Feed");
+              List<dynamic> result = [from, last];
+              return result;
+            } else {
+              List<News> news = News.generateNewsList(
+                  json.decode(res.body)['0']['news']['data']);
 
-    if (res.statusCode == 200) {
-      if (res.body != null) {
-        if (json.decode(res.body)['sucess']) {
-          //print(json.decode(res.body)['0']['news']['data']);
-          List<News> news =
-              News.generateNewsList(json.decode(res.body)['0']['news']['data']);
-          int from = json.decode(res.body)['0']['news']['from'];
-          int last = json.decode(res.body)['0']['news']['last_page'];
-          List<dynamic> result = [last, from, news];
-          return result;
+              List<dynamic> result = [from, last, news];
+              return result;
+            }
+          } else {
+            print('Wrong Request');
+            throw NewsException(message: 'Wrong Request');
+          }
         } else {
-          print('Wrong Request');
-          throw NewsException(message: 'Wrong Request');
+          print('Wrong Question');
+          throw NewsException(message: 'Wrong Question');
         }
       } else {
-        print('Wrong Question');
-        throw NewsException(message: 'Wrong Question');
+        print('Wrong Connection');
+        throw NewsException(message: 'Wrong Connection');
       }
-    } else {
-      print('Wrong Connection');
-      throw NewsException(message: 'Wrong Connection');
+    } on SocketException {
+      print('Internet Error');
+      throw NewsException(message: "Check Your Connection");
+    } catch (e) {
+      print('Connection Error');
+      throw NewsException(message: e);
     }
   }
 }

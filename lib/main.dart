@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
-import 'package:mypharma/blocs/news/bloc.dart';
 import 'package:mypharma/screens/my_app.dart';
 import 'package:mypharma/services/services.dart';
 
-const SERVER_IP = 'http://192.168.1.4/mypharma/public/api';
-const SERVER_IP_FILE = 'http://192.168.1.4/mypharma/public/storage/';
+const SERVER_IP = 'http://192.168.1.2/mypharma/public/api';
+const SERVER_IP_FILE = 'http://192.168.1.2/mypharma/public/storage/';
 final storage = FlutterSecureStorage();
 AuthService authService = AuthService();
 
@@ -33,73 +32,3 @@ void main() {
           )));
 }
 
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//         title: 'MyPharma',
-//         debugShowCheckedModeBanner: false,
-//         routes: {
-//           '/': (context) => MyHomePage(
-//                 title: 'UI',
-//               ),
-//           '/login': (context) => Login(),
-//           '/joinus': (context) => JoinUs(),
-//           '/registerphy': (context) => RegisterPhy(),
-//         }
-//         //home: MyHomePage(title: 'Flutter Demo Home Page'),
-//         );
-//   }
-// }
-
-// class MyHomePage extends StatefulWidget {
-//   MyHomePage({Key key, this.title}) : super(key: key);
-
-//   final String title;
-
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   Widget _sizedbox() {
-//     return SizedBox(
-//       height: 10.0,
-//     );
-//   }
-
-//   Widget _menuBtn(String title, String route) {
-//     return SizedBox(
-//       width: double.infinity,
-//       child: Material(
-//         color: primary,
-//         borderRadius: BorderRadius.circular(15.0),
-//         child: FlatButton(
-//           onPressed: () {
-//             Navigator.pushNamed(context, '/$route');
-//           },
-//           child: Text(
-//             "$title",
-//             style: TextStyle(color: Colors.white, fontFamily: defaultFont),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: primary,
-//         title: Text(widget.title),
-//       ),
-//       drawer: pharmacyDrawer(),
-//       body: SafeArea(
-//         child: Column(
-//           children: <Widget>[_sizedbox(), _menuBtn("Login", "login")],
-//         ),
-//       ),
-//     );
-//   }
-// }
