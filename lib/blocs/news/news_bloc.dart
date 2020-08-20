@@ -4,10 +4,10 @@ import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/services.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  final AuthService _newsService;
-  NewsBloc(AuthService newsService)
-      : assert(AuthService != null),
-        _newsService = newsService;
+  final APIService _apiService;
+  NewsBloc(APIService apiService)
+      : assert(APIService != null),
+        _apiService = apiService;
 
   @override
   NewsState get initialState => NewsInital();
@@ -29,7 +29,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     }
     yield NewsLoading();
     try {
-      final result = await _newsService.fetchNews(page: event.page);
+      final result = await _apiService.fetchNews(page: event.page);
       if (result != null) {
         if (result.length == 3) {
           print(result[0].toString() + " " + result[1].toString());

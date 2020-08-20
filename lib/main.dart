@@ -8,23 +8,23 @@ import 'package:mypharma/services/services.dart';
 const SERVER_IP = 'http://192.168.1.3/mypharma/public/api';
 const SERVER_IP_FILE = 'http://192.168.1.3/mypharma/public/storage/';
 final storage = FlutterSecureStorage();
-AuthService authService = AuthService();
+APIService apiService = APIService();
 
 void main() {
   runApp(
       // Injects the Authentication service
-      RepositoryProvider<AuthService>(
+      RepositoryProvider<APIService>(
           create: (context) {
-            return AuthService();
+            return APIService();
           },
           // Injects the Authentication BLoC
           child: MultiBlocProvider(
             providers: [
               BlocProvider<AuthBloc>(
                 create: (context) {
-                  final authService =
-                      RepositoryProvider.of<AuthService>(context);
-                  return AuthBloc(authService)..add(AppLoaded());
+                  final apiService =
+                      RepositoryProvider.of<APIService>(context);
+                  return AuthBloc(apiService)..add(AppLoaded());
                 },
               ),
             ],

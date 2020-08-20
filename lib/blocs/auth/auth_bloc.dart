@@ -6,11 +6,11 @@ import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthService _authService;
+  final APIService _apiService;
 
-  AuthBloc(AuthService authService)
-      : assert(AuthService != null),
-        _authService = authService;
+  AuthBloc(APIService apiService)
+      : assert(APIService != null),
+        _apiService = apiService;
 
   @override
   AuthState get initialState => AuthInitial();
@@ -37,8 +37,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapAppLoadedToState(AppLoaded event) async* {
     yield AuthLoading(); // to display splash screen
     try {
-      await Future.delayed(Duration(milliseconds: 500)); // a simulated delay
-      final currentUser = await _authService.getCurrentUser();
+      //await Future.delayed(Duration(milliseconds: 5000)); // a simulated delay
+      final currentUser = await _apiService.getCurrentUser();
 
       if (currentUser != null) {
         yield AuthAuthenticated(user: currentUser);
@@ -61,7 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _mapUserLoggedOutToState(UserLoggedOut event) async* {
-    await _authService.signOut();
+    await _apiService.signOut();
     yield AuthNotAuthenticated();
   }
 }

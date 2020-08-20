@@ -17,12 +17,12 @@ class RegisterPhy extends StatefulWidget {
 class _RegisterPhyState extends State<RegisterPhy> {
   @override
   Widget build(BuildContext context) {
-    final authService = RepositoryProvider.of<AuthService>(context);
+    final apiService = RepositoryProvider.of<APIService>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
       drawer: UserDrawer(),
       body: BlocProvider<RegisterBloc>(
-        create: (context) => RegisterBloc(authBloc, authService),
+        create: (context) => RegisterBloc(authBloc, apiService),
         child: SafeArea(
           child: _RegisterForm(),
         ),

@@ -18,12 +18,12 @@ class _LoginState extends State<Login> {
   //_layout(authService: authService)
   @override
   Widget build(BuildContext context) {
-    final authService = RepositoryProvider.of<AuthService>(context);
+    final apiService = RepositoryProvider.of<APIService>(context);
     final authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
       drawer: UserDrawer(),
       body: BlocProvider<LoginBloc>(
-        create: (context) => LoginBloc(authBloc, authService),
+        create: (context) => LoginBloc(authBloc, apiService),
         child: SafeArea(
           child: LoginForm(),
         ),

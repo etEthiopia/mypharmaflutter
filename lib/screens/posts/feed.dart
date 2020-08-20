@@ -21,12 +21,12 @@ class Feed extends StatefulWidget {
 class _FeedState extends State<Feed> {
   @override
   Widget build(BuildContext context) {
-    final authService = RepositoryProvider.of<AuthService>(context);
+    final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
         appBar: simpleAppBar(title: "Feed"),
         drawer: UserDrawer(),
         body: BlocProvider<NewsBloc>(
-            create: (context) => NewsBloc(authService),
+            create: (context) => NewsBloc(apiService),
 
             //create: (context) => NewsBloc(_newsService),
             child: FeedList()));

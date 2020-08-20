@@ -13,13 +13,13 @@ import '../../exceptions/exceptions.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final AuthBloc _authBloc;
-  final AuthService _authService;
+  final APIService _apiService;
 
-  RegisterBloc(AuthBloc authBloc, AuthService authService)
+  RegisterBloc(AuthBloc authBloc, APIService apiService)
       : assert(AuthBloc != null),
-        assert(AuthService != null),
+        assert(APIService != null),
         _authBloc = authBloc,
-        _authService = authService;
+        _apiService = apiService;
 
   @override
   RegisterState get initialState => RegisterInitial();
@@ -35,7 +35,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       RegisterPressed event) async* {
     yield RegisterLoading();
     try {
-      final user = await _authService.signUp(
+      final user = await _apiService.signUp(
           name: event.name,
           email: event.email,
           profession: event.profession,

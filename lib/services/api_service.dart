@@ -6,7 +6,7 @@ import 'package:mypharma/models/models.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
 
-abstract class AuthServiceSkel {
+abstract class APIServiceSkel {
   Future<User> getCurrentUser();
   Future<User> signIn(String email, String password);
   Future<User> signUp(
@@ -15,7 +15,7 @@ abstract class AuthServiceSkel {
   Future<List<dynamic>> fetchNews({int page = 1});
 }
 
-class AuthService extends AuthServiceSkel {
+class APIService extends APIServiceSkel {
   @override
   Future<User> getCurrentUser() async {
     var str = await storage.read(key: "user");

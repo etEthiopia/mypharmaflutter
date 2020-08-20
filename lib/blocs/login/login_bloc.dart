@@ -11,13 +11,13 @@ import '../../exceptions/exceptions.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthBloc _AuthBloc;
-  final AuthService _AuthService;
+  final APIService _APIService;
 
-  LoginBloc(AuthBloc AuthBloc, AuthService AuthService)
+  LoginBloc(AuthBloc AuthBloc, APIService APIService)
       : assert(AuthBloc != null),
-        assert(AuthService != null),
+        assert(APIService != null),
         _AuthBloc = AuthBloc,
-        _AuthService = AuthService;
+        _APIService = APIService;
 
   @override
   LoginState get initialState => LoginInitial();
@@ -33,7 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       LoginInWithEmailButtonPressed event) async* {
     yield LoginLoading();
     try {
-      final user = await _AuthService.signIn(event.email, event.password);
+      final user = await _APIService.signIn(event.email, event.password);
       if (user != null) {
         // push new Auth event
         _AuthBloc.add(UserLoggedIn(user: user));
