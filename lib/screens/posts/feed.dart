@@ -111,7 +111,7 @@ class _FeedListState extends State<FeedList> {
         return LoadingLogin(context);
       }
       if (state is NewsFailure) {
-        return LoadingLogin(context);
+        return NoInternet(context, 'feed');
       }
       if (state is NewsLoaded) {
         return Scaffold(

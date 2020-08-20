@@ -11,18 +11,13 @@ class FrontSplash extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              SpinKitFadingCube(
-                size: MediaQuery.of(context).orientation == Orientation.portrait
-                    ? 100
-                    : 50,
-                itemBuilder: (BuildContext context, int index) {
-                  return DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: index.isEven ? primary : dark,
-                    ),
-                  );
-                },
-              ),
+              Container(
+                  margin: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
+                  alignment: Alignment.topCenter,
+                  child: Image.asset(
+                    "assets/images/logo/logo100.png",
+                    width: 100.0,
+                  )),
               SizedBox(
                 height: 50,
               ),
