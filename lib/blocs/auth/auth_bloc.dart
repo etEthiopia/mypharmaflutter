@@ -41,6 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final currentUser = await _apiService.getCurrentUser();
 
       if (currentUser != null) {
+        APIService.token = currentUser.token;
         yield AuthAuthenticated(user: currentUser);
       } else {
         yield AuthNotAuthenticated();
@@ -52,6 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapUserLoggedInToState(UserLoggedIn event) async* {
     print("user: ${event.user.name}");
+    APIService.token = event.user.token;
     yield AuthAuthenticated(user: event.user);
   }
 
@@ -62,6 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapUserLoggedOutToState(UserLoggedOut event) async* {
     await _apiService.signOut();
+    APIService.token = null;
     yield AuthNotAuthenticated();
   }
 }

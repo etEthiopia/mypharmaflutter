@@ -16,6 +16,8 @@ abstract class APIServiceSkel {
 }
 
 class APIService extends APIServiceSkel {
+  static String token;
+
   @override
   Future<User> getCurrentUser() async {
     var str = await storage.read(key: "user");
@@ -117,48 +119,54 @@ class APIService extends APIServiceSkel {
     if (page != 1) {
       news += "?page=$page";
     }
-    try {
-      var res = await http.post(
-        "$SERVER_IP/$news",
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      ).timeout(Duration(seconds: 20));
+    if (APIService.token != null) {
+      try {
+        var res = await http.post(
+          "$SERVER_IP/$news",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
 
-      if (res.statusCode == 200) {
-        if (res.body != null) {
-          if (json.decode(res.body)['sucess']) {
-            int from = json.decode(res.body)['0']['news']['current_page'];
-            int last = json.decode(res.body)['0']['news']['last_page'];
-            if (from > last) {
-              print("End of Feed");
-              List<dynamic> result = [from, last];
-              return result;
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              int from = json.decode(res.body)['0']['news']['current_page'];
+              int last = json.decode(res.body)['0']['news']['last_page'];
+              if (from > last) {
+                print("End of Feed");
+                List<dynamic> result = [from, last];
+                return result;
+              } else {
+                List<News> news = News.generateNewsList(
+                    json.decode(res.body)['0']['news']['data']);
+
+                List<dynamic> result = [from, last, news];
+                return result;
+              }
             } else {
-              List<News> news = News.generateNewsList(
-                  json.decode(res.body)['0']['news']['data']);
-
-              List<dynamic> result = [from, last, news];
-              return result;
+              if (json.decode(res.body)['message'] == 'token expired') {
+                print('Token Expired');
+                throw NewsException(message: 'Token Expired');
+              }
+              print('Wrong Request');
+              throw NewsException(message: 'Wrong Request');
             }
           } else {
-            print('Wrong Request');
-            throw NewsException(message: 'Wrong Request');
+            print('Wrong Question');
+            throw NewsException(message: 'Wrong Question');
           }
         } else {
-          print('Wrong Question');
-          throw NewsException(message: 'Wrong Question');
+          print('Wrong Connection');
+          throw NewsException(message: 'Wrong Connection');
         }
-      } else {
-        print('Wrong Connection');
-        throw NewsException(message: 'Wrong Connection');
+      } on SocketException {
+        print('Internet Error');
+        throw NewsException(message: "Check Your Connection");
       }
-    } on SocketException {
-      print('Internet Error');
-      throw NewsException(message: "Check Your Connection");
-    } catch (e) {
-      print('Connection Error');
-      throw NewsException(message: e);
+    } else {
+      throw NewsException(message: 'Not Authorized');
     }
   }
 }
