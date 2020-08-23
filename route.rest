@@ -3,7 +3,7 @@ POST http://localhost/mypharma/public/api/login
 Content-Type: application/json
 
 {
-    "email": "as@gmail.com",
+    "email": "abe@gmail.com",
     "password": "12345678"
 }
 
@@ -29,8 +29,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 
 
 
-GET http://localhost/mypharma/public/api/products
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTgxNjYzMTcsImV4cCI6MTU5ODE2OTkxNywibmJmIjoxNTk4MTY2MzE3LCJqdGkiOiJmR2hTQVl6N01RRXVDamlsIiwic3ViIjo2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.7wjRqH5krgEqs3E0OKd6UedE5Zr1n0gFHpLqiQL9XV0
+GET http://192.168.1.4/mypharma/public/api/products
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTgxNzM3NTQsImV4cCI6MTU5ODE3NzM1NCwibmJmIjoxNTk4MTczNzU0LCJqdGkiOiJ6dGxNbXFkMDl4bndSSUlFIiwic3ViIjo1LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.zB3MhK2SDrhdRPZbyUeIV_JzDItWRw_3Gtt27s1VpPk
 ###
 
 

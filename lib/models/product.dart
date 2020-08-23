@@ -13,7 +13,7 @@ class Product {
   int category;
   String batchNo;
   String vendor;
-  double price;
+  int price;
 
   Product(
       {@required this.id,

@@ -18,6 +18,10 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/stock');
     }
 
+    _feed() {
+      Navigator.pushReplacementNamed(context, '/feed');
+    }
+
     Widget anonDrawer({String profile, String email}) {
       return Container(
         color: Colors.white,
@@ -269,6 +273,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _feed();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -485,6 +492,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _feed();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -704,6 +714,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _feed();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -881,6 +894,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _feed();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(

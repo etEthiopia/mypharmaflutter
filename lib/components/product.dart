@@ -71,7 +71,7 @@ Widget product(
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
-                              org == null
+                              org != null
                                   ? Text(
                                       org,
                                       maxLines: 2,
@@ -84,7 +84,7 @@ Widget product(
                                       style: TextStyle(fontSize: 0),
                                     ),
                               Text(
-                                price,
+                                price + " ETB",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.end,

@@ -186,15 +186,14 @@ class APIService extends APIServiceSkel {
             'Authorization': 'Bearer ${APIService.token}'
           },
         ).timeout(Duration(seconds: 20));
-
+        print("prods: " + "$SERVER_IP/$product");
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
               List<Product> products = Product.generateProductList(
                   json.decode(res.body)['0']['product']);
 
-              List<dynamic> result = products;
-              return result;
+              return products;
             } else {
               if (json
                   .decode(res.body)['message']
