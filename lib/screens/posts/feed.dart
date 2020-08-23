@@ -68,6 +68,7 @@ class _FeedListState extends State<FeedList> {
   @override
   Widget build(BuildContext context) {
     final _feedBloc = BlocProvider.of<NewsBloc>(context);
+
     _feedBloc.add(NewsFetched(page: page));
 
     _scrollListener() {
@@ -111,7 +112,11 @@ class _FeedListState extends State<FeedList> {
         return LoadingLogin(context);
       }
       if (state is NewsFailure) {
-        return NoInternet(context, 'feed');
+        if (state.error == 'Not Authorized') {
+          return LoggedOutLoading(context);
+        } else {
+          return NoInternet(context, 'feed');
+        }
       }
       if (state is NewsLoaded) {
         return Scaffold(

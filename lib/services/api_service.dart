@@ -146,9 +146,12 @@ class APIService extends APIServiceSkel {
                 return result;
               }
             } else {
-              if (json.decode(res.body)['message'] == 'token expired') {
-                print('Token Expired');
-                throw NewsException(message: 'Token Expired');
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw NewsException(message: 'Not Authorized');
               }
               print('Wrong Request');
               throw NewsException(message: 'Wrong Request');

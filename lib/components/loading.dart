@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mypharma/blocs/auth/bloc.dart';
+import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
@@ -71,4 +74,16 @@ LoadingRegister(context) {
       );
     },
   );
+}
+
+LoggedOutLoading(context) {
+  final _authBloc = BlocProvider.of<AuthBloc>(context);
+  return BlocListener<AuthBloc, AuthState>(listener: (context, state) {
+    if (state is AuthFailure) {
+      showError(state.error, context);
+    }
+  }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+    _authBloc.add(UserLoggedOut());
+    return LoadingLogin(context);
+  }));
 }
