@@ -60,16 +60,18 @@ class _FeedListState extends State<FeedList> {
     }
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    final _feedBloc = BlocProvider.of<NewsBloc>(context);
+
+    _feedBloc.add(NewsFetched(page: page));
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final _feedBloc = BlocProvider.of<NewsBloc>(context);
-
-    _feedBloc.add(NewsFetched(page: page));
 
     _scrollListener() {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
@@ -78,7 +80,7 @@ class _FeedListState extends State<FeedList> {
           page = page + 1;
         });
         print("reach the bottom");
-
+        _feedBloc.add(NewsFetched(page: page));
         // if (page <= last) {
         //   _feedBloc.add(NewsFetched(page: page));
         // }
@@ -140,6 +142,7 @@ class _FeedListState extends State<FeedList> {
                                   setState(() {
                                     page = 1;
                                   });
+                                  _feedBloc.add(NewsFetched(page: page));
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,

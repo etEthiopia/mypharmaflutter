@@ -121,7 +121,7 @@ class APIService extends APIServiceSkel {
     }
     if (APIService.token != null) {
       try {
-        var res = await http.post(
+        var res = await http.get(
           "$SERVER_IP/$news",
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
