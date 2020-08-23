@@ -14,6 +14,10 @@ class UserDrawer extends StatelessWidget {
       _authBloc.add(UserLoggedOut());
     }
 
+    _stock() {
+      Navigator.pushReplacementNamed(context, '/stock');
+    }
+
     Widget anonDrawer({String profile, String email}) {
       return Container(
         color: Colors.white,
@@ -502,6 +506,30 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _stock();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.new_releases,
+                      color: primary,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      "Stock",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: darksecond),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -689,6 +717,30 @@ class UserDrawer extends StatelessWidget {
                     ),
                     Text(
                       "Feed",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: darksecond),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                _stock();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.new_releases,
+                      color: primary,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      "Stock",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: darksecond),
                     ),

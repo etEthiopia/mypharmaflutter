@@ -25,9 +25,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       final result = await _apiService.fetchMyProducts();
       if (result != null) {
         if (result.length > 0) {
-          print(result[0].toString() + " " + result[1].toString());
           yield MyProductLoaded(productsList: result);
-          // if (result[0] == result[1]) {}
         } else {
           yield ProductNotLoaded();
         }

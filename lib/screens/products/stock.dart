@@ -1,0 +1,112 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/blocs/product/bloc.dart';
+import 'package:mypharma/components/appbars.dart';
+import 'package:mypharma/components/drawers.dart';
+import 'package:mypharma/components/loading.dart';
+import 'package:mypharma/components/page_end.dart';
+import 'package:mypharma/components/product.dart';
+import 'package:mypharma/components/show_error.dart';
+import 'package:mypharma/models/models.dart';
+import 'package:mypharma/services/api_service.dart';
+
+class Stock extends StatefulWidget {
+  @override
+  _StockState createState() => _StockState();
+}
+
+class _StockState extends State<Stock> {
+  @override
+  Widget build(BuildContext context) {
+    final apiService = RepositoryProvider.of<APIService>(context);
+    return Scaffold(
+      appBar: simpleAppBar(title: 'Stock'),
+      drawer: UserDrawer(),
+      body: BlocProvider<ProductBloc>(
+        create: (context) => ProductBloc(apiService),
+        child: StockList(),
+      ),
+    );
+  }
+}
+
+class StockList extends StatefulWidget {
+  @override
+  _StockListState createState() => _StockListState();
+}
+
+class _StockListState extends State<StockList> {
+  int col = 0;
+  void _colFix(bool por) {
+    if (por) {
+      setState(() {
+        col = 2;
+      });
+    } else {
+      setState(() {
+        col = 4;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    final _productBloc = BlocProvider.of<ProductBloc>(context);
+    _productBloc.add(MyProductFetched());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final _productBloc = BlocProvider.of<ProductBloc>(context);
+
+    Orientation orientation = MediaQuery.of(context).orientation;
+    if (orientation == Orientation.portrait) {
+      _colFix(true);
+    } else {
+      _colFix(false);
+    }
+    return BlocListener<ProductBloc, ProductState>(listener: (context, state) {
+      if (state is ProductFailure) {
+        showError(state.error, context);
+      }
+
+      // ignore: missing_return
+    }, child: BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+      if (state is ProductLoading || state is ProductInital) {
+        return LoadingLogin(context);
+      }
+      if (state is ProductFailure) {
+        if (state.error == 'Not Authorized') {
+          return LoggedOutLoading(context);
+        } else {
+          return NoInternet(context, 'feed');
+        }
+      }
+      if (state is MyProductLoaded) {
+        return Scaffold(
+          backgroundColor: Colors.grey[100],
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: GridView.builder(
+                itemCount: state.productsList.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: col),
+                itemBuilder: (BuildContext context, int index) {
+                  return product(
+                    id: state.productsList[index].id,
+                    name: state.productsList[index].title,
+                    image: state.productsList[index].image,
+                    org: null,
+                    price: state.productsList[index].price.toString(),
+                  );
+                },
+              ),
+            ),
+          ),
+        );
+      }
+    }));
+  }
+}

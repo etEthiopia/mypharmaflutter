@@ -16,7 +16,7 @@ class ProductLoading extends ProductState {}
 class MyProductLoaded extends ProductState {
   // final int current;
   // final int last;
-  final List<String> productsList;
+  final List<Product> productsList;
 
   MyProductLoaded({this.productsList});
 

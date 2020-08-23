@@ -1,7 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-Widget product({String name, String image, String org, String price}) {
+import '../main.dart';
+
+Widget product(
+    {int id,
+    String name,
+    String image,
+    String org,
+    String price,
+    var context}) {
   return Container(
       margin: EdgeInsets.all(5),
       decoration: BoxDecoration(
@@ -16,7 +25,7 @@ Widget product({String name, String image, String org, String price}) {
         ],
       ),
       child: Hero(
-          tag: name + org + price + image,
+          tag: name + id.toString(),
           child: Material(
               borderRadius: BorderRadius.circular(15),
               child: InkWell(
@@ -24,14 +33,9 @@ Widget product({String name, String image, String org, String price}) {
                   child: GridTile(
                     child: Container(
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                "assets/images/newproduct/$image",
-                              )),
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
-                        child: Text("")),
+                        child: loadimage(image)),
                     footer: Container(
                       decoration: BoxDecoration(
                         color: Colors.white70,
@@ -95,4 +99,22 @@ Widget product({String name, String image, String org, String price}) {
                       ),
                     ),
                   )))));
+}
+
+Widget _error(BuildContext context, String url, dynamic error) {
+  print(error);
+  return const Center(child: Icon(Icons.error));
+}
+
+Widget _progress(BuildContext context, String url, dynamic downloadProgress) {
+  return Center(
+      child: CircularProgressIndicator(value: downloadProgress.progress));
+}
+
+Widget loadimage(String image) {
+  return CachedNetworkImage(
+    imageUrl: '${SERVER_IP_FILE}news/$image',
+    progressIndicatorBuilder: _progress,
+    errorWidget: _error,
+  );
 }
