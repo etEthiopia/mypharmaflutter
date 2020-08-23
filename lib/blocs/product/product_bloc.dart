@@ -1,51 +1,41 @@
 import 'package:bloc/bloc.dart';
-import 'package:mypharma/blocs/news/bloc.dart';
+import 'package:mypharma/blocs/product/bloc.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/services.dart';
 
-class NewsBloc extends Bloc<NewsEvent, NewsState> {
+class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final APIService _apiService;
-  NewsBloc(APIService apiService)
+  ProductBloc(APIService apiService)
       : assert(APIService != null),
         _apiService = apiService;
 
   @override
-  NewsState get initialState => NewsInital();
+  ProductState get initialState => ProductInital();
 
   @override
-  Stream<NewsState> mapEventToState(NewsEvent event) async* {
-    if (event is NewsFetched) {
+  Stream<ProductState> mapEventToState(ProductEvent event) async* {
+    if (event is MyProductFetched) {
       yield* _mapNewsFetchedToState(event);
     }
   }
 
-  Stream<NewsState> _mapNewsFetchedToState(NewsFetched event) async* {
-    print("state length: " + state.props.length.toString());
-    List<News> old = [];
-    int current = 0;
-    if (state.props.length == 3) {
-      old = state.props[2];
-      current = state.props[1];
-    }
-    yield NewsLoading();
+  Stream<ProductState> _mapNewsFetchedToState(MyProductFetched event) async* {
+    yield ProductLoading();
     try {
-      final result = await _apiService.fetchNews(page: event.page);
+      final result = await _apiService.fetchMyProducts();
       if (result != null) {
-        if (result.length == 3) {
+        if (result.length > 0) {
           print(result[0].toString() + " " + result[1].toString());
-          yield NewsLoaded(
-              last: result[0], current: result[1], newsList: result[2]);
+          yield MyProductLoaded(productsList: result);
           // if (result[0] == result[1]) {}
-        } else if (result.length == 2) {
-          yield NewsAllLoaded();
         } else {
-          yield NewsNotLoaded();
+          yield ProductNotLoaded();
         }
       } else {
-        yield NewsNotLoaded();
+        yield ProductNotLoaded();
       }
     } catch (e) {
-      yield NewsFailure(
+      yield ProductFailure(
           error: e.message.toString() ?? 'An unknown error occurred');
     }
   }

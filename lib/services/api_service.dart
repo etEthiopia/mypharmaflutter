@@ -172,4 +172,54 @@ class APIService extends APIServiceSkel {
       throw NewsException(message: 'Not Authorized');
     }
   }
+
+  @override
+  Future<List<dynamic>> fetchMyProducts() async {
+    String product = "products";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$product",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              List<Product> products = Product.generateProductList(
+                  json.decode(res.body)['0']['product']);
+
+              List<dynamic> result = products;
+              return result;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw ProductException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw ProductException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw ProductException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw ProductException(message: 'Wrong Connection');
+        }
+      } on SocketException {
+        print('Internet Error');
+        throw ProductException(message: "Check Your Connection");
+      }
+    } else {
+      throw ProductException(message: 'Not Authorized');
+    }
+  }
 }

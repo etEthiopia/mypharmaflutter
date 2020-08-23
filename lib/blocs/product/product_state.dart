@@ -13,15 +13,15 @@ class ProductInital extends ProductState {}
 
 class ProductLoading extends ProductState {}
 
-class ProductLoaded extends ProductState {
-  final int current;
-  final int last;
-  final List<String> newsList;
+class MyProductLoaded extends ProductState {
+  // final int current;
+  // final int last;
+  final List<String> productsList;
 
-  ProductLoaded({this.last, this.current, this.newsList});
+  MyProductLoaded({this.productsList});
 
   @override
-  List<Object> get props => [current, last, newsList];
+  List<Object> get props => [productsList];
 }
 
 class ProductAllLoaded extends ProductState {}
