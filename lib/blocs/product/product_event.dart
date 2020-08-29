@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:mypharma/models/models.dart';
 
 abstract class ProductEvent extends Equatable {
   const ProductEvent();
@@ -8,8 +7,6 @@ abstract class ProductEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class MyProductFetched extends ProductEvent {
-  MyProductFetched();
-}
+class MyProductFetched extends ProductEvent {}
 
 class NewsBacked extends ProductEvent {}
