@@ -9,6 +9,7 @@ import 'package:mypharma/screens/auth/registerphy.dart';
 import 'package:mypharma/screens/front_splash.dart';
 import 'package:mypharma/screens/posts/feed.dart';
 import 'package:mypharma/screens/products/stock.dart';
+import 'package:mypharma/screens/orders/order_received.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/registerphy': (context) => RegisterPhy(),
         '/feed': (context) => Feed(),
         '/stock': (context) => Stock(),
+        '/order_received': (context) => ReceivedOrderPage(),
       },
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
@@ -32,6 +34,8 @@ class MyApp extends StatelessWidget {
             // show home page
             if (state.user.role == Role.wholeseller) {
               return Stock();
+            } else if (state.user.role == Role.importer) {
+              return ReceivedOrderPage();
             } else {
               return Feed();
             }
