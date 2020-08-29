@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           }
           if (state is AuthAuthenticated) {
             // show home page
-            if (state.user.role == Role.importer) {
+            if (state.user.role == Role.wholeseller) {
               return Stock();
             } else {
               return Feed();
