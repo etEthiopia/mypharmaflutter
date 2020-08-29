@@ -18,7 +18,7 @@ class Order {
   String receiver;
   String sender;
 
-  Order.receviedlist(
+  Order.receivedlist(
       {@required this.id,
       @required this.userid,
       @required this.postd,
@@ -29,11 +29,11 @@ class Order {
       @required this.name,
       @required this.sender});
 
-  static List<Order> generateOrderList(List<dynamic> orderslist) {
+  static List<Order> generateOrderReceivedList(List<dynamic> orderslist) {
     List<Order> ordersfetched = List<Order>();
 
     for (var order in orderslist) {
-      ordersfetched.add(Order.receviedlist(
+      ordersfetched.add(Order.receivedlist(
         id: order['id'],
         postd: order['post_id'],
         userid: order['user_id'],
@@ -49,7 +49,7 @@ class Order {
   }
 
   factory Order.fromJsonreceivedlist(Map<String, dynamic> json) {
-    return Order.receviedlist(
+    return Order.receivedlist(
       id: json['id'],
       postd: json['post_id'],
       userid: json['user_id'],

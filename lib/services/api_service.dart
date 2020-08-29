@@ -186,7 +186,6 @@ class APIService extends APIServiceSkel {
             'Authorization': 'Bearer ${APIService.token}'
           },
         ).timeout(Duration(seconds: 20));
-        print("prods: " + "$SERVER_IP/$product");
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
@@ -194,6 +193,54 @@ class APIService extends APIServiceSkel {
                   json.decode(res.body)['0']['product']);
 
               return products;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw ProductException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw ProductException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw ProductException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw ProductException(message: 'Wrong Connection');
+        }
+      } on SocketException {
+        print('Internet Error');
+        throw ProductException(message: "Check Your Connection");
+      }
+    } else {
+      throw ProductException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<List<dynamic>> fetchReceivedOrders() async {
+    String order = "customer-order";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$order",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              List<Order> orders = Order.generateOrderReceivedList(
+                  json.decode(res.body)['0']['order']);
+
+              return orders;
             } else {
               if (json
                   .decode(res.body)['message']

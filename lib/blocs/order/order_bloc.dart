@@ -21,7 +21,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   Stream<OrderState> _mapNewsFetchedToState(OrderReceivedFetched event) async* {
     yield OrderLoading();
     try {
-      final result = await _apiService.fetchMyOrders();
+      final result = await _apiService.fetchReceivedOrders();
       if (result != null) {
         if (result.length > 0) {
           yield OrderReceivedLoaded(receivedList: result);
