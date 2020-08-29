@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:mypharma/blocs/product/bloc.dart';
-import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/services.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
