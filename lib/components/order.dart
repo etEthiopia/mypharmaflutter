@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
-Widget order(
-    {int id,
-    int quantity,
-    double price,
-    String status,
-    String date,
-    String name,
-    String vender,
-    var context}) {
+Widget order({
+  int id,
+  int quantity,
+  double price,
+  String status,
+  String date,
+  String name,
+  String vender,
+}) {
   return Container(
     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),

@@ -110,10 +110,10 @@ class _FeedListState extends State<FeedList> {
       if (state is NewsAllLoaded) {
         return PageEnd(context, 'feed');
       }
-      if (state is NewsLoading || state is NewsInital) {
+      else if (state is NewsLoading || state is NewsInital) {
         return LoadingLogin(context);
       }
-      if (state is NewsFailure) {
+      else if (state is NewsFailure) {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
         } else {
