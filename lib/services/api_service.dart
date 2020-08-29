@@ -13,6 +13,8 @@ abstract class APIServiceSkel {
       {String name, String email, int profession, String password});
   Future<void> signOut();
   Future<List<dynamic>> fetchNews({int page = 1});
+  Future<List<dynamic>> fetchMyProducts();
+  Future<List<dynamic>> fetchReceivedOrders();
 }
 
 class APIService extends APIServiceSkel {

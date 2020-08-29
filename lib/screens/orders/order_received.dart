@@ -87,7 +87,7 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   ];
 
   Widget _categoryPrompt() {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: DropdownButtonFormField(
         style: TextStyle(color: dark, fontFamily: defaultFont),
@@ -119,20 +119,20 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   Widget build(BuildContext context) {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
 
-    _scrollListener() {
-      if (_controller.offset >= _controller.position.maxScrollExtent &&
-          !_controller.position.outOfRange) {
-        print("left the top");
-        // _controller.[]
-      }
-      if (_controller.offset <= _controller.position.minScrollExtent &&
-          !_controller.position.outOfRange) {
-        print("reach the top");
-      }
-    }
+    // _scrollListener() {
+    //   if (_controller.offset >= _controller.position.maxScrollExtent &&
+    //       !_controller.position.outOfRange) {
+    //     print("left the top");
+    //     // _controller.[]
+    //   }
+    //   if (_controller.offset <= _controller.position.minScrollExtent &&
+    //       !_controller.position.outOfRange) {
+    //     print("reach the top");
+    //   }
+    // }
 
-    _controller = ScrollController();
-    _controller.addListener(_scrollListener);
+    // _controller = ScrollController();
+    // _controller.addListener(_scrollListener);
 
     return BlocListener<OrderBloc, OrderState>(
       listener: (context, state) {
@@ -201,15 +201,17 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                               child: ListView.builder(
                                 itemCount: state.receivedList.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  print(state.receivedList[index].toString());
                                   return order(
-                                    id: state.receivedList[index].id,
-                                    quantity:
-                                        state.receivedList[index].quantity,
-                                    price: state.receivedList[index].price,
-                                    status: state.receivedList[index].status,
-                                    date: state.receivedList[index].date,
-                                    vender: state.receivedList[index].sender,
-                                  );
+                                      // state.receivedList[index].toString()
+                                      id: state.receivedList[index].id,
+                                      quantity:
+                                          state.receivedList[index].quantity,
+                                      price: state.receivedList[index].price,
+                                      status: state.receivedList[index].status,
+                                      date: state.receivedList[index].date,
+                                      vender: state.receivedList[index].sender,
+                                      name: state.receivedList[index].name);
                                 },
                               ),
                             ),
