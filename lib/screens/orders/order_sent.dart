@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
+import 'package:mypharma/components/empty.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/page_end.dart';
 import 'package:mypharma/components/show_error.dart';
@@ -21,7 +22,7 @@ class _SentOrderPageState extends State<SentOrderPage> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-        appBar: simpleAppBar(title: "Orders Received"),
+        appBar: simpleAppBar(title: "Orders Sent"),
         drawer: UserDrawer(),
         body: BlocProvider<OrderBloc>(
             create: (context) => OrderBloc(apiService),
@@ -38,7 +39,8 @@ class SentOrdersList extends StatefulWidget {
 
 class _SentOrdersListState extends State<SentOrdersList> {
   ScrollController _controller;
-
+  int page = 1;
+  int last = 1;
   int _selectedCategory = 0;
 
   List<DropdownMenuItem<dynamic>> categories = [
@@ -110,7 +112,7 @@ class _SentOrdersListState extends State<SentOrdersList> {
   void initState() {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
 
-    _orderBloc.add(OrderSentFetched());
+    _orderBloc.add(OrderSentFetched(page: page));
 
     super.initState();
   }
@@ -119,20 +121,26 @@ class _SentOrdersListState extends State<SentOrdersList> {
   Widget build(BuildContext context) {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
 
-    // _scrollListener() {
-    //   if (_controller.offset >= _controller.position.maxScrollExtent &&
-    //       !_controller.position.outOfRange) {
-    //     print("left the top");
-    //     // _controller.[]
-    //   }
-    //   if (_controller.offset <= _controller.position.minScrollExtent &&
-    //       !_controller.position.outOfRange) {
-    //     print("reach the top");
-    //   }
-    // }
+    _scrollListener() {
+      if (_controller.offset >= _controller.position.maxScrollExtent &&
+          !_controller.position.outOfRange) {
+        setState(() {
+          page = page + 1;
+        });
+        print("reach the bottom");
+        _orderBloc.add(OrderSentFetched(page: page));
+        // if (page <= last) {
+        //   _feedBloc.add(NewsFetched(page: page));
+        // }
+      }
+      if (_controller.offset <= _controller.position.minScrollExtent &&
+          !_controller.position.outOfRange) {
+        print("reach the top");
+      }
+    }
 
-    // _controller = ScrollController();
-    // _controller.addListener(_scrollListener);
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
 
     return BlocListener<OrderBloc, OrderState>(
       listener: (context, state) {
@@ -146,6 +154,8 @@ class _SentOrdersListState extends State<SentOrdersList> {
             return PageEnd(context, 'order_sent');
           } else if (state is OrderLoading || state is OrderInital) {
             return LoadingLogin(context);
+          } else if (state is OrderNothingSent) {
+            return empty(context, 'order_sent');
           } else if (state is OrderFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
@@ -164,11 +174,17 @@ class _SentOrdersListState extends State<SentOrdersList> {
                       child: Column(
                         children: [
                           _categoryPrompt(),
-                          _selectedCategory > 1
+                          page > 1
                               ? Container(
                                   padding: EdgeInsets.symmetric(vertical: 10),
                                   child: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      setState(() {
+                                        page = 1;
+                                      });
+                                      _orderBloc
+                                          .add(OrderSentFetched(page: page));
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -199,11 +215,12 @@ class _SentOrdersListState extends State<SentOrdersList> {
                             child: Container(
                               color: Colors.grey[150],
                               child: ListView.builder(
+                                controller: _controller,
                                 itemCount: state.sentList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   print(state.sentList[index].toString());
+                                  last = state.last;
                                   return OrderCard(
-                                    // state.receivedList[index].toString()
                                     id: state.sentList[index].id,
                                     quantity: state.sentList[index].quantity,
                                     price: state.sentList[index].price,

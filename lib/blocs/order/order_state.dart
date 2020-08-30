@@ -13,6 +13,8 @@ class OrderInital extends OrderState {}
 
 class OrderLoading extends OrderState {}
 
+class OrderNothingReceived extends OrderState {}
+
 class OrderReceivedLoaded extends OrderState {
   final List<Order> receivedList;
 
@@ -22,10 +24,14 @@ class OrderReceivedLoaded extends OrderState {
   List<Object> get props => [receivedList];
 }
 
+class OrderNothingSent extends OrderState {}
+
 class OrderSentLoaded extends OrderState {
   final List<Order> sentList;
+  final int current;
+  final int last;
 
-  OrderSentLoaded({this.sentList});
+  OrderSentLoaded({this.current, this.last, this.sentList});
 
   @override
   List<Object> get props => [sentList];

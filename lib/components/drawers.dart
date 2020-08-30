@@ -11,7 +11,15 @@ class UserDrawer extends StatelessWidget {
     final _authBloc = BlocProvider.of<AuthBloc>(context);
 
     _logout() async {
-      _authBloc.add(UserLoggedOut());
+      await _authBloc.add(UserLoggedOut());
+      var route = ModalRoute.of(context);
+      if (route != null) {
+        if (route.settings.name.length != 1) {
+          Navigator.pushReplacementNamed(context, '/');
+        } else {
+          print("ROUTE SETTINGS: " + route.settings.name.length.toString());
+        }
+      }
     }
 
     _stock() {

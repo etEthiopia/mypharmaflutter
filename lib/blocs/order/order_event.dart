@@ -9,6 +9,10 @@ abstract class OrderEvent extends Equatable {
 
 class OrderReceivedFetched extends OrderEvent {}
 
-class OrderSentFetched extends OrderEvent {}
+class OrderSentFetched extends OrderEvent {
+  final int page;
+
+  OrderSentFetched({this.page = 1});
+}
 
 class OrderBacked extends OrderEvent {}

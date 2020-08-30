@@ -273,9 +273,11 @@ class APIService extends APIServiceSkel {
   }
 
   @override
-  Future<List<dynamic>> fetchSentOrders() async {
+  Future<List<dynamic>> fetchSentOrders({int page = 1}) async {
     String order = "orders";
-
+    if (page != 1) {
+      order += "?page=$page";
+    }
     if (APIService.token != null) {
       try {
         var res = await http.get(
@@ -288,33 +290,45 @@ class APIService extends APIServiceSkel {
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
-              print(json.decode(res.body)['0']['order']);
-              List<Order> orders = Order.generateOrderSentList(
-                  json.decode(res.body)['0']['order']);
+              int from = json.decode(res.body)['0']['order']['current_page'];
+              int last = json.decode(res.body)['0']['order']['last_page'];
+              if (from > last) {
+                print("End of Order");
+                List<dynamic> result = [from, last];
+                return result;
+              } else {
+                if (json.decode(res.body)['0']['order']['data'].toString() ==
+                    "[]") {
+                  throw OrderException(message: "empty");
+                }
+                List<Order> orders = Order.generateOrderSentList(
+                    json.decode(res.body)['0']['order']['data']);
 
-              return orders;
+                List<dynamic> result = [from, last, orders];
+                return result;
+              }
             } else {
               if (json
                   .decode(res.body)['message']
                   .toString()
                   .contains('oken')) {
                 print(json.decode(res.body)['message']);
-                throw ProductException(message: 'Not Authorized');
+                throw OrderException(message: 'Not Authorized');
               }
               print('Wrong Request');
-              throw ProductException(message: 'Wrong Request');
+              throw OrderException(message: 'Wrong Request');
             }
           } else {
             print('Wrong Question');
-            throw ProductException(message: 'Wrong Question');
+            throw OrderException(message: 'Wrong Question');
           }
         } else {
           print('Wrong Connection');
-          throw ProductException(message: 'Wrong Connection');
+          throw OrderException(message: 'Wrong Connection');
         }
       } on SocketException {
         print('Internet Error');
-        throw ProductException(message: "Check Your Connection");
+        throw OrderException(message: "Check Your Connection");
       }
     } else {
       throw ProductException(message: 'Not Authorized');

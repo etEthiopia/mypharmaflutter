@@ -52,13 +52,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _mapUserLoggedInToState(UserLoggedIn event) async* {
-    print("user: ${event.user.name}");
     APIService.token = event.user.token;
     yield AuthAuthenticated(user: event.user);
   }
 
   Stream<AuthState> _mapUserRegisteredToState(UserRegistered event) async* {
-    print("user: ${event.user.name}");
     yield AuthAuthenticated(user: event.user);
   }
 

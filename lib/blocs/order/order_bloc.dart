@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:mypharma/blocs/order/bloc.dart';
+import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/services.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
@@ -41,12 +42,22 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
   }
 
   Stream<OrderState> _mapOrderSentToState(OrderSentFetched event) async* {
+    List<Order> old = [];
+    int current = 0;
+    if (state.props.length == 3) {
+      old = state.props[2];
+      current = state.props[1];
+    }
     yield OrderLoading();
     try {
-      final result = await _apiService.fetchSentOrders();
+      final result = await _apiService.fetchSentOrders(page: event.page);
       if (result != null) {
-        if (result.length > 0) {
-          yield OrderSentLoaded(sentList: result);
+        if (result.length == 3) {
+          yield OrderSentLoaded(
+              last: result[0], current: result[1], sentList: result[2]);
+        } else if (result.length == 2) {
+          print("2");
+          yield OrderAllLoaded();
         } else {
           yield OrderNotLoaded();
         }
@@ -54,8 +65,13 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         yield OrderNotLoaded();
       }
     } catch (e) {
-      yield OrderFailure(
-          error: e.message.toString() ?? 'An unknown error occurred');
+      if (e.message.toString() == 'empty') {
+        print("nothing");
+        yield OrderNothingSent();
+      } else {
+        yield OrderFailure(
+            error: e.message.toString() ?? 'An unknown error occurred');
+      }
     }
   }
 }

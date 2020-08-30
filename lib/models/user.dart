@@ -47,7 +47,6 @@ class User {
     profileimg = user['profileimg'];
     // user_activation_key = user['user_activation_key'];
     // is_representative = user['is_representative'];
-    print(this.toString());
   }
 
   Role _numberToRole(int roleint) {
