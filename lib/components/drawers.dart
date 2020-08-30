@@ -18,6 +18,14 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/stock');
     }
 
+    _ordersent() {
+      Navigator.pushReplacementNamed(context, '/order_sent');
+    }
+
+    _orderrecevied() {
+      Navigator.pushReplacementNamed(context, '/order_received');
+    }
+
     _feed() {
       Navigator.pushReplacementNamed(context, '/feed');
     }
@@ -428,6 +436,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _ordersent();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -449,6 +460,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _orderrecevied();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(

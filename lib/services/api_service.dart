@@ -15,6 +15,7 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> fetchNews({int page = 1});
   Future<List<dynamic>> fetchMyProducts();
   Future<List<dynamic>> fetchReceivedOrders();
+  Future<List<dynamic>> fetchSentOrders();
 }
 
 class APIService extends APIServiceSkel {
@@ -240,6 +241,55 @@ class APIService extends APIServiceSkel {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
               List<Order> orders = Order.generateOrderReceivedList(
+                  json.decode(res.body)['0']['order']);
+
+              return orders;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw ProductException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw ProductException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw ProductException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw ProductException(message: 'Wrong Connection');
+        }
+      } on SocketException {
+        print('Internet Error');
+        throw ProductException(message: "Check Your Connection");
+      }
+    } else {
+      throw ProductException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<List<dynamic>> fetchSentOrders() async {
+    String order = "orders";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$order",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              print(json.decode(res.body)['0']['order']);
+              List<Order> orders = Order.generateOrderSentList(
                   json.decode(res.body)['0']['order']);
 
               return orders;

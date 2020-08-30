@@ -11,12 +11,12 @@ import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 import 'package:mypharma/components/order.dart';
 
-class ReceivedOrderPage extends StatefulWidget {
+class SentOrderPage extends StatefulWidget {
   @override
-  _ReceivedOrderPageState createState() => _ReceivedOrderPageState();
+  _SentOrderPageState createState() => _SentOrderPageState();
 }
 
-class _ReceivedOrderPageState extends State<ReceivedOrderPage> {
+class _SentOrderPageState extends State<SentOrderPage> {
   @override
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
@@ -27,16 +27,16 @@ class _ReceivedOrderPageState extends State<ReceivedOrderPage> {
             create: (context) => OrderBloc(apiService),
 
             //create: (context) => NewsBloc(_newsService),
-            child: ReceivedOrdersList()));
+            child: SentOrdersList()));
   }
 }
 
-class ReceivedOrdersList extends StatefulWidget {
+class SentOrdersList extends StatefulWidget {
   @override
-  _ReceivedOrdersListState createState() => _ReceivedOrdersListState();
+  _SentOrdersListState createState() => _SentOrdersListState();
 }
 
-class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
+class _SentOrdersListState extends State<SentOrdersList> {
   ScrollController _controller;
 
   int _selectedCategory = 0;
@@ -110,7 +110,7 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   void initState() {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
 
-    _orderBloc.add(OrderReceivedFetched());
+    _orderBloc.add(OrderSentFetched());
 
     super.initState();
   }
@@ -143,16 +143,16 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
       child: BlocBuilder<OrderBloc, OrderState>(
         builder: (context, state) {
           if (state is OrderAllLoaded) {
-            return PageEnd(context, 'order_received');
+            return PageEnd(context, 'order_sent');
           } else if (state is OrderLoading || state is OrderInital) {
             return LoadingLogin(context);
           } else if (state is OrderFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
             } else {
-              return NoInternet(context, 'order_received');
+              return NoInternet(context, 'order_sent');
             }
-          } else if (state is OrderReceivedLoaded) {
+          } else if (state is OrderSentLoaded) {
             return Scaffold(
               backgroundColor: Colors.grey[300],
               body: SafeArea(
@@ -199,20 +199,19 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                             child: Container(
                               color: Colors.grey[150],
                               child: ListView.builder(
-                                itemCount: state.receivedList.length,
+                                itemCount: state.sentList.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  print(state.receivedList[index].toString());
+                                  print(state.sentList[index].toString());
                                   return OrderCard(
                                     // state.receivedList[index].toString()
-                                    id: state.receivedList[index].id,
-                                    quantity:
-                                        state.receivedList[index].quantity,
-                                    price: state.receivedList[index].price,
-                                    status: state.receivedList[index].status,
-                                    date: state.receivedList[index].date,
-                                    vendor: state.receivedList[index].sender,
-                                    name: state.receivedList[index].name,
-                                    received: true,
+                                    id: state.sentList[index].id,
+                                    quantity: state.sentList[index].quantity,
+                                    price: state.sentList[index].price,
+                                    status: state.sentList[index].status,
+                                    date: state.sentList[index].date,
+                                    vendor: state.sentList[index].receiver,
+                                    name: state.sentList[index].name,
+                                    received: false,
                                   );
                                 },
                               ),

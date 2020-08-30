@@ -29,36 +29,58 @@ class Order {
       @required this.name,
       @required this.sender});
 
+  Order.sentlist(
+      {@required this.id,
+      @required this.userid,
+      @required this.postid,
+      @required this.quantity,
+      @required this.price,
+      @required this.status,
+      @required this.date,
+      @required this.name,
+      @required this.receiver});
+
   static List<Order> generateOrderReceivedList(List<dynamic> orderslist) {
     // print("orderslist: " + orderslist.toString());
     List<Order> ordersfetched = List<Order>();
     for (var order in orderslist) {
-      ordersfetched.add(Order.fromJsonreceivedlist(order
-          // id: order['id'],
-          // postid: order['post_id'],
-          // userid: order['user_id'],
-          // price: order['net_total_price'],
-          // quantity: order['order_quantity'],
-          // date: order['updated_at'],
-          // status: order['order_processing'],
-          // sender: order['name'],
-          // name: order['productname'],
-          ));
+      ordersfetched.add(Order.fromJsonlist(order, true));
     }
     return ordersfetched;
   }
 
-  factory Order.fromJsonreceivedlist(Map<String, dynamic> json) {
-    // print("JSON: " + json.toString());
-    return Order.receivedlist(
+  static List<Order> generateOrderSentList(List<dynamic> orderslist) {
+    print("orderslist: " + orderslist.toString());
+    List<Order> ordersfetched = List<Order>();
+    for (var order in orderslist) {
+      ordersfetched.add(Order.fromJsonlist(order, false));
+    }
+    return ordersfetched;
+  }
+
+  factory Order.fromJsonlist(Map<String, dynamic> json, bool received) {
+    if (received) {
+      return Order.receivedlist(
+        id: json['id'],
+        postid: json['post_id'],
+        userid: json['user_id'],
+        price: double.parse(json['net_total_price'].toString()),
+        quantity: json['order_quantity'],
+        date: json['created_at'],
+        status: json['order_status'],
+        sender: json['name'],
+        name: json['productname'],
+      );
+    }
+    return Order.sentlist(
       id: json['id'],
       postid: json['post_id'],
       userid: json['user_id'],
       price: double.parse(json['net_total_price'].toString()),
       quantity: json['order_quantity'],
-      date: json['updated_at'],
+      date: json['created_at'],
       status: json['order_status'],
-      sender: json['name'],
+      receiver: json['vendorname'],
       name: json['productname'],
     );
   }

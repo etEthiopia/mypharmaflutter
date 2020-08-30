@@ -3,7 +3,7 @@ POST http://localhost/mypharma/public/api/login
 Content-Type: application/json
 
 {
-    "email": "sol@sol.com",
+    "email": "as@gmail.com",
     "password": "12345678"
 }
 
@@ -38,6 +38,11 @@ GET http://192.168.1.2/mypharma/public/api/customer-order/
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTg3MjQ0MjEsImV4cCI6MTU5ODcyODAyMSwibmJmIjoxNTk4NzI0NDIxLCJqdGkiOiJRazNSRXRBRlNKNENrR3ltIiwic3ViIjoyNiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.hGhUk8EkVBCQs-Kz5l72KehIBvjlCItlPvKT_Y5RHfo
 ###
 
+
+GET http://localhost/mypharma/public/api/orders/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTg3NjMzNTAsImV4cCI6MTU5ODc2Njk1MCwibmJmIjoxNTk4NzYzMzUwLCJqdGkiOiJWZkpDUlFlYWp4Uzh6dFZuIiwic3ViIjo2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.NbvEE_GYRZs-3vZkS1W0oSW0KdzFAkt1GFzAVn6GiLo
+
+###
 
 ###
 GET http://192.168.1.2/mypharma/public/api/vendor-product/12
