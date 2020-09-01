@@ -3,7 +3,7 @@ POST http://localhost/mypharma/public/api/login
 Content-Type: application/json
 
 {
-    "email": "solar@gmail.com",
+    "email": "sol@sol.com",
     "password": "12345678"
 }
 
@@ -34,9 +34,8 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 ###
 
 
-GET http://192.168.1.2/mypharma/public/api/customer-order
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTg3MjQ0MjEsImV4cCI6MTU5ODcyODAyMSwibmJmIjoxNTk4NzI0NDIxLCJqdGkiOiJRazNSRXRBRlNKNENrR3ltIiwic3ViIjoyNiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.hGhUk8EkVBCQs-Kz5l72KehIBvjlCItlPvKT_Y5RHfo
-###
+GET http://localhost/mypharma/public/api/customer-order
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTg5NTI5MzUsImV4cCI6MTU5ODk1NjUzNSwibmJmIjoxNTk4OTUyOTM1LCJqdGkiOiJsck5Oc1FkWkZRNFQ0WlVyIiwic3ViIjoyNiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.xVLuVMv3vj40uNVeqj1CXYpbxM0usG_RfAM1O8u5xY0
 
 
 GET http://localhost/mypharma/public/api/orders
@@ -52,7 +51,21 @@ GET http://192.168.1.2/mypharma/public/api/product_detail/13
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTgzMjg3MTEsImV4cCI6MTU5ODMzMjMxMSwibmJmIjoxNTk4MzI4NzExLCJqdGkiOiJOZHBiRTRiR0hQYzR4djc3Iiwic3ViIjo2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.UvqCAn7j5hJJ8xwvkVUfUUa2D1HA0grUk-3vKlC_Kks
 ### 
 
+GET http://127.0.0.1/mypharma/public/api/order-detail/15/order-id/14
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTg5NTY2MDksImV4cCI6MTU5ODk2MDIwOSwibmJmIjoxNTk4OTU2NjA5LCJqdGkiOiJnQ2FsVDZSNng1V2tkNXBPIiwic3ViIjoyNiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.U7HnyYQLeGuCB1kug2gFh6P8BlxBIr0Qxnx_lBHQHLA
 
+
+###
+
+POST http://127.0.0.1/mypharma/public/api/update-order-status/14
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTg5NTI5MzUsImV4cCI6MTU5ODk1NjUzNSwibmJmIjoxNTk4OTUyOTM1LCJqdGkiOiJsck5Oc1FkWkZRNFQ0WlVyIiwic3ViIjoyNiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.xVLuVMv3vj40uNVeqj1CXYpbxM0usG_RfAM1O8u5xY0
+Content-Type: application/json
+
+{
+    "order_status": "processing"
+}
+
+###
 
 
 

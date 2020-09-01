@@ -37,6 +37,17 @@ class OrderSentLoaded extends OrderState {
   List<Object> get props => [sentList];
 }
 
+class OrderRShow extends OrderState {
+  final Order receivedOrder;
+
+  OrderRShow({
+    this.receivedOrder,
+  });
+
+  @override
+  List<Object> get props => [receivedOrder];
+}
+
 class OrderAllLoaded extends OrderState {}
 
 class OrderUpdated extends OrderState {}

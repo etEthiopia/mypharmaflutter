@@ -5,6 +5,7 @@ import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/page_end.dart';
 import 'package:mypharma/components/show_error.dart';
+import 'package:mypharma/screens/orders/order_detail.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/blocs/order/bloc.dart';
 import 'package:mypharma/theme/colors.dart';
@@ -202,17 +203,33 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                                 itemCount: state.receivedList.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   print(state.receivedList[index].toString());
-                                  return OrderCard(
-                                    // state.receivedList[index].toString()
-                                    id: state.receivedList[index].id,
-                                    quantity:
-                                        state.receivedList[index].quantity,
-                                    price: state.receivedList[index].price,
-                                    status: state.receivedList[index].status,
-                                    date: state.receivedList[index].date,
-                                    vendor: state.receivedList[index].sender,
-                                    name: state.receivedList[index].name,
-                                    received: true,
+                                  return InkWell(
+                                    onTap: () {
+                                      print("clicked");
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  OrderDetail(
+                                                    postid: state
+                                                        .receivedList[index]
+                                                        .postid,
+                                                    id: state
+                                                        .receivedList[index].id,
+                                                  )));
+                                    },
+                                    child: OrderCard(
+                                      // state.receivedList[index].toString()
+                                      id: state.receivedList[index].id,
+                                      quantity:
+                                          state.receivedList[index].quantity,
+                                      price: state.receivedList[index].price,
+                                      status: state.receivedList[index].status,
+                                      date: state.receivedList[index].date,
+                                      vendor: state.receivedList[index].sender,
+                                      name: state.receivedList[index].name,
+                                      received: true,
+                                    ),
                                   );
                                 },
                               ),

@@ -18,6 +18,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       yield* _mapOrderReceivedToState(event);
     } else if (event is OrderSentFetched) {
       yield* _mapOrderSentToState(event);
+    } else if (event is OrderShowReceived) {
+      yield* _mapOrderShowRecToState(event);
     }
   }
 
@@ -72,6 +74,23 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         yield OrderFailure(
             error: e.message.toString() ?? 'An unknown error occurred');
       }
+    }
+  }
+
+  Stream<OrderState> _mapOrderShowRecToState(OrderShowReceived event) async* {
+    yield OrderLoading();
+    try {
+      final result = await _apiService.fetchShowReceivedOrder(
+          postid: event.postid, id: event.id);
+      print("Result " + result.toString());
+      if (result != null) {
+        yield OrderRShow(receivedOrder: result);
+      } else {
+        yield OrderNotLoaded();
+      }
+    } catch (e) {
+      yield OrderFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
     }
   }
 }

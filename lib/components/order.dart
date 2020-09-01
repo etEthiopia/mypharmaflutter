@@ -26,7 +26,7 @@ class OrderCard extends StatefulWidget {
   final String name;
   final String vendor;
   final bool received;
-  bool selected;
+  bool selected = false;
 }
 
 class _OrderCardState extends State<OrderCard> {
@@ -204,6 +204,7 @@ class _OrderCardState extends State<OrderCard> {
                       ],
                     )
                   : Container(
+                      width: 20,
                       child: Checkbox(
                         value: widget.selected,
                         activeColor: dark,

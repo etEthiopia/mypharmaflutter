@@ -15,4 +15,11 @@ class OrderSentFetched extends OrderEvent {
   OrderSentFetched({this.page = 1});
 }
 
+class OrderShowReceived extends OrderEvent {
+  final int postid;
+  final int id;
+
+  OrderShowReceived({this.postid, this.id});
+}
+
 class OrderBacked extends OrderEvent {}

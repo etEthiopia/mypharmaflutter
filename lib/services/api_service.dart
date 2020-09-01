@@ -16,6 +16,7 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> fetchMyProducts();
   Future<List<dynamic>> fetchReceivedOrders();
   Future<List<dynamic>> fetchSentOrders();
+  Future<dynamic> fetchShowReceivedOrder();
 }
 
 class APIService extends APIServiceSkel {
@@ -332,6 +333,55 @@ class APIService extends APIServiceSkel {
       }
     } else {
       throw ProductException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<dynamic> fetchShowReceivedOrder({int postid, int id}) async {
+    String order = "order-detail/$postid/order-id/$id";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$order",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              Order order = Order.showReceivedFromJson(
+                  json.decode(res.body)['0']['order']);
+
+              return order;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw OrderException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw OrderException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw OrderException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw OrderException(message: 'Wrong Connection');
+        }
+      } on SocketException {
+        print('Internet Error');
+        throw OrderException(message: "Check Your Connection");
+      }
+    } else {
+      throw OrderException(message: 'Not Authorized');
     }
   }
 }
