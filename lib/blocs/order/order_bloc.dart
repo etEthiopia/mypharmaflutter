@@ -11,6 +11,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
   @override
   OrderState get initialState => OrderInital();
+  //OrderStatusChangeOrdered
 
   @override
   Stream<OrderState> mapEventToState(OrderEvent event) async* {
@@ -20,6 +21,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       yield* _mapOrderSentToState(event);
     } else if (event is OrderShowReceived) {
       yield* _mapOrderShowRecToState(event);
+    } else if (event is OrderStatusChangeOrdered) {
+      yield* _mapOrderChangeStatusToState(event);
     }
   }
 
@@ -87,6 +90,26 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         yield OrderRShow(receivedOrder: result);
       } else {
         yield OrderNotLoaded();
+      }
+    } catch (e) {
+      yield OrderFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
+    }
+  }
+
+  Stream<OrderState> _mapOrderChangeStatusToState(
+      OrderStatusChangeOrdered event) async* {
+    //yield OrderLoading();
+    try {
+      final result = await _apiService.updateOrderStatus(
+          status: event.status, id: event.id);
+      print("Result " + result.toString());
+      if (result != null) {
+        if (result != true) {
+          yield OrderStatusNotChanged();
+        }
+      } else {
+        yield OrderStatusNotChanged();
       }
     } catch (e) {
       yield OrderFailure(

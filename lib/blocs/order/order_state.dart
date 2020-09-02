@@ -48,6 +48,10 @@ class OrderRShow extends OrderState {
   List<Object> get props => [receivedOrder];
 }
 
+class OrderStatusChanged extends OrderState {}
+
+class OrderStatusNotChanged extends OrderState {}
+
 class OrderAllLoaded extends OrderState {}
 
 class OrderUpdated extends OrderState {}

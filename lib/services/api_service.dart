@@ -17,6 +17,7 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> fetchReceivedOrders();
   Future<List<dynamic>> fetchSentOrders();
   Future<dynamic> fetchShowReceivedOrder();
+  Future<bool> updateOrderStatus();
 }
 
 class APIService extends APIServiceSkel {
@@ -357,6 +358,54 @@ class APIService extends APIServiceSkel {
                   json.decode(res.body)['0']['order']);
 
               return order;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw OrderException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw OrderException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw OrderException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw OrderException(message: 'Wrong Connection');
+        }
+      } on SocketException {
+        print('Internet Error');
+        throw OrderException(message: "Check Your Connection");
+      }
+    } else {
+      throw OrderException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<bool> updateOrderStatus({int id, String status}) async {
+    String order = "update-order-status/$id";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http
+            .post("$SERVER_IP/$order",
+                headers: <String, String>{
+                  'Content-Type': 'application/json; charset=UTF-8',
+                  'Authorization': 'Bearer ${APIService.token}'
+                },
+                body: jsonEncode(<String, String>{"order_status": status}))
+            .timeout(Duration(seconds: 20));
+        print("RS: $SERVER_IP/$order");
+
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              return true;
             } else {
               if (json
                   .decode(res.body)['message']

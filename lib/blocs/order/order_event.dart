@@ -22,4 +22,11 @@ class OrderShowReceived extends OrderEvent {
   OrderShowReceived({this.postid, this.id});
 }
 
+class OrderStatusChangeOrdered extends OrderEvent {
+  final String status;
+  final int id;
+
+  OrderStatusChangeOrdered({this.status, this.id});
+}
+
 class OrderBacked extends OrderEvent {}

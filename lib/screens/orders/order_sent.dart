@@ -224,7 +224,8 @@ class _SentOrdersListState extends State<SentOrdersList> {
                                     id: state.sentList[index].id,
                                     quantity: state.sentList[index].quantity,
                                     price: state.sentList[index].price,
-                                    status: state.sentList[index].status,
+                                    status:
+                                        state.sentList[index].status.toString(),
                                     date: state.sentList[index].date,
                                     vendor: state.sentList[index].receiver,
                                     name: state.sentList[index].name,

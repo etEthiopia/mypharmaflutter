@@ -124,7 +124,84 @@ class Order {
     );
   }
 
+  // static String StatustoString(Status status) {
+  //   String s;
+  //   switch (status) {
+  //     case Status.Processing:
+  //       s = 'processing';
+  //       break;
+  //     case Status.Onhold:
+  //       s = 'onhold';
+  //       break;
+  //     case Status.Shipping:
+  //       s = 'shipping';
+  //       break;
+  //     case Status.PendingPayment:
+  //       s = 'pending payment';
+  //       break;
+  //     case Status.Completed:
+  //       s = 'completed';
+  //       break;
+  //     case Status.Delivered:
+  //       s = 'delivered';
+  //       break;
+  //     case Status.Refunded:
+  //       s = 'refunded';
+  //       break;
+  //     case Status.Failed:
+  //       s = 'failed';
+  //       break;
+  //     default:
+  //       s = 'processing';
+  //   }
+  //   return s;
+  // }
+
+  // static Status toStatus(String status) {
+  //   Status s;
+  //   switch (status) {
+  //     case 'processing':
+  //       s = Status.Processing;
+  //       break;
+  //     case 'onhold':
+  //       s = Status.Onhold;
+  //       break;
+  //     case 'shipping':
+  //       s = Status.Shipping;
+  //       break;
+  //     case 'pending payment':
+  //       s = Status.PendingPayment;
+  //       break;
+  //     case 'completed':
+  //       s = Status.Completed;
+  //       break;
+  //     case 'delivered':
+  //       s = Status.Delivered;
+  //       break;
+  //     case 'refunded':
+  //       s = Status.Refunded;
+  //       break;
+  //     case 'failed':
+  //       s = Status.Failed;
+  //       break;
+  //     default:
+  //       s = Status.Processing;
+  //   }
+  //   return s;
+  // }
+
   @override
   String toString() =>
       'Order {id: $id, name: $name, price: $price, quantity: $quantity}';
+}
+
+enum Status {
+  Processing,
+  Onhold,
+  Shipping,
+  PendingPayment,
+  Completed,
+  Delivered,
+  Refunded,
+  Failed
 }

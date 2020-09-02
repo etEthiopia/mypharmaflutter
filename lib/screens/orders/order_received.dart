@@ -110,9 +110,7 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   @override
   void initState() {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
-
     _orderBloc.add(OrderReceivedFetched());
-
     super.initState();
   }
 
@@ -216,7 +214,15 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                                                         .postid,
                                                     id: state
                                                         .receivedList[index].id,
-                                                  )));
+                                                    selectedCategory: state
+                                                        .receivedList[index]
+                                                        .status,
+                                                  ))).then((value) {
+                                        _orderBloc =
+                                            BlocProvider.of<OrderBloc>(context);
+                                        _orderBloc.add(OrderReceivedFetched());
+                                        return true;
+                                      });
                                     },
                                     child: OrderCard(
                                       // state.receivedList[index].toString()
@@ -224,7 +230,8 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                                       quantity:
                                           state.receivedList[index].quantity,
                                       price: state.receivedList[index].price,
-                                      status: state.receivedList[index].status,
+                                      status: state.receivedList[index].status
+                                          .toString(),
                                       date: state.receivedList[index].date,
                                       vendor: state.receivedList[index].sender,
                                       name: state.receivedList[index].name,

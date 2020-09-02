@@ -22,6 +22,10 @@ class UserDrawer extends StatelessWidget {
       }
     }
 
+    _login() {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
+
     _stock() {
       Navigator.pushReplacementNamed(context, '/stock');
     }
@@ -55,6 +59,9 @@ class UserDrawer extends StatelessWidget {
               decoration: BoxDecoration(color: primary),
             ),
             InkWell(
+              onTap: () {
+                _login();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
