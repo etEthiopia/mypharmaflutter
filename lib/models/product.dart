@@ -15,12 +15,14 @@ class Product {
   String vendor;
   int price;
 
-  Product(
-      {@required this.id,
-      @required this.title,
-      @required this.vendor,
-      @required this.price,
-      @required this.image});
+  Product({
+    @required this.id,
+    @required this.title,
+    @required this.vendor,
+    @required this.price,
+    @required this.image,
+    this.description,
+  });
 
   static List<Product> generateStockList(List<dynamic> productslist) {
     List<Product> productsfetched = List<Product>();
@@ -31,7 +33,8 @@ class Product {
           price: products['min_price'],
           title: products['title'],
           vendor: null,
-          image: products['thumbnail']));
+          image: products['thumbnail'],
+          description: products['descriptioin']));
     }
     return productsfetched;
   }

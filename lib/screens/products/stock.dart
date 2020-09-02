@@ -7,8 +7,10 @@ import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/page_end.dart';
 import 'package:mypharma/components/product.dart';
 import 'package:mypharma/components/show_error.dart';
+import 'package:mypharma/components/stock_product.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/api_service.dart';
+import 'package:mypharma/theme/colors.dart';
 
 class Stock extends StatefulWidget {
   @override
@@ -20,7 +22,7 @@ class _StockState extends State<Stock> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-      appBar: simpleAppBar(title: 'Stock'),
+      appBar: cleanAppBar(title: 'Stock'),
       drawer: UserDrawer(),
       body: BlocProvider<ProductBloc>(
         create: (context) => ProductBloc(apiService),
@@ -86,19 +88,24 @@ class _StockListState extends State<StockList> {
       if (state is MyStockLoaded) {
         return Scaffold(
           backgroundColor: Colors.grey[100],
+          floatingActionButton: FloatingActionButton(
+            child: Icon(
+              Icons.add,
+              size: 30,
+            ),
+            backgroundColor: accent,
+          ),
           body: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 0),
-              child: GridView.builder(
+              child: ListView.builder(
                 itemCount: state.productsList.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: col),
                 itemBuilder: (BuildContext context, int index) {
-                  return product(
+                  return StockProduct(
                     id: state.productsList[index].id,
                     name: state.productsList[index].title,
                     image: state.productsList[index].image,
-                    org: null,
+                    description: state.productsList[index].description,
                     price: state.productsList[index].price.toString(),
                   );
                 },
