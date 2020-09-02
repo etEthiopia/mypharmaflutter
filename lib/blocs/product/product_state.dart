@@ -35,6 +35,15 @@ class MyStockLoaded extends ProductState {
   List<Object> get props => [productsList];
 }
 
+class ProductLoaded extends ProductState {
+  final Product product;
+
+  ProductLoaded({this.product});
+
+  @override
+  List<Object> get props => [product];
+}
+
 class ProductAllLoaded extends ProductState {}
 
 class ProductUpdated extends ProductState {}

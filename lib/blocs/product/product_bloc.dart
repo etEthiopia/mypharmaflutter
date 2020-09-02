@@ -17,6 +17,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       yield* _mapNewsProductToState(event);
     } else if (event is MyStockFetched) {
       yield* _mapStockToState(event);
+    } else if (event is ProductDetailFetched) {
+      yield* _mapShowProductToState(event);
     }
   }
 
@@ -49,6 +51,24 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         } else {
           yield ProductNotLoaded();
         }
+      } else {
+        yield ProductNotLoaded();
+      }
+    } catch (e) {
+      yield ProductFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
+    }
+  }
+
+  Stream<ProductState> _mapShowProductToState(
+      ProductDetailFetched event) async* {
+    yield ProductLoading();
+    try {
+      final result = await _apiService.showProduct(id: event.id);
+      print("RESULT: " + result.toString());
+      if (result != null) {
+        print("yield");
+        yield ProductLoaded(product: result);
       } else {
         yield ProductNotLoaded();
       }

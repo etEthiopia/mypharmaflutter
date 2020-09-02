@@ -8,6 +8,7 @@ import 'package:mypharma/components/page_end.dart';
 import 'package:mypharma/components/product.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/models/models.dart';
+import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/services/api_service.dart';
 
 class BrowseProduct extends StatefulWidget {
@@ -94,12 +95,22 @@ class _BrowseProductListState extends State<BrowseProductList> {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: col),
                 itemBuilder: (BuildContext context, int index) {
-                  return product(
-                    id: state.productsList[index].id,
-                    name: state.productsList[index].title,
-                    image: state.productsList[index].image,
-                    org: state.productsList[index].vendor,
-                    price: state.productsList[index].price.toString(),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => ShowProduct(
+                                  id: state.productsList[index].id,
+                                )),
+                      );
+                    },
+                    child: product(
+                      id: state.productsList[index].id,
+                      name: state.productsList[index].title,
+                      image: state.productsList[index].image,
+                      org: state.productsList[index].vendor,
+                      price: state.productsList[index].price.toString(),
+                    ),
                   );
                 },
               ),

@@ -70,6 +70,9 @@ dependencies:
 
   path_provider: ^1.4.4
 
+  #gallery sliders
+  carousel_slider: ^2.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
