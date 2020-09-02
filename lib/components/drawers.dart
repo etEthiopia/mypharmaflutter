@@ -30,6 +30,10 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/stock');
     }
 
+    _browseProduct() {
+      Navigator.pushReplacementNamed(context, '/browse_products');
+    }
+
     _ordersent() {
       Navigator.pushReplacementNamed(context, '/order_sent');
     }
@@ -138,7 +142,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "New Products",
+                      "Browse Products",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: darksecond),
                     ),
@@ -332,7 +336,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "New Products",
+                      "Browse Products",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: darksecond),
                     ),
@@ -553,7 +557,7 @@ class UserDrawer extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Icon(
-                      Icons.new_releases,
+                      Icons.image_aspect_ratio,
                       color: primary,
                     ),
                     SizedBox(
@@ -569,6 +573,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _browseProduct();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -581,7 +588,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "New Products",
+                      "Browse Products",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: darksecond),
                     ),
@@ -775,7 +782,7 @@ class UserDrawer extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Icon(
-                      Icons.new_releases,
+                      Icons.image_aspect_ratio,
                       color: primary,
                     ),
                     SizedBox(
@@ -791,6 +798,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _browseProduct();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -803,7 +813,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "New Products",
+                      "Browse Products",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: darksecond),
                     ),
@@ -959,7 +969,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "New Products",
+                      "Browse Products",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: darksecond),
                     ),

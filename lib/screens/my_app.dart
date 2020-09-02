@@ -9,6 +9,7 @@ import 'package:mypharma/screens/auth/registerphy.dart';
 import 'package:mypharma/screens/front_splash.dart';
 import 'package:mypharma/screens/orders/order_sent.dart';
 import 'package:mypharma/screens/posts/feed.dart';
+import 'package:mypharma/screens/products/browse_products.dart';
 import 'package:mypharma/screens/products/stock.dart';
 import 'package:mypharma/screens/orders/order_received.dart';
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/registerphy': (context) => RegisterPhy(),
         '/feed': (context) => Feed(),
         '/stock': (context) => Stock(),
+        '/browse_products': (context) => BrowseProduct(),
         '/order_received': (context) => ReceivedOrderPage(),
         '/order_sent': (context) => SentOrderPage(),
       },

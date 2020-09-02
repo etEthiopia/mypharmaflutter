@@ -14,11 +14,32 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   @override
   Stream<ProductState> mapEventToState(ProductEvent event) async* {
     if (event is MyProductFetched) {
-      yield* _mapNewsFetchedToState(event);
+      yield* _mapNewsProductToState(event);
+    } else if (event is MyStockFetched) {
+      yield* _mapStockToState(event);
     }
   }
 
-  Stream<ProductState> _mapNewsFetchedToState(MyProductFetched event) async* {
+  Stream<ProductState> _mapStockToState(MyStockFetched event) async* {
+    yield ProductLoading();
+    try {
+      final result = await _apiService.fetchMyStock();
+      if (result != null) {
+        if (result.length > 0) {
+          yield MyStockLoaded(productsList: result);
+        } else {
+          yield ProductNotLoaded();
+        }
+      } else {
+        yield ProductNotLoaded();
+      }
+    } catch (e) {
+      yield ProductFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
+    }
+  }
+
+  Stream<ProductState> _mapNewsProductToState(MyProductFetched event) async* {
     yield ProductLoading();
     try {
       final result = await _apiService.fetchMyProducts();

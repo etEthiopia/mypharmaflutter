@@ -9,4 +9,6 @@ abstract class ProductEvent extends Equatable {
 
 class MyProductFetched extends ProductEvent {}
 
+class MyStockFetched extends ProductEvent {}
+
 class NewsBacked extends ProductEvent {}

@@ -10,32 +10,32 @@ import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/api_service.dart';
 
-class Stock extends StatefulWidget {
+class BrowseProduct extends StatefulWidget {
   @override
-  _StockState createState() => _StockState();
+  _BrowseProductState createState() => _BrowseProductState();
 }
 
-class _StockState extends State<Stock> {
+class _BrowseProductState extends State<BrowseProduct> {
   @override
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-      appBar: simpleAppBar(title: 'Stock'),
+      appBar: simpleAppBar(title: 'Browse Products'),
       drawer: UserDrawer(),
       body: BlocProvider<ProductBloc>(
         create: (context) => ProductBloc(apiService),
-        child: StockList(),
+        child: BrowseProductList(),
       ),
     );
   }
 }
 
-class StockList extends StatefulWidget {
+class BrowseProductList extends StatefulWidget {
   @override
-  _StockListState createState() => _StockListState();
+  _BrowseProductListState createState() => _BrowseProductListState();
 }
 
-class _StockListState extends State<StockList> {
+class _BrowseProductListState extends State<BrowseProductList> {
   int col = 0;
   void _colFix(bool por) {
     if (por) {
@@ -52,7 +52,7 @@ class _StockListState extends State<StockList> {
   @override
   void initState() {
     final _productBloc = BlocProvider.of<ProductBloc>(context);
-    _productBloc.add(MyStockFetched());
+    _productBloc.add(MyProductFetched());
     super.initState();
   }
 
@@ -83,7 +83,7 @@ class _StockListState extends State<StockList> {
           return NoInternet(context, 'feed');
         }
       }
-      if (state is MyStockLoaded) {
+      if (state is MyProductLoaded) {
         return Scaffold(
           backgroundColor: Colors.grey[100],
           body: SafeArea(
@@ -98,7 +98,7 @@ class _StockListState extends State<StockList> {
                     id: state.productsList[index].id,
                     name: state.productsList[index].title,
                     image: state.productsList[index].image,
-                    org: null,
+                    org: state.productsList[index].vendor,
                     price: state.productsList[index].price.toString(),
                   );
                 },

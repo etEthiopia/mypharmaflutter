@@ -22,6 +22,7 @@ abstract class APIServiceSkel {
 
 class APIService extends APIServiceSkel {
   static String token;
+  static int id;
 
   @override
   Future<User> getCurrentUser() async {
@@ -195,6 +196,54 @@ class APIService extends APIServiceSkel {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
               List<Product> products = Product.generateProductList(
+                  json.decode(res.body)['0']['product']);
+
+              return products;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw ProductException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw ProductException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw ProductException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw ProductException(message: 'Wrong Connection');
+        }
+      } on SocketException {
+        print('Internet Error');
+        throw ProductException(message: "Check Your Connection");
+      }
+    } else {
+      throw ProductException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<List<dynamic>> fetchMyStock() async {
+    String product = "stock";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$product/${APIService.id}",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              List<Product> products = Product.generateStockList(
                   json.decode(res.body)['0']['product']);
 
               return products;

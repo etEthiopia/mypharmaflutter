@@ -22,6 +22,20 @@ class Product {
       @required this.price,
       @required this.image});
 
+  static List<Product> generateStockList(List<dynamic> productslist) {
+    List<Product> productsfetched = List<Product>();
+
+    for (var products in productslist) {
+      productsfetched.add(Product(
+          id: products['id'],
+          price: products['min_price'],
+          title: products['title'],
+          vendor: null,
+          image: products['thumbnail']));
+    }
+    return productsfetched;
+  }
+
   static List<Product> generateProductList(List<dynamic> productslist) {
     List<Product> productsfetched = List<Product>();
 
