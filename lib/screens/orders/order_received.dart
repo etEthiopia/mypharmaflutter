@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
+import 'package:mypharma/components/empty.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/page_end.dart';
 import 'package:mypharma/components/show_error.dart';
@@ -35,53 +36,74 @@ class _ReceivedOrderPageState extends State<ReceivedOrderPage> {
 class ReceivedOrdersList extends StatefulWidget {
   @override
   _ReceivedOrdersListState createState() => _ReceivedOrdersListState();
+
+  String selectedCategory = 'all';
 }
 
 class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   ScrollController _controller;
 
-  int _selectedCategory = 0;
-
   List<DropdownMenuItem<dynamic>> categories = [
     DropdownMenuItem(
-      value: 0,
+      value: 'all',
       child: Text(
         "All",
         style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
       ),
     ),
     DropdownMenuItem(
-      value: 1,
+      value: 'processing',
       child: Text(
-        "Order Pending",
+        "Processing",
         style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
       ),
     ),
     DropdownMenuItem(
-      value: 2,
+      value: 'onhold',
       child: Text(
-        "Order Seen",
+        "Onhold",
         style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
       ),
     ),
     DropdownMenuItem(
-      value: 3,
+      value: 'shipping',
       child: Text(
-        "Order Accepted",
+        "Shipping",
         style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
       ),
     ),
     DropdownMenuItem(
-      value: 4,
+      value: 'pending payment',
       child: Text(
-        "Order Denied",
+        "Pending Payment",
         style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
       ),
     ),
     DropdownMenuItem(
-      value: 5,
+      value: 'completed',
       child: Text(
-        "On Delivery",
+        "Completed",
+        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+      ),
+    ),
+    DropdownMenuItem(
+      value: 'delivered',
+      child: Text(
+        "Delivered",
+        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+      ),
+    ),
+    DropdownMenuItem(
+      value: 'refunded',
+      child: Text(
+        "Refunded",
+        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+      ),
+    ),
+    DropdownMenuItem(
+      value: 'failed',
+      child: Text(
+        "Failed",
         style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
       ),
     ),
@@ -89,18 +111,34 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
 
   Widget _categoryPrompt() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      child: DropdownButtonFormField(
-        style: TextStyle(color: dark, fontFamily: defaultFont),
-        items: categories,
-        hint: Text("Status"),
-        value: _selectedCategory,
-        onChanged: (value) {
-          setState(() {
-            _selectedCategory = value;
-          });
-        },
-        isExpanded: true,
+      padding: const EdgeInsets.only(
+        top: 20,
+        left: 10,
+        right: 15,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Order Status",
+              style: TextStyle(
+                  color: primary, fontSize: 10, fontFamily: defaultFont)),
+          DropdownButtonFormField(
+            style: TextStyle(color: dark, fontFamily: defaultFont),
+            items: categories,
+            hint: Text("Status"),
+            value: widget.selectedCategory,
+            onChanged: (value) {
+              setState(() {
+                widget.selectedCategory = value;
+              });
+              // _orderBloc = BlocProvider.of<OrderBloc>(context);
+
+              // _orderBloc.add(OrderStatusChangeOrdered(
+              //     status: widget.selectedCategory, id: widget.id));
+            },
+            isExpanded: true,
+          ),
+        ],
       ),
     );
   }
@@ -118,21 +156,6 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   Widget build(BuildContext context) {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
 
-    // _scrollListener() {
-    //   if (_controller.offset >= _controller.position.maxScrollExtent &&
-    //       !_controller.position.outOfRange) {
-    //     print("left the top");
-    //     // _controller.[]
-    //   }
-    //   if (_controller.offset <= _controller.position.minScrollExtent &&
-    //       !_controller.position.outOfRange) {
-    //     print("reach the top");
-    //   }
-    // }
-
-    // _controller = ScrollController();
-    // _controller.addListener(_scrollListener);
-
     return BlocListener<OrderBloc, OrderState>(
       listener: (context, state) {
         if (state is OrderFailure) {
@@ -145,6 +168,8 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
             return PageEnd(context, 'order_received');
           } else if (state is OrderLoading || state is OrderInital) {
             return LoadingLogin(context);
+          } else if (state is OrderNothingSent) {
+            return empty(context, 'order_received');
           } else if (state is OrderFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
@@ -163,11 +188,15 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                       child: Column(
                         children: [
                           _categoryPrompt(),
-                          _selectedCategory > 1
+                          widget.selectedCategory != 'all'
                               ? Container(
                                   padding: EdgeInsets.symmetric(vertical: 10),
                                   child: InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      print("Selected: " +
+                                          state.receivedList[0].selected
+                                              .toString());
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -200,7 +229,9 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                               child: ListView.builder(
                                 itemCount: state.receivedList.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  print(state.receivedList[index].toString());
+                                  print("Selected or naa! " +
+                                      state.receivedList[index].selected
+                                          .toString());
                                   return InkWell(
                                     onTap: () {
                                       print("clicked");
@@ -226,15 +257,7 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                                     },
                                     child: OrderCard(
                                       // state.receivedList[index].toString()
-                                      id: state.receivedList[index].id,
-                                      quantity:
-                                          state.receivedList[index].quantity,
-                                      price: state.receivedList[index].price,
-                                      status: state.receivedList[index].status
-                                          .toString(),
-                                      date: state.receivedList[index].date,
-                                      vendor: state.receivedList[index].sender,
-                                      name: state.receivedList[index].name,
+                                      o: state.receivedList[index],
                                       received: true,
                                     ),
                                   );

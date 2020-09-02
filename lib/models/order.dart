@@ -15,6 +15,7 @@ class Order {
   String phone;
   String note;
   String name;
+  bool selected;
   String receiver;
   String sender;
 
@@ -33,6 +34,7 @@ class Order {
       @required this.note,
       @required this.date,
       @required this.name,
+      @required this.selected,
       @required this.sender});
 
   Order.receivedlist(
@@ -44,6 +46,7 @@ class Order {
       @required this.status,
       @required this.date,
       @required this.name,
+      @required this.selected,
       @required this.sender});
 
   Order.sentlist(
@@ -78,16 +81,16 @@ class Order {
   factory Order.fromJsonlist(Map<String, dynamic> json, bool received) {
     if (received) {
       return Order.receivedlist(
-        id: json['id'],
-        postid: json['post_id'],
-        userid: json['user_id'],
-        price: double.parse(json['net_total_price'].toString()),
-        quantity: json['order_quantity'],
-        date: json['created_at'],
-        status: json['order_status'],
-        sender: json['name'],
-        name: json['productname'],
-      );
+          id: json['id'],
+          postid: json['post_id'],
+          userid: json['user_id'],
+          price: double.parse(json['net_total_price'].toString()),
+          quantity: json['order_quantity'],
+          date: json['created_at'],
+          status: json['order_status'],
+          sender: json['name'],
+          name: json['productname'],
+          selected: false);
     }
 
     return Order.sentlist(

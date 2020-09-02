@@ -92,8 +92,13 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         yield OrderNotLoaded();
       }
     } catch (e) {
-      yield OrderFailure(
-          error: e.message.toString() ?? 'An unknown error occurred');
+      if (e.message.toString() == 'empty') {
+        print("nothing");
+        yield OrderNothingReceived();
+      } else {
+        yield OrderFailure(
+            error: e.message.toString() ?? 'An unknown error occurred');
+      }
     }
   }
 

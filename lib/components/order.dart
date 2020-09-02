@@ -1,38 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:mypharma/models/models.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
 class OrderCard extends StatefulWidget {
-  OrderCard(
-      {Key key,
-      this.id,
-      this.quantity,
-      this.price,
-      this.status,
-      this.date,
-      this.name,
-      this.vendor,
-      this.received})
-      : super(key: key);
+  OrderCard({
+    Key key,
+    this.received,
+    this.o,
+  }) : super(key: key);
 
   @override
   _OrderCardState createState() => _OrderCardState();
 
-  final int id;
-  final int quantity;
-  final double price;
-  final String status;
-  final String date;
-  final String name;
-  final String vendor;
+  Order o;
+
   final bool received;
-  bool selected = false;
 }
 
 class _OrderCardState extends State<OrderCard> {
   selected() {
     setState(() {
-      widget.selected = !widget.selected;
+      widget.o.selected = !widget.o.selected;
     });
   }
 
@@ -60,7 +49,7 @@ class _OrderCardState extends State<OrderCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  widget.name,
+                  widget.o.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -70,7 +59,7 @@ class _OrderCardState extends State<OrderCard> {
                   height: 5,
                 ),
                 Text(
-                  widget.vendor,
+                  widget.received ? widget.o.sender : widget.o.receiver,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -84,7 +73,7 @@ class _OrderCardState extends State<OrderCard> {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        widget.date,
+                        widget.o.date,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -100,7 +89,7 @@ class _OrderCardState extends State<OrderCard> {
                                   fontSize: 10,
                                   fontFamily: defaultFont)),
                           Text(
-                            widget.quantity.toString(),
+                            widget.o.quantity.toString(),
                             style: TextStyle(
                                 color: darksecond,
                                 fontSize: 12,
@@ -128,7 +117,7 @@ class _OrderCardState extends State<OrderCard> {
                                   fontSize: 10,
                                   fontFamily: defaultFont)),
                           Text(
-                            widget.status,
+                            widget.o.status,
                             style: TextStyle(
                                 color: darksecond,
                                 fontSize: 15,
@@ -139,7 +128,7 @@ class _OrderCardState extends State<OrderCard> {
                     ),
                     Expanded(
                       child: Text(
-                        widget.price.toString() + " ETB",
+                        widget.o.price.toString() + " ETB",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -206,7 +195,7 @@ class _OrderCardState extends State<OrderCard> {
                   : Container(
                       width: 20,
                       child: Checkbox(
-                        value: widget.selected,
+                        value: widget.o.selected,
                         activeColor: dark,
                         onChanged: (current) {
                           selected();
