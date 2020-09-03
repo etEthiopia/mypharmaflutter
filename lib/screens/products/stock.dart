@@ -9,6 +9,7 @@ import 'package:mypharma/components/product.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/components/stock_product.dart';
 import 'package:mypharma/models/models.dart';
+import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/services/api_service.dart';
 import 'package:mypharma/theme/colors.dart';
 
@@ -101,12 +102,22 @@ class _StockListState extends State<StockList> {
               child: ListView.builder(
                 itemCount: state.productsList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return StockProduct(
-                    id: state.productsList[index].id,
-                    name: state.productsList[index].title,
-                    image: state.productsList[index].image,
-                    description: state.productsList[index].description,
-                    price: state.productsList[index].price.toString(),
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => ShowProduct(
+                                  id: state.productsList[index].id,
+                                )),
+                      );
+                    },
+                    child: StockProduct(
+                      id: state.productsList[index].id,
+                      name: state.productsList[index].title,
+                      image: state.productsList[index].image,
+                      description: state.productsList[index].description,
+                      price: state.productsList[index].price.toString(),
+                    ),
                   );
                 },
               ),
