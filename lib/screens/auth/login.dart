@@ -42,6 +42,12 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _autoValidate = false;
+  bool _remember = false;
+  selected() {
+    setState(() {
+      _remember = !_remember;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +161,34 @@ class _LoginFormState extends State<LoginForm> {
       );
     }
 
+    Widget _rememberme() {
+      return Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 20,
+              child: Checkbox(
+                value: _remember,
+                activeColor: dark,
+                onChanged: (current) {
+                  selected();
+                },
+              ),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              "Remember Me",
+              style:
+                  TextStyle(color: dark, fontSize: 16, fontFamily: defaultFont),
+            )
+          ],
+        ),
+      );
+    }
+
     Widget _signinBtn() {
       return SizedBox(
         width: double.infinity,
@@ -248,6 +282,7 @@ class _LoginFormState extends State<LoginForm> {
                       _emailPrompt(),
                       _passwordPrompt(),
                       _sizedBox(),
+                      _rememberme(),
                       _signinBtn(),
                       _sizedBox(),
                       _forgotpassword(),
@@ -291,6 +326,7 @@ class _LoginFormState extends State<LoginForm> {
                           _emailPrompt(),
                           _passwordPrompt(),
                           _sizedBox(),
+                          _rememberme(),
                           _signinBtn(),
                           _sizedBox(),
                           _forgotpassword(),
