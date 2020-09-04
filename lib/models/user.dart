@@ -14,6 +14,7 @@ class User {
   String user_activation_key;
   String status;
   String token;
+  bool remember;
   var payload;
   String is_representative;
 
@@ -81,28 +82,36 @@ class User {
   factory User.fromData(String data) {
     List<dynamic> dict = data.split(',,');
 
-    return User(token: dict[0], user: <String, dynamic>{
-      "id": int.parse(dict[1]),
-      "name": dict[2],
-      "email": dict[3],
-      "role": int.parse(dict[4]),
-      "profileimg": dict[5]
+    return User(token: dict[1], user: <String, dynamic>{
+      "id": int.parse(dict[2]),
+      "name": dict[3],
+      "email": dict[4],
+      "role": int.parse(dict[5]),
+      "profileimg": dict[6]
     });
   }
 
-  static String jsonToString(var json) {
+  static String jsonToString(var json, bool remember) {
     String token = json['token'];
     String id = json['user']['id'].toString();
     String name = json['user']['name'];
     String email = json['user']['email'];
     String role = json['user']['role'].toString();
     var pi = json['user']['profileimg'];
+    String rememberme = 'f';
+    if (remember != null) {
+      if (remember) {
+        rememberme = 't';
+      }
+    }
     String profileimg = "null";
     if (pi != null) {
       profileimg = pi.toString();
     }
 
-    return token +
+    return rememberme +
+        ",," +
+        token +
         ",," +
         id +
         ",," +

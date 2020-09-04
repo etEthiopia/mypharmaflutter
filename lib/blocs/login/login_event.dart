@@ -9,9 +9,13 @@ abstract class LoginEvent extends Equatable {
 class LoginInWithEmailButtonPressed extends LoginEvent {
   final String email;
   final String password;
+  final bool remember;
 
-  LoginInWithEmailButtonPressed(
-      {@required this.email, @required this.password});
+  LoginInWithEmailButtonPressed({
+    @required this.email,
+    @required this.password,
+    @required this.remember,
+  });
 
   @override
   List<Object> get props => [email, password];

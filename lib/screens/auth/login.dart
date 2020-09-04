@@ -56,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
     _signin() async {
       if (_key.currentState.validate()) {
         _loginBloc.add(LoginInWithEmailButtonPressed(
-            email: _emailController.text, password: _passwordController.text));
+            email: _emailController.text, password: _passwordController.text, remember: _remember));
       } else {
         setState(() {
           _autoValidate = true;

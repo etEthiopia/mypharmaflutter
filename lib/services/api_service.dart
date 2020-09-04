@@ -8,7 +8,7 @@ import '../main.dart';
 
 abstract class APIServiceSkel {
   Future<User> getCurrentUser();
-  Future<User> signIn(String email, String password);
+  Future<User> signIn(String email, String password, bool remember);
   Future<User> signUp(
       {String name, String email, int profession, String password});
   Future<void> signOut();
@@ -30,8 +30,10 @@ class APIService extends APIServiceSkel {
     if (str != null) {
       var long = str.split(",,");
 
-      if (long.length == 6) {
-        return User.fromData(str);
+      if (long.length == 7) {
+        if (long[0] == 't') {
+          return User.fromData(str);
+        }
       }
     }
     print("str is null");
@@ -39,7 +41,7 @@ class APIService extends APIServiceSkel {
   }
 
   @override
-  Future<User> signIn(String email, String password) async {
+  Future<User> signIn(String email, String password, bool remember) async {
     var res = await http
         .post("$SERVER_IP/login",
             headers: <String, String>{
@@ -48,15 +50,12 @@ class APIService extends APIServiceSkel {
             body: jsonEncode(
                 <String, String>{"email": email, "password": password}))
         .timeout(Duration(seconds: 20));
-    // print("url: $SERVER_IP/login");
-    // print("email: $email");
-    // print("password: $password");
-    // print(json.decode(res.body)['sucess']);
     if (res.statusCode == 200) {
       if (res.body != null) {
         if (json.decode(res.body)['sucess']) {
           await storage.write(
-              key: "user", value: User.jsonToString(json.decode(res.body)));
+              key: "user",
+              value: User.jsonToString(json.decode(res.body), remember));
           return User.fromJson(json.decode(res.body));
         } else {
           print('Wrong Email or Password');
@@ -105,7 +104,8 @@ class APIService extends APIServiceSkel {
       if (res.body != null) {
         if (json.decode(res.body)['sucess']) {
           await storage.write(
-              key: "user", value: User.jsonToString(json.decode(res.body)));
+              key: "user",
+              value: User.jsonToString(json.decode(res.body), false));
           return User.fromJson(json.decode(res.body));
         } else {
           throw AuthException(message: 'Registeration Unsuccessful');

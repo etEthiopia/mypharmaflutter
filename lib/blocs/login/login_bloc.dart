@@ -33,7 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       LoginInWithEmailButtonPressed event) async* {
     yield LoginLoading();
     try {
-      final user = await _APIService.signIn(event.email, event.password);
+      final user = await _APIService.signIn(event.email, event.password, event.remember);
       if (user != null) {
         // push new Auth event
         _AuthBloc.add(UserLoggedIn(user: user));
