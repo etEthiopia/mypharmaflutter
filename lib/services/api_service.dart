@@ -42,32 +42,40 @@ class APIService extends APIServiceSkel {
 
   @override
   Future<User> signIn(String email, String password, bool remember) async {
-    var res = await http
-        .post("$SERVER_IP/login",
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: jsonEncode(
-                <String, String>{"email": email, "password": password}))
-        .timeout(Duration(seconds: 20));
-    if (res.statusCode == 200) {
-      if (res.body != null) {
-        if (json.decode(res.body)['sucess']) {
-          await storage.write(
-              key: "user",
-              value: User.jsonToString(json.decode(res.body), remember));
-          return User.fromJson(json.decode(res.body));
+    try {
+      var res = await http
+          .post("$SERVER_IP/login",
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(
+                  <String, String>{"email": email, "password": password}))
+          .timeout(Duration(seconds: 20));
+      if (res.statusCode == 200) {
+        if (res.body != null) {
+          if (json.decode(res.body)['sucess']) {
+            await storage.write(
+                key: "user",
+                value: User.jsonToString(json.decode(res.body), remember));
+            return User.fromJson(json.decode(res.body));
+          } else {
+            print('Wrong Email or Password');
+            throw AuthException(message: 'Wrong Email or Password');
+          }
         } else {
-          print('Wrong Email or Password');
-          throw AuthException(message: 'Wrong Email or Password');
+          print('Wrong credntials');
+          throw AuthException(message: 'Wrong credntials');
         }
       } else {
-        print('Wrong credntials');
-        throw AuthException(message: 'Wrong credntials');
+        print('Connection Error');
+        throw AuthException(message: 'Connection Error');
       }
-    } else {
-      print('Connection Error');
-      throw AuthException(message: 'Connection Error');
+    } on SocketException {
+      print('Internet Error');
+      throw AuthException(message: "Check Your Connection");
+    } catch (e) {
+      print('Error from Server');
+      throw AuthException(message: "Sorry, We couldn't reach the server");
     }
   }
 
@@ -80,42 +88,44 @@ class APIService extends APIServiceSkel {
   @override
   Future<User> signUp(
       {String name, String email, int profession, String password}) async {
-    var res = await http
-        .post("$SERVER_IP/register",
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: jsonEncode(<String, dynamic>{
-              "email": email,
-              "password": password,
-              "name": name,
-              "profession": profession,
-              "role": 5
-            }))
-        .timeout(Duration(seconds: 20));
+    try {
+      var res = await http
+          .post("$SERVER_IP/register",
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+              },
+              body: jsonEncode(<String, dynamic>{
+                "email": email,
+                "password": password,
+                "name": name,
+                "profession": profession,
+                "role": 5
+              }))
+          .timeout(Duration(seconds: 20));
 
-    print("url: $SERVER_IP/register");
-    print("email: $email");
-    print("password: $password");
-    print("name: $name");
-    print("profession: $profession");
-    print(json.decode(res.body)['sucess']);
-    if (res.statusCode == 200) {
-      if (res.body != null) {
-        if (json.decode(res.body)['sucess']) {
-          await storage.write(
-              key: "user",
-              value: User.jsonToString(json.decode(res.body), false));
-          return User.fromJson(json.decode(res.body));
+      if (res.statusCode == 200) {
+        if (res.body != null) {
+          if (json.decode(res.body)['sucess']) {
+            await storage.write(
+                key: "user",
+                value: User.jsonToString(json.decode(res.body), false));
+            return User.fromJson(json.decode(res.body));
+          } else {
+            throw AuthException(message: 'Registeration Unsuccessful');
+          }
         } else {
-          throw AuthException(message: 'Registeration Unsuccessful');
+          throw AuthException(message: 'Registration Failed');
         }
       } else {
-        throw AuthException(message: 'Registration Failed');
+        print('Connection Error');
+        throw AuthException(message: 'Connection Error');
       }
-    } else {
-      print('Connection Error');
-      throw AuthException(message: 'Connection Error');
+    } on SocketException {
+      print('Internet Error');
+      throw AuthException(message: "Check Your Connection");
+    } catch (e) {
+      print('Error from Server');
+      throw AuthException(message: "Sorry, We couldn't reach the server");
     }
   }
 
@@ -173,6 +183,9 @@ class APIService extends APIServiceSkel {
       } on SocketException {
         print('Internet Error');
         throw NewsException(message: "Check Your Connection");
+      } catch (e) {
+        print('Error from Server');
+        throw NewsException(message: "Sorry, We couldn't reach the server");
       }
     } else {
       throw NewsException(message: 'Not Authorized');
@@ -221,6 +234,9 @@ class APIService extends APIServiceSkel {
       } on SocketException {
         print('Internet Error');
         throw ProductException(message: "Check Your Connection");
+      } catch (e) {
+        print('Error from Server');
+        throw ProductException(message: "Sorry, We couldn't reach the server");
       }
     } else {
       throw ProductException(message: 'Not Authorized');
@@ -365,6 +381,9 @@ class APIService extends APIServiceSkel {
       } on SocketException {
         print('Internet Error');
         throw ProductException(message: "Check Your Connection");
+      } catch (e) {
+        print('Error from Server');
+        throw ProductException(message: "Sorry, We couldn't reach the server");
       }
     } else {
       throw ProductException(message: 'Not Authorized');
@@ -428,6 +447,9 @@ class APIService extends APIServiceSkel {
       } on SocketException {
         print('Internet Error');
         throw OrderException(message: "Check Your Connection");
+      } catch (e) {
+        print('Error from Server');
+        throw OrderException(message: "Sorry, We couldn't reach the server");
       }
     } else {
       throw ProductException(message: 'Not Authorized');
@@ -477,6 +499,9 @@ class APIService extends APIServiceSkel {
       } on SocketException {
         print('Internet Error');
         throw OrderException(message: "Check Your Connection");
+      } catch (e) {
+        print('Error from Server');
+        throw OrderException(message: "Sorry, We couldn't reach the server");
       }
     } else {
       throw OrderException(message: 'Not Authorized');
@@ -525,6 +550,9 @@ class APIService extends APIServiceSkel {
       } on SocketException {
         print('Internet Error');
         throw OrderException(message: "Check Your Connection");
+      } catch (e) {
+        print('Error from Server');
+        throw OrderException(message: "Sorry, We couldn't reach the server");
       }
     } else {
       throw OrderException(message: 'Not Authorized');

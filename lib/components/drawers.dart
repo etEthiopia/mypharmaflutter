@@ -15,7 +15,7 @@ class UserDrawer extends StatelessWidget {
       var route = ModalRoute.of(context);
       if (route != null) {
         if (route.settings.name.length != 1) {
-          Navigator.pushReplacementNamed(context, '/');
+          Navigator.popUntil(context, ModalRoute.withName('/'));
         } else {
           print("ROUTE SETTINGS: " + route.settings.name.length.toString());
         }
