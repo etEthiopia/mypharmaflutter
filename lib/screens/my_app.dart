@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             }
           }
           // otherwise show login page
-          return Login();
+          return Feed();
         },
       ),
     );

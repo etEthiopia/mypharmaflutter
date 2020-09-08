@@ -56,7 +56,9 @@ class _LoginFormState extends State<LoginForm> {
     _signin() async {
       if (_key.currentState.validate()) {
         _loginBloc.add(LoginInWithEmailButtonPressed(
-            email: _emailController.text, password: _passwordController.text, remember: _remember));
+            email: _emailController.text,
+            password: _passwordController.text,
+            remember: _remember));
       } else {
         setState(() {
           _autoValidate = true;
@@ -257,6 +259,33 @@ class _LoginFormState extends State<LoginForm> {
       );
     }
 
+    Widget _feedBtn() {
+      return SizedBox(
+        width: double.infinity,
+        child: Material(
+          color: extralight.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(15.0),
+          child: InkWell(
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/feed');
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Text(
+                "See whats new in our Feed",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: dark,
+                  fontFamily: defaultFont,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
       if (state is LoginFailure) {
         showError(state.error, context);
@@ -289,7 +318,9 @@ class _LoginFormState extends State<LoginForm> {
                       _sizedBox(),
                       _orText(),
                       _divider(),
-                      _createaccountBtn()
+                      _createaccountBtn(),
+                      _sizedBox(),
+                      _feedBtn(),
                     ]),
                   ),
                 ],
@@ -310,7 +341,9 @@ class _LoginFormState extends State<LoginForm> {
                       children: <Widget>[
                         _logoSection(),
                         _divider(),
-                        _createaccountBtn()
+                        _createaccountBtn(),
+                        _sizedBox(),
+                        _feedBtn(),
                       ],
                     ),
                   ),

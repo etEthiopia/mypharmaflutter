@@ -229,9 +229,6 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                               child: ListView.builder(
                                 itemCount: state.receivedList.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  print("Selected or naa! " +
-                                      state.receivedList[index].selected
-                                          .toString());
                                   return InkWell(
                                     onTap: () {
                                       print("clicked");

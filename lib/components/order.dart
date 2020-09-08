@@ -142,10 +142,12 @@ class _OrderCardState extends State<OrderCard> {
               ],
             ),
           ),
-          VerticalDivider(
-            width: 5,
-            color: extralight,
-          ),
+          !widget.received
+              ? VerticalDivider(
+                  width: 5,
+                  color: extralight,
+                )
+              : Container(),
           Container(
               padding: EdgeInsets.only(left: 5),
               child: !widget.received
@@ -193,15 +195,15 @@ class _OrderCardState extends State<OrderCard> {
                       ],
                     )
                   : Container(
-                      width: 20,
-                      child: Checkbox(
-                        value: widget.o.selected,
-                        activeColor: dark,
-                        onChanged: (current) {
-                          selected();
-                        },
-                      ),
-                    )),
+                      // width: 20,
+                      // child: Checkbox(
+                      //   value: widget.o.selected,
+                      //   activeColor: dark,
+                      //   onChanged: (current) {
+                      //     selected();
+                      //   },
+                      // ),
+                      )),
         ],
       ),
     );

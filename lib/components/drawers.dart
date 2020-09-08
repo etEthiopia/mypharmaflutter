@@ -15,7 +15,8 @@ class UserDrawer extends StatelessWidget {
       var route = ModalRoute.of(context);
       if (route != null) {
         if (route.settings.name.length != 1) {
-          Navigator.popUntil(context, ModalRoute.withName('/'));
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/', ModalRoute.withName('/'));
         } else {
           print("ROUTE SETTINGS: " + route.settings.name.length.toString());
         }
@@ -109,6 +110,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: (){
+                _feed();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -130,6 +134,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: (){
+                _browseProduct();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(

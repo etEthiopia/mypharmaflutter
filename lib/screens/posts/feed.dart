@@ -7,6 +7,7 @@ import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/page_end.dart';
 import 'package:mypharma/components/show_error.dart';
+import 'package:mypharma/components/signinup.dart';
 import 'package:mypharma/screens/front_splash.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
@@ -109,11 +110,9 @@ class _FeedListState extends State<FeedList> {
     }, child: BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
       if (state is NewsAllLoaded) {
         return PageEnd(context, 'feed');
-      }
-      else if (state is NewsLoading || state is NewsInital) {
+      } else if (state is NewsLoading || state is NewsInital) {
         return LoadingLogin(context);
-      }
-      else if (state is NewsFailure) {
+      } else if (state is NewsFailure) {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
         } else {
@@ -124,75 +123,89 @@ class _FeedListState extends State<FeedList> {
         return Scaffold(
           backgroundColor: Colors.grey[300],
           body: SafeArea(
-              child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: padd),
-            child: Material(
-              color: Colors.grey[100],
-              child: Container(
-                  padding: orientation == Orientation.portrait
-                      ? EdgeInsets.all(0)
-                      : EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: <Widget>[
-                      page > 1
-                          ? Container(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    page = 1;
-                                  });
-                                  _feedBloc.add(NewsFetched(page: page));
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.timer,
-                                      color: dark,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      "Go back to the latest news",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.clip,
-                                      style: TextStyle(
-                                          color: dark,
-                                          fontSize: 20,
-                                          fontFamily: defaultFont),
-                                    ),
-                                  ],
-                                ),
-                              ))
-                          : SizedBox(
-                              height: 0,
-                            ),
-                      Expanded(
-                        child: GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 1),
-                            itemCount: state.newsList.length,
-                            controller: _controller,
-                            itemBuilder: (BuildContext context, int index) {
-                              last = state.last;
+              child: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: padd),
+                  child: Material(
+                    color: Colors.grey[100],
+                    child: Container(
+                        padding: orientation == Orientation.portrait
+                            ? EdgeInsets.all(0)
+                            : EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          children: <Widget>[
+                            page > 1
+                                ? Container(
+                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          page = 1;
+                                        });
+                                        _feedBloc.add(NewsFetched(page: page));
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.timer,
+                                            color: dark,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            "Go back to the latest news",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.clip,
+                                            style: TextStyle(
+                                                color: dark,
+                                                fontSize: 20,
+                                                fontFamily: defaultFont),
+                                          ),
+                                        ],
+                                      ),
+                                    ))
+                                : SizedBox(
+                                    height: 0,
+                                  ),
+                            Expanded(
+                              child: GridView.builder(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 1),
+                                  itemCount: state.newsList.length,
+                                  controller: _controller,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    last = state.last;
 
-                              return article(
-                                  title: state.newsList[index].title.toString(),
-                                  image: state.newsList[index].image.toString(),
-                                  content: state.newsList[index].description
-                                      .toString(),
-                                  time: state.newsList[index].date.toString(),
-                                  category: state.newsList[index].category,
-                                  context: context,
-                                  id: state.newsList[index].id);
-                            }),
-                      )
-                    ],
-                  )),
-            ),
+                                    return article(
+                                        title: state.newsList[index].title
+                                            .toString(),
+                                        image: state.newsList[index].image
+                                            .toString(),
+                                        content: state
+                                            .newsList[index].description
+                                            .toString(),
+                                        time: state.newsList[index].date
+                                            .toString(),
+                                        category:
+                                            state.newsList[index].category,
+                                        context: context,
+                                        id: state.newsList[index].id);
+                                  }),
+                            ),
+                          ],
+                        )),
+                  ),
+                ),
+              ),
+              SignInUp(),
+            ],
           )),
         );
       }

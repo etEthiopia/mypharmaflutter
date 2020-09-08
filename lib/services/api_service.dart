@@ -135,60 +135,52 @@ class APIService extends APIServiceSkel {
     if (page != 1) {
       news += "?page=$page";
     }
-    if (APIService.token != null) {
-      try {
-        var res = await http.get(
-          "$SERVER_IP/$news",
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Authorization': 'Bearer ${APIService.token}'
-          },
-        ).timeout(Duration(seconds: 20));
 
-        if (res.statusCode == 200) {
-          if (res.body != null) {
-            if (json.decode(res.body)['sucess']) {
-              int from = json.decode(res.body)['0']['news']['current_page'];
-              int last = json.decode(res.body)['0']['news']['last_page'];
-              if (from > last) {
-                print("End of Feed");
-                List<dynamic> result = [from, last];
-                return result;
-              } else {
-                List<News> news = News.generateNewsList(
-                    json.decode(res.body)['0']['news']['data']);
-
-                List<dynamic> result = [from, last, news];
-                return result;
-              }
+    try {
+      var res = await http.get(
+        "$SERVER_IP/$news",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      ).timeout(Duration(seconds: 20));
+      if (res.statusCode == 200) {
+        if (res.body != null) {
+          if (json.decode(res.body)['sucess']) {
+            int from = json.decode(res.body)['0']['news']['current_page'];
+            int last = json.decode(res.body)['0']['news']['last_page'];
+            if (from > last) {
+              print("End of Feed");
+              List<dynamic> result = [from, last];
+              return result;
             } else {
-              if (json
-                  .decode(res.body)['message']
-                  .toString()
-                  .contains('oken')) {
-                print(json.decode(res.body)['message']);
-                throw NewsException(message: 'Not Authorized');
-              }
-              print('Wrong Request');
-              throw NewsException(message: 'Wrong Request');
+              List<News> news = News.generateNewsList(
+                  json.decode(res.body)['0']['news']['data']);
+
+              List<dynamic> result = [from, last, news];
+              return result;
             }
           } else {
-            print('Wrong Question');
-            throw NewsException(message: 'Wrong Question');
+            if (json.decode(res.body)['message'].toString().contains('oken')) {
+              print(json.decode(res.body)['message']);
+              throw NewsException(message: 'Not Authorized');
+            }
+            print('Wrong Request');
+            throw NewsException(message: 'Wrong Request');
           }
         } else {
-          print('Wrong Connection');
-          throw NewsException(message: 'Wrong Connection');
+          print('Wrong Question');
+          throw NewsException(message: 'Wrong Question');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw NewsException(message: "Check Your Connection");
-      } catch (e) {
-        print('Error from Server');
-        throw NewsException(message: "Sorry, We couldn't reach the server");
+      } else {
+        print('Wrong Connection');
+        throw NewsException(message: 'Wrong Connection');
       }
-    } else {
-      throw NewsException(message: 'Not Authorized');
+    } on SocketException {
+      print('Internet Error');
+      throw NewsException(message: "Check Your Connection");
+    } catch (e) {
+      print('Error from Server');
+      throw NewsException(message: "Sorry, We couldn't reach the server");
     }
   }
 
