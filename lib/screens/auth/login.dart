@@ -289,6 +289,8 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
       if (state is LoginFailure) {
         showError(state.error, context);
+      } else if (state is LoginSuccess) {
+        Navigator.pushReplacementNamed(context, '/');
       }
     }, child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       if (state is LoginLoading) {

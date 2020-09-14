@@ -28,8 +28,7 @@ GET http://localhost/mypharma/public/api/news?page=1
 
 
 
-GET http://192.168.1.5/mypharma/public/api/products/
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTkwNDIzNTgsImV4cCI6MTU5OTA0NTk1OCwibmJmIjoxNTk5MDQyMzU4LCJqdGkiOiJIUkU4cFI2TXFYY3Fmcld6Iiwic3ViIjo2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.MH4aA5tYotagoicp-9g6UGCJxJf_6lWQLM_c_FZTIXg
+GET http://192.168.1.2/mypharma/public/api/products/
 
 ###
 
