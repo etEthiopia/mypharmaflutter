@@ -58,7 +58,7 @@ class UserDrawer extends StatelessWidget {
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/logo/logo50.png'),
+                  backgroundImage: AssetImage('assets/images/logo/logo100.png'),
                 ),
               ),
               decoration: BoxDecoration(color: primary),
@@ -110,7 +110,7 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
-              onTap: (){
+              onTap: () {
                 _feed();
               },
               child: Container(
@@ -134,7 +134,7 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: (){
+              onTap: () {
                 _browseProduct();
               },
               child: Container(
