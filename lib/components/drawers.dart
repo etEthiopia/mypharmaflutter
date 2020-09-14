@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/components/show_error.dart';
+import 'package:mypharma/main.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +49,42 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/feed');
     }
 
-    Widget anonDrawer({String profile, String email}) {
+    Widget _error(BuildContext context, String url, dynamic error) {
+      return CircleAvatar(
+        backgroundColor: Colors.white,
+        backgroundImage: AssetImage('assets/images/logo/logo50.png'),
+      );
+    }
+
+    Widget _progress(
+        BuildContext context, String url, dynamic downloadProgress) {
+      return Center(
+          child: CircularProgressIndicator(value: downloadProgress.progress));
+    }
+
+    Widget loadimage(String image) {
+      return CachedNetworkImage(
+        imageUrl: '${SERVER_IP_FILE}news/$image',
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+          ),
+        ),
+        progressIndicatorBuilder: _progress,
+        errorWidget: _error,
+      );
+      // return CachedNetworkImage(
+      //   imageUrl: '${SERVER_IP_FILE}news/$image',
+      //   progressIndicatorBuilder: _progress,
+      //   errorWidget: _error,
+      // );
+    }
+
+    Widget anonDrawer({
+      String profile,
+      String email,
+    }) {
       return Container(
         color: Colors.white,
         child: ListView(
@@ -58,7 +95,11 @@ class UserDrawer extends StatelessWidget {
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/logo/logo100.png'),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage:
+                        AssetImage('assets/images/logo/logo50.png'),
+                  ),
                 ),
               ),
               decoration: BoxDecoration(color: primary),
@@ -226,7 +267,7 @@ class UserDrawer extends StatelessWidget {
       );
     }
 
-    Widget pharmacyDrawer({String profile, String email}) {
+    Widget pharmacyDrawer({String profile, String email, String image}) {
       return Container(
         color: Colors.white,
         child: ListView(
@@ -235,10 +276,7 @@ class UserDrawer extends StatelessWidget {
               accountName: Text(profile),
               accountEmail: Text(email),
               currentAccountPicture: GestureDetector(
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/logo/logo50.png'),
-                ),
+                child: Container(child: loadimage(image)),
               ),
               decoration: BoxDecoration(color: primary),
             ),
@@ -424,7 +462,7 @@ class UserDrawer extends StatelessWidget {
       );
     }
 
-    Widget wholesellerDrawer({String profile, String email}) {
+    Widget wholesellerDrawer({String profile, String email, String image}) {
       return Container(
         color: Colors.white,
         child: ListView(
@@ -433,10 +471,7 @@ class UserDrawer extends StatelessWidget {
               accountName: Text(profile),
               accountEmail: Text(email),
               currentAccountPicture: GestureDetector(
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/logo/logo50.png'),
-                ),
+                child: Container(child: loadimage(image)),
               ),
               decoration: BoxDecoration(color: primary),
             ),
@@ -676,7 +711,7 @@ class UserDrawer extends StatelessWidget {
       );
     }
 
-    Widget importerDrawer({String profile, String email}) {
+    Widget importerDrawer({String profile, String email, String image}) {
       return Container(
         color: Colors.white,
         child: ListView(
@@ -685,10 +720,7 @@ class UserDrawer extends StatelessWidget {
               accountName: Text(profile),
               accountEmail: Text(email),
               currentAccountPicture: GestureDetector(
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/logo/logo50.png'),
-                ),
+                child: Container(child: loadimage(image)),
               ),
               decoration: BoxDecoration(color: primary),
             ),
@@ -901,7 +933,7 @@ class UserDrawer extends StatelessWidget {
       );
     }
 
-    Widget physicianDrawer({String profile, String email}) {
+    Widget physicianDrawer({String profile, String email, String image}) {
       return Container(
         color: Colors.white,
         child: ListView(
@@ -910,10 +942,7 @@ class UserDrawer extends StatelessWidget {
               accountName: Text(profile),
               accountEmail: Text(email),
               currentAccountPicture: GestureDetector(
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  backgroundImage: AssetImage('assets/images/logo/logo50.png'),
-                ),
+                child: Container(child: loadimage(image)),
               ),
               decoration: BoxDecoration(color: primary),
             ),
@@ -1078,7 +1107,9 @@ class UserDrawer extends StatelessWidget {
             break;
           case Role.pharmacist:
             drawer = pharmacyDrawer(
-                profile: state.user.name, email: state.user.email);
+                profile: state.user.name,
+                email: state.user.email,
+                image: state.user.profileimg);
             break;
           case Role.phyisican:
             drawer = physicianDrawer(
