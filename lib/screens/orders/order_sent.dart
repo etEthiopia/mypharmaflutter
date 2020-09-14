@@ -159,8 +159,10 @@ class _SentOrdersListState extends State<SentOrdersList> {
           } else if (state is OrderFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
-            } else {
+            } else if (state.error == 'Check Your Connection') {
               return NoInternet(context, 'order_sent');
+            } else {
+              return ErrorMessage(context, 'order_sent', state.error);
             }
           } else if (state is OrderSentLoaded) {
             return Scaffold(
@@ -228,7 +230,6 @@ class _SentOrdersListState extends State<SentOrdersList> {
                               ),
                             ),
                           ),
-                          
                         ],
                       ),
                     ),

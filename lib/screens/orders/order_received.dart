@@ -173,8 +173,10 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
           } else if (state is OrderFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
-            } else {
+            } else if (state.error == 'Check Your Connection') {
               return NoInternet(context, 'order_received');
+            } else {
+              return ErrorMessage(context, 'order_received', state.error);
             }
           } else if (state is OrderReceivedLoaded) {
             return Scaffold(

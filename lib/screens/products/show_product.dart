@@ -75,8 +75,10 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
           } else if (state is ProductFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
-            } else {
+            } else if (state.error == 'Check Your Connection') {
               return NoInternet(context, 'show_product');
+            } else {
+              return ErrorMessage(context, 'show_product', state.error);
             }
           } else if (state is ProductLoaded) {
             Widget _error(BuildContext context, String url, dynamic error) {

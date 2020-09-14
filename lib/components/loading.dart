@@ -63,6 +63,101 @@ NoInternet(context, from) {
   );
 }
 
+Widget ErrorMessage(context, route, text) {
+  return Container(
+      padding: EdgeInsets.only(top: 50, left: 50, right: 50, bottom: 10),
+      child: MediaQuery.of(context).orientation == Orientation.portrait
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Image.asset(
+                    'assets/images/figures/error.png',
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  color: light,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: dark, fontSize: 25, fontFamily: defaultFont),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Material(
+                    color: dark,
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/$route');
+                      },
+                      child: Text(
+                        "Retry",
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: defaultFont),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : Column(
+              children: <Widget>[
+                Expanded(
+                  child: Image.asset('assets/images/figures/error.png'),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  color: light,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: dark, fontSize: 25, fontFamily: defaultFont),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Material(
+                    color: dark,
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/$route');
+                      },
+                      child: Text(
+                        "Retry",
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: defaultFont),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ));
+}
+
 LoadingRegister(context) {
   return SpinKitFadingCube(
     size: MediaQuery.of(context).orientation == Orientation.portrait ? 100 : 50,
