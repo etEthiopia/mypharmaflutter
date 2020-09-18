@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:mypharma/exceptions/exceptions.dart';
+import 'package:mypharma/exceptions/wishlist_excepton.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
@@ -18,6 +19,8 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> fetchSentOrders();
   Future<dynamic> fetchShowReceivedOrder();
   Future<bool> updateOrderStatus();
+  Future<List<dynamic>> fetchWishlist();
+  Future<bool> addtoWishList();
 }
 
 class APIService extends APIServiceSkel {
@@ -548,6 +551,119 @@ class APIService extends APIServiceSkel {
       }
     } else {
       throw OrderException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<List<dynamic>> fetchWishlist() async {
+    String wishlist = "wishlist";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$wishlist",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        );
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              List<Wishlist> wishlist = Wishlist.generateWishlistList(
+                  json.decode(res.body)['0']['wishlist']);
+
+              List<dynamic> result = wishlist;
+              return result;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw WishlistException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw WishlistException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw WishlistException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw WishlistException(message: 'Wrong Connection');
+        }
+      } on SocketException {
+        print('Internet Error');
+        throw WishlistException(message: "Check Your Connection");
+      } catch (e) {
+        print('Error from Server');
+        throw WishlistException(message: "Sorry, We couldn't reach the server");
+      }
+    } else {
+      throw WishlistException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<bool> addtoWishList(
+      {int postid,
+      String slug,
+      String name,
+      int vendorId,
+      int quantity}) async {
+    String wishlist = "wishlist";
+    if (APIService.token != null) {
+      try {
+        var res = await http
+            .post("$SERVER_IP/$wishlist",
+                headers: <String, String>{
+                  'Content-Type': 'application/json; charset=UTF-8',
+                  'Authorization': 'Bearer ${APIService.token}'
+                },
+                body: jsonEncode(<String, dynamic>{
+                  "post_id": postid,
+                  "vendor_id": vendorId,
+                  "quantity": 1,
+                  "name": name,
+                  "slug": "Buy $name another time."
+                }))
+            .timeout(Duration(seconds: 20));
+        print("RS: $SERVER_IP/$wishlist");
+
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              return true;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw WishlistException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw WishlistException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw WishlistException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw WishlistException(message: 'Wrong Connection');
+        }
+      } on SocketException {
+        print('Internet Error');
+        throw WishlistException(message: "Check Your Connection");
+      } catch (e) {
+        print('Error from Server');
+        throw WishlistException(message: "Sorry, We couldn't reach the server");
+      }
+    } else {
+      throw WishlistException(message: 'Not Authorized');
     }
   }
 }

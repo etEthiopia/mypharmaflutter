@@ -28,7 +28,9 @@ GET http://localhost/mypharma/public/api/news?page=1
 
 
 
-GET http://192.168.1.2/mypharma/public/api/products/
+GET http://localhost/mypharma/public/api/products/
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE2MDA0NTEwNDQsImV4cCI6MTYwMDQ1NDY0NCwibmJmIjoxNjAwNDUxMDQ0LCJqdGkiOiIzamFxdVhFZXpxNXZCUzF5Iiwic3ViIjo2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.8OWLlj5xPDVVCkqY0rdy0Uk7fUksKc53pgsO4_wvQWw
+
 
 ###
 
@@ -49,7 +51,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 ###
 
 GET http://localhost/mypharma/public/api/orders
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE1OTg3ODAyNDMsImV4cCI6MTU5ODc4Mzg0MywibmJmIjoxNTk4NzgwMjQzLCJqdGkiOiJSS1Y1VjFERnMwUmk4WEdSIiwic3ViIjo0LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.gxJpO2tpwn35h3CpnuRzsy9-wghrlJJbQr_bxx3tZFY
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE2MDA0NTEwNDQsImV4cCI6MTYwMDQ1NDY0NCwibmJmIjoxNjAwNDUxMDQ0LCJqdGkiOiIzamFxdVhFZXpxNXZCUzF5Iiwic3ViIjo2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.8OWLlj5xPDVVCkqY0rdy0Uk7fUksKc53pgsO4_wvQWw
 
 ###
 GET http://192.168.1.2/mypharma/public/api/vendor-product/12
@@ -84,5 +86,23 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 ### 
 
 
+
+GET http://localhost/mypharma/public/api/wishlist
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE2MDA0NTEwNDQsImV4cCI6MTYwMDQ1NDY0NCwibmJmIjoxNjAwNDUxMDQ0LCJqdGkiOiIzamFxdVhFZXpxNXZCUzF5Iiwic3ViIjo2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.8OWLlj5xPDVVCkqY0rdy0Uk7fUksKc53pgsO4_wvQWw
+###
+
+POST http://localhost/mypharma/public/api/wishlist
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9wdWJsaWNcL2FwaVwvbG9naW4iLCJpYXQiOjE2MDA0NTk5NTksImV4cCI6MTYwMDQ2MzU1OSwibmJmIjoxNjAwNDU5OTU5LCJqdGkiOiJockpXdml0YnVCcVlXMzhZIiwic3ViIjo2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.hFhr6NmLsEiAOmF7r7UngXRxvAWRqNXjNYnk7RJ2yVk
+Content-Type: application/json
+
+{
+   "post_id": 15,
+   "vendor_id": 6,
+   "quantity": 4,
+   "name": "para",
+   "slug":  "Buy Para one day"
+}
+
+###
 
 GET http://192.168.1.2/mypharma/public/storage/news/2020052113533279714.PNG

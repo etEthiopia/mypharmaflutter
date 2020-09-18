@@ -41,6 +41,11 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/order_sent');
     }
 
+    _wishlist() {
+      print('sup');
+      Navigator.pushReplacementNamed(context, '/my_wishlist');
+    }
+
     _orderrecevied() {
       Navigator.pushReplacementNamed(context, '/order_received');
     }
@@ -302,6 +307,30 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _wishlist();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.favorite,
+                      color: primary,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      "Wishlist",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: darksecond),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -476,27 +505,6 @@ class UserDrawer extends StatelessWidget {
               decoration: BoxDecoration(color: primary),
             ),
             InkWell(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.shopping_cart,
-                      color: primary,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Cart",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            InkWell(
               onTap: () {
                 _ordersent();
               },
@@ -537,6 +545,51 @@ class UserDrawer extends StatelessWidget {
                     ),
                     Text(
                       "Orders Received",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: darksecond),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.shopping_cart,
+                      color: primary,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      "Cart",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: darksecond),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                _wishlist();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.favorite,
+                      color: primary,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      "Wishlist",
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: darksecond),
                     ),
@@ -723,27 +776,6 @@ class UserDrawer extends StatelessWidget {
                 child: Container(child: loadimage(image)),
               ),
               decoration: BoxDecoration(color: primary),
-            ),
-            InkWell(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.shopping_cart,
-                      color: primary,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      "Cart",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
-                    ),
-                  ],
-                ),
-              ),
             ),
             InkWell(
               child: Container(

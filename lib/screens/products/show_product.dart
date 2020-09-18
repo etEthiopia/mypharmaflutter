@@ -3,11 +3,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/blocs/product/bloc.dart';
+import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/show_error.dart';
+import 'package:mypharma/components/show_success.dart';
 import 'package:mypharma/main.dart';
+import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
@@ -261,7 +264,17 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                               topRight: Radius.circular(15),
                               bottomRight: Radius.circular(15)),
                           child: FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              final _wishlistBloc =
+                                  BlocProvider.of<WishlistBloc>(context);
+                              _wishlistBloc.add(WishlistAdd(
+                                  newwish: Wishlist(
+                                      quantity: 1,
+                                      name: state.product.title,
+                                      slug: '',
+                                      postId: state.product.id,
+                                      vendorId: state.product.userid)));
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -508,11 +521,10 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                   color: Colors.grey[300],
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: <Widget>[
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Column(children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
                             color: primary,
@@ -541,10 +553,21 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                           ),
                         ),
                         _details(true),
-                        _action()
-                      ],
-                    ),
-                  ));
+                        _action(),
+                        BlocListener<WishlistBloc, WishlistState>(
+                            listener: (context, cstate) {
+                          if (cstate is WishlistFailure) {
+                            showError(cstate.error, context);
+                          } else if (cstate is WishlistAdded) {
+                            showSucess(
+                                "${state.product.title} has been added to wish list",
+                                context);
+                          }
+                        }, child: BlocBuilder<WishlistBloc, WishlistState>(
+                                builder: (context, cstate) {
+                          return (Container());
+                        }))
+                      ])));
             } else {
               return Container(
                   color: Colors.grey[300],

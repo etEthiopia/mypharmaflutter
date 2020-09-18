@@ -12,6 +12,7 @@ import 'package:mypharma/screens/posts/feed.dart';
 import 'package:mypharma/screens/products/browse_products.dart';
 import 'package:mypharma/screens/products/stock.dart';
 import 'package:mypharma/screens/orders/order_received.dart';
+import 'package:mypharma/screens/wishlist/my_wishlist.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/browse_products': (context) => BrowseProduct(),
         '/order_received': (context) => ReceivedOrderPage(),
         '/order_sent': (context) => SentOrderPage(),
+        '/my_wishlist': (context) => MyWishlistPage(),
       },
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
