@@ -12,8 +12,8 @@ class UserDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final _authBloc = BlocProvider.of<AuthBloc>(context);
 
-    _logout() async {
-      await _authBloc.add(UserLoggedOut());
+    _logout() {
+      _authBloc.add(UserLoggedOut());
       var route = ModalRoute.of(context);
       if (route != null) {
         if (route.settings.name.length != 1) {
