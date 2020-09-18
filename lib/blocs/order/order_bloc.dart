@@ -61,7 +61,6 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
           yield OrderSentLoaded(
               last: result[0], current: result[1], sentList: result[2]);
         } else if (result.length == 2) {
-          print("2");
           yield OrderAllLoaded();
         } else {
           yield OrderNotLoaded();

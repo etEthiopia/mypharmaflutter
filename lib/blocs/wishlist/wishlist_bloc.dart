@@ -58,6 +58,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       if (result != null) {
         if (result == true) {
           yield WishlistAdded();
+          yield WishlistInital();
         } else {
           yield WishlistNotAdded();
         }
