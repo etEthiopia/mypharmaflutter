@@ -17,6 +17,15 @@ class WishlistNotLoaded extends WishlistState {}
 
 class WishlistNothingReceived extends WishlistState {}
 
+class WishlistCounted extends WishlistState {
+  final int count;
+
+  WishlistCounted({@required this.count});
+
+  @override
+  List<Object> get props => [count];
+}
+
 class WishlistLoaded extends WishlistState {
   final List<Wishlist> wishlist;
 

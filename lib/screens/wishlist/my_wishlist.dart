@@ -62,7 +62,9 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
       },
       child: BlocBuilder<WishlistBloc, WishlistState>(
         builder: (context, state) {
-          if (state is WishlistLoading || state is WishlistInital) {
+          if (state is WishlistLoading ||
+              state is WishlistInital ||
+              state is WishlistCounted) {
             return LoadingLogin(context);
           } else if (state is WishlistNothingReceived) {
             return empty(context, 'my_wishlist');

@@ -73,6 +73,8 @@ dependencies:
   #gallery sliders
   carousel_slider: ^2.2.1
 
+  badges: ^1.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

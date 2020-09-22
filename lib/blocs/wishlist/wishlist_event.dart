@@ -16,4 +16,6 @@ class WishlistAdd extends WishlistEvent {
   WishlistAdd({this.newwish});
 }
 
+class WishlistCount extends WishlistEvent {}
+
 class WishlistFetched extends WishlistEvent {}

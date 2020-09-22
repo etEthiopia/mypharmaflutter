@@ -18,7 +18,9 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     if (event is WishlistFetched) {
       yield* _mapWishlistReceivedToState(event);
     } else if (event is WishlistAdd) {
-      yield* _mapwishlistAddToState(event);
+      yield* _mapWishistAddToState(event);
+    } else if (event is WishlistCount) {
+      yield* _mapWishCountToState(event);
     }
   }
 
@@ -47,7 +49,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     }
   }
 
-  Stream<WishlistState> _mapwishlistAddToState(WishlistAdd event) async* {
+  Stream<WishlistState> _mapWishistAddToState(WishlistAdd event) async* {
     try {
       final result = await _apiService.addtoWishList(
           name: event.newwish.name,
@@ -68,6 +70,26 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     } catch (e) {
       yield WishlistFailure(
           error: e.message.toString() ?? 'An unknown error occurred');
+    }
+  }
+
+  Stream<WishlistState> _mapWishCountToState(WishlistEvent event) async* {
+    yield WishlistLoading();
+    try {
+      final result = await _apiService.countWishList();
+      if (result != null) {
+        yield WishlistCounted(count: result);
+      } else {
+        yield WishlistNotLoaded();
+      }
+    } catch (e) {
+      if (e.message.toString() == 'empty') {
+        print("nothing");
+        yield WishlistNothingReceived();
+      } else {
+        yield WishlistFailure(
+            error: e.message.toString() ?? 'An unknown error occurred');
+      }
     }
   }
 }

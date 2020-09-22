@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
+import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
 
 class UserDrawer extends StatelessWidget {
   @override
@@ -68,6 +70,7 @@ class UserDrawer extends StatelessWidget {
     }
 
     Widget loadimage(String image) {
+      print("LOADIMAGE: $image");
       return CachedNetworkImage(
         imageUrl: '${SERVER_IP_FILE}news/$image',
         imageBuilder: (context, imageProvider) => Container(
@@ -272,7 +275,8 @@ class UserDrawer extends StatelessWidget {
       );
     }
 
-    Widget pharmacyDrawer({String profile, String email, String image}) {
+    Widget pharmacyDrawer(
+        {String profile, String email, String image, int wishlist = 0}) {
       return Container(
         color: Colors.white,
         child: ListView(
@@ -321,11 +325,24 @@ class UserDrawer extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-                    Text(
-                      "Wishlist",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
-                    ),
+                    wishlist == 0
+                        ? Text(
+                            "Wishlist",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, color: darksecond),
+                          )
+                        : Badge(
+                            badgeColor: dark,
+                            badgeContent: Text(
+                              wishlist.toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            child: Text(
+                              "Wishlist   ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: darksecond),
+                            )),
                   ],
                 ),
               ),
@@ -491,7 +508,8 @@ class UserDrawer extends StatelessWidget {
       );
     }
 
-    Widget wholesellerDrawer({String profile, String email, String image}) {
+    Widget wholesellerDrawer(
+        {String profile, String email, String image, int wishlist = 0}) {
       return Container(
         color: Colors.white,
         child: ListView(
@@ -588,11 +606,24 @@ class UserDrawer extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-                    Text(
-                      "Wishlist",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
-                    ),
+                    wishlist == 0
+                        ? Text(
+                            "Wishlist",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, color: darksecond),
+                          )
+                        : Badge(
+                            badgeColor: dark,
+                            badgeContent: Text(
+                              wishlist.toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            child: Text(
+                              "Wishlist   ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: darksecond),
+                            )),
                   ],
                 ),
               ),
@@ -1125,27 +1156,66 @@ class UserDrawer extends StatelessWidget {
     }, child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
       if (state is AuthAuthenticated) {
         Widget drawer;
+        String uname = state.user.name;
+        String email = state.user.email;
+        String image = state.user.profileimg;
         switch (state.user.role) {
           case Role.admin:
             drawer = anonDrawer(profile: "MyPharma", email: "Stay Connected");
             break;
           case Role.importer:
-            drawer = importerDrawer(
-                profile: state.user.name, email: state.user.email);
+            drawer = importerDrawer(profile: uname, email: email, image: image);
             break;
           case Role.wholeseller:
-            drawer = wholesellerDrawer(
-                profile: state.user.name, email: state.user.email);
+            drawer = BlocListener<WishlistBloc, WishlistState>(
+                listener: (context, state) {},
+                child: BlocBuilder<WishlistBloc, WishlistState>(
+                    builder: (context, state) {
+                  if (state is WishlistCounted) {
+                    return wholesellerDrawer(
+                        profile: uname,
+                        email: email,
+                        image: image,
+                        wishlist: state.count);
+                  } else if (state is WishlistLoaded) {
+                    return wholesellerDrawer(
+                        profile: uname,
+                        email: email,
+                        image: image,
+                        wishlist: state.wishlist.length);
+                  } else {
+                    return wholesellerDrawer(
+                        profile: uname, email: email, image: image);
+                  }
+                }));
+
             break;
           case Role.pharmacist:
-            drawer = pharmacyDrawer(
-                profile: state.user.name,
-                email: state.user.email,
-                image: state.user.profileimg);
+            drawer = BlocListener<WishlistBloc, WishlistState>(
+                listener: (context, state) {},
+                child: BlocBuilder<WishlistBloc, WishlistState>(
+                    builder: (context, state) {
+                  if (state is WishlistCounted) {
+                    return pharmacyDrawer(
+                        profile: uname,
+                        email: email,
+                        image: image,
+                        wishlist: state.count);
+                  } else if (state is WishlistLoaded) {
+                    return wholesellerDrawer(
+                        profile: uname,
+                        email: email,
+                        image: image,
+                        wishlist: state.wishlist.length);
+                  } else {
+                    return wholesellerDrawer(
+                        profile: uname, email: email, image: image);
+                  }
+                }));
             break;
           case Role.phyisican:
-            drawer = physicianDrawer(
-                profile: state.user.name, email: state.user.email);
+            drawer =
+                physicianDrawer(profile: uname, email: email, image: image);
             break;
           default:
             drawer = anonDrawer(profile: "MyPharma", email: "Stay Connected");
