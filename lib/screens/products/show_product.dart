@@ -78,8 +78,6 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
           } else if (state is ProductFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
-            } else if (state.error == 'Check Your Connection') {
-              return NoInternet(context, 'show_product');
             } else {
               return ErrorMessage(context, 'show_product', state.error);
             }
@@ -592,6 +590,19 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                           ),
                         ),
                         _details(false),
+                        BlocListener<WishlistBloc, WishlistState>(
+                            listener: (context, cstate) {
+                          if (cstate is WishlistFailure) {
+                            showError(cstate.error, context);
+                          } else if (cstate is WishlistAdded) {
+                            showSucess(
+                                "${state.product.title} has been added to wish list",
+                                context);
+                          }
+                        }, child: BlocBuilder<WishlistBloc, WishlistState>(
+                                builder: (context, cstate) {
+                          return (Container());
+                        }))
                       ],
                     ),
                   ));

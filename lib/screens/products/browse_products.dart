@@ -80,9 +80,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
       if (state is ProductFailure) {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
-        } else if (state.error == 'Check Your Connection') {
-          return NoInternet(context, 'browse_products');
-        } else {
+        }  else {
           return ErrorMessage(context, 'browse_products', state.error);
         }
       }

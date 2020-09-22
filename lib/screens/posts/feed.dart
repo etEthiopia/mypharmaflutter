@@ -115,9 +115,7 @@ class _FeedListState extends State<FeedList> {
       } else if (state is NewsFailure) {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
-        } else if (state.error == 'Check Your Connection') {
-          return NoInternet(context, 'feed');
-        } else {
+        }  else {
           return ErrorMessage(context, 'feed', state.error);
         }
       }

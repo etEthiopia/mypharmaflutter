@@ -39,7 +39,6 @@ class APIService extends APIServiceSkel {
         }
       }
     }
-    print("str is null");
     return null;
   }
 
@@ -73,12 +72,24 @@ class APIService extends APIServiceSkel {
         print('Connection Error');
         throw AuthException(message: 'Connection Error');
       }
-    } on SocketException {
-      print('Internet Error');
-      throw AuthException(message: "Check Your Connection");
     } catch (e) {
-      print('Error from Server');
-      throw AuthException(message: "Sorry, We couldn't reach the server");
+      if (e is SocketException) {
+        if (e.toString().contains("Network is unreachable")) {
+          print('Internet Error');
+          throw AuthException(message: "Check Your Connection");
+        } else if (e.toString().contains("Connection refused")) {
+          print('Error from Server');
+          throw AuthException(message: "Sorry, We couldn't reach the server");
+        } else {
+          print('Connection Error');
+          throw AuthException(
+              message: "Sorry, Something is wrong with the connection");
+        }
+      } else {
+        print('Connection Error');
+        throw AuthException(
+            message: "Sorry, Something is wrong with the connection");
+      }
     }
   }
 
@@ -123,12 +134,24 @@ class APIService extends APIServiceSkel {
         print('Connection Error');
         throw AuthException(message: 'Connection Error');
       }
-    } on SocketException {
-      print('Internet Error');
-      throw AuthException(message: "Check Your Connection");
     } catch (e) {
-      print('Error from Server');
-      throw AuthException(message: "Sorry, We couldn't reach the server");
+      if (e is SocketException) {
+        if (e.toString().contains("Network is unreachable")) {
+          print('Internet Error');
+          throw AuthException(message: "Check Your Connection");
+        } else if (e.toString().contains("Connection refused")) {
+          print('Error from Server');
+          throw AuthException(message: "Sorry, We couldn't reach the server");
+        } else {
+          print('Connection Error');
+          throw AuthException(
+              message: "Sorry, Something is wrong with the connection");
+        }
+      } else {
+        print('Connection Error');
+        throw AuthException(
+            message: "Sorry, Something is wrong with the connection");
+      }
     }
   }
 
@@ -178,12 +201,24 @@ class APIService extends APIServiceSkel {
         print('Wrong Connection');
         throw NewsException(message: 'Wrong Connection');
       }
-    } on SocketException {
-      print('Internet Error');
-      throw NewsException(message: "Check Your Connection");
     } catch (e) {
-      print('Error from Server');
-      throw NewsException(message: "Sorry, We couldn't reach the server");
+      if (e is SocketException) {
+        if (e.toString().contains("Network is unreachable")) {
+          print('Internet Error');
+          throw NewsException(message: "Check Your Connection");
+        } else if (e.toString().contains("Connection refused")) {
+          print('Error from Server');
+          throw NewsException(message: "Sorry, We couldn't reach the server");
+        } else {
+          print('Connection Error');
+          throw NewsException(
+              message: "Sorry, Something is wrong with the connection");
+        }
+      } else {
+        print('Connection Error');
+        throw NewsException(
+            message: "Sorry, Something is wrong with the connection");
+      }
     }
   }
 
@@ -226,12 +261,25 @@ class APIService extends APIServiceSkel {
           print('Wrong Connection');
           throw ProductException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw ProductException(message: "Check Your Connection");
       } catch (e) {
-        print('Error from Server');
-        throw ProductException(message: "Sorry, We couldn't reach the server");
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw ProductException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw ProductException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw ProductException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw ProductException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
       throw ProductException(message: 'Not Authorized');
@@ -277,9 +325,25 @@ class APIService extends APIServiceSkel {
           print('Wrong Connection');
           throw ProductException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw ProductException(message: "Check Your Connection");
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw ProductException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw ProductException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw ProductException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw ProductException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
       throw ProductException(message: 'Not Authorized');
@@ -325,9 +389,25 @@ class APIService extends APIServiceSkel {
           print('Wrong Connection');
           throw ProductException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw ProductException(message: "Check Your Connection");
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw ProductException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw ProductException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw ProductException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw ProductException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
       throw ProductException(message: 'Not Authorized');
@@ -360,28 +440,41 @@ class APIService extends APIServiceSkel {
                   .toString()
                   .contains('oken')) {
                 print(json.decode(res.body)['message']);
-                throw ProductException(message: 'Not Authorized');
+                throw OrderException(message: 'Not Authorized');
               }
               print('Wrong Request');
-              throw ProductException(message: 'Wrong Request');
+              throw OrderException(message: 'Wrong Request');
             }
           } else {
             print('Wrong Question');
-            throw ProductException(message: 'Wrong Question');
+            throw OrderException(message: 'Wrong Question');
           }
         } else {
           print('Wrong Connection');
-          throw ProductException(message: 'Wrong Connection');
+          throw OrderException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw ProductException(message: "Check Your Connection");
       } catch (e) {
-        print('Error from Server');
-        throw ProductException(message: "Sorry, We couldn't reach the server");
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw OrderException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw OrderException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw OrderException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw OrderException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
-      throw ProductException(message: 'Not Authorized');
+      throw OrderException(message: 'Not Authorized');
     }
   }
 
@@ -439,15 +532,28 @@ class APIService extends APIServiceSkel {
           print('Wrong Connection');
           throw OrderException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw OrderException(message: "Check Your Connection");
       } catch (e) {
-        print('Error from Server');
-        throw OrderException(message: "Sorry, We couldn't reach the server");
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw OrderException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw OrderException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw OrderException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw OrderException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
-      throw ProductException(message: 'Not Authorized');
+      throw OrderException(message: 'Not Authorized');
     }
   }
 
@@ -491,12 +597,25 @@ class APIService extends APIServiceSkel {
           print('Wrong Connection');
           throw OrderException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw OrderException(message: "Check Your Connection");
       } catch (e) {
-        print('Error from Server');
-        throw OrderException(message: "Sorry, We couldn't reach the server");
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw OrderException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw OrderException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw OrderException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw OrderException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
       throw OrderException(message: 'Not Authorized');
@@ -517,7 +636,6 @@ class APIService extends APIServiceSkel {
                 },
                 body: jsonEncode(<String, String>{"order_status": status}))
             .timeout(Duration(seconds: 20));
-        print("RS: $SERVER_IP/$order");
 
         if (res.statusCode == 200) {
           if (res.body != null) {
@@ -542,12 +660,25 @@ class APIService extends APIServiceSkel {
           print('Wrong Connection');
           throw OrderException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw OrderException(message: "Check Your Connection");
       } catch (e) {
-        print('Error from Server');
-        throw OrderException(message: "Sorry, We couldn't reach the server");
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw OrderException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw OrderException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw OrderException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw OrderException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
       throw OrderException(message: 'Not Authorized');
@@ -594,12 +725,25 @@ class APIService extends APIServiceSkel {
           print('Wrong Connection');
           throw WishlistException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw WishlistException(message: "Check Your Connection");
       } catch (e) {
-        print('Error from Server');
-        throw WishlistException(message: "Sorry, We couldn't reach the server");
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw WishlistException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw WishlistException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw WishlistException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw WishlistException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
       throw WishlistException(message: 'Not Authorized');
@@ -630,7 +774,6 @@ class APIService extends APIServiceSkel {
                   "slug": "Buy $name another time."
                 }))
             .timeout(Duration(seconds: 20));
-        print("RS: $SERVER_IP/$wishlist");
 
         if (res.statusCode == 200) {
           if (res.body != null) {
@@ -655,12 +798,25 @@ class APIService extends APIServiceSkel {
           print('Wrong Connection');
           throw WishlistException(message: 'Wrong Connection');
         }
-      } on SocketException {
-        print('Internet Error');
-        throw WishlistException(message: "Check Your Connection");
       } catch (e) {
-        print('Error from Server');
-        throw WishlistException(message: "Sorry, We couldn't reach the server");
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw WishlistException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw WishlistException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw WishlistException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw WishlistException(
+              message: "Sorry, Something is wrong with the connection");
+        }
       }
     } else {
       throw WishlistException(message: 'Not Authorized');

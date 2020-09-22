@@ -70,7 +70,6 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       }
     } catch (e) {
       if (e.message.toString() == 'empty') {
-        print("nothing");
         yield OrderNothingSent();
       } else {
         yield OrderFailure(

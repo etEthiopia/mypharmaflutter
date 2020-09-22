@@ -82,9 +82,7 @@ class _StockListState extends State<StockList> {
       if (state is ProductFailure) {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
-        } else if (state.error == 'Check Your Connection') {
-          return NoInternet(context, 'stock');
-        } else {
+        }  else {
           return ErrorMessage(context, 'stock', state.error);
         }
       }

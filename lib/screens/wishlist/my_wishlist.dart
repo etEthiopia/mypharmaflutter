@@ -69,8 +69,6 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
           } else if (state is WishlistFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
-            } else if (state.error == 'Check Your Connection') {
-              return NoInternet(context, 'my_wishlist');
             } else {
               return ErrorMessage(context, 'my_wishlist', state.error);
             }

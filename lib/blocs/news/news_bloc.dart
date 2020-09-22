@@ -20,7 +20,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   }
 
   Stream<NewsState> _mapNewsFetchedToState(NewsFetched event) async* {
-    print("state length: " + state.props.length.toString());
     List<News> old = [];
     int current = 0;
     if (state.props.length == 3) {
@@ -32,7 +31,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       final result = await _apiService.fetchNews(page: event.page);
       if (result != null) {
         if (result.length == 3) {
-          print(result[0].toString() + " " + result[1].toString());
           yield NewsLoaded(
               last: result[0], current: result[1], newsList: result[2]);
           // if (result[0] == result[1]) {}
