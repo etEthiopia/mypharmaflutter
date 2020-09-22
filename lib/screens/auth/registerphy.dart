@@ -179,7 +179,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                   ),
                   border: InputBorder.none,
                   isDense: true),
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.name,
               controller: _fullnameController,
               validator: (value) {
                 if (value.isEmpty) {
@@ -393,6 +393,8 @@ class _RegisterFormState extends State<_RegisterForm> {
         listener: (context, state) {
       if (state is RegisterFailure) {
         showError(state.error, context);
+      } else if (state is RegisterSuccess) {
+        Navigator.pushReplacementNamed(context, '/');
       }
     }, child:
             BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
