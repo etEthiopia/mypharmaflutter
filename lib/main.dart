@@ -7,8 +7,9 @@ import 'package:mypharma/blocs/wishlist/wishlist_bloc.dart';
 import 'package:mypharma/screens/my_app.dart';
 import 'package:mypharma/services/services.dart';
 
-const SERVER_IP = 'http://192.168.1.5/mypharma/public/api';
-const SERVER_IP_FILE = 'http://192.168.1.5/mypharma/public/storage/';
+const IP = 'http://192.168.1.2/mypharma/public/';
+const SERVER_IP = IP + 'api';
+const SERVER_IP_FILE = IP + 'storage/';
 final storage = FlutterSecureStorage();
 APIService apiService = APIService();
 
