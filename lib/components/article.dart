@@ -33,11 +33,11 @@ Widget article(
         tag: id,
         child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: ThemeColor.background,
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey[300],
+                  color: ThemeColor.background1,
                   offset: const Offset(0.0, 3.0),
                   blurRadius: 5.0,
                   spreadRadius: 2.0,
@@ -66,7 +66,7 @@ Widget article(
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   fontSize: 15,
-                                  color: darksecond,
+                                  color: ThemeColor.darksecondText,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -78,7 +78,7 @@ Widget article(
                               time,
                               style: TextStyle(
                                   fontSize: 10,
-                                  color: primary,
+                                  color: ThemeColor.primaryText,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -96,14 +96,16 @@ Widget article(
                         children: <Widget>[
                           Container(
                             width: double.maxFinite,
-                            color: Colors.grey[50],
+                            color: ThemeColor.background3,
                             padding: EdgeInsets.only(
                                 left: 10, right: 10, top: 30, bottom: 5),
                             child: Text(
                               content,
                               maxLines: 3,
                               style: TextStyle(
-                                  fontSize: 15, fontFamily: defaultFont),
+                                  color: ThemeColor.contrastText,
+                                  fontSize: 15,
+                                  fontFamily: defaultFont),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),

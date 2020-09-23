@@ -85,12 +85,12 @@ class APIService extends APIServiceSkel {
         } else {
           print('Connection Error');
           throw AuthException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       } else {
         print('Connection Error');
         throw AuthException(
-            message: "Sorry, Something is wrong with the connection");
+            message: "Sorry, We couldn't get a response from our server");
       }
     }
   }
@@ -147,12 +147,12 @@ class APIService extends APIServiceSkel {
         } else {
           print('Connection Error');
           throw AuthException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       } else {
         print('Connection Error');
         throw AuthException(
-            message: "Sorry, Something is wrong with the connection");
+            message: "Sorry, We couldn't get a response from our server");
       }
     }
   }
@@ -204,6 +204,7 @@ class APIService extends APIServiceSkel {
         throw NewsException(message: 'Wrong Connection');
       }
     } catch (e) {
+      print(e.toString());
       if (e is SocketException) {
         if (e.toString().contains("Network is unreachable")) {
           print('Internet Error');
@@ -214,12 +215,12 @@ class APIService extends APIServiceSkel {
         } else {
           print('Connection Error');
           throw NewsException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       } else {
         print('Connection Error');
         throw NewsException(
-            message: "Sorry, Something is wrong with the connection");
+            message: "Sorry, We couldn't get a response from our server");
       }
     }
   }
@@ -275,12 +276,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw ProductException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw ProductException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -339,12 +340,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw ProductException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw ProductException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -403,12 +404,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw ProductException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw ProductException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -467,12 +468,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw OrderException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw OrderException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -546,12 +547,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw OrderException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw OrderException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -611,12 +612,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw OrderException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw OrderException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -674,12 +675,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw OrderException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw OrderException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -739,12 +740,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw WishlistException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw WishlistException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -812,12 +813,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw WishlistException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw WishlistException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, We couldn't get a response from our server");
         }
       }
     } else {
@@ -872,12 +873,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw WishlistException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw WishlistException(
-              message: "Sorry, Something is wrong with the connection $e");
+              message: "Sorry, We couldn't get a response from our server $e");
         }
       }
     } else {
@@ -932,12 +933,12 @@ class APIService extends APIServiceSkel {
           } else {
             print('Connection Error');
             throw WishlistException(
-                message: "Sorry, Something is wrong with the connection");
+                message: "Sorry, We couldn't get a response from our server");
           }
         } else {
           print('Connection Error');
           throw WishlistException(
-              message: "Sorry, Something is wrong with the connection $e");
+              message: "Sorry, We couldn't get a response from our server $e");
         }
       }
     } else {

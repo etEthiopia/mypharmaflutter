@@ -17,7 +17,7 @@ class SignInUp extends StatelessWidget {
         return SizedBox(
           width: double.infinity,
           child: Material(
-            color: extralight,
+            color: ThemeColor.extralight,
             child: FlatButton(
               onPressed: () async {
                 Navigator.pushReplacementNamed(context, '/login');
@@ -27,12 +27,13 @@ class SignInUp extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.person,
-                    color: dark,
+                    color: ThemeColor.darkText,
                     size: 20,
                   ),
                   Text(
                     "Login/Register for a full experience!",
-                    style: TextStyle(color: dark, fontFamily: defaultFont),
+                    style: TextStyle(
+                        color: ThemeColor.darkText, fontFamily: defaultFont),
                   ),
                 ],
               ),

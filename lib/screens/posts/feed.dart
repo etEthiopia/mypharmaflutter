@@ -26,6 +26,7 @@ class _FeedState extends State<Feed> {
     return Scaffold(
         appBar: simpleAppBar(title: "Feed"),
         drawer: UserDrawer(),
+        backgroundColor: ThemeColor.background,
         body: BlocProvider<NewsBloc>(
             create: (context) => NewsBloc(apiService),
 
@@ -115,13 +116,13 @@ class _FeedListState extends State<FeedList> {
       } else if (state is NewsFailure) {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
-        }  else {
+        } else {
           return ErrorMessage(context, 'feed', state.error);
         }
       }
       if (state is NewsLoaded) {
         return Scaffold(
-          backgroundColor: Colors.grey[300],
+          backgroundColor: ThemeColor.background1,
           body: SafeArea(
               child: Column(
             children: [
@@ -129,7 +130,7 @@ class _FeedListState extends State<FeedList> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: padd),
                   child: Material(
-                    color: Colors.grey[100],
+                    color: ThemeColor.background2,
                     child: Container(
                         padding: orientation == Orientation.portrait
                             ? EdgeInsets.all(0)
@@ -152,7 +153,7 @@ class _FeedListState extends State<FeedList> {
                                         children: <Widget>[
                                           Icon(
                                             Icons.timer,
-                                            color: dark,
+                                            color: ThemeColor.darkText,
                                           ),
                                           SizedBox(
                                             width: 5,
@@ -162,7 +163,7 @@ class _FeedListState extends State<FeedList> {
                                             maxLines: 1,
                                             overflow: TextOverflow.clip,
                                             style: TextStyle(
-                                                color: dark,
+                                                color: ThemeColor.darkText,
                                                 fontSize: 20,
                                                 fontFamily: defaultFont),
                                           ),

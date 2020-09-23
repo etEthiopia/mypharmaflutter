@@ -58,8 +58,9 @@ class _ShowArticleState extends State<ShowArticle> {
   Widget _bottombar() {
     return Container(
       decoration: BoxDecoration(
-          color: dark,
-          border: Border.symmetric(vertical: BorderSide(color: light))),
+          color: ThemeColor.darkBtn,
+          border: Border.symmetric(
+              vertical: BorderSide(color: ThemeColor.lightBtn))),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,13 +72,13 @@ class _ShowArticleState extends State<ShowArticle> {
                   IconButton(
                     icon: Icon(
                       Icons.thumb_up,
-                      color: extralight,
+                      color: ThemeColor.extralightText,
                     ),
                     onPressed: () {},
                   ),
                   Text("15",
                       style: TextStyle(
-                          color: extralight,
+                          color: ThemeColor.extralightText,
                           fontSize: 15,
                           fontFamily: defaultFont))
                 ],
@@ -88,14 +89,14 @@ class _ShowArticleState extends State<ShowArticle> {
             IconButton(
               icon: Icon(
                 Icons.error,
-                color: extralight,
+                color: ThemeColor.extralightText,
               ),
               onPressed: () {},
             ),
             IconButton(
               icon: Icon(
                 Icons.share,
-                color: extralight,
+                color: ThemeColor.extralightText,
               ),
               onPressed: () {},
             ),
@@ -114,7 +115,9 @@ class _ShowArticleState extends State<ShowArticle> {
   Widget _title() {
     return Text(widget.title,
         style: TextStyle(
-            color: darksecond, fontSize: 20, fontFamily: defaultFont));
+            color: ThemeColor.darksecondText,
+            fontSize: 20,
+            fontFamily: defaultFont));
   }
 
   Widget _category() {
@@ -126,10 +129,14 @@ class _ShowArticleState extends State<ShowArticle> {
           children: <Widget>[
             Text("Category: ",
                 style: TextStyle(
-                    color: light, fontSize: 10, fontFamily: defaultFont)),
+                    color: ThemeColor.lightText,
+                    fontSize: 10,
+                    fontFamily: defaultFont)),
             Text(widget.category.toString(),
                 style: TextStyle(
-                    color: primary, fontSize: 10, fontFamily: defaultFont)),
+                    color: ThemeColor.primaryText,
+                    fontSize: 10,
+                    fontFamily: defaultFont)),
           ],
         ),
       ],
@@ -142,7 +149,9 @@ class _ShowArticleState extends State<ShowArticle> {
       children: <Widget>[
         Text(widget.time,
             style: TextStyle(
-                color: primary, fontSize: 10, fontFamily: defaultFont)),
+                color: ThemeColor.primaryText,
+                fontSize: 10,
+                fontFamily: defaultFont)),
       ],
     );
   }
@@ -154,7 +163,7 @@ class _ShowArticleState extends State<ShowArticle> {
         InkWell(
           child: Icon(
             Icons.edit,
-            color: dark,
+            color: ThemeColor.darkText,
             size: 10,
           ),
         ),
@@ -166,7 +175,10 @@ class _ShowArticleState extends State<ShowArticle> {
         InkWell(
             child: Text(
           "Contribute on the Content",
-          style: TextStyle(fontSize: 10, color: dark, fontFamily: defaultFont),
+          style: TextStyle(
+              fontSize: 10,
+              color: ThemeColor.darkText,
+              fontFamily: defaultFont),
         )),
       ],
     );
@@ -174,11 +186,13 @@ class _ShowArticleState extends State<ShowArticle> {
 
   Widget _content() {
     return Container(
-      color: Colors.grey[150],
+      color: ThemeColor.background2,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Text(widget.content,
           style: TextStyle(
-              color: darksecond, fontSize: 15, fontFamily: defaultFont)),
+              color: ThemeColor.darksecondText,
+              fontSize: 15,
+              fontFamily: defaultFont)),
     );
   }
 
@@ -187,15 +201,15 @@ class _ShowArticleState extends State<ShowArticle> {
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       return Scaffold(
-          backgroundColor: extralight,
+          backgroundColor: ThemeColor.extralight,
           body: SafeArea(
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Material(
-                      color: Colors.grey[200],
+                      color: ThemeColor.background2,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: ThemeColor.background,
                         ),
                         child: Column(
                           children: <Widget>[

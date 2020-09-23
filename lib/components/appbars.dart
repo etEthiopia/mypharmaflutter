@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 AppBar simpleAppBar({String title}) {
   return AppBar(
-    backgroundColor: primary,
+    backgroundColor: ThemeColor.appBar,
     title: Text(
       title,
       style: TextStyle(color: Colors.white),
@@ -20,7 +20,7 @@ AppBar simpleAppBar({String title}) {
 
 AppBar cleanAppBar({String title}) {
   return AppBar(
-    backgroundColor: primary,
+    backgroundColor: ThemeColor.appBar,
     title: Text(
       title,
       style: TextStyle(color: Colors.white),
@@ -31,7 +31,7 @@ AppBar cleanAppBar({String title}) {
 AppBar companyAppBar({String title}) {
   return AppBar(
     elevation: 0,
-    backgroundColor: primary,
+    backgroundColor: ThemeColor.appBar,
     centerTitle: true,
     title: Container(
       child:

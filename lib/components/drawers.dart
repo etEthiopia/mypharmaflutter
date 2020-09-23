@@ -57,7 +57,7 @@ class UserDrawer extends StatelessWidget {
 
     Widget _error(BuildContext context, String url, dynamic error) {
       return CircleAvatar(
-        backgroundColor: Colors.white,
+        backgroundColor: ThemeColor.background,
         backgroundImage: AssetImage('assets/images/logo/logo50.png'),
       );
     }
@@ -92,7 +92,7 @@ class UserDrawer extends StatelessWidget {
       String email,
     }) {
       return Container(
-        color: Colors.white,
+        color: ThemeColor.background,
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -100,15 +100,15 @@ class UserDrawer extends StatelessWidget {
               accountEmail: Text(email),
               currentAccountPicture: GestureDetector(
                 child: CircleAvatar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: ThemeColor.background,
                   child: CircleAvatar(
-                    backgroundColor: Colors.white,
+                    backgroundColor: ThemeColor.background,
                     backgroundImage:
                         AssetImage('assets/images/logo/logo50.png'),
                   ),
                 ),
               ),
-              decoration: BoxDecoration(color: primary),
+              decoration: BoxDecoration(color: ThemeColor.primaryBtn),
             ),
             InkWell(
               onTap: () {
@@ -120,7 +120,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.person,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -128,7 +128,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Log In",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -141,7 +141,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.local_pharmacy,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -149,7 +149,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Join as a Physician",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -166,7 +166,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.rss_feed,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -174,7 +174,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -190,7 +190,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.new_releases,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -198,7 +198,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -211,7 +211,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.search,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -219,7 +219,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -232,7 +232,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.description,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -240,7 +240,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "What is MyPharma",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -254,7 +254,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.settings,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -262,7 +262,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -276,7 +276,7 @@ class UserDrawer extends StatelessWidget {
     Widget pharmacyDrawer(
         {String profile, String email, String image, int wishlist = 0}) {
       return Container(
-        color: Colors.white,
+        color: ThemeColor.background,
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -285,7 +285,7 @@ class UserDrawer extends StatelessWidget {
               currentAccountPicture: GestureDetector(
                 child: Container(child: loadimage(image)),
               ),
-              decoration: BoxDecoration(color: primary),
+              decoration: BoxDecoration(color: ThemeColor.primaryBtn),
             ),
             InkWell(
               child: Container(
@@ -294,7 +294,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.shopping_cart,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -302,7 +302,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Cart",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -318,7 +318,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.favorite,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -327,7 +327,7 @@ class UserDrawer extends StatelessWidget {
                         ? Text(
                             "Wishlist",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: darksecond),
+                                fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                           )
                         : Badge(
                             badgeColor: dark,
@@ -339,7 +339,7 @@ class UserDrawer extends StatelessWidget {
                               "Wishlist   ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: darksecond),
+                                  color: ThemeColor.darksecondText),
                             )),
                   ],
                 ),
@@ -352,7 +352,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.list,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -360,7 +360,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Orders Sent",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -373,7 +373,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.home,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -381,7 +381,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Profile",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -398,7 +398,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.rss_feed,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -406,7 +406,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -419,7 +419,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.new_releases,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -427,7 +427,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -440,7 +440,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.search,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -448,7 +448,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -462,7 +462,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.settings,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -470,7 +470,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -487,7 +487,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.person,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -495,7 +495,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Logout",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -509,7 +509,7 @@ class UserDrawer extends StatelessWidget {
     Widget wholesellerDrawer(
         {String profile, String email, String image, int wishlist = 0}) {
       return Container(
-        color: Colors.white,
+        color: ThemeColor.background,
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -518,7 +518,7 @@ class UserDrawer extends StatelessWidget {
               currentAccountPicture: GestureDetector(
                 child: Container(child: loadimage(image)),
               ),
-              decoration: BoxDecoration(color: primary),
+              decoration: BoxDecoration(color: ThemeColor.primaryBtn),
             ),
             InkWell(
               onTap: () {
@@ -530,7 +530,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.list,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -538,7 +538,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Orders Sent",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -554,7 +554,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.list,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -562,7 +562,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Orders Received",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -575,7 +575,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.shopping_cart,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -583,7 +583,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Cart",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -599,7 +599,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.favorite,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -608,7 +608,7 @@ class UserDrawer extends StatelessWidget {
                         ? Text(
                             "Wishlist",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: darksecond),
+                                fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                           )
                         : Badge(
                             badgeColor: dark,
@@ -620,7 +620,7 @@ class UserDrawer extends StatelessWidget {
                               "Wishlist   ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: darksecond),
+                                  color: ThemeColor.darksecondText),
                             )),
                   ],
                 ),
@@ -633,7 +633,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.home,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -641,7 +641,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Profile",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -658,7 +658,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.rss_feed,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -666,7 +666,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -682,7 +682,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.image_aspect_ratio,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -690,7 +690,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Stock",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -706,7 +706,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.new_releases,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -714,7 +714,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -727,7 +727,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.search,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -735,7 +735,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -749,7 +749,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.settings,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -757,7 +757,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -774,7 +774,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.person,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -782,7 +782,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Logout",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -795,7 +795,7 @@ class UserDrawer extends StatelessWidget {
 
     Widget importerDrawer({String profile, String email, String image}) {
       return Container(
-        color: Colors.white,
+        color: ThemeColor.background,
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -804,7 +804,7 @@ class UserDrawer extends StatelessWidget {
               currentAccountPicture: GestureDetector(
                 child: Container(child: loadimage(image)),
               ),
-              decoration: BoxDecoration(color: primary),
+              decoration: BoxDecoration(color: ThemeColor.primaryBtn),
             ),
             InkWell(
               child: Container(
@@ -813,7 +813,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.list,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -821,7 +821,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Orders Received",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -834,7 +834,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.home,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -842,7 +842,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Profile",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -859,7 +859,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.rss_feed,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -867,7 +867,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -883,7 +883,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.image_aspect_ratio,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -891,7 +891,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Stock",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -907,7 +907,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.new_releases,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -915,7 +915,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -928,7 +928,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.search,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -936,7 +936,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -950,7 +950,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.settings,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -958,7 +958,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -975,7 +975,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.person,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -983,7 +983,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Logout",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -996,7 +996,7 @@ class UserDrawer extends StatelessWidget {
 
     Widget physicianDrawer({String profile, String email, String image}) {
       return Container(
-        color: Colors.white,
+        color: ThemeColor.background,
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -1005,7 +1005,7 @@ class UserDrawer extends StatelessWidget {
               currentAccountPicture: GestureDetector(
                 child: Container(child: loadimage(image)),
               ),
-              decoration: BoxDecoration(color: primary),
+              decoration: BoxDecoration(color: ThemeColor.primaryBtn),
             ),
             InkWell(
               child: Container(
@@ -1014,7 +1014,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.home,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -1022,7 +1022,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Profile",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1039,7 +1039,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.rss_feed,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -1047,7 +1047,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1060,7 +1060,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.new_releases,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -1068,7 +1068,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1081,7 +1081,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.search,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -1089,7 +1089,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1103,7 +1103,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.settings,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -1111,7 +1111,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1128,7 +1128,7 @@ class UserDrawer extends StatelessWidget {
                   children: <Widget>[
                     Icon(
                       Icons.person,
-                      color: primary,
+                      color: ThemeColor.primaryText,
                     ),
                     SizedBox(
                       width: 20,
@@ -1136,7 +1136,7 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Logout",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: darksecond),
+                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),

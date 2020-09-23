@@ -6,6 +6,7 @@ import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_bloc.dart';
 import 'package:mypharma/screens/my_app.dart';
 import 'package:mypharma/services/services.dart';
+import 'package:mypharma/theme/colors.dart';
 
 const IP = 'http://192.168.1.2/mypharma/public/';
 const SERVER_IP = IP + 'api';
@@ -14,6 +15,7 @@ final storage = FlutterSecureStorage();
 APIService apiService = APIService();
 
 void main() {
+  ThemeColor(isDark: true);
   runApp(
       // Injects the Authentication service
       RepositoryProvider<APIService>(

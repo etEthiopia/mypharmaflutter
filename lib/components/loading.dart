@@ -81,7 +81,7 @@ Widget ErrorMessage(context, route, text) {
                   height: 10,
                 ),
                 Divider(
-                  color: light,
+                  color: ThemeColor.light,
                 ),
                 SizedBox(
                   height: 10,
@@ -90,7 +90,9 @@ Widget ErrorMessage(context, route, text) {
                   text,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: dark, fontSize: 25, fontFamily: defaultFont),
+                      color: ThemeColor.darkText,
+                      fontSize: 25,
+                      fontFamily: defaultFont),
                 ),
                 SizedBox(
                   height: 30,
@@ -98,7 +100,7 @@ Widget ErrorMessage(context, route, text) {
                 SizedBox(
                   width: double.infinity,
                   child: Material(
-                    color: dark,
+                    color: ThemeColor.darkBtn,
                     borderRadius: BorderRadius.circular(15.0),
                     child: FlatButton(
                       onPressed: () {
@@ -123,7 +125,7 @@ Widget ErrorMessage(context, route, text) {
                   height: 10,
                 ),
                 Divider(
-                  color: light,
+                  color: ThemeColor.light,
                 ),
                 SizedBox(
                   height: 10,
@@ -132,7 +134,9 @@ Widget ErrorMessage(context, route, text) {
                   text,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: dark, fontSize: 25, fontFamily: defaultFont),
+                      color: ThemeColor.darkText,
+                      fontSize: 25,
+                      fontFamily: defaultFont),
                 ),
                 SizedBox(
                   height: 30,
@@ -140,7 +144,7 @@ Widget ErrorMessage(context, route, text) {
                 SizedBox(
                   width: double.infinity,
                   child: Material(
-                    color: dark,
+                    color: ThemeColor.darkBtn,
                     borderRadius: BorderRadius.circular(15.0),
                     child: FlatButton(
                       onPressed: () {

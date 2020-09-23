@@ -21,6 +21,7 @@ class _RegisterPhyState extends State<RegisterPhy> {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
       drawer: UserDrawer(),
+      backgroundColor: ThemeColor.background,
       body: BlocProvider<RegisterBloc>(
         create: (context) => RegisterBloc(authBloc, apiService),
         child: SafeArea(
@@ -76,35 +77,40 @@ class _RegisterFormState extends State<_RegisterForm> {
         value: 0,
         child: Text(
           "Doctor",
-          style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
       ),
       DropdownMenuItem(
         value: 1,
         child: Text(
           "Health Worker",
-          style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
       ),
       DropdownMenuItem(
         value: 2,
         child: Text(
           "Nurse",
-          style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
       ),
       DropdownMenuItem(
         value: 3,
         child: Text(
           "Pharmacist",
-          style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
       ),
       DropdownMenuItem(
         value: 4,
         child: Text(
           "Others",
-          style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
       ),
     ];
@@ -112,7 +118,8 @@ class _RegisterFormState extends State<_RegisterForm> {
     Widget _professionText() {
       return Text(
         "Profession",
-        style: TextStyle(color: dark, fontSize: 10, fontFamily: defaultFont),
+        style: TextStyle(
+            color: ThemeColor.darkText, fontSize: 10, fontFamily: defaultFont),
       );
     }
 
@@ -124,6 +131,7 @@ class _RegisterFormState extends State<_RegisterForm> {
           children: <Widget>[
             _professionText(),
             DropdownButtonFormField(
+              dropdownColor: ThemeColor.background3,
               style: TextStyle(color: dark, fontFamily: defaultFont),
               items: professions,
               hint: Text("Profession"),
@@ -153,7 +161,8 @@ class _RegisterFormState extends State<_RegisterForm> {
     Widget _registerText() {
       return Text(
         "Sign Up & Stay Connected",
-        style: TextStyle(color: dark, fontSize: 20, fontFamily: defaultFont),
+        style: TextStyle(
+            color: ThemeColor.darkText, fontSize: 20, fontFamily: defaultFont),
       );
     }
 
@@ -161,7 +170,7 @@ class _RegisterFormState extends State<_RegisterForm> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Material(
-          color: Colors.white.withOpacity(0.8),
+          color: ThemeColor.background.withOpacity(0.8),
           elevation: 0.0,
           child: Container(
             decoration: BoxDecoration(
@@ -171,8 +180,10 @@ class _RegisterFormState extends State<_RegisterForm> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
             child: TextFormField(
+              style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
                   hintText: "Full Name",
+                  hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.person,
                     color: dark,
@@ -207,19 +218,20 @@ class _RegisterFormState extends State<_RegisterForm> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Material(
-          color: Colors.white.withOpacity(0.0),
+          color: ThemeColor.background.withOpacity(0.8),
           elevation: 0.0,
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(15.0),
                 border: Border.all(
                     color: primary, width: 2, style: BorderStyle.solid)),
             padding:
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
             child: TextFormField(
+              style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
                   hintText: "Email",
+                  hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.mail,
                     color: dark,
@@ -251,20 +263,21 @@ class _RegisterFormState extends State<_RegisterForm> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Material(
-          color: Colors.white.withOpacity(0.0),
+          color: ThemeColor.background.withOpacity(0.8),
           elevation: 0.0,
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(15.0),
                 border: Border.all(
                     color: primary, width: 2, style: BorderStyle.solid)),
             padding:
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
             child: TextFormField(
+              style: TextStyle(color: ThemeColor.contrastText),
               obscureText: true,
               decoration: InputDecoration(
                   hintText: "Password",
+                  hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.lock,
                     color: dark,
@@ -293,11 +306,10 @@ class _RegisterFormState extends State<_RegisterForm> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Material(
-          color: Colors.white.withOpacity(0.0),
+          color: ThemeColor.background.withOpacity(0.8),
           elevation: 0.0,
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(15.0),
                 border: Border.all(
                     color: primary, width: 2, style: BorderStyle.solid)),
@@ -305,8 +317,10 @@ class _RegisterFormState extends State<_RegisterForm> {
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
             child: TextFormField(
               obscureText: true,
+              style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
                   hintText: "Confirm Password",
+                  hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.lock,
                     color: dark,
@@ -332,7 +346,7 @@ class _RegisterFormState extends State<_RegisterForm> {
     }
 
     Widget _divider() {
-      return Divider(color: accent);
+      return Divider(color: ThemeColor.accent);
     }
 
     Widget _backlogin() {
@@ -343,7 +357,7 @@ class _RegisterFormState extends State<_RegisterForm> {
           child: Text(
             "Back to Login",
             style: TextStyle(
-                color: dark,
+                color: ThemeColor.darkText,
                 decoration: TextDecoration.underline,
                 fontFamily: defaultFont),
           ));
@@ -411,6 +425,7 @@ class _RegisterFormState extends State<_RegisterForm> {
       }
 
       return Scaffold(
+          backgroundColor: ThemeColor.background,
           body: SafeArea(
               child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
@@ -429,8 +444,8 @@ class _RegisterFormState extends State<_RegisterForm> {
                               width: double.infinity,
                               child: Material(
                                 elevation: 1,
-                                shadowColor: light,
-                                color: dark,
+                                shadowColor: ThemeColor.light,
+                                color: ThemeColor.darkBtn,
                                 borderRadius: BorderRadius.circular(15.0),
                                 child: FlatButton(
                                   onPressed: () {

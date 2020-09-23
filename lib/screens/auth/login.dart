@@ -23,6 +23,7 @@ class _LoginState extends State<Login> {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     return Scaffold(
       drawer: UserDrawer(),
+      backgroundColor: ThemeColor.background,
       body: BlocProvider<LoginBloc>(
         create: (context) => LoginBloc(authBloc, apiService),
         child: SafeArea(
@@ -87,7 +88,7 @@ class _LoginFormState extends State<LoginForm> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Material(
-          color: Colors.white.withOpacity(0.8),
+          color: ThemeColor.background.withOpacity(0.8),
           elevation: 0.0,
           child: Container(
             decoration: BoxDecoration(
@@ -97,8 +98,10 @@ class _LoginFormState extends State<LoginForm> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
             child: TextFormField(
+              style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
                   hintText: "Email",
+                  hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.mail,
                     color: dark,
@@ -130,7 +133,7 @@ class _LoginFormState extends State<LoginForm> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Material(
-          color: Colors.white.withOpacity(0.8),
+          color: ThemeColor.background.withOpacity(0.8),
           elevation: 0.0,
           child: Container(
             decoration: BoxDecoration(
@@ -141,8 +144,10 @@ class _LoginFormState extends State<LoginForm> {
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
             child: TextFormField(
               obscureText: true,
+              style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
                   hintText: "Password",
+                  hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.lock,
                     color: dark,
@@ -184,8 +189,10 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Text(
               "Remember Me",
-              style:
-                  TextStyle(color: dark, fontSize: 16, fontFamily: defaultFont),
+              style: TextStyle(
+                  color: ThemeColor.darkText,
+                  fontSize: 16,
+                  fontFamily: defaultFont),
             )
           ],
         ),
@@ -198,7 +205,7 @@ class _LoginFormState extends State<LoginForm> {
         child: Material(
           elevation: 1,
           shadowColor: light,
-          color: dark,
+          color: ThemeColor.darkBtn,
           borderRadius: BorderRadius.circular(15.0),
           child: FlatButton(
             onPressed: () {
@@ -222,7 +229,7 @@ class _LoginFormState extends State<LoginForm> {
           child: Text(
             "Forgot Password",
             style: TextStyle(
-                color: dark,
+                color: ThemeColor.darkText,
                 decoration: TextDecoration.underline,
                 fontFamily: defaultFont),
           ));
@@ -232,20 +239,21 @@ class _LoginFormState extends State<LoginForm> {
       return Center(
         child: Text(
           "or",
-          style: TextStyle(color: darksecond, fontFamily: defaultFont),
+          style: TextStyle(
+              color: ThemeColor.darksecondText, fontFamily: defaultFont),
         ),
       );
     }
 
     Widget _divider() {
-      return Divider(color: accent);
+      return Divider(color: ThemeColor.accent);
     }
 
     Widget _createaccountBtn() {
       return SizedBox(
         width: double.infinity,
         child: Material(
-          color: accent,
+          color: ThemeColor.accent,
           borderRadius: BorderRadius.circular(15.0),
           child: FlatButton(
             onPressed: () {
@@ -264,7 +272,7 @@ class _LoginFormState extends State<LoginForm> {
       return SizedBox(
         width: double.infinity,
         child: Material(
-          color: extralight.withOpacity(0.2),
+          color: ThemeColor.extralightBtn.withOpacity(0.2),
           borderRadius: BorderRadius.circular(15.0),
           child: InkWell(
             onTap: () {
@@ -276,7 +284,7 @@ class _LoginFormState extends State<LoginForm> {
                 "See whats new in our Feed",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: dark,
+                  color: ThemeColor.darkText,
                   fontFamily: defaultFont,
                   fontSize: 12,
                 ),
