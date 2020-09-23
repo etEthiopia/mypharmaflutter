@@ -4,7 +4,6 @@ import 'package:mypharma/models/models.dart';
 
 abstract class WishlistState extends Equatable {
   const WishlistState();
-
   @override
   List<Object> get props => [];
 }
@@ -35,7 +34,14 @@ class WishlistLoaded extends WishlistState {
   List<Object> get props => [wishlist];
 }
 
-class WishlistAdded extends WishlistState {}
+class WishlistAdded extends WishlistState {
+  final int count;
+
+  WishlistAdded({@required this.count});
+
+  @override
+  List<Object> get props => [count];
+}
 
 class WishlistNotAdded extends WishlistState {}
 

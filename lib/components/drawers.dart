@@ -1170,14 +1170,19 @@ class UserDrawer extends StatelessWidget {
                 listener: (context, state) {},
                 child: BlocBuilder<WishlistBloc, WishlistState>(
                     builder: (context, state) {
-                  if (state is WishlistCounted) {
-                    print("WISHLIST STATE: " + state.toString());
-                    print("PROPS: " + state.props.toString());
+                  print("STATE: " + state.toString());
+                  if (state is WishlistCounted || state is WishlistAdded) {
                     return wholesellerDrawer(
                         profile: uname,
                         email: email,
                         image: image,
-                        wishlist: state.count);
+                        wishlist: state.props[0]);
+                  } else if (state is WishlistLoaded) {
+                    return wholesellerDrawer(
+                        profile: uname,
+                        email: email,
+                        image: image,
+                        wishlist: state.wishlist.length);
                   } else {
                     return wholesellerDrawer(
                         profile: uname, email: email, image: image);
@@ -1198,6 +1203,12 @@ class UserDrawer extends StatelessWidget {
                         email: email,
                         image: image,
                         wishlist: state.count);
+                  } else if (state is WishlistLoaded) {
+                    return wholesellerDrawer(
+                        profile: uname,
+                        email: email,
+                        image: image,
+                        wishlist: state.wishlist.length);
                   } else {
                     return wholesellerDrawer(
                         profile: uname, email: email, image: image);

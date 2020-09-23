@@ -82,8 +82,15 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           quantity: event.newwish.quantity);
       if (result != null) {
         if (result == true) {
-          yield WishlistAdded();
-          yield WishlistInital();
+          int count = 0;
+          if (state is WishlistLoaded) {
+            final List<Wishlist> current = state.props[0];
+            count = current.length + 1;
+          } else if (state is WishlistCounted) {
+            int prcount = state.props[0];
+            count = prcount + 1;
+          }
+          yield WishlistAdded(count: count);
         } else {
           yield WishlistNotAdded();
         }
