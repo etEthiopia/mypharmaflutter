@@ -44,7 +44,6 @@ class UserDrawer extends StatelessWidget {
     }
 
     _wishlist() {
-      print('sup');
       Navigator.pushReplacementNamed(context, '/my_wishlist');
     }
 
@@ -1172,17 +1171,13 @@ class UserDrawer extends StatelessWidget {
                 child: BlocBuilder<WishlistBloc, WishlistState>(
                     builder: (context, state) {
                   if (state is WishlistCounted) {
+                    print("WISHLIST STATE: " + state.toString());
+                    print("PROPS: " + state.props.toString());
                     return wholesellerDrawer(
                         profile: uname,
                         email: email,
                         image: image,
                         wishlist: state.count);
-                  } else if (state is WishlistLoaded) {
-                    return wholesellerDrawer(
-                        profile: uname,
-                        email: email,
-                        image: image,
-                        wishlist: state.wishlist.length);
                   } else {
                     return wholesellerDrawer(
                         profile: uname, email: email, image: image);
@@ -1196,17 +1191,13 @@ class UserDrawer extends StatelessWidget {
                 child: BlocBuilder<WishlistBloc, WishlistState>(
                     builder: (context, state) {
                   if (state is WishlistCounted) {
+                    print("WISHLIST STATE: " + state.toString());
+                    print("PROPS: " + state.props.toString());
                     return pharmacyDrawer(
                         profile: uname,
                         email: email,
                         image: image,
                         wishlist: state.count);
-                  } else if (state is WishlistLoaded) {
-                    return wholesellerDrawer(
-                        profile: uname,
-                        email: email,
-                        image: image,
-                        wishlist: state.wishlist.length);
                   } else {
                     return wholesellerDrawer(
                         profile: uname, email: email, image: image);

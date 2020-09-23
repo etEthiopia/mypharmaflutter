@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_event.dart';
@@ -29,9 +30,12 @@ class _MyWishlistPageState extends State<MyWishlistPage> {
     return Scaffold(
         appBar: simpleAppBar(title: "Wishlist"),
         drawer: UserDrawer(),
-        body: BlocProvider<WishlistBloc>(
-            create: (context) => WishlistBloc(apiService),
-            child: MyWishlistsList()));
+        body: MyWishlistsList()
+
+        // BlocProvider<WishlistBloc>(
+        //     create: (context) => WishlistBloc(apiService),
+        //     child: MyWishlistsList())
+        );
   }
 }
 
@@ -87,35 +91,16 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
                       child: ListView.builder(
                         itemCount: state.wishlist.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {
-                              print("clicked");
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (BuildContext context) =>
-                              //             WishlistDetail(
-                              //               postid: state
-                              //                   .receivedList[index].postid,
-                              //               id: state.receivedList[index].id,
-                              //               selectedCategory: state
-                              //                   .receivedList[index].status,
-                              //             ))).then((value) {
-                              //   _orderBloc =
-                              //       BlocProvider.of<WishlistBloc>(context);
-                              //   _orderBloc.add(WishlistReceivedFetched());
-                              return true;
-                            },
-                            child: WishlistProduct(
-                              // state.receivedList[index].toString()
-                              id: state.wishlist[index].id,
-                              image: 'xx',
-                              name: state.wishlist[index].name,
-                              slug: state.wishlist[index].slug,
-                              quantity: state.wishlist[index].quantity,
-                              vendor: state.wishlist[index].vendorId,
-                              postid: state.wishlist[index].postId,
-                            ),
+                          return WishlistProduct(
+                            // state.receivedList[index].toString()
+                            id: state.wishlist[index].id,
+                            image: 'xx',
+                            name: state.wishlist[index].name,
+                            slug: state.wishlist[index].slug,
+                            quantity: state.wishlist[index].quantity,
+                            vendor: state.wishlist[index].vendorId,
+                            postid: state.wishlist[index].postId,
+                            context: this.context,
                           );
                         },
                       ),

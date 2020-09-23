@@ -32,7 +32,7 @@ void main() {
               BlocProvider<WishlistBloc>(
                 create: (context) {
                   final apiService = RepositoryProvider.of<APIService>(context);
-                  return WishlistBloc(apiService)..add(WishlistCount());
+                  return WishlistBloc(apiService);
                 },
               ),
             ],

@@ -22,6 +22,7 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> fetchWishlist();
   Future<bool> addtoWishList();
   Future<int> countWishList();
+  Future<bool> deleteWish(int id);
 }
 
 class APIService extends APIServiceSkel {
@@ -836,11 +837,10 @@ class APIService extends APIServiceSkel {
             'Authorization': 'Bearer ${APIService.token}'
           },
         ).timeout(Duration(seconds: 20));
-
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
-              return json.decode(res.body)['count'];
+              return json.decode(res.body)['count']['wishlist'];
             } else {
               if (json
                   .decode(res.body)['message']
@@ -877,7 +877,67 @@ class APIService extends APIServiceSkel {
         } else {
           print('Connection Error');
           throw WishlistException(
-              message: "Sorry, Something is wrong with the connection");
+              message: "Sorry, Something is wrong with the connection $e");
+        }
+      }
+    } else {
+      throw WishlistException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<bool> deleteWish(int id) async {
+    String wishlist = "wishlist";
+    if (APIService.token != null) {
+      try {
+        var res = await http.delete(
+          "$SERVER_IP/$wishlist/$id",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 10));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              return true;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw WishlistException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw WishlistException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw WishlistException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw WishlistException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw WishlistException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw WishlistException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw WishlistException(
+                message: "Sorry, Something is wrong with the connection");
+          }
+        } else {
+          print('Connection Error');
+          throw WishlistException(
+              message: "Sorry, Something is wrong with the connection $e");
         }
       }
     } else {

@@ -11,7 +11,6 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
 
   @override
   WishlistState get initialState => WishlistInital();
-  //WishlistStatusChangeWishlisted
 
   @override
   Stream<WishlistState> mapEventToState(WishlistEvent event) async* {
@@ -21,6 +20,8 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       yield* _mapWishistAddToState(event);
     } else if (event is WishlistCount) {
       yield* _mapWishCountToState(event);
+    } else if (event is WishlistDelete) {
+      yield* _mapWishDeleteToState(event);
     }
   }
 
@@ -29,6 +30,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     yield WishlistLoading();
     try {
       final result = await _apiService.fetchWishlist();
+
       if (result != null) {
         if (result.length > 0) {
           yield WishlistLoaded(wishlist: result);
@@ -40,7 +42,28 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       }
     } catch (e) {
       if (e.message.toString() == 'empty') {
-        print("nothing");
+        yield WishlistNothingReceived();
+      } else {
+        yield WishlistFailure(
+            error: e.message.toString() ?? 'An unknown error occurred');
+      }
+    }
+  }
+
+  Stream<WishlistState> _mapWishDeleteToState(WishlistDelete event) async* {
+    try {
+      if (state is WishlistLoaded) {
+        //yield WishlistLoading();
+        final result = await _apiService.deleteWish(event.id);
+        if (result) {
+          final List<Wishlist> current = state.props[0];
+          final updatedWishes =
+              current.where((wish) => wish.id != event.id).toList();
+          yield WishlistLoaded(wishlist: updatedWishes);
+        }
+      }
+    } catch (e) {
+      if (e.message.toString() == 'empty') {
         yield WishlistNothingReceived();
       } else {
         yield WishlistFailure(
@@ -73,22 +96,26 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     }
   }
 
-  Stream<WishlistState> _mapWishCountToState(WishlistEvent event) async* {
-    yield WishlistLoading();
-    try {
-      final result = await _apiService.countWishList();
-      if (result != null) {
-        yield WishlistCounted(count: result);
-      } else {
-        yield WishlistNotLoaded();
-      }
-    } catch (e) {
-      if (e.message.toString() == 'empty') {
-        print("nothing");
-        yield WishlistNothingReceived();
-      } else {
-        yield WishlistFailure(
-            error: e.message.toString() ?? 'An unknown error occurred');
+  Stream<WishlistState> _mapWishCountToState(WishlistCount event) async* {
+    if (event.count != 0) {
+      yield WishlistCounted(count: event.count);
+    } else {
+      yield WishlistLoading();
+      try {
+        final result = await _apiService.countWishList();
+        if (result != null) {
+          yield WishlistCounted(count: result);
+        } else {
+          yield WishlistNotLoaded();
+        }
+      } catch (e) {
+        if (e.message.toString() == 'empty') {
+          print("nothing");
+          yield WishlistNothingReceived();
+        } else {
+          yield WishlistFailure(
+              error: e.message.toString() ?? 'An unknown error occurred');
+        }
       }
     }
   }

@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
@@ -15,7 +17,8 @@ class WishlistProduct extends StatefulWidget {
       this.slug,
       this.quantity,
       this.vendor,
-      this.postid})
+      this.postid,
+      this.context})
       : super(key: key);
 
   @override
@@ -27,6 +30,7 @@ class WishlistProduct extends StatefulWidget {
   final int quantity;
   final int vendor;
   final int postid;
+  final dynamic context;
   bool selected = false;
 }
 
@@ -35,6 +39,48 @@ class _WishlistProductState extends State<WishlistProduct> {
     setState(() {
       widget.selected = !widget.selected;
     });
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmation'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You\'re about to Delete ${widget.name}'),
+                Text('Are you Sure ?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                'CANCEL',
+                style: TextStyle(color: primary),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text(
+                'YES',
+                style: TextStyle(color: dark),
+              ),
+              onPressed: () {
+                final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
+                _wishlistBloc.add(WishlistDelete(id: widget.id));
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -147,10 +193,15 @@ class _WishlistProductState extends State<WishlistProduct> {
                         border: Border.all(color: dark),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
-                        Icons.delete,
-                        color: dark,
-                        size: 13,
+                      child: InkWell(
+                        onTap: () {
+                          _showMyDialog();
+                        },
+                        child: Icon(
+                          Icons.delete,
+                          color: dark,
+                          size: 13,
+                        ),
                       )),
                 ),
               ],
