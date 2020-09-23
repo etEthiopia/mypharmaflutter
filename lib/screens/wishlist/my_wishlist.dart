@@ -46,12 +46,62 @@ class MyWishlistsList extends StatefulWidget {
 
 class _MyWishlistsListState extends State<MyWishlistsList> {
   var _wishlistBloc;
+  var selectedList = [];
 
   @override
   void initState() {
     _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
     _wishlistBloc.add(WishlistFetched());
     super.initState();
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmation'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You\'re about to Delete the Selected Items'),
+                Text('Are you Sure ?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                'CANCEL',
+                style: TextStyle(color: primary),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text(
+                'YES',
+                style: TextStyle(color: dark),
+              ),
+              onPressed: () {
+                final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
+                for (var id in selectedList) {
+                  _wishlistBloc.add(WishlistDelete(id: id));
+                }
+                Navigator.of(context).pop();
+                print(selectedList);
+                setState(() {
+                  selectedList = [];
+                });
+                print(selectedList);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -87,28 +137,128 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
                   child: Material(
                     color: Colors.grey[100],
                     child: Container(
-                      color: Colors.grey[150],
-                      child: ListView.builder(
-                        itemCount: state.wishlist.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return WishlistProduct(
-                            // state.receivedList[index].toString()
-                            id: state.wishlist[index].id,
-                            image: 'xx',
-                            name: state.wishlist[index].name,
-                            slug: state.wishlist[index].slug,
-                            quantity: state.wishlist[index].quantity,
-                            vendor: state.wishlist[index].vendorId,
-                            postid: state.wishlist[index].postId,
-                            context: this.context,
-                          );
-                        },
-                      ),
-                    ),
+                        color: Colors.grey[150],
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: state.wishlist.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return WishlistProduct(
+                                    // state.receivedList[index].toString()
+                                    id: state.wishlist[index].id,
+                                    image: 'xx',
+                                    name: state.wishlist[index].name,
+                                    slug: state.wishlist[index].slug,
+                                    quantity: state.wishlist[index].quantity,
+                                    vendor: state.wishlist[index].vendorId,
+                                    postid: state.wishlist[index].postId,
+                                    context: this.context,
+                                    isSelected: (bool value) {
+                                      setState(() {
+                                        if (value) {
+                                          selectedList
+                                              .add(state.wishlist[index].id);
+                                        } else {
+                                          selectedList
+                                              .remove(state.wishlist[index].id);
+                                        }
+                                      });
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                            selectedList.length > 0
+                                ? Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 20),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: Material(
+                                              color: dark,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  bottomLeft:
+                                                      Radius.circular(15)),
+                                              child: FlatButton(
+                                                onPressed: () {},
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.add_shopping_cart,
+                                                      color: Colors.white,
+                                                      size: 20,
+                                                    ),
+                                                    Text(
+                                                      "Add to Cart",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontFamily:
+                                                              defaultFont),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: SizedBox(
+                                            width: double.infinity,
+                                            child: Material(
+                                              color: Colors.red,
+                                              borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(15),
+                                                  bottomRight:
+                                                      Radius.circular(15)),
+                                              child: FlatButton(
+                                                onPressed: () {
+                                                  _showMyDialog();
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.delete,
+                                                      color: Colors.white,
+                                                      size: 20,
+                                                    ),
+                                                    Text(
+                                                      "Delete Selected",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontFamily:
+                                                              defaultFont),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : SizedBox(
+                                    height: 1,
+                                  )
+                          ],
+                        )),
                   ),
                 ),
               ),
             );
+          } else {
+            return LoadingLogin(context);
           }
         },
       ),

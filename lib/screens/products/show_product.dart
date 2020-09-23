@@ -72,7 +72,6 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
       },
       child: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
-          print("STATE: " + state.toString());
           if (state is ProductLoading) {
             return LoadingLogin(context);
           } else if (state is ProductFailure) {
@@ -607,6 +606,8 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                     ),
                   ));
             }
+          } else {
+            return LoadingLogin(context);
           }
         },
       ),

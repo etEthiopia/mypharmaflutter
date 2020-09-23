@@ -91,6 +91,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             count = prcount + 1;
           }
           yield WishlistAdded(count: count);
+          yield WishlistCounted(count: count);
         } else {
           yield WishlistNotAdded();
         }

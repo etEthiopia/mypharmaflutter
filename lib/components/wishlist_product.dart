@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/main.dart';
+import 'package:mypharma/models/wishlist.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
@@ -18,11 +19,13 @@ class WishlistProduct extends StatefulWidget {
       this.quantity,
       this.vendor,
       this.postid,
-      this.context})
+      this.context,
+      this.isSelected})
       : super(key: key);
 
   @override
   _WishlistProductState createState() => _WishlistProductState();
+  //Wishlist item;
   final int id;
   final String image;
   final String name;
@@ -31,13 +34,15 @@ class WishlistProduct extends StatefulWidget {
   final int vendor;
   final int postid;
   final dynamic context;
-  bool selected = false;
+  final ValueChanged<bool> isSelected;
 }
 
 class _WishlistProductState extends State<WishlistProduct> {
-  selected() {
+  bool selected = false;
+  selectedChanged() {
     setState(() {
-      widget.selected = !widget.selected;
+      widget.isSelected(!this.selected);
+      this.selected = !this.selected;
     });
   }
 
@@ -149,7 +154,40 @@ class _WishlistProductState extends State<WishlistProduct> {
                         fontSize: 12,
                         fontFamily: defaultFont),
                   ),
-                  SizedBox(height: 5),
+                  // Expanded(
+                  //   child: Row(
+                  //     crossAxisAlignment: CrossAxisAlignment.end,
+                  //     children: [
+                  //       Container(
+                  //           padding: const EdgeInsets.all(5.0),
+                  //           decoration: new BoxDecoration(
+                  //             border: Border.all(color: dark),
+                  //             shape: BoxShape.circle,
+                  //           ),
+                  //           child: Icon(
+                  //             Icons.edit,
+                  //             color: dark,
+                  //             size: 20,
+                  //           )),
+                  //       Container(
+                  //           padding: const EdgeInsets.all(5.0),
+                  //           decoration: new BoxDecoration(
+                  //             border: Border.all(color: dark),
+                  //             shape: BoxShape.circle,
+                  //           ),
+                  //           child: InkWell(
+                  //             onTap: () {
+                  //               _showMyDialog();
+                  //             },
+                  //             child: Icon(
+                  //               Icons.delete,
+                  //               color: dark,
+                  //               size: 13,
+                  //             ),
+                  //           )),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -163,44 +201,46 @@ class _WishlistProductState extends State<WishlistProduct> {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: new BoxDecoration(
-                        border: Border.all(color: dark),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.edit,
-                        color: dark,
-                        size: 13,
-                      )),
+                  child: InkWell(
+                    child: Container(
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: new BoxDecoration(
+                          border: Border.all(color: dark),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.edit,
+                          color: dark,
+                          size: 14,
+                        )),
+                  ),
                 ),
                 Expanded(
                     child: Container(
                   width: 20,
                   child: Checkbox(
-                    value: widget.selected,
+                    value: this.selected,
                     activeColor: dark,
                     onChanged: (current) {
-                      selected();
+                      selectedChanged();
                     },
                   ),
                 )),
                 Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: new BoxDecoration(
-                        border: Border.all(color: dark),
-                        shape: BoxShape.circle,
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          _showMyDialog();
-                        },
+                  child: InkWell(
+                      onTap: () {
+                        _showMyDialog();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: new BoxDecoration(
+                          border: Border.all(color: dark),
+                          shape: BoxShape.circle,
+                        ),
                         child: Icon(
                           Icons.delete,
                           color: dark,
-                          size: 13,
+                          size: 14,
                         ),
                       )),
                 ),

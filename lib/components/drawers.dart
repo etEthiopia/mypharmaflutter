@@ -69,7 +69,6 @@ class UserDrawer extends StatelessWidget {
     }
 
     Widget loadimage(String image) {
-      print("LOADIMAGE: $image");
       return CachedNetworkImage(
         imageUrl: '${SERVER_IP_FILE}news/$image',
         imageBuilder: (context, imageProvider) => Container(
@@ -1170,7 +1169,7 @@ class UserDrawer extends StatelessWidget {
                 listener: (context, state) {},
                 child: BlocBuilder<WishlistBloc, WishlistState>(
                     builder: (context, state) {
-                  print("STATE: " + state.toString());
+                  print("DRAWER STATE: " + state.props.toString());
                   if (state is WishlistCounted || state is WishlistAdded) {
                     return wholesellerDrawer(
                         profile: uname,
@@ -1195,16 +1194,14 @@ class UserDrawer extends StatelessWidget {
                 listener: (context, state) {},
                 child: BlocBuilder<WishlistBloc, WishlistState>(
                     builder: (context, state) {
-                  if (state is WishlistCounted) {
-                    print("WISHLIST STATE: " + state.toString());
-                    print("PROPS: " + state.props.toString());
+                  if (state is WishlistCounted || state is WishlistAdded) {
                     return pharmacyDrawer(
                         profile: uname,
                         email: email,
                         image: image,
-                        wishlist: state.count);
+                        wishlist: state.props[0]);
                   } else if (state is WishlistLoaded) {
-                    return wholesellerDrawer(
+                    return pharmacyDrawer(
                         profile: uname,
                         email: email,
                         image: image,
