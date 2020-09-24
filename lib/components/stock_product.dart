@@ -32,7 +32,7 @@ class _StockProductState extends State<StockProduct> {
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: Colors.grey[300],
+          color: ThemeColor.background3,
           offset: const Offset(3.0, 3.0),
           blurRadius: 5.0,
           spreadRadius: 2.0,

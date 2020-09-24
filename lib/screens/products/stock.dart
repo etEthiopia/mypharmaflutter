@@ -25,6 +25,7 @@ class _StockState extends State<Stock> {
     return Scaffold(
       appBar: cleanAppBar(title: 'Stock'),
       drawer: UserDrawer(),
+      backgroundColor: ThemeColor.background,
       body: BlocProvider<ProductBloc>(
         create: (context) => ProductBloc(apiService),
         child: StockList(),
@@ -82,19 +83,19 @@ class _StockListState extends State<StockList> {
       if (state is ProductFailure) {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
-        }  else {
+        } else {
           return ErrorMessage(context, 'stock', state.error);
         }
       }
       if (state is MyStockLoaded) {
         return Scaffold(
-          backgroundColor: Colors.grey[100],
+          backgroundColor: ThemeColor.background1,
           floatingActionButton: FloatingActionButton(
             child: Icon(
               Icons.add,
               size: 30,
             ),
-            backgroundColor: accent,
+            backgroundColor: ThemeColor.accent,
           ),
           body: SafeArea(
             child: Padding(
