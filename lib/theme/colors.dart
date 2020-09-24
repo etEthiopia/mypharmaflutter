@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mypharma/main.dart';
 
 // class AppTheme {
 //   //
@@ -113,6 +114,7 @@ class ThemeColor {
 
   ThemeColor({bool isDark}) {
     ThemeColor.isDark = isDark;
+
     if (ThemeColor.isDark) {
       dark = ddark;
       darksecond = ddarksecond;
@@ -201,6 +203,25 @@ class ThemeColor {
   Color dbackground2 = Colors.grey[800];
 
   Color dbackground3 = Colors.grey[900];
+
+  static ChangeTheme() async {
+    storage.write(key: "theme", value: ThemeColor.isDark.toString());
+  }
+
+  static Future<bool> getTheme() async {
+    bool theme;
+    try {
+      String current = await storage.read(key: "theme");
+      if (current == "true") {
+        theme = true;
+      } else {
+        theme = false;
+      }
+      return theme;
+    } catch (e) {
+      return false;
+    }
+  }
 }
 
 Color dark = Color(0XFF005F7F);

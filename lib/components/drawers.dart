@@ -59,6 +59,10 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushNamed(context, '/joinus');
     }
 
+    _settings() {
+      Navigator.pushReplacementNamed(context, '/settings');
+    }
+
     Widget _error(BuildContext context, String url, dynamic error) {
       return CircleAvatar(
         backgroundColor: ThemeColor.background,
@@ -261,6 +265,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _settings();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -477,6 +484,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _settings();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -775,6 +785,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _settings();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -984,6 +997,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _settings();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -1143,6 +1159,9 @@ class UserDrawer extends StatelessWidget {
             ),
             Divider(),
             InkWell(
+              onTap: () {
+                _settings();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(

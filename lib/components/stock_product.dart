@@ -37,7 +37,7 @@ class _StockProductState extends State<StockProduct> {
           blurRadius: 5.0,
           spreadRadius: 2.0,
         ),
-      ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
+      ], color: ThemeColor.background, borderRadius: BorderRadius.circular(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -59,7 +59,9 @@ class _StockProductState extends State<StockProduct> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: dark, fontSize: 15, fontFamily: defaultFont),
+                      color: ThemeColor.darkText,
+                      fontSize: 15,
+                      fontFamily: defaultFont),
                 ),
               ],
             ),
@@ -75,7 +77,9 @@ class _StockProductState extends State<StockProduct> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: dark, fontSize: 17, fontFamily: defaultFont),
+                        color: ThemeColor.darkText,
+                        fontSize: 17,
+                        fontFamily: defaultFont),
                   ),
                   Divider(
                     color: Colors.grey[300],
@@ -86,7 +90,7 @@ class _StockProductState extends State<StockProduct> {
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: darksecond,
+                        color: ThemeColor.darksecondText,
                         fontSize: 12,
                         fontFamily: defaultFont),
                   ),
@@ -97,7 +101,7 @@ class _StockProductState extends State<StockProduct> {
           ),
           VerticalDivider(
             width: 5,
-            color: extralight,
+            color: ThemeColor.extralightBtn,
           ),
           Container(
             padding: EdgeInsets.only(left: 10),
@@ -107,12 +111,12 @@ class _StockProductState extends State<StockProduct> {
                   child: Container(
                       padding: const EdgeInsets.all(5.0),
                       decoration: new BoxDecoration(
-                        border: Border.all(color: dark),
+                        border: Border.all(color: ThemeColor.darkText),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.edit,
-                        color: dark,
+                        color: ThemeColor.darkText,
                         size: 13,
                       )),
                 ),
@@ -120,12 +124,12 @@ class _StockProductState extends State<StockProduct> {
                   child: Container(
                       padding: const EdgeInsets.all(5.0),
                       decoration: new BoxDecoration(
-                        border: Border.all(color: dark),
+                        border: Border.all(color: ThemeColor.darkText),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.delete,
-                        color: dark,
+                        color: ThemeColor.darkText,
                         size: 13,
                       )),
                 ),
