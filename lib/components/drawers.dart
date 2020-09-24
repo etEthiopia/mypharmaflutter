@@ -55,6 +55,10 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/feed');
     }
 
+    _joinus() {
+      Navigator.pushNamed(context, '/joinus');
+    }
+
     Widget _error(BuildContext context, String url, dynamic error) {
       return CircleAvatar(
         backgroundColor: ThemeColor.background,
@@ -128,7 +132,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Log In",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -149,7 +154,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Join as a Physician",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -174,7 +180,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -198,7 +205,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -219,13 +227,17 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
               ),
             ),
             InkWell(
+              onTap: () {
+                _joinus();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -240,7 +252,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "What is MyPharma",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -262,7 +275,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -302,7 +316,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Cart",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -327,7 +342,8 @@ class UserDrawer extends StatelessWidget {
                         ? Text(
                             "Wishlist",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                                fontWeight: FontWeight.bold,
+                                color: ThemeColor.darksecondText),
                           )
                         : Badge(
                             badgeColor: dark,
@@ -360,7 +376,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Orders Sent",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -381,7 +398,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Profile",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -406,7 +424,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -427,7 +446,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -448,7 +468,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -470,7 +491,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -495,7 +517,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Logout",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -538,7 +561,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Orders Sent",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -562,7 +586,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Orders Received",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -583,7 +608,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Cart",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -608,7 +634,8 @@ class UserDrawer extends StatelessWidget {
                         ? Text(
                             "Wishlist",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                                fontWeight: FontWeight.bold,
+                                color: ThemeColor.darksecondText),
                           )
                         : Badge(
                             badgeColor: dark,
@@ -641,7 +668,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Profile",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -666,7 +694,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -690,7 +719,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Stock",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -714,7 +744,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -735,7 +766,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -757,7 +789,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -782,7 +815,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Logout",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -821,7 +855,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Orders Received",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -842,7 +877,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Profile",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -867,7 +903,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -891,7 +928,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Stock",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -915,7 +953,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -936,7 +975,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -958,7 +998,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -983,7 +1024,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Logout",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1022,7 +1064,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Profile",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1047,7 +1090,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Feed",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1068,7 +1112,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Browse Products",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1089,7 +1134,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Search",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1111,7 +1157,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Settings",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),
@@ -1136,7 +1183,8 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       "Logout",
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
                     ),
                   ],
                 ),

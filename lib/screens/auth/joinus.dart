@@ -67,7 +67,7 @@ class _JoinUsState extends State<JoinUs> {
             child: Container(
               height: double.maxFinite,
               width: 5,
-              color: dark,
+              color: ThemeColor.darkText,
               child: Text(""),
             ),
           ),
@@ -86,14 +86,19 @@ class _JoinUsState extends State<JoinUs> {
                 Text(
                   "Join Us",
                   style: TextStyle(
-                      color: darksecond, fontSize: 30, fontFamily: defaultFont),
+                      color: ThemeColor.darksecondText,
+                      fontSize: 30,
+                      fontFamily: defaultFont),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
                   "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisinuli.",
-                  style: TextStyle(fontSize: 15, fontFamily: defaultFont),
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: ThemeColor.contrastText,
+                      fontFamily: defaultFont),
                   overflow: TextOverflow.visible,
                 ),
                 Padding(
@@ -110,15 +115,25 @@ class _JoinUsState extends State<JoinUs> {
       return SizedBox(
         width: double.infinity,
         child: Material(
-          color: primary,
+          color: ThemeColor.primaryBtn,
           borderRadius: BorderRadius.circular(15.0),
           child: FlatButton(
             onPressed: () async {
-              //Navigator.pushNamed(context, '/login');
+              Navigator.pop(context);
             },
-            child: Text(
-              "Login if you have an account",
-              style: TextStyle(color: Colors.white, fontFamily: defaultFont),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                Text(
+                  "Go Back",
+                  style:
+                      TextStyle(color: Colors.white, fontFamily: defaultFont),
+                ),
+              ],
             ),
           ),
         ),
@@ -129,14 +144,15 @@ class _JoinUsState extends State<JoinUs> {
       return SizedBox(
         width: double.infinity,
         child: Material(
-          color: dark,
+          color: ThemeColor.darkBtn,
           borderRadius: BorderRadius.circular(15.0),
           child: FlatButton(
             onPressed: () {
-              //Navigator.pushNamed(context, '/registerphy');
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/login', (Route<dynamic> route) => false);
             },
             child: Text(
-              "Join as a Physician",
+              "Login / Register to take part",
               style: TextStyle(color: Colors.white, fontFamily: defaultFont),
             ),
           ),
@@ -145,84 +161,77 @@ class _JoinUsState extends State<JoinUs> {
     }
 
     Widget _divider() {
-      return Divider(color: accent);
+      return Divider(color: ThemeColor.accent);
     }
 
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
-      return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-        if (state is AuthAuthenticated) {
-          return Scaffold(
-              drawer: Drawer(child: UserDrawer()),
-              body: SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    Expanded(flex: 3, child: _introSection()),
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20.0, horizontal: 30.0),
-                          child: _joinusSection()),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        alignment: AlignmentDirectional.bottomEnd,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            _joinasphyBtn(),
-                            _divider(),
-                            _loginBtn(),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+      return Scaffold(
+          drawer: Drawer(child: UserDrawer()),
+          backgroundColor: ThemeColor.background,
+          body: SafeArea(
+            child: Column(
+              children: <Widget>[
+                Expanded(flex: 3, child: _introSection()),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 30.0),
+                      child: _joinusSection()),
                 ),
-              ));
-        }
-      });
-    } else {
-      return BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-        if (state is AuthAuthenticated) {
-          return Scaffold(
-            body: SafeArea(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: _introSection(),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            child: _joinusSection(),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          _joinasphyBtn(),
-                          _divider(),
-                          _loginBtn(),
-                        ],
-                      ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 10.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        _joinasphyBtn(),
+                        _divider(),
+                        _loginBtn(),
+                      ],
                     ),
-                  )
-                ],
-              ),
+                  ),
+                ),
+              ],
             ),
-          );
-        }
-      });
+          ));
+    } else {
+      return Scaffold(
+        backgroundColor: ThemeColor.background,
+        body: SafeArea(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: _introSection(),
+              ),
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: _joinusSection(),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _joinasphyBtn(),
+                      _divider(),
+                      _loginBtn(),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
     }
   }
 }
