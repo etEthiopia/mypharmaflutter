@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
@@ -15,29 +16,33 @@ final storage = FlutterSecureStorage();
 APIService apiService = APIService();
 
 void main() {
-  ThemeColor(isDark: true);
-  runApp(
-      // Injects the Authentication service
-      RepositoryProvider<APIService>(
-          create: (context) {
-            return APIService();
-          },
-          // Injects the Authentication BLoC
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider<AuthBloc>(
-                create: (context) {
-                  final apiService = RepositoryProvider.of<APIService>(context);
-                  return AuthBloc(apiService)..add(AppLoaded());
-                },
-              ),
-              BlocProvider<WishlistBloc>(
-                create: (context) {
-                  final apiService = RepositoryProvider.of<APIService>(context);
-                  return WishlistBloc(apiService);
-                },
-              ),
-            ],
-            child: MyApp(),
-          )));
+  //ThemeColor(isDark: true);
+  runApp(Phoenix(
+    child:
+        // Injects the Authentication service
+        RepositoryProvider<APIService>(
+            create: (context) {
+              return APIService();
+            },
+            // Injects the Authentication BLoC
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider<AuthBloc>(
+                  create: (context) {
+                    final apiService =
+                        RepositoryProvider.of<APIService>(context);
+                    return AuthBloc(apiService)..add(AppLoaded());
+                  },
+                ),
+                BlocProvider<WishlistBloc>(
+                  create: (context) {
+                    final apiService =
+                        RepositoryProvider.of<APIService>(context);
+                    return WishlistBloc(apiService);
+                  },
+                ),
+              ],
+              child: MyApp(),
+            )),
+  ));
 }

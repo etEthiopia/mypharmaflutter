@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:mypharma/services/services.dart';
+import 'package:mypharma/theme/colors.dart';
 
 import 'auth_event.dart';
 import 'auth_state.dart';
@@ -39,6 +40,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       //await Future.delayed(Duration(milliseconds: 5000)); // a simulated delay
       final currentUser = await _apiService.getCurrentUser();
+      final theme = await ThemeColor.getTheme();
+      if (theme) {
+        ThemeColor(isDark: true);
+      } else {
+        ThemeColor(isDark: false);
+      }
 
       if (currentUser != null) {
         APIService.token = currentUser.token;

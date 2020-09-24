@@ -204,8 +204,8 @@ class ThemeColor {
 
   Color dbackground3 = Colors.grey[900];
 
-  static ChangeTheme() async {
-    storage.write(key: "theme", value: ThemeColor.isDark.toString());
+  static ChangeTheme(bool value) async {
+    await storage.write(key: "theme", value: value.toString());
   }
 
   static Future<bool> getTheme() async {

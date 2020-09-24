@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
@@ -12,8 +13,81 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  bool thememode;
+
+  @override
+  void initState() {
+    setState(() {
+      thememode = ThemeColor.isDark;
+    });
+    super.initState();
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: ThemeColor.background3,
+          title: Text(
+            'Confirmation',
+            style: TextStyle(color: ThemeColor.contrastText),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'Please Restart the App to see the Changes!',
+                  style: TextStyle(color: ThemeColor.contrastText),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                'LATER',
+                style: TextStyle(color: ThemeColor.primaryText),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text(
+                'RESTART',
+                style: TextStyle(color: ThemeColor.darkText),
+              ),
+              onPressed: () {
+                Phoenix.rebirth(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget _thememode() {
+      return SwitchListTile(
+        value: thememode,
+        title: Text(
+          "Dark Mode",
+          style: TextStyle(color: ThemeColor.contrastText),
+        ),
+        onChanged: (value) {
+          ThemeColor.ChangeTheme(value);
+          setState(() {
+            thememode = value;
+          });
+          _showMyDialog();
+        },
+      );
+    }
+
     Widget _logoSection() {
       return Container(
           margin: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
@@ -87,17 +161,7 @@ class _SettingsState extends State<Settings> {
             child: Column(
               children: <Widget>[
                 Expanded(flex: 3, child: _logoSection()),
-                SwitchListTile(
-                  value: ThemeColor.isDark,
-                  title: Text(
-                    "Dark Mode",
-                    style: TextStyle(color: ThemeColor.contrastText),
-                  ),
-                  onChanged: (value) {
-                    ThemeColor.isDark = value;
-                    ThemeColor.ChangeTheme();
-                  },
-                ),
+                _thememode(),
                 Expanded(
                   flex: 2,
                   child: Container(
@@ -133,9 +197,7 @@ class _SettingsState extends State<Settings> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Column(
                     children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
+                      _thememode(),
                       _joinasphyBtn(),
                       _divider(),
                       _loginBtn(),
