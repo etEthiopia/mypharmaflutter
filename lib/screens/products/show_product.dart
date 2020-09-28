@@ -30,6 +30,7 @@ class _ShowProductState extends State<ShowProduct> {
     return Scaffold(
         appBar: simpleAppBar(title: "Order Detail"),
         drawer: UserDrawer(),
+        backgroundColor: ThemeColor.background,
         body: BlocProvider<ProductBloc>(
             create: (context) => ProductBloc(apiService),
             child: ShowProductDetail(
@@ -130,7 +131,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                 children: <Widget>[
                   Text("Category",
                       style: TextStyle(
-                          color: extralight,
+                          color: ThemeColor.extralightText,
                           fontSize: 10,
                           fontFamily: defaultFont)),
                   Text("Pill",
@@ -150,7 +151,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                 children: <Widget>[
                   Text("Country",
                       style: TextStyle(
-                          color: extralight,
+                          color: ThemeColor.extralightText,
                           fontSize: 10,
                           fontFamily: defaultFont)),
                   Text("Switzerland",
@@ -170,14 +171,16 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                 children: <Widget>[
                   Text("Provider",
                       style: TextStyle(
-                          color: por ? extralight : primary,
+                          color: por
+                              ? ThemeColor.extralightText
+                              : ThemeColor.primaryText,
                           fontSize: 10,
                           fontFamily: defaultFont)),
                   Text(state.product.vendor,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: por ? Colors.white : darksecond,
+                          color: por ? Colors.white : ThemeColor.darksecondText,
                           fontSize: 15,
                           fontFamily: defaultFont))
                 ],
@@ -226,7 +229,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                       child: SizedBox(
                         width: double.infinity,
                         child: Material(
-                          color: dark,
+                          color: ThemeColor.darkBtn,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(15),
                               bottomLeft: Radius.circular(15)),
@@ -256,7 +259,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                       child: SizedBox(
                         width: double.infinity,
                         child: Material(
-                          color: darksecond,
+                          color: ThemeColor.darksecondBtn,
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(15),
                               bottomRight: Radius.circular(15)),
@@ -318,12 +321,12 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 ),
                                 Text("Product Name",
                                     style: TextStyle(
-                                        color: light,
+                                        color: ThemeColor.lightText,
                                         fontSize: 10,
                                         fontFamily: defaultFont)),
                                 Text(state.product.title,
                                     style: TextStyle(
-                                        color: darksecond,
+                                        color: ThemeColor.contrastText,
                                         fontSize: 20,
                                         fontFamily: defaultFont))
                               ],
@@ -336,12 +339,12 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                               children: <Widget>[
                                 Text("Generic Name",
                                     style: TextStyle(
-                                        color: light,
+                                        color: ThemeColor.lightText,
                                         fontSize: 10,
                                         fontFamily: defaultFont)),
                                 Text("Allergy Reliever",
                                     style: TextStyle(
-                                        color: darksecond,
+                                        color: ThemeColor.darksecondText,
                                         fontSize: 15,
                                         fontFamily: defaultFont))
                               ],
@@ -356,12 +359,12 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                   children: <Widget>[
                                     Text("Batch Number",
                                         style: TextStyle(
-                                            color: light,
+                                            color: ThemeColor.lightText,
                                             fontSize: 10,
                                             fontFamily: defaultFont)),
                                     Text(state.product.batchNo,
                                         style: TextStyle(
-                                            color: darksecond,
+                                            color: ThemeColor.darksecondText,
                                             fontSize: 15,
                                             fontFamily: defaultFont))
                                   ],
@@ -372,12 +375,12 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                     children: <Widget>[
                                       Text("Single's Price",
                                           style: TextStyle(
-                                              color: light,
+                                              color: ThemeColor.lightText,
                                               fontSize: 10,
                                               fontFamily: defaultFont)),
                                       Text("${state.product.price}ETB",
                                           style: TextStyle(
-                                              color: darksecond,
+                                              color: ThemeColor.darksecondText,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 15,
                                               fontFamily: defaultFont))
@@ -396,12 +399,12 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                   children: <Widget>[
                                     Text("Manufacured Date",
                                         style: TextStyle(
-                                            color: light,
+                                            color: ThemeColor.lightText,
                                             fontSize: 10,
                                             fontFamily: defaultFont)),
                                     Text("01/02/2019",
                                         style: TextStyle(
-                                            color: darksecond,
+                                            color: ThemeColor.darksecondText,
                                             fontSize: 15,
                                             fontFamily: defaultFont))
                                   ],
@@ -414,12 +417,12 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                   children: <Widget>[
                                     Text("Expire Date",
                                         style: TextStyle(
-                                            color: light,
+                                            color: ThemeColor.lightText,
                                             fontSize: 10,
                                             fontFamily: defaultFont)),
                                     Text("01/02/2022",
                                         style: TextStyle(
-                                            color: darksecond,
+                                            color: ThemeColor.darksecondText,
                                             fontSize: 15,
                                             fontFamily: defaultFont))
                                   ],
@@ -434,12 +437,12 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                               children: <Widget>[
                                 Text("Manufacurer Company",
                                     style: TextStyle(
-                                        color: light,
+                                        color: ThemeColor.lightText,
                                         fontSize: 10,
                                         fontFamily: defaultFont)),
                                 Text("Johnson & Johnson Pacific",
                                     style: TextStyle(
-                                        color: darksecond,
+                                        color: ThemeColor.darksecondText,
                                         fontSize: 15,
                                         fontFamily: defaultFont))
                               ],
@@ -458,13 +461,13 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 Container(
                                   height: 100,
                                   width: double.maxFinite,
-                                  color: Colors.grey[100],
+                                  color: ThemeColor.background2,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 5),
                                   child: SingleChildScrollView(
                                     child: Text(state.product.description,
                                         style: TextStyle(
-                                            color: darksecond,
+                                            color: ThemeColor.darksecondText,
                                             fontSize: 15,
                                             fontFamily: defaultFont)),
                                   ),
@@ -515,16 +518,16 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
 
             if (orientation == Orientation.portrait) {
               return Container(
-                  color: Colors.grey[300],
+                  color: ThemeColor.background1,
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: ThemeColor.background,
                       ),
                       child: Column(children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
-                            color: primary,
+                            color: ThemeColor.primaryBtn,
                           ),
                           child: Column(
                             children: <Widget>[
@@ -540,9 +543,10 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 child: _org(true),
                                 width: double.maxFinite,
                                 decoration: BoxDecoration(
-                                    color: dark,
+                                    color: ThemeColor.darkBtn,
                                     border: Border.symmetric(
-                                        vertical: BorderSide(color: light))),
+                                        vertical: BorderSide(
+                                            color: ThemeColor.lightBtn))),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 5),
                               ),
@@ -567,18 +571,18 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                       ])));
             } else {
               return Container(
-                  color: Colors.grey[300],
+                  color: ThemeColor.background,
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: ThemeColor.background,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Container(
                           decoration: BoxDecoration(
-                            color: primary,
+                            color: ThemeColor.primaryBtn,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

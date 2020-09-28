@@ -96,6 +96,7 @@ class ThemeColor {
   static Color accent = Color(0XFF4BCCD1);
   static Color gold = Color(0XFFFED501);
   static Color background;
+  static Color card;
   static Color background1;
   static Color background2;
   static Color background3;
@@ -120,7 +121,7 @@ class ThemeColor {
       darksecond = ddarksecond;
       primary = dprimary;
       light = dlight;
-
+      card = dbackground3;
       extralight = dextralight;
       background = dbackground;
       background1 = dbackground1;
@@ -149,6 +150,7 @@ class ThemeColor {
       background1 = lbackground1;
       background2 = lbackground2;
       background3 = lbackground3;
+      card = lbackground;
       appBar = primary;
       darksecondText = darksecond;
       darkText = dark;

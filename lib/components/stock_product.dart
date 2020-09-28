@@ -37,7 +37,7 @@ class _StockProductState extends State<StockProduct> {
           blurRadius: 5.0,
           spreadRadius: 2.0,
         ),
-      ], color: ThemeColor.background, borderRadius: BorderRadius.circular(10)),
+      ], color: ThemeColor.card, borderRadius: BorderRadius.circular(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
