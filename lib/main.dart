@@ -6,7 +6,7 @@ import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_bloc.dart';
 import 'package:mypharma/screens/my_app.dart';
-nimport 'package:mypharma/services/services.dart';
+import 'package:mypharma/services/services.dart';
 
 const IP = 'http://192.168.1.5/mypharma/public/';
 const SERVER_IP = IP + 'api';
