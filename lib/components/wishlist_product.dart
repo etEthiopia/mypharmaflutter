@@ -52,29 +52,41 @@ class _WishlistProductState extends State<WishlistProduct> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirmation'),
+          backgroundColor: ThemeColor.background,
+          title: Text('Confirmation',
+              style: TextStyle(
+                color: ThemeColor.contrastText,
+              )),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('You\'re about to Delete ${widget.name}'),
-                Text('Are you Sure ?'),
+                Text('You\'re about to Delete the Selected Items',
+                    style: TextStyle(
+                      color: ThemeColor.contrastText,
+                    )),
+                Text('Are you Sure ?',
+                    style: TextStyle(
+                      color: ThemeColor.contrastText,
+                    )),
               ],
             ),
           ),
           actions: <Widget>[
             FlatButton(
+              color: ThemeColor.background,
               child: Text(
                 'CANCEL',
-                style: TextStyle(color: primary),
+                style: TextStyle(color: ThemeColor.primaryText),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             FlatButton(
+              color: ThemeColor.background,
               child: Text(
                 'YES',
-                style: TextStyle(color: dark),
+                style: TextStyle(color: ThemeColor.darkText),
               ),
               onPressed: () {
                 final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
@@ -88,6 +100,48 @@ class _WishlistProductState extends State<WishlistProduct> {
     );
   }
 
+  // Future<void> _showMyDialog() async {
+  //   return showDialog<void>(
+  //     context: context,
+  //     barrierDismissible: false, // user must tap button!
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: Text('Confirmation'),
+  //         content: SingleChildScrollView(
+  //           child: ListBody(
+  //             children: <Widget>[
+  //               Text('You\'re about to Delete ${widget.name}'),
+  //               Text('Are you Sure ?'),
+  //             ],
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           FlatButton(
+  //             child: Text(
+  //               'CANCEL',
+  //               style: TextStyle(color: primary),
+  //             ),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //           FlatButton(
+  //             child: Text(
+  //               'YES',
+  //               style: TextStyle(color: dark),
+  //             ),
+  //             onPressed: () {
+  //               final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
+  //               _wishlistBloc.add(WishlistDelete(id: widget.id));
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -96,12 +150,12 @@ class _WishlistProductState extends State<WishlistProduct> {
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: Colors.grey[300],
+          color: ThemeColor.background3,
           offset: const Offset(3.0, 3.0),
           blurRadius: 5.0,
           spreadRadius: 2.0,
         ),
-      ], color: Colors.white, borderRadius: BorderRadius.circular(10)),
+      ], color: ThemeColor.card, borderRadius: BorderRadius.circular(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -123,7 +177,9 @@ class _WishlistProductState extends State<WishlistProduct> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: dark, fontSize: 15, fontFamily: defaultFont),
+                      color: ThemeColor.darkText,
+                      fontSize: 15,
+                      fontFamily: defaultFont),
                 ),
               ],
             ),
@@ -139,10 +195,12 @@ class _WishlistProductState extends State<WishlistProduct> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: dark, fontSize: 17, fontFamily: defaultFont),
+                        color: ThemeColor.darkText,
+                        fontSize: 17,
+                        fontFamily: defaultFont),
                   ),
                   Divider(
-                    color: Colors.grey[300],
+                    color: ThemeColor.background1,
                     height: 10,
                   ),
                   Text(
@@ -150,51 +208,17 @@ class _WishlistProductState extends State<WishlistProduct> {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: darksecond,
+                        color: ThemeColor.darksecondText,
                         fontSize: 12,
                         fontFamily: defaultFont),
                   ),
-                  // Expanded(
-                  //   child: Row(
-                  //     crossAxisAlignment: CrossAxisAlignment.end,
-                  //     children: [
-                  //       Container(
-                  //           padding: const EdgeInsets.all(5.0),
-                  //           decoration: new BoxDecoration(
-                  //             border: Border.all(color: dark),
-                  //             shape: BoxShape.circle,
-                  //           ),
-                  //           child: Icon(
-                  //             Icons.edit,
-                  //             color: dark,
-                  //             size: 20,
-                  //           )),
-                  //       Container(
-                  //           padding: const EdgeInsets.all(5.0),
-                  //           decoration: new BoxDecoration(
-                  //             border: Border.all(color: dark),
-                  //             shape: BoxShape.circle,
-                  //           ),
-                  //           child: InkWell(
-                  //             onTap: () {
-                  //               _showMyDialog();
-                  //             },
-                  //             child: Icon(
-                  //               Icons.delete,
-                  //               color: dark,
-                  //               size: 13,
-                  //             ),
-                  //           )),
-                  //     ],
-                  //   ),
-                  // ),
                 ],
               ),
             ),
           ),
           VerticalDivider(
             width: 5,
-            color: extralight,
+            color: ThemeColor.extralightBtn,
           ),
           Container(
             padding: EdgeInsets.only(left: 10),
@@ -205,12 +229,12 @@ class _WishlistProductState extends State<WishlistProduct> {
                     child: Container(
                         padding: const EdgeInsets.all(5.0),
                         decoration: new BoxDecoration(
-                          border: Border.all(color: dark),
+                          border: Border.all(color: ThemeColor.darkText),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           Icons.edit,
-                          color: dark,
+                          color: ThemeColor.darkText,
                           size: 14,
                         )),
                   ),
@@ -220,7 +244,7 @@ class _WishlistProductState extends State<WishlistProduct> {
                   width: 20,
                   child: Checkbox(
                     value: this.selected,
-                    activeColor: dark,
+                    activeColor: ThemeColor.dark,
                     onChanged: (current) {
                       selectedChanged();
                     },
@@ -234,12 +258,12 @@ class _WishlistProductState extends State<WishlistProduct> {
                       child: Container(
                         padding: const EdgeInsets.all(5.0),
                         decoration: new BoxDecoration(
-                          border: Border.all(color: dark),
+                          border: Border.all(color: ThemeColor.darkText),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           Icons.delete,
-                          color: dark,
+                          color: ThemeColor.darkText,
                           size: 14,
                         ),
                       )),

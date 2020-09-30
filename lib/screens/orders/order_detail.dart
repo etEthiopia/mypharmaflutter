@@ -28,6 +28,7 @@ class _OrderDetailState extends State<OrderDetail> {
 
     return Scaffold(
         appBar: simpleAppBar(title: "Order Detail"),
+        backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),
         body: BlocProvider<OrderBloc>(
             create: (context) => OrderBloc(apiService),
@@ -61,59 +62,75 @@ class _ShowOrderState extends State<ShowOrder> {
 
   List<DropdownMenuItem<dynamic>> categories = [
     DropdownMenuItem(
+      value: 'all',
+      child: Text(
+        "All",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      ),
+    ),
+    DropdownMenuItem(
       value: 'processing',
       child: Text(
-        "processing",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Processing",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'onhold',
       child: Text(
-        "onhold",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Onhold",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'shipping',
       child: Text(
-        "shipping",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Shipping",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'pending payment',
       child: Text(
-        "pending payment",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Pending Payment",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'completed',
       child: Text(
-        "completed",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Completed",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'delivered',
       child: Text(
-        "delivered",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Delivered",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'refunded',
       child: Text(
-        "refunded",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Refunded",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'failed',
       child: Text(
-        "failed",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Failed",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
   ];
@@ -130,9 +147,13 @@ class _ShowOrderState extends State<ShowOrder> {
         children: [
           Text("Order Status",
               style: TextStyle(
-                  color: primary, fontSize: 10, fontFamily: defaultFont)),
+                  color: ThemeColor.primaryText,
+                  fontSize: 10,
+                  fontFamily: defaultFont)),
           DropdownButtonFormField(
-            style: TextStyle(color: dark, fontFamily: defaultFont),
+            dropdownColor: ThemeColor.background3,
+            style:
+                TextStyle(color: ThemeColor.darkText, fontFamily: defaultFont),
             items: categories,
             hint: Text("Status"),
             value: widget.selectedCategory,
@@ -140,10 +161,6 @@ class _ShowOrderState extends State<ShowOrder> {
               setState(() {
                 widget.selectedCategory = value;
               });
-              _orderBloc = BlocProvider.of<OrderBloc>(context);
-
-              _orderBloc.add(OrderStatusChangeOrdered(
-                  status: widget.selectedCategory, id: widget.id));
             },
             isExpanded: true,
           ),
@@ -164,7 +181,9 @@ class _ShowOrderState extends State<ShowOrder> {
       children: [
         Text("Product",
             style: TextStyle(
-                color: extralight, fontSize: 10, fontFamily: defaultFont)),
+                color: ThemeColor.extralightText,
+                fontSize: 10,
+                fontFamily: defaultFont)),
         Text(name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -183,7 +202,9 @@ class _ShowOrderState extends State<ShowOrder> {
       children: [
         Text("Order By",
             style: TextStyle(
-                color: extralight, fontSize: 10, fontFamily: defaultFont)),
+                color: ThemeColor.extralightText,
+                fontSize: 10,
+                fontFamily: defaultFont)),
         Text(name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -222,9 +243,11 @@ class _ShowOrderState extends State<ShowOrder> {
         children: [
           Text("Quantity",
               style: TextStyle(
-                  color: primary, fontSize: 15, fontFamily: defaultFont)),
+                  color: ThemeColor.primaryText,
+                  fontSize: 15,
+                  fontFamily: defaultFont)),
           Divider(
-            color: extralight,
+            color: ThemeColor.extralightText,
           ),
           Row(
             children: [
@@ -233,14 +256,14 @@ class _ShowOrderState extends State<ShowOrder> {
                 children: [
                   Text("Amount",
                       style: TextStyle(
-                          color: primary,
+                          color: ThemeColor.primaryText,
                           fontSize: 10,
                           fontFamily: defaultFont)),
                   Text(amount.toString(),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: darksecond,
+                          color: ThemeColor.darksecondText,
                           fontSize: 20,
                           fontFamily: defaultFont)),
                 ],
@@ -254,14 +277,14 @@ class _ShowOrderState extends State<ShowOrder> {
                   children: [
                     Text("Type",
                         style: TextStyle(
-                            color: primary,
+                            color: ThemeColor.primaryText,
                             fontSize: 10,
                             fontFamily: defaultFont)),
                     Text(type,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: darksecond,
+                            color: ThemeColor.darksecondText,
                             fontSize: 20,
                             fontFamily: defaultFont)),
                   ],
@@ -282,9 +305,11 @@ class _ShowOrderState extends State<ShowOrder> {
         children: [
           Text("Price Details",
               style: TextStyle(
-                  color: primary, fontSize: 15, fontFamily: defaultFont)),
+                  color: ThemeColor.primaryText,
+                  fontSize: 15,
+                  fontFamily: defaultFont)),
           Divider(
-            color: extralight,
+            color: ThemeColor.extralightText,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -294,56 +319,56 @@ class _ShowOrderState extends State<ShowOrder> {
                   Expanded(
                     child: Text("Subtotal",
                         style: TextStyle(
-                            color: primary,
+                            color: ThemeColor.primaryText,
                             fontSize: 15,
                             fontFamily: defaultFont)),
                   ),
                   Expanded(
                     child: Text("$sub ETB",
                         style: TextStyle(
-                            color: darksecond,
+                            color: ThemeColor.darksecondText,
                             fontSize: 15,
                             fontFamily: defaultFont)),
                   ),
                 ],
               ),
               Divider(
-                color: Colors.grey[300],
+                color: ThemeColor.background1,
               ),
               Row(
                 children: [
                   Expanded(
                     child: Text("Tax",
                         style: TextStyle(
-                            color: primary,
+                            color: ThemeColor.primaryText,
                             fontSize: 15,
                             fontFamily: defaultFont)),
                   ),
                   Expanded(
                     child: Text("0 %",
                         style: TextStyle(
-                            color: darksecond,
+                            color: ThemeColor.darksecondText,
                             fontSize: 15,
                             fontFamily: defaultFont)),
                   ),
                 ],
               ),
               Divider(
-                color: Colors.grey[300],
+                color: ThemeColor.background1,
               ),
               Row(
                 children: [
                   Expanded(
                     child: Text("Total",
                         style: TextStyle(
-                            color: primary,
+                            color: ThemeColor.primaryText,
                             fontSize: 15,
                             fontFamily: defaultFont)),
                   ),
                   Expanded(
                     child: Text("$tot ETB",
                         style: TextStyle(
-                            color: darksecond,
+                            color: ThemeColor.darksecondText,
                             fontSize: 15,
                             fontFamily: defaultFont)),
                   ),
@@ -405,14 +430,14 @@ class _ShowOrderState extends State<ShowOrder> {
         } else if (state is OrderFailure) {
           if (state.error == 'Not Authorized') {
             return LoggedOutLoading(context);
-          }  else {
+          } else {
             return ErrorMessage(context, 'order_received', state.error);
           }
         } else if (state is OrderStatusChanged) {
           Navigator.pop(context);
         } else if (state is OrderRShow) {
           return Scaffold(
-            backgroundColor: Colors.grey[300],
+            backgroundColor: ThemeColor.background1,
             body: SafeArea(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -423,7 +448,7 @@ class _ShowOrderState extends State<ShowOrder> {
                       child: Column(
                         children: [
                           Container(
-                            color: primary,
+                            color: ThemeColor.primaryBtn,
                             width: double.maxFinite,
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -459,7 +484,7 @@ class _ShowOrderState extends State<ShowOrder> {
                           ),
                           Expanded(
                             child: Container(
-                              color: Colors.white,
+                              color: ThemeColor.background,
                               child: ListView(
                                 children: [
                                   _quantity(

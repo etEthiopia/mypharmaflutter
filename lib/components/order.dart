@@ -34,13 +34,13 @@ class _OrderCardState extends State<OrderCard> {
       decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: extralight.withOpacity(0.5),
+              color: ThemeColor.background3,
               offset: const Offset(0.0, 3.0),
               blurRadius: 3.0,
               spreadRadius: 1.5,
             ),
           ],
-          color: Colors.white,
+          color: ThemeColor.card,
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Row(
         children: [
@@ -53,7 +53,9 @@ class _OrderCardState extends State<OrderCard> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: dark, fontSize: 15, fontFamily: defaultFont),
+                      color: ThemeColor.darkText,
+                      fontSize: 15,
+                      fontFamily: defaultFont),
                 ),
                 SizedBox(
                   height: 5,
@@ -63,11 +65,13 @@ class _OrderCardState extends State<OrderCard> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                      color: primary, fontSize: 15, fontFamily: defaultFont),
+                      color: ThemeColor.primaryText,
+                      fontSize: 15,
+                      fontFamily: defaultFont),
                 ),
                 Divider(
                   height: 5,
-                  color: extralight,
+                  color: ThemeColor.extralightText,
                 ),
                 Row(
                   children: <Widget>[
@@ -77,7 +81,9 @@ class _OrderCardState extends State<OrderCard> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: dark, fontSize: 12, fontFamily: defaultFont),
+                            color: ThemeColor.darkText,
+                            fontSize: 12,
+                            fontFamily: defaultFont),
                       ),
                     ),
                     Expanded(
@@ -85,13 +91,13 @@ class _OrderCardState extends State<OrderCard> {
                         children: <Widget>[
                           Text("Quantity: ",
                               style: TextStyle(
-                                  color: light,
+                                  color: ThemeColor.lightText,
                                   fontSize: 10,
                                   fontFamily: defaultFont)),
                           Text(
                             widget.o.quantity.toString(),
                             style: TextStyle(
-                                color: darksecond,
+                                color: ThemeColor.darksecondText,
                                 fontSize: 12,
                                 fontFamily: defaultFont),
                           )
@@ -113,13 +119,13 @@ class _OrderCardState extends State<OrderCard> {
                         children: <Widget>[
                           Text("Status",
                               style: TextStyle(
-                                  color: light,
+                                  color: ThemeColor.lightText,
                                   fontSize: 10,
                                   fontFamily: defaultFont)),
                           Text(
                             widget.o.status,
                             style: TextStyle(
-                                color: darksecond,
+                                color: ThemeColor.darksecondText,
                                 fontSize: 15,
                                 fontFamily: defaultFont),
                           )
@@ -132,7 +138,7 @@ class _OrderCardState extends State<OrderCard> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            color: primary,
+                            color: ThemeColor.primaryText,
                             fontSize: 15,
                             fontFamily: defaultFont),
                       ),
@@ -157,12 +163,12 @@ class _OrderCardState extends State<OrderCard> {
                           child: Container(
                               padding: const EdgeInsets.all(5.0),
                               decoration: new BoxDecoration(
-                                border: Border.all(color: dark),
+                                border: Border.all(color: ThemeColor.darkText),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
                                 Icons.view_headline,
-                                color: dark,
+                                color: ThemeColor.darkText,
                                 size: 13,
                               )),
                         ),
@@ -170,12 +176,12 @@ class _OrderCardState extends State<OrderCard> {
                           child: Container(
                               padding: const EdgeInsets.all(5.0),
                               decoration: new BoxDecoration(
-                                border: Border.all(color: dark),
+                                border: Border.all(color: ThemeColor.darkText),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
                                 Icons.edit,
-                                color: dark,
+                                color: ThemeColor.darkText,
                                 size: 13,
                               )),
                         ),
@@ -183,12 +189,12 @@ class _OrderCardState extends State<OrderCard> {
                           child: Container(
                               padding: const EdgeInsets.all(5.0),
                               decoration: new BoxDecoration(
-                                border: Border.all(color: dark),
+                                border: Border.all(color: ThemeColor.darkText),
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
                                 Icons.delete,
-                                color: dark,
+                                color: ThemeColor.darkText,
                                 size: 13,
                               )),
                         ),

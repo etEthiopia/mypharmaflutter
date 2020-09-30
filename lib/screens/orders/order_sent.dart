@@ -23,6 +23,7 @@ class _SentOrderPageState extends State<SentOrderPage> {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
         appBar: simpleAppBar(title: "Orders Sent"),
+        backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),
         body: BlocProvider<OrderBloc>(
             create: (context) => OrderBloc(apiService),
@@ -35,73 +36,121 @@ class _SentOrderPageState extends State<SentOrderPage> {
 class SentOrdersList extends StatefulWidget {
   @override
   _SentOrdersListState createState() => _SentOrdersListState();
+
+  String selectedCategory = 'all';
 }
 
 class _SentOrdersListState extends State<SentOrdersList> {
   ScrollController _controller;
   int page = 1;
   int last = 1;
-  int _selectedCategory = 0;
 
   List<DropdownMenuItem<dynamic>> categories = [
     DropdownMenuItem(
-      value: 0,
+      value: 'all',
       child: Text(
         "All",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
-      value: 1,
+      value: 'processing',
       child: Text(
-        "Order Pending",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Processing",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
-      value: 2,
+      value: 'onhold',
       child: Text(
-        "Order Seen",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Onhold",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
-      value: 3,
+      value: 'shipping',
       child: Text(
-        "Order Accepted",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Shipping",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
-      value: 4,
+      value: 'pending payment',
       child: Text(
-        "Order Denied",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Pending Payment",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
-      value: 5,
+      value: 'completed',
       child: Text(
-        "On Delivery",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        "Completed",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      ),
+    ),
+    DropdownMenuItem(
+      value: 'delivered',
+      child: Text(
+        "Delivered",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      ),
+    ),
+    DropdownMenuItem(
+      value: 'refunded',
+      child: Text(
+        "Refunded",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      ),
+    ),
+    DropdownMenuItem(
+      value: 'failed',
+      child: Text(
+        "Failed",
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
   ];
 
   Widget _categoryPrompt() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      child: DropdownButtonFormField(
-        style: TextStyle(color: dark, fontFamily: defaultFont),
-        items: categories,
-        hint: Text("Status"),
-        value: _selectedCategory,
-        onChanged: (value) {
-          setState(() {
-            _selectedCategory = value;
-          });
-        },
-        isExpanded: true,
+      color: ThemeColor.background2,
+      padding: const EdgeInsets.only(
+        top: 20,
+        left: 10,
+        right: 15,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Order Status",
+              style: TextStyle(
+                  color: ThemeColor.primaryText,
+                  fontSize: 10,
+                  fontFamily: defaultFont)),
+          DropdownButtonFormField(
+            dropdownColor: ThemeColor.background,
+            style:
+                TextStyle(color: ThemeColor.darkText, fontFamily: defaultFont),
+            items: categories,
+            hint: Text("Status"),
+            value: widget.selectedCategory,
+            onChanged: (value) {
+              setState(() {
+                widget.selectedCategory = value;
+              });
+            },
+            isExpanded: true,
+          ),
+        ],
       ),
     );
   }
@@ -159,17 +208,17 @@ class _SentOrdersListState extends State<SentOrdersList> {
           } else if (state is OrderFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
-            }  else {
+            } else {
               return ErrorMessage(context, 'order_sent', state.error);
             }
           } else if (state is OrderSentLoaded) {
             return Scaffold(
-              backgroundColor: Colors.grey[300],
+              backgroundColor: ThemeColor.background3,
               body: SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Material(
-                    color: Colors.grey[100],
+                    color: ThemeColor.background2,
                     child: Container(
                       child: Column(
                         children: [

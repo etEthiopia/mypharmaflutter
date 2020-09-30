@@ -29,6 +29,7 @@ class _MyWishlistPageState extends State<MyWishlistPage> {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
         appBar: simpleAppBar(title: "Wishlist"),
+        backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),
         body: MyWishlistsList()
 
@@ -61,29 +62,41 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirmation'),
+          backgroundColor: ThemeColor.background,
+          title: Text('Confirmation',
+              style: TextStyle(
+                color: ThemeColor.contrastText,
+              )),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('You\'re about to Delete the Selected Items'),
-                Text('Are you Sure ?'),
+                Text('You\'re about to Delete the Selected Items',
+                    style: TextStyle(
+                      color: ThemeColor.contrastText,
+                    )),
+                Text('Are you Sure ?',
+                    style: TextStyle(
+                      color: ThemeColor.contrastText,
+                    )),
               ],
             ),
           ),
           actions: <Widget>[
             FlatButton(
+              color: ThemeColor.background,
               child: Text(
                 'CANCEL',
-                style: TextStyle(color: primary),
+                style: TextStyle(color: ThemeColor.primaryText),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             FlatButton(
+              color: ThemeColor.background,
               child: Text(
                 'YES',
-                style: TextStyle(color: dark),
+                style: TextStyle(color: ThemeColor.darkText),
               ),
               onPressed: () {
                 final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
@@ -130,131 +143,119 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
             }
           } else if (state is WishlistLoaded) {
             return Scaffold(
-              backgroundColor: Colors.grey[300],
+              backgroundColor: ThemeColor.background1,
               body: SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Material(
-                    color: Colors.grey[100],
-                    child: Container(
-                        color: Colors.grey[150],
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: state.wishlist.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return WishlistProduct(
-                                    // state.receivedList[index].toString()
-                                    id: state.wishlist[index].id,
-                                    image: 'xx',
-                                    name: state.wishlist[index].name,
-                                    slug: state.wishlist[index].slug,
-                                    quantity: state.wishlist[index].quantity,
-                                    vendor: state.wishlist[index].vendorId,
-                                    postid: state.wishlist[index].postId,
-                                    context: this.context,
-                                    isSelected: (bool value) {
-                                      setState(() {
-                                        if (value) {
-                                          selectedList
-                                              .add(state.wishlist[index].id);
-                                        } else {
-                                          selectedList
-                                              .remove(state.wishlist[index].id);
-                                        }
-                                      });
-                                    },
-                                  );
+                child: Container(
+                    color: ThemeColor.background2,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: state.wishlist.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return WishlistProduct(
+                                // state.receivedList[index].toString()
+                                id: state.wishlist[index].id,
+                                image: 'xx',
+                                name: state.wishlist[index].name,
+                                slug: state.wishlist[index].slug,
+                                quantity: state.wishlist[index].quantity,
+                                vendor: state.wishlist[index].vendorId,
+                                postid: state.wishlist[index].postId,
+                                context: this.context,
+                                isSelected: (bool value) {
+                                  setState(() {
+                                    if (value) {
+                                      selectedList
+                                          .add(state.wishlist[index].id);
+                                    } else {
+                                      selectedList
+                                          .remove(state.wishlist[index].id);
+                                    }
+                                  });
                                 },
-                              ),
-                            ),
-                            selectedList.length > 0
-                                ? Container(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 20),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          child: SizedBox(
-                                            width: double.infinity,
-                                            child: Material(
-                                              color: dark,
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(15),
-                                                  bottomLeft:
-                                                      Radius.circular(15)),
-                                              child: FlatButton(
-                                                onPressed: () {},
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.add_shopping_cart,
-                                                      color: Colors.white,
-                                                      size: 20,
-                                                    ),
-                                                    Text(
-                                                      "Add to Cart",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontFamily:
-                                                              defaultFont),
-                                                    ),
-                                                  ],
+                              );
+                            },
+                          ),
+                        ),
+                        selectedList.length > 0
+                            ? Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 20),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: Material(
+                                          color: ThemeColor.darkBtn,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(15),
+                                              bottomLeft: Radius.circular(15)),
+                                          child: FlatButton(
+                                            onPressed: () {},
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Icon(
+                                                  Icons.add_shopping_cart,
+                                                  color: Colors.white,
+                                                  size: 20,
                                                 ),
-                                              ),
+                                                Text(
+                                                  "Add to Cart",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontFamily: defaultFont),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
-                                        Expanded(
-                                          child: SizedBox(
-                                            width: double.infinity,
-                                            child: Material(
-                                              color: Colors.red,
-                                              borderRadius: BorderRadius.only(
-                                                  topRight: Radius.circular(15),
-                                                  bottomRight:
-                                                      Radius.circular(15)),
-                                              child: FlatButton(
-                                                onPressed: () {
-                                                  _showMyDialog();
-                                                },
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.delete,
-                                                      color: Colors.white,
-                                                      size: 20,
-                                                    ),
-                                                    Text(
-                                                      "Delete Selected",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontFamily:
-                                                              defaultFont),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  )
-                                : SizedBox(
-                                    height: 1,
-                                  )
-                          ],
-                        )),
-                  ),
-                ),
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: Material(
+                                          color: Colors.red,
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(15),
+                                              bottomRight: Radius.circular(15)),
+                                          child: FlatButton(
+                                            onPressed: () {
+                                              _showMyDialog();
+                                            },
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Icon(
+                                                  Icons.delete,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                ),
+                                                Text(
+                                                  "Delete Selected",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontFamily: defaultFont),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : SizedBox(
+                                height: 1,
+                              )
+                      ],
+                    )),
               ),
             );
           } else {

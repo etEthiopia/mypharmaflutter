@@ -10,6 +10,7 @@ import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/services/api_service.dart';
+import 'package:mypharma/theme/colors.dart';
 
 class BrowseProduct extends StatefulWidget {
   @override
@@ -22,6 +23,7 @@ class _BrowseProductState extends State<BrowseProduct> {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
       appBar: simpleAppBar(title: 'Browse Products'),
+      backgroundColor: ThemeColor.background,
       drawer: UserDrawer(),
       body: BlocProvider<ProductBloc>(
         create: (context) => ProductBloc(apiService),
@@ -80,13 +82,13 @@ class _BrowseProductListState extends State<BrowseProductList> {
       if (state is ProductFailure) {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
-        }  else {
+        } else {
           return ErrorMessage(context, 'browse_products', state.error);
         }
       }
       if (state is MyProductLoaded) {
         return Scaffold(
-          backgroundColor: Colors.grey[100],
+          backgroundColor: ThemeColor.background2,
           body: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 0),

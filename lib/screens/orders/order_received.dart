@@ -24,6 +24,7 @@ class _ReceivedOrderPageState extends State<ReceivedOrderPage> {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
         appBar: simpleAppBar(title: "Orders Received"),
+        backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),
         body: BlocProvider<OrderBloc>(
             create: (context) => OrderBloc(apiService),
@@ -48,69 +49,79 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
       value: 'all',
       child: Text(
         "All",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'processing',
       child: Text(
         "Processing",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'onhold',
       child: Text(
         "Onhold",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'shipping',
       child: Text(
         "Shipping",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'pending payment',
       child: Text(
         "Pending Payment",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'completed',
       child: Text(
         "Completed",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'delivered',
       child: Text(
         "Delivered",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'refunded',
       child: Text(
         "Refunded",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
     DropdownMenuItem(
       value: 'failed',
       child: Text(
         "Failed",
-        style: TextStyle(fontWeight: FontWeight.bold, color: darksecond),
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
     ),
   ];
 
   Widget _categoryPrompt() {
     return Container(
+      color: ThemeColor.background2,
       padding: const EdgeInsets.only(
         top: 20,
         left: 10,
@@ -121,9 +132,13 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
         children: [
           Text("Order Status",
               style: TextStyle(
-                  color: primary, fontSize: 10, fontFamily: defaultFont)),
+                  color: ThemeColor.primaryText,
+                  fontSize: 10,
+                  fontFamily: defaultFont)),
           DropdownButtonFormField(
-            style: TextStyle(color: dark, fontFamily: defaultFont),
+            dropdownColor: ThemeColor.background,
+            style:
+                TextStyle(color: ThemeColor.darkText, fontFamily: defaultFont),
             items: categories,
             hint: Text("Status"),
             value: widget.selectedCategory,
@@ -131,10 +146,6 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
               setState(() {
                 widget.selectedCategory = value;
               });
-              // _orderBloc = BlocProvider.of<OrderBloc>(context);
-
-              // _orderBloc.add(OrderStatusChangeOrdered(
-              //     status: widget.selectedCategory, id: widget.id));
             },
             isExpanded: true,
           ),
@@ -164,6 +175,7 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
       },
       child: BlocBuilder<OrderBloc, OrderState>(
         builder: (context, state) {
+          print("ORDER RECEIVED: " + state.toString());
           if (state is OrderAllLoaded) {
             return PageEnd(context, 'order_received');
           } else if (state is OrderLoading || state is OrderInital) {
@@ -173,17 +185,17 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
           } else if (state is OrderFailure) {
             if (state.error == 'Not Authorized') {
               return LoggedOutLoading(context);
-            }  else {
+            } else {
               return ErrorMessage(context, 'order_received', state.error);
             }
           } else if (state is OrderReceivedLoaded) {
             return Scaffold(
-              backgroundColor: Colors.grey[300],
+              backgroundColor: ThemeColor.background3,
               body: SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Material(
-                    color: Colors.grey[100],
+                    color: ThemeColor.background2,
                     child: Container(
                       child: Column(
                         children: [

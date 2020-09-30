@@ -18,7 +18,7 @@ Widget product(
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey[300],
+            color: ThemeColor.background1,
             offset: const Offset(3.0, 3.0),
             blurRadius: 5.0,
             spreadRadius: 2.0,
@@ -33,12 +33,13 @@ Widget product(
                   child: GridTile(
                 child: Container(
                     decoration: BoxDecoration(
+                      color: ThemeColor.background1,
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                     child: loadimage(image)),
                 footer: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white70,
+                    color: ThemeColor.isDark ? Colors.black54 : Colors.white70,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(15),
                         bottomRight: Radius.circular(15)),
@@ -64,7 +65,7 @@ Widget product(
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             fontSize: 15,
-                            color: darksecond,
+                            color: ThemeColor.darksecondText,
                             fontWeight: FontWeight.bold),
                       ),
                       Column(
@@ -75,8 +76,9 @@ Widget product(
                                   org,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
-                                  style:
-                                      TextStyle(fontSize: 10, color: primary),
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: ThemeColor.primaryText),
                                 )
                               : Text(
                                   '',
@@ -90,7 +92,7 @@ Widget product(
                             style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
-                                color: darksecond),
+                                color: ThemeColor.darksecondText),
                           ),
                         ],
                       )
