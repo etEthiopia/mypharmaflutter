@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/product/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
@@ -23,7 +24,8 @@ class _StockState extends State<Stock> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-      appBar: cleanAppBar(title: 'Stock'),
+      appBar: cleanAppBar(
+          title: AppLocalizations.of(context).translate("stock_title")),
       drawer: UserDrawer(),
       backgroundColor: ThemeColor.background,
       body: BlocProvider<ProductBloc>(

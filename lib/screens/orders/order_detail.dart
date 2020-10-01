@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/order/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
@@ -27,7 +28,9 @@ class _OrderDetailState extends State<OrderDetail> {
     final apiService = RepositoryProvider.of<APIService>(context);
 
     return Scaffold(
-        appBar: simpleAppBar(title: "Order Detail"),
+        appBar: simpleAppBar(
+            title: AppLocalizations.of(context)
+                .translate("order_detail_screen_title")),
         backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),
         body: BlocProvider<OrderBloc>(

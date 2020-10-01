@@ -222,7 +222,8 @@ class _SettingsState extends State<Settings> {
       return Scaffold(
           drawer: Drawer(child: UserDrawer()),
           backgroundColor: ThemeColor.background,
-          appBar: cleanAppBar(title: "Settings"),
+          appBar: cleanAppBar(
+              title: AppLocalizations.of(context).translate("settings_title")),
           body: SafeArea(
             child: Column(
               children: <Widget>[

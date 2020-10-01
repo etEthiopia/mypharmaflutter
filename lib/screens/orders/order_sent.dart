@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/empty.dart';
@@ -22,7 +23,9 @@ class _SentOrderPageState extends State<SentOrderPage> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-        appBar: simpleAppBar(title: "Orders Sent"),
+        appBar: simpleAppBar(
+            title: AppLocalizations.of(context)
+                .translate("order_sent_screen_title")),
         backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),
         body: BlocProvider<OrderBloc>(

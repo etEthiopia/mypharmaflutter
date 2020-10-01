@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_event.dart';
@@ -28,7 +29,9 @@ class _MyWishlistPageState extends State<MyWishlistPage> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-        appBar: simpleAppBar(title: "Wishlist"),
+        appBar: simpleAppBar(
+            title:
+                AppLocalizations.of(context).translate("my_wishlist_title")),
         backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),
         body: MyWishlistsList()

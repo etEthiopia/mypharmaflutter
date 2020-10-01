@@ -1,3 +1,11 @@
 {
-    "feed_screen_title": "አዲስ ነገር"
+    "feed_screen_title": "አዲስ ነገር",
+    "order_detail_screen_title": "ትዕዛዝ",
+    "order_received_screen_title": "የመጡ ትዕዛዛት",
+    "order_sent_screen_title": "የተላኩ ትዕዛዛት",
+    "browse_product_title": "የምርት ክምችት",
+    "show_product_title": "ምርት",
+    "my_wishlist_title": "የምኞት ዝርዝር",
+    "stock_title": "ክምችት",
+    "settings_title": "ማስተካከያ"
 }

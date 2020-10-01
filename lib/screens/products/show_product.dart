@@ -15,6 +15,8 @@ import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
+import '../../app_localizations.dart';
+
 class ShowProduct extends StatefulWidget {
   ShowProduct({Key key, this.id}) : super(key: key);
 
@@ -28,7 +30,10 @@ class _ShowProductState extends State<ShowProduct> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-        appBar: simpleAppBar(title: "Order Detail"),
+        //AppLocalizations.of(context).translate("browse_product_title")
+        appBar: simpleAppBar(
+            title:
+                AppLocalizations.of(context).translate("show_product_title")),
         drawer: UserDrawer(),
         backgroundColor: ThemeColor.background,
         body: BlocProvider<ProductBloc>(

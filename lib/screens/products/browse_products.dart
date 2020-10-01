@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/product/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
@@ -22,7 +23,9 @@ class _BrowseProductState extends State<BrowseProduct> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-      appBar: simpleAppBar(title: 'Browse Products'),
+      appBar: simpleAppBar(
+          title:
+              AppLocalizations.of(context).translate("browse_product_title")),
       backgroundColor: ThemeColor.background,
       drawer: UserDrawer(),
       body: BlocProvider<ProductBloc>(

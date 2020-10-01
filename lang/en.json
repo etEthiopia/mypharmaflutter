@@ -1,3 +1,11 @@
 {
-    "feed_screen_title": "Feed"
+    "feed_screen_title": "Feed",
+    "order_detail_screen_title": "Order Detail",
+    "order_received_screen_title": "Order Received",
+    "order_sent_screen_title": "Order Sent",
+    "browse_product_title": "Browse Products",
+    "show_product_title": "Product Detail",
+    "my_wishlist_title": "Wishlist",
+    "stock_title": "Stock",
+    "settings_title": "Settings"
 }
