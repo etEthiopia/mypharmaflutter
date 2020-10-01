@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/screens/auth/joinus.dart';
 import 'package:mypharma/screens/auth/login.dart';
@@ -79,6 +80,8 @@ class _MyAppState extends State<MyApp> {
             if (state is AuthAuthenticated) {
               // show home page
               if (state.user.role == Role.wholeseller) {
+                final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
+                _wishlistBloc.add(WishlistCount());
                 return Stock();
               } else if (state.user.role == Role.importer) {
                 return ReceivedOrderPage();
