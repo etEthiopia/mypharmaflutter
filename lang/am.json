@@ -7,5 +7,14 @@
     "show_product_title": "ምርት",
     "my_wishlist_title": "የምኞት ዝርዝር",
     "stock_title": "ክምችት",
-    "settings_title": "ማስተካከያ"
+    "settings_title": "ማስተካከያ",
+    "confirmation_dialog_title": "ማረጋገጫ",
+    "confirmation_dialog_text1": "የተመረጡትን ምርቶች ሊሰርዙ ነው፡፡",
+    "confirmation_dialog_text2": "እርግጠኛ ነዎት ?",
+    "cancel_btn_text": "ተመለስ",
+    "yes_btn_text": "አዎ",
+    "add_to_cart_btn_text": "ወደ ቅርጫት ይጨምሩ",
+    "delete_selected_btn_text": "የተመረጡትን ይሰርዙ",
+    "quantity_short_text": "ብዛት",
+    "from_text": "ከ"
 }

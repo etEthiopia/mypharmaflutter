@@ -27,19 +27,12 @@ class MyWishlistPage extends StatefulWidget {
 class _MyWishlistPageState extends State<MyWishlistPage> {
   @override
   Widget build(BuildContext context) {
-    final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
         appBar: simpleAppBar(
-            title:
-                AppLocalizations.of(context).translate("my_wishlist_title")),
+            title: AppLocalizations.of(context).translate("my_wishlist_title")),
         backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),
-        body: MyWishlistsList()
-
-        // BlocProvider<WishlistBloc>(
-        //     create: (context) => WishlistBloc(apiService),
-        //     child: MyWishlistsList())
-        );
+        body: MyWishlistsList());
   }
 }
 
@@ -66,18 +59,24 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: ThemeColor.background,
-          title: Text('Confirmation',
+          title: Text(
+              AppLocalizations.of(context)
+                  .translate("confirmation_dialog_title"),
               style: TextStyle(
                 color: ThemeColor.contrastText,
               )),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('You\'re about to Delete the Selected Items',
+                Text(
+                    AppLocalizations.of(context)
+                        .translate("confirmation_dialog_text1"),
                     style: TextStyle(
                       color: ThemeColor.contrastText,
                     )),
-                Text('Are you Sure ?',
+                Text(
+                    AppLocalizations.of(context)
+                        .translate("confirmation_dialog_text2"),
                     style: TextStyle(
                       color: ThemeColor.contrastText,
                     )),
@@ -88,7 +87,7 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
             FlatButton(
               color: ThemeColor.background,
               child: Text(
-                'CANCEL',
+                AppLocalizations.of(context).translate("cancel_btn_text"),
                 style: TextStyle(color: ThemeColor.primaryText),
               ),
               onPressed: () {
@@ -98,7 +97,7 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
             FlatButton(
               color: ThemeColor.background,
               child: Text(
-                'YES',
+                AppLocalizations.of(context).translate("yes_btn_text"),
                 style: TextStyle(color: ThemeColor.darkText),
               ),
               onPressed: () {
@@ -207,7 +206,9 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
                                                   size: 20,
                                                 ),
                                                 Text(
-                                                  "Add to Cart",
+                                                  AppLocalizations.of(context)
+                                                      .translate(
+                                                          "add_to_cart_btn_text"),
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontFamily: defaultFont),
@@ -240,7 +241,9 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
                                                   size: 20,
                                                 ),
                                                 Text(
-                                                  "Delete Selected",
+                                                  AppLocalizations.of(context)
+                                                      .translate(
+                                                          "delete_selected_btn_text"),
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontFamily: defaultFont),

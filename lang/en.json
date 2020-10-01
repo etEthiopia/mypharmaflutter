@@ -7,5 +7,15 @@
     "show_product_title": "Product Detail",
     "my_wishlist_title": "Wishlist",
     "stock_title": "Stock",
-    "settings_title": "Settings"
+    "settings_title": "Settings",
+    "confirmation_dialog_title": "Confirmation",
+    "confirmation_dialog_text1": "You're about to Delete the Selected Items",
+    "confirmation_dialog_text12": "You're about to Delete the Selected Item",
+    "confirmation_dialog_text2": "Are you Sure ?",
+    "cancel_btn_text": "CANCEL",
+    "yes_btn_text": "YES",
+    "add_to_cart_btn_text": "Add to Cart",
+    "delete_selected_btn_text": "Delete Selected",
+    "quantity_short_text": "Qty",
+    "from_text": "From"
 }

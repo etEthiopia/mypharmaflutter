@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/models/wishlist.dart';
@@ -53,18 +54,20 @@ class _WishlistProductState extends State<WishlistProduct> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: ThemeColor.background,
-          title: Text('Confirmation',
+          title: Text(
+              AppLocalizations.of(context)
+                  .translate("confirmation_dialog_title"),
               style: TextStyle(
                 color: ThemeColor.contrastText,
               )),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('You\'re about to Delete the Selected Items',
+                Text("confirmation_dialog_text12",
                     style: TextStyle(
                       color: ThemeColor.contrastText,
                     )),
-                Text('Are you Sure ?',
+                Text('confirmation_dialog_text2',
                     style: TextStyle(
                       color: ThemeColor.contrastText,
                     )),
@@ -75,7 +78,7 @@ class _WishlistProductState extends State<WishlistProduct> {
             FlatButton(
               color: ThemeColor.background,
               child: Text(
-                'CANCEL',
+                AppLocalizations.of(context).translate("cancel_btn_text"),
                 style: TextStyle(color: ThemeColor.primaryText),
               ),
               onPressed: () {
@@ -85,7 +88,7 @@ class _WishlistProductState extends State<WishlistProduct> {
             FlatButton(
               color: ThemeColor.background,
               child: Text(
-                'YES',
+                AppLocalizations.of(context).translate("yes_btn_text"),
                 style: TextStyle(color: ThemeColor.darkText),
               ),
               onPressed: () {
@@ -99,48 +102,6 @@ class _WishlistProductState extends State<WishlistProduct> {
       },
     );
   }
-
-  // Future<void> _showMyDialog() async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Confirmation'),
-  //         content: SingleChildScrollView(
-  //           child: ListBody(
-  //             children: <Widget>[
-  //               Text('You\'re about to Delete ${widget.name}'),
-  //               Text('Are you Sure ?'),
-  //             ],
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           FlatButton(
-  //             child: Text(
-  //               'CANCEL',
-  //               style: TextStyle(color: primary),
-  //             ),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //           FlatButton(
-  //             child: Text(
-  //               'YES',
-  //               style: TextStyle(color: dark),
-  //             ),
-  //             onPressed: () {
-  //               final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
-  //               _wishlistBloc.add(WishlistDelete(id: widget.id));
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +134,9 @@ class _WishlistProductState extends State<WishlistProduct> {
                   )),
                 ),
                 Text(
-                  "Qty: ${widget.quantity}",
+                  AppLocalizations.of(context)
+                          .translate("quantity_short_text") +
+                      ": ${widget.quantity}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -204,7 +167,8 @@ class _WishlistProductState extends State<WishlistProduct> {
                     height: 10,
                   ),
                   Text(
-                    "From: ${widget.vendor} Company",
+                    AppLocalizations.of(context)
+                          .translate("from_text")+": ${widget.vendor} Company",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
