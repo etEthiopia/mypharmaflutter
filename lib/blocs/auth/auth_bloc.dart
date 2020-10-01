@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:mypharma/app_localizations.dart';
+import 'package:mypharma/screens/my_app.dart';
 
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
@@ -39,13 +41,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     yield AuthLoading(); // to display splash screen
     try {
       //await Future.delayed(Duration(milliseconds: 5000)); // a simulated delay
+
       final currentUser = await _apiService.getCurrentUser();
-      final theme = await ThemeColor.getTheme();
-      if (theme) {
-        ThemeColor(isDark: true);
-      } else {
-        ThemeColor(isDark: false);
-      }
+      // final theme = await ThemeColor.getTheme();
+
+      // if (theme) {
+      //   ThemeColor(isDark: true);
+      // } else {
+      //   ThemeColor(isDark: false);
+      // }
 
       if (currentUser != null) {
         APIService.token = currentUser.token;

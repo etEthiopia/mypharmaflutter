@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/blocs/news/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
@@ -24,7 +25,8 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-        appBar: simpleAppBar(title: "Feed"),
+        appBar: simpleAppBar(
+            title: AppLocalizations.of(context).translate("feed_screen_title")),
         drawer: UserDrawer(),
         backgroundColor: ThemeColor.background,
         body: BlocProvider<NewsBloc>(

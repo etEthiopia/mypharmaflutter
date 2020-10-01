@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
-import 'package:mypharma/components/page_end.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/screens/auth/joinus.dart';
 import 'package:mypharma/screens/auth/login.dart';
@@ -14,44 +15,87 @@ import 'package:mypharma/screens/products/stock.dart';
 import 'package:mypharma/screens/orders/order_received.dart';
 import 'package:mypharma/screens/settings/settings.dart';
 import 'package:mypharma/screens/wishlist/my_wishlist.dart';
+import 'package:mypharma/theme/colors.dart';
 
 class MyApp extends StatelessWidget {
+  static Locale locale;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'MyPharma',
-      routes: {
-        '/login': (context) => Login(),
-        '/joinus': (context) => JoinUs(),
-        '/registerphy': (context) => RegisterPhy(),
-        '/feed': (context) => Feed(),
-        '/stock': (context) => Stock(),
-        '/browse_products': (context) => BrowseProduct(),
-        '/order_received': (context) => ReceivedOrderPage(),
-        '/order_sent': (context) => SentOrderPage(),
-        '/my_wishlist': (context) => MyWishlistPage(),
-        '/settings': (context) => Settings(),
-      },
-      home: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          if (state is AuthLoading) {
-            return FrontSplash();
-          }
-          if (state is AuthAuthenticated) {
-            // show home page
-            if (state.user.role == Role.wholeseller) {
-              return Stock();
-            } else if (state.user.role == Role.importer) {
-              return ReceivedOrderPage();
-            } else {
-              return Feed();
+    Locale locale;
+
+    MaterialApp loadApp() {
+      print("VALUES ${locale.languageCode} : ${ThemeColor.isDark}");
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'MyPharma',
+        locale: locale,
+        supportedLocales: [Locale('en', 'US'), Locale('am', 'ET')],
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        localeResolutionCallback: (locale, supportedLocales) {
+          for (var supportedLocale in supportedLocales) {
+            if (supportedLocale.languageCode == locale.languageCode &&
+                supportedLocale.countryCode == locale.countryCode) {
+              return supportedLocale;
             }
           }
-          // otherwise show login page
-          return Feed();
+          return supportedLocales.first;
         },
-      ),
+        routes: {
+          '/login': (context) => Login(),
+          '/joinus': (context) => JoinUs(),
+          '/registerphy': (context) => RegisterPhy(),
+          '/feed': (context) => Feed(),
+          '/stock': (context) => Stock(),
+          '/browse_products': (context) => BrowseProduct(),
+          '/order_received': (context) => ReceivedOrderPage(),
+          '/order_sent': (context) => SentOrderPage(),
+          '/my_wishlist': (context) => MyWishlistPage(),
+          '/settings': (context) => Settings(),
+        },
+        home: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is AuthLoading) {
+              return FrontSplash();
+            }
+            if (state is AuthAuthenticated) {
+              // show home page
+              if (state.user.role == Role.wholeseller) {
+                return Stock();
+              } else if (state.user.role == Role.importer) {
+                return ReceivedOrderPage();
+              } else {
+                return Feed();
+              }
+            }
+            // otherwise show login page
+            return Feed();
+          },
+        ),
+      );
+    }
+
+    return FutureBuilder(
+      future: AppLocalizations.getCurrentLang(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+            // Return some loading widget
+            return Center(child: CircularProgressIndicator());
+          case ConnectionState.done:
+            if (snapshot.hasError) {
+              locale = Locale('en', 'US');
+            } else {
+              locale = snapshot.data;
+            }
+            return loadApp();
+        }
+      },
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
@@ -71,6 +72,12 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    changeLang(String lang, String country) async {
+      Locale locale = Locale(lang, country);
+      await AppLocalizations.storelang(locale);
+      _showMyDialog();
+    }
+
     Widget _thememode() {
       return SwitchListTile(
         value: thememode,
@@ -151,6 +158,65 @@ class _SettingsState extends State<Settings> {
       return Divider(color: ThemeColor.accent);
     }
 
+    Widget _chooseLang() {
+      return Container(
+        child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: Material(
+                color: ThemeColor.primaryBtn,
+                child: FlatButton(
+                  onPressed: () {
+                    changeLang("am", "ET");
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "አማርኛ",
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: defaultFont),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: Material(
+                color: ThemeColor.primaryBtn,
+                child: FlatButton(
+                  onPressed: () {
+                    changeLang("en", "US");
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "English",
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: defaultFont),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       return Scaffold(
@@ -162,6 +228,7 @@ class _SettingsState extends State<Settings> {
               children: <Widget>[
                 Expanded(flex: 3, child: _logoSection()),
                 _thememode(),
+                _chooseLang(),
                 Expanded(
                   flex: 2,
                   child: Container(
@@ -198,6 +265,7 @@ class _SettingsState extends State<Settings> {
                   child: Column(
                     children: <Widget>[
                       _thememode(),
+                      _chooseLang(),
                       _joinasphyBtn(),
                       _divider(),
                       _loginBtn(),
