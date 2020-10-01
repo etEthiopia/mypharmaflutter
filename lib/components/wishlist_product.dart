@@ -63,11 +63,15 @@ class _WishlistProductState extends State<WishlistProduct> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text("confirmation_dialog_text12",
+                Text(
+                    AppLocalizations.of(context)
+                        .translate("confirmation_dialog_text12"),
                     style: TextStyle(
                       color: ThemeColor.contrastText,
                     )),
-                Text('confirmation_dialog_text2',
+                Text(
+                    AppLocalizations.of(context)
+                        .translate("confirmation_dialog_text2"),
                     style: TextStyle(
                       color: ThemeColor.contrastText,
                     )),
@@ -167,8 +171,8 @@ class _WishlistProductState extends State<WishlistProduct> {
                     height: 10,
                   ),
                   Text(
-                    AppLocalizations.of(context)
-                          .translate("from_text")+": ${widget.vendor} Company",
+                    AppLocalizations.of(context).translate("from_text") +
+                        ": ${widget.vendor} Company",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
