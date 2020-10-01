@@ -34,7 +34,7 @@ class AppLocalizations {
     return _localizedStrings[key];
   }
 
-  static Future<Locale> getCurrentLang() async {
+  static Future<Locale> getCurrentLangAndTheme() async {
     var str = await storage.read(key: "lang");
     Locale locale;
     final theme = await ThemeColor.getTheme();

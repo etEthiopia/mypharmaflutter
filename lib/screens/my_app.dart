@@ -17,48 +17,62 @@ import 'package:mypharma/screens/settings/settings.dart';
 import 'package:mypharma/screens/wishlist/my_wishlist.dart';
 import 'package:mypharma/theme/colors.dart';
 
-class MyApp extends StatelessWidget {
-  static Locale locale;
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale locale;
+
+  @override
+  void initState() {
+    AppLocalizations.getCurrentLangAndTheme().then((locale) => {
+          setState(() {
+            this.locale = locale;
+          })
+        });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Locale locale;
-
-    MaterialApp loadApp() {
-      print("VALUES ${locale.languageCode} : ${ThemeColor.isDark}");
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'MyPharma',
-        locale: locale,
-        supportedLocales: [Locale('en', 'US'), Locale('am', 'ET')],
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode &&
-                supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
-            }
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'MyPharma',
+      locale: locale,
+      supportedLocales: [Locale('en', 'US'), Locale('am', 'ET')],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale.languageCode &&
+              supportedLocale.countryCode == locale.countryCode) {
+            return supportedLocale;
           }
-          return supportedLocales.first;
-        },
-        routes: {
-          '/login': (context) => Login(),
-          '/joinus': (context) => JoinUs(),
-          '/registerphy': (context) => RegisterPhy(),
-          '/feed': (context) => Feed(),
-          '/stock': (context) => Stock(),
-          '/browse_products': (context) => BrowseProduct(),
-          '/order_received': (context) => ReceivedOrderPage(),
-          '/order_sent': (context) => SentOrderPage(),
-          '/my_wishlist': (context) => MyWishlistPage(),
-          '/settings': (context) => Settings(),
-        },
-        home: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
+        }
+        return supportedLocales.first;
+      },
+      routes: {
+        '/login': (context) => Login(),
+        '/joinus': (context) => JoinUs(),
+        '/registerphy': (context) => RegisterPhy(),
+        '/feed': (context) => Feed(),
+        '/stock': (context) => Stock(),
+        '/browse_products': (context) => BrowseProduct(),
+        '/order_received': (context) => ReceivedOrderPage(),
+        '/order_sent': (context) => SentOrderPage(),
+        '/my_wishlist': (context) => MyWishlistPage(),
+        '/settings': (context) => Settings(),
+      },
+      home: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (locale == null) {
+            return FrontSplash();
+          } else {
             if (state is AuthLoading) {
               return FrontSplash();
             }
@@ -74,28 +88,124 @@ class MyApp extends StatelessWidget {
             }
             // otherwise show login page
             return Feed();
-          },
-        ),
-      );
-    }
-
-    return FutureBuilder(
-      future: AppLocalizations.getCurrentLang(),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-          case ConnectionState.waiting:
-            // Return some loading widget
-            return Center(child: CircularProgressIndicator());
-          case ConnectionState.done:
-            if (snapshot.hasError) {
-              locale = Locale('en', 'US');
-            } else {
-              locale = snapshot.data;
-            }
-            return loadApp();
-        }
-      },
+          }
+        },
+      ),
     );
+
+    // return FutureBuilder(
+    //   future: AppLocalizations.getCurrentLang(),
+    //   builder: (context, snapshot) {
+    //     switch (snapshot.connectionState) {
+    //       case ConnectionState.none:
+    //       case ConnectionState.waiting:
+    //         // Return some loading widget
+    //         return Center(child: CircularProgressIndicator());
+    //       case ConnectionState.done:
+    //         if (snapshot.hasError) {
+    //           locale = Locale('en', 'US');
+    //         } else {
+    //           locale = snapshot.data;
+    //         }
+    //         return loadApp();
+    //     }
+    //   },
+    // );
+
+    // MaterialApp(
+    //     locale: this.locale,
+    //     localizationsDelegates: [
+    //       MyLocalizationsDelegate(),
+    //       GlobalMaterialLocalizations.delegate,
+    //       GlobalWidgetsLocalizations.delegate,
+    //     ],
+    //     supportedLocales: [
+    //       const Locale('en', 'US'), // English
+    //       const Locale('ar', ''), // Arabic
+    //     ],
+    //     home: HomeScreen());
   }
 }
+
+// class MyApp extends StatelessWidget {
+//   static Locale locale;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     Locale locale;
+
+//     MaterialApp loadApp() {
+//       print("VALUES ${locale.languageCode} : ${ThemeColor.isDark}");
+//       return MaterialApp(
+//         debugShowCheckedModeBanner: false,
+//         title: 'MyPharma',
+//         locale: locale,
+//         supportedLocales: [Locale('en', 'US'), Locale('am', 'ET')],
+//         localizationsDelegates: [
+//           AppLocalizations.delegate,
+//           GlobalMaterialLocalizations.delegate,
+//           GlobalWidgetsLocalizations.delegate,
+//         ],
+//         localeResolutionCallback: (locale, supportedLocales) {
+//           for (var supportedLocale in supportedLocales) {
+//             if (supportedLocale.languageCode == locale.languageCode &&
+//                 supportedLocale.countryCode == locale.countryCode) {
+//               return supportedLocale;
+//             }
+//           }
+//           return supportedLocales.first;
+//         },
+//         routes: {
+//           '/login': (context) => Login(),
+//           '/joinus': (context) => JoinUs(),
+//           '/registerphy': (context) => RegisterPhy(),
+//           '/feed': (context) => Feed(),
+//           '/stock': (context) => Stock(),
+//           '/browse_products': (context) => BrowseProduct(),
+//           '/order_received': (context) => ReceivedOrderPage(),
+//           '/order_sent': (context) => SentOrderPage(),
+//           '/my_wishlist': (context) => MyWishlistPage(),
+//           '/settings': (context) => Settings(),
+//         },
+//         home: BlocBuilder<AuthBloc, AuthState>(
+//           builder: (context, state) {
+//             if (state is AuthLoading) {
+//               return FrontSplash();
+//             }
+//             if (state is AuthAuthenticated) {
+//               // show home page
+//               if (state.user.role == Role.wholeseller) {
+//                 return Stock();
+//               } else if (state.user.role == Role.importer) {
+//                 return ReceivedOrderPage();
+//               } else {
+//                 return Feed();
+//               }
+//             }
+//             // otherwise show login page
+//             return Feed();
+//           },
+//         ),
+//       );
+//     }
+
+//     return FutureBuilder(
+//       future: AppLocalizations.getCurrentLang(),
+//       builder: (context, snapshot) {
+//         switch (snapshot.connectionState) {
+//           case ConnectionState.none:
+//           case ConnectionState.waiting:
+//             // Return some loading widget
+//             return Center(child: CircularProgressIndicator());
+//           case ConnectionState.done:
+//             if (snapshot.hasError) {
+//               locale = Locale('en', 'US');
+//             } else {
+//               locale = snapshot.data;
+//             }
+//             return loadApp();
+//         }
+//       },
+//     );
+//   }
+// }
