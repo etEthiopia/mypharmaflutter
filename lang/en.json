@@ -17,5 +17,14 @@
     "add_to_cart_btn_text": "Add to Cart",
     "delete_selected_btn_text": "Delete Selected",
     "quantity_short_text": "Qty",
-    "from_text": "From"
+    "from_text": "From",
+    "choose_lang_text": "Language",
+    "dark_mode_text": "Dark Mode",
+    "retry_btn_text": "Retry",
+    "login_/_register_btn_text": "Login/Register for a full experience!",
+    "go_back_btn_text": "Go Back",
+    "restart_confirmation_dialog_text": "The App must Restart apply the Change!",
+    "restart_later_btn_text": "LATER",
+    "restart_restart_btn_text": "RESTART"
+
 }

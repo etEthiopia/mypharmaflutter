@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:mypharma/app_localizations.dart';
-import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/theme/colors.dart';
@@ -15,12 +13,16 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   bool thememode;
+  String lang;
 
   @override
   void initState() {
     setState(() {
       thememode = ThemeColor.isDark;
     });
+    AppLocalizations.getCurrentLangAndTheme().then((value) => setState(() {
+          lang = value.toString();
+        }));
     super.initState();
   }
 
@@ -32,14 +34,15 @@ class _SettingsState extends State<Settings> {
         return AlertDialog(
           backgroundColor: ThemeColor.background3,
           title: Text(
-            'Confirmation',
+            AppLocalizations.of(context).translate("confirmation_dialog_title"),
             style: TextStyle(color: ThemeColor.contrastText),
           ),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 Text(
-                  'Please Restart the App to see the Changes!',
+                  AppLocalizations.of(context)
+                      .translate("restart_confirmation_dialog_text"),
                   style: TextStyle(color: ThemeColor.contrastText),
                 ),
               ],
@@ -48,7 +51,8 @@ class _SettingsState extends State<Settings> {
           actions: <Widget>[
             FlatButton(
               child: Text(
-                'LATER',
+                AppLocalizations.of(context)
+                    .translate("restart_later_btn_text"),
                 style: TextStyle(color: ThemeColor.primaryText),
               ),
               onPressed: () {
@@ -57,7 +61,8 @@ class _SettingsState extends State<Settings> {
             ),
             FlatButton(
               child: Text(
-                'RESTART',
+                AppLocalizations.of(context)
+                    .translate("restart_restart_btn_text"),
                 style: TextStyle(color: ThemeColor.darkText),
               ),
               onPressed: () {
@@ -73,16 +78,18 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     changeLang(String lang, String country) async {
-      Locale locale = Locale(lang, country);
-      await AppLocalizations.storelang(locale);
-      _showMyDialog();
+      if (this.lang != lang + "_" + country) {
+        Locale locale = Locale(lang, country);
+        await AppLocalizations.storelang(locale);
+        _showMyDialog();
+      }
     }
 
     Widget _thememode() {
       return SwitchListTile(
         value: thememode,
         title: Text(
-          "Dark Mode",
+          AppLocalizations.of(context).translate("dark_mode_text"),
           style: TextStyle(color: ThemeColor.contrastText),
         ),
         onChanged: (value) {
@@ -105,7 +112,7 @@ class _SettingsState extends State<Settings> {
           ));
     }
 
-    Widget _loginBtn() {
+    Widget _goBackBtn() {
       return SizedBox(
         width: double.infinity,
         child: Material(
@@ -123,7 +130,7 @@ class _SettingsState extends State<Settings> {
                   color: Colors.white,
                 ),
                 Text(
-                  "Go Back",
+                  AppLocalizations.of(context).translate("go_back_btn_text"),
                   style:
                       TextStyle(color: Colors.white, fontFamily: defaultFont),
                 ),
@@ -134,7 +141,7 @@ class _SettingsState extends State<Settings> {
       );
     }
 
-    Widget _joinasphyBtn() {
+    Widget _loginOrRegister() {
       return SizedBox(
         width: double.infinity,
         child: Material(
@@ -146,7 +153,8 @@ class _SettingsState extends State<Settings> {
                   context, '/login', (Route<dynamic> route) => false);
             },
             child: Text(
-              "Login / Register to take part",
+              AppLocalizations.of(context)
+                  .translate("login_/_register_btn_text"),
               style: TextStyle(color: Colors.white, fontFamily: defaultFont),
             ),
           ),
@@ -160,57 +168,98 @@ class _SettingsState extends State<Settings> {
 
     Widget _chooseLang() {
       return Container(
+        height: 150,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: double.infinity,
-              child: Material(
-                color: ThemeColor.primaryBtn,
-                child: FlatButton(
-                  onPressed: () {
-                    changeLang("am", "ET");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        "አማርኛ",
-                        style: TextStyle(
-                            color: Colors.white, fontFamily: defaultFont),
-                      ),
-                    ],
-                  ),
-                ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, left: 17, bottom: 5),
+              child: Text(
+                AppLocalizations.of(context).translate("choose_lang_text"),
+                style: TextStyle(color: ThemeColor.contrastText, fontSize: 16),
               ),
             ),
-            SizedBox(
-              width: double.infinity,
-              child: Material(
-                color: ThemeColor.primaryBtn,
-                child: FlatButton(
-                  onPressed: () {
-                    changeLang("en", "US");
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Material(
+                      color: this.lang != null
+                          ? (this.lang == "am_ET"
+                              ? ThemeColor.primaryBtn
+                              : ThemeColor.background)
+                          : ThemeColor.background,
+                      child: FlatButton(
+                        onPressed: () {
+                          changeLang("am", "ET");
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                height: 17,
+                                margin: EdgeInsets.only(right: 5),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  "assets/images/langs/et.png",
+                                )),
+                            Text(
+                              "አማርኛ",
+                              style: TextStyle(
+                                  color: this.lang != null
+                                      ? (this.lang == "am_ET"
+                                          ? Colors.white
+                                          : ThemeColor.contrastText)
+                                      : ThemeColor.contrastText,
+                                  fontFamily: defaultFont),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        "English",
-                        style: TextStyle(
-                            color: Colors.white, fontFamily: defaultFont),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Material(
+                      color: this.lang != null
+                          ? (this.lang == "en_US"
+                              ? ThemeColor.primaryBtn
+                              : ThemeColor.background)
+                          : ThemeColor.background,
+                      child: FlatButton(
+                        onPressed: () {
+                          changeLang("en", "US");
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.only(right: 5),
+                                height: 17,
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  "assets/images/langs/uk.png",
+                                )),
+                            Text(
+                              "English",
+                              style: TextStyle(
+                                  color: this.lang != null
+                                      ? (this.lang == "en_US"
+                                          ? Colors.white
+                                          : ThemeColor.contrastText)
+                                      : ThemeColor.contrastText,
+                                  fontFamily: defaultFont),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -239,9 +288,9 @@ class _SettingsState extends State<Settings> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        _joinasphyBtn(),
+                        _loginOrRegister(),
                         _divider(),
-                        _loginBtn(),
+                        _goBackBtn(),
                       ],
                     ),
                   ),
@@ -251,7 +300,10 @@ class _SettingsState extends State<Settings> {
           ));
     } else {
       return Scaffold(
+        drawer: Drawer(child: UserDrawer()),
         backgroundColor: ThemeColor.background,
+        appBar: cleanAppBar(
+            title: AppLocalizations.of(context).translate("settings_title")),
         body: SafeArea(
           child: Row(
             children: <Widget>[
@@ -263,14 +315,16 @@ class _SettingsState extends State<Settings> {
                 flex: 3,
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Column(
-                    children: <Widget>[
-                      _thememode(),
-                      _chooseLang(),
-                      _joinasphyBtn(),
-                      _divider(),
-                      _loginBtn(),
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        _thememode(),
+                        _chooseLang(),
+                        _loginOrRegister(),
+                        _divider(),
+                        _goBackBtn(),
+                      ],
+                    ),
                   ),
                 ),
               )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/theme/colors.dart';
@@ -107,7 +108,8 @@ Widget ErrorMessage(context, route, text) {
                         Navigator.pushReplacementNamed(context, '/$route');
                       },
                       child: Text(
-                        "Retry",
+                        AppLocalizations.of(context)
+                            .translate("retry_btn_text"),
                         style: TextStyle(
                             color: Colors.white, fontFamily: defaultFont),
                       ),
@@ -151,7 +153,8 @@ Widget ErrorMessage(context, route, text) {
                         Navigator.pushReplacementNamed(context, '/$route');
                       },
                       child: Text(
-                        "Retry",
+                        AppLocalizations.of(context)
+                            .translate("retry_btn_text"),
                         style: TextStyle(
                             color: Colors.white, fontFamily: defaultFont),
                       ),

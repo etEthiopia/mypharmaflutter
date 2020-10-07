@@ -103,7 +103,7 @@ flutter:
     - assets/images/logo/
     - assets/images/section/
     - assets/images/figures/
-    
+    - assets/images/langs/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/theme/colors.dart';
@@ -31,7 +32,9 @@ class SignInUp extends StatelessWidget {
                     size: 20,
                   ),
                   Text(
-                    "Login/Register for a full experience!",
+                    //"Login/Register for a full experience!",
+                    AppLocalizations.of(context)
+                        .translate("login_/_register_btn_text"),
                     style: TextStyle(
                         color: ThemeColor.darkText, fontFamily: defaultFont),
                   ),
