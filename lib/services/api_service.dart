@@ -278,6 +278,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is ProductException) {
+          throw ProductException(message: e.message);
         } else {
           print('Connection Error');
           throw ProductException(
@@ -342,6 +344,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is ProductException) {
+          throw ProductException(message: e.message);
         } else {
           print('Connection Error');
           throw ProductException(
@@ -406,6 +410,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is ProductException) {
+          throw ProductException(message: e.message);
         } else {
           print('Connection Error');
           throw ProductException(
@@ -470,6 +476,8 @@ class APIService extends APIServiceSkel {
             throw OrderException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is OrderException) {
+          throw OrderException(message: e.message);
         } else {
           print('Connection Error');
           throw OrderException(
@@ -549,6 +557,8 @@ class APIService extends APIServiceSkel {
             throw OrderException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is OrderException) {
+          throw OrderException(message: e.message);
         } else {
           print('Connection Error');
           throw OrderException(
@@ -614,6 +624,8 @@ class APIService extends APIServiceSkel {
             throw OrderException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is OrderException) {
+          throw OrderException(message: e.message);
         } else {
           print('Connection Error');
           throw OrderException(
@@ -677,6 +689,8 @@ class APIService extends APIServiceSkel {
             throw OrderException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is OrderException) {
+          throw OrderException(message: e.message);
         } else {
           print('Connection Error');
           throw OrderException(
@@ -742,6 +756,8 @@ class APIService extends APIServiceSkel {
             throw WishlistException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is WishlistException) {
+          throw WishlistException(message: e.message);
         } else {
           print('Connection Error');
           throw WishlistException(
@@ -810,6 +826,8 @@ class APIService extends APIServiceSkel {
             print('Error from Server');
             throw WishlistException(
                 message: "Sorry, We couldn't reach the server");
+          } else if (e is WishlistException) {
+            throw WishlistException(message: e.message);
           } else {
             print('Connection Error');
             throw WishlistException(
@@ -875,6 +893,8 @@ class APIService extends APIServiceSkel {
             throw WishlistException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is WishlistException) {
+          throw WishlistException(message: e.message);
         } else {
           print('Connection Error');
           throw WishlistException(
@@ -935,6 +955,8 @@ class APIService extends APIServiceSkel {
             throw WishlistException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is WishlistException) {
+          throw WishlistException(message: e.message);
         } else {
           print('Connection Error');
           throw WishlistException(

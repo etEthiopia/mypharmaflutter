@@ -410,7 +410,7 @@ class _ShowOrderState extends State<ShowOrder> {
   }
 
   @override
-  void initState() {
+  Future<void> initState() {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
 
     _orderBloc.add(OrderShowReceived(postid: widget.postid, id: widget.id));
