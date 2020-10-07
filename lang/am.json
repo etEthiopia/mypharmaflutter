@@ -7,7 +7,10 @@
     "show_product_title": "ምርት",
     "my_wishlist_title": "የምኞት ዝርዝር",
     "stock_title": "ክምችት",
+    "cart_title": "ቅርጫት",
+    "profile_title": "ማንነት",
     "settings_title": "ማስተካከያዎች",
+    "search_title": "ፈልግ",
     "confirmation_dialog_title": "ማረጋገጫ",
     "confirmation_dialog_text1": "የተመረጡትን ምርቶች ሊሰርዙ ነው፡፡",
     "confirmation_dialog_text12": "የተመረጠውን ምርት ሊሰርዙ ነው፡፡",
@@ -25,5 +28,11 @@
     "go_back_btn_text": "ተመለስ",
     "restart_confirmation_dialog_text": "ለውጡን ተግባራዊ ለማድረግ መተግበሪያው ድጋሚ መነሳት አለበት!",
     "restart_later_btn_text": "በኋላ",
-    "restart_restart_btn_text": "ድጋሚ አስነሳ"
+    "restart_restart_btn_text": "ድጋሚ አስነሳ",
+    "drawer_app_name_text": "ማይ ፋርማ",
+    "drawer_slogan_text": "በቅርበት እንቀጥል",
+    "drawer_login_text": "በመለያዎ ይግቡ",
+    "drawer_join_text": "እንደ ባለሙያ ይመዝገቡ",
+    "drawer_whats_is_mypharma_text": "ማይ ፋርማ ምንድን ነው",
+    "logout_text": "ውጣ"
 }

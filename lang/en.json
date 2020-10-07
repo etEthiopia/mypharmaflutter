@@ -7,7 +7,10 @@
     "show_product_title": "Product Detail",
     "my_wishlist_title": "Wishlist",
     "stock_title": "Stock",
+    "cart_title": "Cart",
+    "profile_title": "Profile",
     "settings_title": "Settings",
+    "search_title": "Search",
     "confirmation_dialog_title": "Confirmation",
     "confirmation_dialog_text1": "You're about to Delete the Selected Items",
     "confirmation_dialog_text12": "You're about to Delete the Selected Item",
@@ -25,6 +28,11 @@
     "go_back_btn_text": "Go Back",
     "restart_confirmation_dialog_text": "The App must Restart apply the Change!",
     "restart_later_btn_text": "LATER",
-    "restart_restart_btn_text": "RESTART"
-
+    "restart_restart_btn_text": "RESTART",
+    "drawer_app_name_text": "MyPharma",
+    "drawer_slogan_text": "Stay Connected",
+    "drawer_login_text": "Log In",
+    "drawer_join_text": "Join as a Physician",
+    "drawer_whats_is_mypharma_text": "What is MyPharma",
+    "logout_text": "Logout"
 }

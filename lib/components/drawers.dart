@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/components/show_error.dart';
@@ -134,7 +135,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Log In",
+                      AppLocalizations.of(context)
+                          .translate("drawer_login_text"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -156,7 +158,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Join as a Physician",
+                      AppLocalizations.of(context)
+                          .translate("drawer_join_text"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -182,7 +185,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Feed",
+                      AppLocalizations.of(context)
+                          .translate("feed_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -207,7 +211,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Browse Products",
+                      AppLocalizations.of(context)
+                          .translate("browse_product_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -229,7 +234,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Search",
+                      AppLocalizations.of(context).translate("search_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -254,7 +259,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "What is MyPharma",
+                      AppLocalizations.of(context)
+                          .translate("drawer_whats_is_mypharma_text"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -280,7 +286,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Settings",
+                      AppLocalizations.of(context).translate("settings_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -321,7 +327,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Cart",
+                      AppLocalizations.of(context).translate("cart_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -347,7 +353,8 @@ class UserDrawer extends StatelessWidget {
                     ),
                     wishlist == 0
                         ? Text(
-                            "Wishlist",
+                            AppLocalizations.of(context)
+                                .translate("my_wishlist_title"),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.darksecondText),
@@ -359,7 +366,9 @@ class UserDrawer extends StatelessWidget {
                               style: TextStyle(color: Colors.white),
                             ),
                             child: Text(
-                              "Wishlist   ",
+                              AppLocalizations.of(context)
+                                      .translate("my_wishlist_title") +
+                                  "   ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: ThemeColor.darksecondText),
@@ -381,7 +390,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Orders Sent",
+                      AppLocalizations.of(context)
+                          .translate("order_sent_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -403,7 +413,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Profile",
+                      AppLocalizations.of(context).translate("profile_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -429,7 +439,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Feed",
+                      AppLocalizations.of(context)
+                          .translate("feed_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -451,7 +462,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Browse Products",
+                      AppLocalizations.of(context)
+                          .translate("browse_product_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -473,7 +485,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Search",
+                      AppLocalizations.of(context).translate("search_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -499,7 +511,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Settings",
+                      AppLocalizations.of(context).translate("settings_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -525,7 +537,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Logout",
+                      AppLocalizations.of(context).translate("logout_text"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -569,7 +581,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Orders Sent",
+                      AppLocalizations.of(context)
+                          .translate("order_sent_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -594,7 +607,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Orders Received",
+                      AppLocalizations.of(context)
+                          .translate("order_received_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -616,7 +630,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Cart",
+                      AppLocalizations.of(context).translate("cart_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -642,7 +656,8 @@ class UserDrawer extends StatelessWidget {
                     ),
                     wishlist == 0
                         ? Text(
-                            "Wishlist",
+                            AppLocalizations.of(context)
+                                .translate("my_wishlist_title"),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: ThemeColor.darksecondText),
@@ -654,7 +669,9 @@ class UserDrawer extends StatelessWidget {
                               style: TextStyle(color: Colors.white),
                             ),
                             child: Text(
-                              "Wishlist   ",
+                              AppLocalizations.of(context)
+                                      .translate("my_wishlist_title") +
+                                  "   ",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: ThemeColor.darksecondText),
@@ -676,7 +693,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Profile",
+                      AppLocalizations.of(context).translate("profile_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -702,7 +719,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Feed",
+                      AppLocalizations.of(context)
+                          .translate("feed_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -727,7 +745,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Stock",
+                      AppLocalizations.of(context).translate("stock_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -752,7 +770,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Browse Products",
+                      AppLocalizations.of(context)
+                          .translate("browse_product_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -774,7 +793,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Search",
+                      AppLocalizations.of(context).translate("search_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -800,7 +819,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Settings",
+                      AppLocalizations.of(context).translate("settings_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -826,7 +845,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Logout",
+                      AppLocalizations.of(context).translate("logout_text"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -866,7 +885,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Orders Received",
+                      AppLocalizations.of(context)
+                          .translate("order_received_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -888,7 +908,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Profile",
+                      AppLocalizations.of(context).translate("profile_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -914,7 +934,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Feed",
+                      AppLocalizations.of(context)
+                          .translate("feed_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -939,7 +960,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Stock",
+                      AppLocalizations.of(context).translate("stock_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -964,7 +985,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Browse Products",
+                      AppLocalizations.of(context)
+                          .translate("browse_product_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -986,7 +1008,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Search",
+                      AppLocalizations.of(context).translate("search_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1012,7 +1034,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Settings",
+                      AppLocalizations.of(context).translate("settings_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1038,7 +1060,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Logout",
+                      AppLocalizations.of(context).translate("logout_text"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1078,7 +1100,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Profile",
+                      AppLocalizations.of(context).translate("profile_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1104,7 +1126,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Feed",
+                      AppLocalizations.of(context)
+                          .translate("feed_screen_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1126,7 +1149,8 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Browse Products",
+                      AppLocalizations.of(context)
+                          .translate("browse_product_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1148,7 +1172,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Search",
+                      AppLocalizations.of(context).translate("search_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1174,7 +1198,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Settings",
+                      AppLocalizations.of(context).translate("settings_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1200,7 +1224,7 @@ class UserDrawer extends StatelessWidget {
                       width: 20,
                     ),
                     Text(
-                      "Logout",
+                      AppLocalizations.of(context).translate("logout_text"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -1284,12 +1308,20 @@ class UserDrawer extends StatelessWidget {
                 physicianDrawer(profile: uname, email: email, image: image);
             break;
           default:
-            drawer = anonDrawer(profile: "MyPharma", email: "Stay Connected");
+            drawer = anonDrawer(
+                profile: AppLocalizations.of(context)
+                    .translate("drawer_app_name_text"),
+                email: AppLocalizations.of(context)
+                    .translate("drawer_slogan_text"));
         }
         return Drawer(child: drawer);
       }
       return Drawer(
-          child: anonDrawer(profile: "MyPharma", email: "Stay Connected"));
+          child: anonDrawer(
+              profile: AppLocalizations.of(context)
+                  .translate("drawer_app_name_text"),
+              email: AppLocalizations.of(context)
+                  .translate("drawer_slogan_text")));
     }));
   }
 }
