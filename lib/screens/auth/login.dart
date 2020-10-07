@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/blocs/login/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
@@ -100,7 +101,8 @@ class _LoginFormState extends State<LoginForm> {
             child: TextFormField(
               style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
-                  hintText: "Email",
+                  hintText:
+                      AppLocalizations.of(context).translate("email_text"),
                   hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.mail,
@@ -146,7 +148,8 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: true,
               style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText:
+                      AppLocalizations.of(context).translate("password_text"),
                   hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.lock,
@@ -188,7 +191,7 @@ class _LoginFormState extends State<LoginForm> {
               width: 5,
             ),
             Text(
-              "Remember Me",
+              AppLocalizations.of(context).translate("remember_me_text"),
               style: TextStyle(
                   color: ThemeColor.darkText,
                   fontSize: 16,
@@ -212,7 +215,7 @@ class _LoginFormState extends State<LoginForm> {
               _signin();
             },
             child: Text(
-              "Sign In",
+              AppLocalizations.of(context).translate("sign_in_btn_text"),
               style: TextStyle(
                   color: Colors.white, fontSize: 20, fontFamily: defaultFont),
             ),
@@ -227,7 +230,7 @@ class _LoginFormState extends State<LoginForm> {
             Navigator.pushReplacementNamed(context, '/forgotpassword');
           },
           child: Text(
-            "Forgot Password",
+            AppLocalizations.of(context).translate("forgot_password_text"),
             style: TextStyle(
                 color: ThemeColor.darkText,
                 decoration: TextDecoration.underline,
@@ -238,7 +241,7 @@ class _LoginFormState extends State<LoginForm> {
     Widget _orText() {
       return Center(
         child: Text(
-          "or",
+          AppLocalizations.of(context).translate("or_text"),
           style: TextStyle(
               color: ThemeColor.darksecondText, fontFamily: defaultFont),
         ),
@@ -260,7 +263,7 @@ class _LoginFormState extends State<LoginForm> {
               Navigator.pushReplacementNamed(context, '/registerphy');
             },
             child: Text(
-              "Create an Account",
+              AppLocalizations.of(context).translate("create_account_btn_text"),
               style: TextStyle(color: Colors.white, fontFamily: defaultFont),
             ),
           ),
@@ -281,7 +284,7 @@ class _LoginFormState extends State<LoginForm> {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                "See whats new in our Feed",
+                AppLocalizations.of(context).translate("see_whats_new_text"),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: ThemeColor.darkText,

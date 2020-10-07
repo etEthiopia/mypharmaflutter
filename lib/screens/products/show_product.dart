@@ -383,7 +383,10 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                               color: ThemeColor.lightText,
                                               fontSize: 10,
                                               fontFamily: defaultFont)),
-                                      Text("${state.product.price}ETB",
+                                      Text(
+                                          "${state.product.price} " +
+                                              AppLocalizations.of(context)
+                                                  .translate("etb_text"),
                                           style: TextStyle(
                                               color: ThemeColor.darksecondText,
                                               fontWeight: FontWeight.bold,

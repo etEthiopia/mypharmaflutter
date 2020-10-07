@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
@@ -55,7 +56,8 @@ class _StockProductState extends State<StockProduct> {
                   )),
                 ),
                 Text(
-                  "${widget.price} ETB",
+                  "${widget.price} " +
+                      AppLocalizations.of(context).translate("etb_text"),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(

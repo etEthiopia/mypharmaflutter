@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:mypharma/blocs/register/bloc.dart';
 import 'package:mypharma/components/drawers.dart';
@@ -117,7 +118,7 @@ class _RegisterFormState extends State<_RegisterForm> {
 
     Widget _professionText() {
       return Text(
-        "Profession",
+        AppLocalizations.of(context).translate("profession_text"),
         style: TextStyle(
             color: ThemeColor.darkText, fontSize: 10, fontFamily: defaultFont),
       );
@@ -134,7 +135,9 @@ class _RegisterFormState extends State<_RegisterForm> {
               dropdownColor: ThemeColor.background3,
               style: TextStyle(color: dark, fontFamily: defaultFont),
               items: professions,
-              hint: Text("Profession"),
+              hint: Text(
+                AppLocalizations.of(context).translate("profession_text"),
+              ),
               value: _selectedProfession,
               onChanged: (value) {
                 setState(() {
@@ -160,7 +163,11 @@ class _RegisterFormState extends State<_RegisterForm> {
 
     Widget _registerText() {
       return Text(
-        "Sign Up & Stay Connected",
+        AppLocalizations.of(context).translate("sign_up_btn_text") +
+            " " +
+            AppLocalizations.of(context).translate("and_shorthand_text") +
+            " " +
+            AppLocalizations.of(context).translate("drawer_slogan_text"),
         style: TextStyle(
             color: ThemeColor.darkText, fontSize: 20, fontFamily: defaultFont),
       );
@@ -182,7 +189,8 @@ class _RegisterFormState extends State<_RegisterForm> {
             child: TextFormField(
               style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
-                  hintText: "Full Name",
+                  hintText:
+                      AppLocalizations.of(context).translate("full_name_text"),
                   hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.person,
@@ -230,7 +238,8 @@ class _RegisterFormState extends State<_RegisterForm> {
             child: TextFormField(
               style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
-                  hintText: "Email",
+                  hintText:
+                      AppLocalizations.of(context).translate("email_text"),
                   hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.mail,
@@ -276,7 +285,8 @@ class _RegisterFormState extends State<_RegisterForm> {
               style: TextStyle(color: ThemeColor.contrastText),
               obscureText: true,
               decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText:
+                      AppLocalizations.of(context).translate("password_text"),
                   hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.lock,
@@ -319,7 +329,8 @@ class _RegisterFormState extends State<_RegisterForm> {
               obscureText: true,
               style: TextStyle(color: ThemeColor.contrastText),
               decoration: InputDecoration(
-                  hintText: "Confirm Password",
+                  hintText: AppLocalizations.of(context)
+                      .translate("confirm_password_text"),
                   hintStyle: TextStyle(color: ThemeColor.background1),
                   icon: Icon(
                     Icons.lock,
@@ -355,7 +366,7 @@ class _RegisterFormState extends State<_RegisterForm> {
             Navigator.pushReplacementNamed(context, '/login');
           },
           child: Text(
-            "Back to Login",
+            AppLocalizations.of(context).translate("back_to_login_text"),
             style: TextStyle(
                 color: ThemeColor.darkText,
                 decoration: TextDecoration.underline,
@@ -452,7 +463,8 @@ class _RegisterFormState extends State<_RegisterForm> {
                                     _register();
                                   },
                                   child: Text(
-                                    "Sign Up",
+                                    AppLocalizations.of(context)
+                                        .translate("sign_up_btn_text"),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,

@@ -148,7 +148,7 @@ class _ShowOrderState extends State<ShowOrder> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Order Status",
+          Text(AppLocalizations.of(context).translate("order_status_text"),
               style: TextStyle(
                   color: ThemeColor.primaryText,
                   fontSize: 10,
@@ -327,7 +327,9 @@ class _ShowOrderState extends State<ShowOrder> {
                             fontFamily: defaultFont)),
                   ),
                   Expanded(
-                    child: Text("$sub ETB",
+                    child: Text(
+                        "$sub " +
+                            AppLocalizations.of(context).translate("etb_text"),
                         style: TextStyle(
                             color: ThemeColor.darksecondText,
                             fontSize: 15,
@@ -369,7 +371,9 @@ class _ShowOrderState extends State<ShowOrder> {
                             fontFamily: defaultFont)),
                   ),
                   Expanded(
-                    child: Text("$tot ETB",
+                    child: Text(
+                        "$tot " +
+                            AppLocalizations.of(context).translate("etb_text"),
                         style: TextStyle(
                             color: ThemeColor.darksecondText,
                             fontSize: 15,

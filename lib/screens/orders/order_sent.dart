@@ -134,7 +134,7 @@ class _SentOrdersListState extends State<SentOrdersList> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Order Status",
+          Text(AppLocalizations.of(context).translate("order_status_text"),
               style: TextStyle(
                   color: ThemeColor.primaryText,
                   fontSize: 10,

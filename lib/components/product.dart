@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,10 @@ Widget product(
                                   style: TextStyle(fontSize: 0),
                                 ),
                           Text(
-                            price + " ETB",
+                            price +
+                                " " +
+                                AppLocalizations.of(context)
+                                    .translate("etb_text"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.end,

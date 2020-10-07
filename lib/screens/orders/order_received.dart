@@ -133,7 +133,7 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Order Status",
+          Text(AppLocalizations.of(context).translate("order_status_text"),
               style: TextStyle(
                   color: ThemeColor.primaryText,
                   fontSize: 10,

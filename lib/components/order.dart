@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
@@ -89,7 +90,10 @@ class _OrderCardState extends State<OrderCard> {
                     Expanded(
                       child: Row(
                         children: <Widget>[
-                          Text("Quantity: ",
+                          Text(
+                              AppLocalizations.of(context)
+                                      .translate("quantity_text") +
+                                  ": ",
                               style: TextStyle(
                                   color: ThemeColor.lightText,
                                   fontSize: 10,
@@ -117,7 +121,9 @@ class _OrderCardState extends State<OrderCard> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Status",
+                          Text(
+                              AppLocalizations.of(context)
+                                  .translate("status_text"),
                               style: TextStyle(
                                   color: ThemeColor.lightText,
                                   fontSize: 10,
@@ -134,7 +140,9 @@ class _OrderCardState extends State<OrderCard> {
                     ),
                     Expanded(
                       child: Text(
-                        widget.o.price.toString() + " ETB",
+                        widget.o.price.toString() +
+                            " " +
+                            AppLocalizations.of(context).translate("etb_text"),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
