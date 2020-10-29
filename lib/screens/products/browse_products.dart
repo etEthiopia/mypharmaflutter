@@ -110,12 +110,12 @@ class _BrowseProductListState extends State<BrowseProductList> {
                       );
                     },
                     child: product(
-                      id: state.productsList[index].id,
-                      name: state.productsList[index].title,
-                      image: state.productsList[index].image,
-                      org: state.productsList[index].vendor,
-                      price: state.productsList[index].price.toString(),
-                    ),
+                        id: state.productsList[index].id,
+                        name: state.productsList[index].title,
+                        image: state.productsList[index].image,
+                        org: state.productsList[index].vendor,
+                        price: state.productsList[index].price.toString(),
+                        context: this.context),
                   );
                 },
               ),
