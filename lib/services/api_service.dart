@@ -19,6 +19,7 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> fetchSentOrders();
   Future<dynamic> fetchShowReceivedOrder();
   Future<bool> updateOrderStatus();
+  Future<List<dynamic>> fetchMyStock();
   Future<List<dynamic>> fetchWishlist();
   Future<bool> addtoWishList();
   Future<int> countWishList();
