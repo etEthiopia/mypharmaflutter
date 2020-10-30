@@ -10,7 +10,7 @@ Widget article(
     String content,
     String image,
     String time,
-    int category,
+    String category,
     int id,
     var context}) {
   void showArticle() {
@@ -138,16 +138,17 @@ Widget article(
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Row(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.thumb_up,
-                                        color: dark,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                    Text("15",
+                                    Text("Category  ",
+                                        style: TextStyle(
+                                            color: dark,
+                                            fontSize: 8,
+                                            fontFamily: defaultFont)),
+                                    Text(category,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: dark,
                                             fontWeight: FontWeight.bold,

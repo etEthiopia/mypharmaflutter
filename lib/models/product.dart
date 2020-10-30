@@ -15,6 +15,15 @@ class Product {
   String vendor;
   int price;
   double tax;
+  String genericName;
+  String manufacturer;
+  String manuDate;
+  String expDate;
+  int packagePrice;
+  int packageCapacity;
+  String stockStatus;
+  int amountInStock;
+  String manufacturerCountry;
 
   Product({
     @required this.id,
@@ -37,22 +46,42 @@ class Product {
       @required this.gallery,
       @required this.batchNo,
       @required this.category,
-      @required this.tax});
+      @required this.tax,
+      @required this.genericName,
+      @required this.manufacturer,
+      @required this.manuDate,
+      @required this.expDate,
+      @required this.packagePrice,
+      @required this.packageCapacity,
+      @required this.stockStatus,
+      @required this.amountInStock,
+      @required this.manufacturerCountry});
 
   factory Product.fromJsonDetial(Map<String, dynamic> json) {
+    print("prod: " + json.toString());
     return Product.detail(
-        id: json['id'],
-        title: json['title'],
-        price: json['min_price'],
-        vendor: json['vendorname'],
-        image: json['thumbnail'],
-        date: json['updated_at'],
-        description: json['descriptioin'],
-        gallery: null,
-        category: json['category_id'],
-        batchNo: json['batch_number'],
-        tax: double.parse(json['taxt_rate'].toString()),
-        userid: json['user_id']);
+      id: json['id'],
+      title: json['title'],
+      price: json['max_price'],
+      vendor: json['vendorname'],
+      image: json['thumbnail'],
+      date: json['updated_at'],
+      description: json['descriptioin'],
+      gallery: null,
+      category: json['category_id'],
+      batchNo: json['batch_number'],
+      genericName: json['generic_name'] ?? "-",
+      tax: double.parse(json['taxt_rate'].toString()),
+      userid: json['user_id'],
+      manufacturer: json['manufacturer_company'] ?? "-",
+      manuDate: json['manufactured_date'] ?? "-",
+      expDate: json['expiry_date'] ?? "-",
+      packageCapacity: json['package_price'] ?? 0,
+      packagePrice: json['package_price'] ?? 0,
+      stockStatus: json['stock_status'] ?? "-",
+      amountInStock: json['stock_quantity'] ?? 0,
+      manufacturerCountry: json['manufacturer_country'] ?? "-",
+    );
   }
 
   static List<String> getGallery(String mainn) {
@@ -75,7 +104,7 @@ class Product {
     for (var products in productslist) {
       productsfetched.add(Product(
           id: products['id'],
-          price: products['min_price'],
+          price: products['max_price'],
           title: products['title'],
           vendor: null,
           image: products['thumbnail'],
@@ -90,7 +119,7 @@ class Product {
     for (var products in productslist) {
       productsfetched.add(Product(
           id: products['id'],
-          price: products['min_price'],
+          price: products['max_price'],
           title: products['title'],
           vendor: products['vendorname'],
           image: products['thumbnail']));
@@ -102,7 +131,7 @@ class Product {
     return Product(
       id: json['id'],
       title: json['title'],
-      price: json['min_price'],
+      price: json['max_price'],
       vendor: json['vendorname'],
       image: json['thumbnail'],
     );

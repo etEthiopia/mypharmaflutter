@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mypharma/blocs/cart/bloc.dart';
 import 'package:mypharma/blocs/product/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
@@ -139,7 +140,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                           color: ThemeColor.extralightText,
                           fontSize: 10,
                           fontFamily: defaultFont)),
-                  Text("Pill",
+                  Text(state.product.category.toString(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -159,7 +160,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                           color: ThemeColor.extralightText,
                           fontSize: 10,
                           fontFamily: defaultFont)),
-                  Text("Switzerland",
+                  Text(state.product.manufacturerCountry,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -239,7 +240,13 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                               topLeft: Radius.circular(15),
                               bottomLeft: Radius.circular(15)),
                           child: FlatButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              final _cartBloc =
+                                  BlocProvider.of<CartBloc>(context);
+                              _cartBloc.add(CartAdd(
+                                postid: state.product.id,
+                              ));
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -347,7 +354,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                         color: ThemeColor.lightText,
                                         fontSize: 10,
                                         fontFamily: defaultFont)),
-                                Text("Allergy Reliever",
+                                Text(state.product.genericName,
                                     style: TextStyle(
                                         color: ThemeColor.darksecondText,
                                         fontSize: 15,
@@ -405,12 +412,99 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
+                                    Text("Package Capacity",
+                                        style: TextStyle(
+                                            color: ThemeColor.lightText,
+                                            fontSize: 10,
+                                            fontFamily: defaultFont)),
+                                    Text(
+                                        state.product.packageCapacity
+                                            .toString(),
+                                        style: TextStyle(
+                                            color: ThemeColor.darksecondText,
+                                            fontSize: 15,
+                                            fontFamily: defaultFont))
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text("Package's Price",
+                                          style: TextStyle(
+                                              color: ThemeColor.lightText,
+                                              fontSize: 10,
+                                              fontFamily: defaultFont)),
+                                      Text(
+                                          "${state.product.packagePrice} " +
+                                              AppLocalizations.of(context)
+                                                  .translate("etb_text"),
+                                          style: TextStyle(
+                                              color: ThemeColor.darksecondText,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              fontFamily: defaultFont))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text("Stock Status",
+                                        style: TextStyle(
+                                            color: ThemeColor.lightText,
+                                            fontSize: 10,
+                                            fontFamily: defaultFont)),
+                                    Text(state.product.stockStatus,
+                                        style: TextStyle(
+                                            color: ThemeColor.darksecondText,
+                                            fontSize: 15,
+                                            fontFamily: defaultFont))
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text("Amount in Stock",
+                                          style: TextStyle(
+                                              color: ThemeColor.lightText,
+                                              fontSize: 10,
+                                              fontFamily: defaultFont)),
+                                      Text(
+                                          state.product.amountInStock
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: ThemeColor.darksecondText,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              fontFamily: defaultFont))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
                                     Text("Manufacured Date",
                                         style: TextStyle(
                                             color: ThemeColor.lightText,
                                             fontSize: 10,
                                             fontFamily: defaultFont)),
-                                    Text("01/02/2019",
+                                    Text(state.product.manuDate,
                                         style: TextStyle(
                                             color: ThemeColor.darksecondText,
                                             fontSize: 15,
@@ -428,7 +522,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                             color: ThemeColor.lightText,
                                             fontSize: 10,
                                             fontFamily: defaultFont)),
-                                    Text("01/02/2022",
+                                    Text(state.product.expDate,
                                         style: TextStyle(
                                             color: ThemeColor.darksecondText,
                                             fontSize: 15,
@@ -448,7 +542,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                         color: ThemeColor.lightText,
                                         fontSize: 10,
                                         fontFamily: defaultFont)),
-                                Text("Johnson & Johnson Pacific",
+                                Text(state.product.manufacturer,
                                     style: TextStyle(
                                         color: ThemeColor.darksecondText,
                                         fontSize: 15,
@@ -575,7 +669,20 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                         }, child: BlocBuilder<WishlistBloc, WishlistState>(
                                 builder: (context, cstate) {
                           return (Container());
-                        }))
+                        })),
+                        BlocListener<CartBloc, CartState>(
+                            listener: (context, cstate) {
+                          if (cstate is CartFailure) {
+                            showError(cstate.error, context);
+                          } else if (cstate is CartAdded) {
+                            showSucess(
+                                "${state.product.title} has been added to cart",
+                                context);
+                          }
+                        }, child: BlocBuilder<CartBloc, CartState>(
+                                builder: (context, cstate) {
+                          return (Container());
+                        })),
                       ])));
             } else {
               return Container(

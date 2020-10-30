@@ -6,7 +6,7 @@ class News {
   String description;
   String date;
   String image;
-  int category;
+  String category;
 
   News(
       {@required this.id,
@@ -23,8 +23,8 @@ class News {
       newsfetched.add(News(
           id: news['id'],
           title: news['title'],
-          description: news['description'],
-          category: news['category_id'],
+          description: news['descriptioin'],
+          category: news['catname'],
           date: news['updated_at'],
           image: news['image']));
     }
@@ -35,8 +35,8 @@ class News {
     return News(
       id: json['id'],
       title: json['title'],
-      description: json['description'],
-      category: json['category_id'],
+      description: json['descriptioin'],
+      category: json['catname'],
       date: json['updated_at'],
       image: json['image'],
     );

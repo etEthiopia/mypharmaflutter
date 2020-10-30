@@ -48,6 +48,10 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/my_wishlist');
     }
 
+    _cart() {
+      Navigator.pushReplacementNamed(context, '/my_cart');
+    }
+
     _orderrecevied() {
       Navigator.pushReplacementNamed(context, '/order_received');
     }
@@ -618,6 +622,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _cart();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -629,12 +636,28 @@ class UserDrawer extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-                    Text(
-                      AppLocalizations.of(context).translate("cart_title"),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: ThemeColor.darksecondText),
-                    ),
+                    Cart.count == 0
+                        ? Text(
+                            AppLocalizations.of(context)
+                                .translate("cart_title"),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: ThemeColor.darksecondText),
+                          )
+                        : Badge(
+                            badgeColor: dark,
+                            badgeContent: Text(
+                              Cart.count.toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)
+                                      .translate("cart_title") +
+                                  "   ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: ThemeColor.darksecondText),
+                            )),
                   ],
                 ),
               ),
@@ -1260,7 +1283,7 @@ class UserDrawer extends StatelessWidget {
                 listener: (context, state) {},
                 child: BlocBuilder<WishlistBloc, WishlistState>(
                     builder: (context, state) {
-                  print("DRAWER STATE: " + state.props.toString());
+                  // print("DRAWER STATE: " + state.props.toString());
                   if (state is WishlistCounted || state is WishlistAdded) {
                     return wholesellerDrawer(
                         profile: uname,

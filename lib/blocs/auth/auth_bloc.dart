@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:mypharma/app_localizations.dart';
+import 'package:mypharma/models/models.dart';
 import 'package:mypharma/screens/my_app.dart';
 
 import 'package:mypharma/services/services.dart';
@@ -54,6 +55,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (currentUser != null) {
         APIService.token = currentUser.token;
         APIService.id = currentUser.id;
+        if (currentUser.role == Role.pharmacist ||
+            currentUser.role == Role.wholeseller) {
+          try {
+            Cart.count = await _apiService.countCartItems();
+          } catch (e) {
+            print(e.message);
+          }
+        }
+
         yield AuthAuthenticated(user: currentUser);
       } else {
         yield AuthNotAuthenticated();

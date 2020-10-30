@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class ShowArticle extends StatefulWidget {
   final String image;
   final String content;
   final String time;
-  final int category;
+  final String category;
   final int id;
 
   const ShowArticle(
@@ -67,22 +68,23 @@ class _ShowArticleState extends State<ShowArticle> {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.thumb_up,
-                      color: ThemeColor.extralightText,
-                    ),
-                    onPressed: () {},
-                  ),
-                  Text("15",
-                      style: TextStyle(
-                          color: ThemeColor.extralightText,
-                          fontSize: 15,
-                          fontFamily: defaultFont))
-                ],
-              ),
+              // Row(
+              //   children: <Widget>[
+              //     IconButton(
+              //       icon: Icon(
+              //         Icons.thumb_up,
+              //         color: ThemeColor.extralightText,
+              //       ),
+              //       onPressed: () {},
+              //     ),
+              //     Text("15",
+              //         style: TextStyle(
+              //             color: ThemeColor.extralightText,
+              //             fontSize: 15,
+              //             fontFamily: defaultFont))
+              //   ],
+              // ),
+              _category()
             ],
           ),
           Row(children: <Widget>[
@@ -122,23 +124,20 @@ class _ShowArticleState extends State<ShowArticle> {
 
   Widget _category() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Text("Category: ",
-                style: TextStyle(
-                    color: ThemeColor.lightText,
-                    fontSize: 10,
-                    fontFamily: defaultFont)),
-            Text(widget.category.toString(),
-                style: TextStyle(
-                    color: ThemeColor.primaryText,
-                    fontSize: 10,
-                    fontFamily: defaultFont)),
-          ],
-        ),
+        Text("Category: ",
+            style: TextStyle(
+                color: ThemeColor.lightText,
+                fontSize: 10,
+                fontFamily: defaultFont)),
+        Text(widget.category.toString(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                color: ThemeColor.primaryText,
+                fontSize: 15,
+                fontFamily: defaultFont)),
       ],
     );
   }
@@ -224,7 +223,6 @@ class _ShowArticleState extends State<ShowArticle> {
                                     child: ListView(children: <Widget>[
                                       _title(),
                                       _time(),
-                                      _category(),
                                       _sizedBox(),
                                       _content(),
                                       _suggestEdit()
@@ -235,15 +233,15 @@ class _ShowArticleState extends State<ShowArticle> {
                       )))));
     } else {
       return Scaffold(
-          backgroundColor: extralight,
+          backgroundColor: ThemeColor.extralight,
           body: SafeArea(
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Material(
-                    color: Colors.grey[200],
+                    color: ThemeColor.background2,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: ThemeColor.background,
                       ),
                       child: Row(
                         children: <Widget>[
@@ -267,7 +265,6 @@ class _ShowArticleState extends State<ShowArticle> {
                                           children: <Widget>[
                                             _title(),
                                             _time(),
-                                            _category(),
                                           ],
                                         ),
                                       ),

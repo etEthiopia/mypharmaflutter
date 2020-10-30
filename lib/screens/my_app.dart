@@ -8,6 +8,7 @@ import 'package:mypharma/models/models.dart';
 import 'package:mypharma/screens/auth/joinus.dart';
 import 'package:mypharma/screens/auth/login.dart';
 import 'package:mypharma/screens/auth/registerphy.dart';
+import 'package:mypharma/screens/cart/my_cart.dart';
 import 'package:mypharma/screens/front_splash.dart';
 import 'package:mypharma/screens/orders/order_sent.dart';
 import 'package:mypharma/screens/posts/feed.dart';
@@ -67,6 +68,7 @@ class _MyAppState extends State<MyApp> {
         '/order_received': (context) => ReceivedOrderPage(),
         '/order_sent': (context) => SentOrderPage(),
         '/my_wishlist': (context) => MyWishlistPage(),
+        '/my_cart': (context) => MyCartPage(),
         '/settings': (context) => Settings(),
       },
       home: BlocBuilder<AuthBloc, AuthState>(

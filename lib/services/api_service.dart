@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:mypharma/exceptions/exceptions.dart';
-import 'package:mypharma/exceptions/wishlist_excepton.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
@@ -24,6 +23,12 @@ abstract class APIServiceSkel {
   Future<bool> addtoWishList();
   Future<int> countWishList();
   Future<bool> deleteWish(int id);
+  Future<dynamic> showProduct({int id});
+  Future<List<dynamic>> fetchCart();
+  Future<int> countCartItems();
+  Future<bool> addToCart({int postid});
+  Future<bool> deleteCartItem(int id);
+  Future<bool> updateCartItem(int id, bool increase);
 }
 
 class APIService extends APIServiceSkel {
@@ -88,6 +93,8 @@ class APIService extends APIServiceSkel {
           throw AuthException(
               message: "Sorry, We couldn't get a response from our server");
         }
+      } else if (e is AuthException) {
+        throw AuthException(message: e.message);
       } else {
         print('Connection Error');
         throw AuthException(
@@ -370,12 +377,11 @@ class APIService extends APIServiceSkel {
             'Authorization': 'Bearer ${APIService.token}'
           },
         ).timeout(Duration(seconds: 20));
-        print("JSON red code:  " + res.statusCode.toString());
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
               Product product =
-                  Product.fromJsonDetial(json.decode(res.body)['0'][0]);
+                  Product.fromJsonDetial(json.decode(res.body)['0']);
               print("product: " + product.toString());
               return product;
             } else {
@@ -414,7 +420,7 @@ class APIService extends APIServiceSkel {
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
-          print('Connection Error');
+          print('Connection Error ' + e.toString());
           throw ProductException(
               message: "Sorry, We couldn't get a response from our server");
         }
@@ -966,6 +972,326 @@ class APIService extends APIServiceSkel {
       }
     } else {
       throw WishlistException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<List<dynamic>> fetchCart() async {
+    String cart = "cart";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$cart",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        );
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              //print(json.decode(res.body)['0']['cartitem']);
+              List<Cart> cart = Cart.generatecartlistList(
+                  json.decode(res.body)['0']['cartitem'],
+                  json.decode(res.body)['0']['allTotal']);
+
+              List<dynamic> result = cart;
+              return result;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw CartException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw CartException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw CartException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw CartException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw CartException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw CartException(message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw CartException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else if (e is CartException) {
+          throw CartException(message: e.message);
+        } else {
+          print('Connection Error');
+          throw CartException(
+              message: "Sorry, We couldn't get a response from our server");
+        }
+      }
+    } else {
+      throw CartException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<int> countCartItems() async {
+    String cart = "cart/count";
+    print("about to count");
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$cart",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              Cart.count = json.decode(res.body)['count'];
+              return json.decode(res.body)['count'];
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw CartException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw CartException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw CartException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw CartException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw CartException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw CartException(message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw CartException(
+                message:
+                    "Sorry, We couldn't get a response from our server $e");
+          }
+        } else if (e is CartException) {
+          throw CartException(message: e.message);
+        } else {
+          print('Connection Error');
+          throw CartException(
+              message: "Sorry, We couldn't get a response from our server $e");
+        }
+      }
+    } else {
+      throw CartException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<bool> addToCart({int postid}) async {
+    String cart = "cart";
+    if (APIService.token != null) {
+      try {
+        var res = await http.post(
+          "$SERVER_IP/$cart/$postid",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              return true;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw CartException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw CartException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw CartException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw CartException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw CartException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw CartException(message: "Sorry, We couldn't reach the server");
+          } else if (e is CartException) {
+            throw CartException(message: e.message);
+          } else {
+            print('Connection Error');
+            throw CartException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else {
+          print('Connection Error');
+          throw CartException(
+              message: "Sorry, We couldn't get a response from our server");
+        }
+      }
+    } else {
+      throw CartException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<bool> deleteCartItem(int id) async {
+    String cart = "cart";
+    if (APIService.token != null) {
+      try {
+        var res = await http.delete(
+          "$SERVER_IP/$cart/$id",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 10));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              return true;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw CartException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw CartException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw CartException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw CartException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw CartException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw CartException(message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw CartException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else if (e is CartException) {
+          throw CartException(message: e.message);
+        } else {
+          print('Connection Error');
+          throw CartException(
+              message: "Sorry, We couldn't get a response from our server $e");
+        }
+      }
+    } else {
+      throw CartException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<bool> updateCartItem(int id, bool increase) async {
+    String cart = "cart/";
+    if (increase) {
+      cart += "increament";
+    } else {
+      cart += "decreament";
+    }
+    if (APIService.token != null) {
+      try {
+        var res = await http.put(
+          "$SERVER_IP/$cart/$id",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 10));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              return true;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw CartException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw CartException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw CartException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw CartException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw CartException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw CartException(message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw CartException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else if (e is CartException) {
+          throw CartException(message: e.message);
+        } else {
+          print('Connection Error');
+          throw CartException(
+              message: "Sorry, We couldn't get a response from our server $e");
+        }
+      }
+    } else {
+      throw CartException(message: 'Not Authorized');
     }
   }
 }
