@@ -53,22 +53,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   Stream<CartState> _mapCartDeleteToState(CartItemDelete event) async* {
     try {
-      if (state is CartLoaded) {
-        final List<Cart> current = state.props[0];
-        final updatedCarts = current
-            .where((cartItem) => cartItem.id != event.cartItem.id)
-            .toList();
-        Cart.count -= 1;
-        Cart.allTotal -= event.cartItem.price;
-        yield CartLoaded(cartItems: updatedCarts);
-        final result = await _apiService.deleteCartItem(event.cartItem.postId);
+      final List<Cart> current = state.props[0];
+      final updatedCarts = current
+          .where((cartItem) => cartItem.id != event.cartItem.id)
+          .toList();
 
-        if (result) {
-        } else {
-          Cart.count += 1;
-          Cart.allTotal += event.cartItem.price;
-          CartFailure(error: "Process Unsuccessful");
-        }
+      Cart.count -= 1;
+      Cart.allTotal -= event.cartItem.price;
+      yield CartUpdated(cartItems: updatedCarts);
+      final result = await _apiService.deleteCartItem(event.cartItem.postId);
+
+      if (result) {
+      } else {
+        Cart.count += 1;
+        Cart.allTotal += event.cartItem.price;
+        CartFailure(error: "Process Unsuccessful");
       }
     } catch (e) {
       if (e.message.toString() == 'empty') {
@@ -82,37 +81,37 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   Stream<CartState> _mapCartUpdateToState(CartItemUpdate event) async* {
     try {
-      if (state is CartLoaded) {
-        final List<Cart> current = state.props[0];
-        print(current);
-        List<Cart> updated = current;
-        for (Cart item in updated) {
-          if (item.id == event.cartItem.id) {
-            if (event.increase) {
-              item.quantity += 1;
-              item.price += event.cartItem.price / event.cartItem.quantity;
-            } else {
-              item.quantity -= 1;
-              item.price -= event.cartItem.price / event.cartItem.quantity;
-            }
+      final List<Cart> current = state.props[0];
+
+      print(current);
+      List<Cart> updated = current;
+      for (Cart item in updated) {
+        if (item.id == event.cartItem.id) {
+          if (event.increase) {
+            item.quantity += 1;
+            item.price += event.cartItem.price / event.cartItem.quantity;
+          } else {
+            item.quantity -= 1;
+            item.price -= event.cartItem.price / event.cartItem.quantity;
           }
         }
+      }
 
-        if (event.increase) {
-          Cart.allTotal += event.cartItem.price / event.cartItem.quantity;
-        } else {
-          Cart.allTotal -= event.cartItem.price / event.cartItem.quantity;
-        }
-        print(current);
-        final newupdated = updated;
-        yield CartLoaded(cartItems: newupdated);
+      if (event.increase) {
+        Cart.allTotal += event.cartItem.price / event.cartItem.quantity;
+      } else {
+        Cart.allTotal -= event.cartItem.price / event.cartItem.quantity;
+      }
+      print(current);
+      final newupdated = updated;
+      yield CartLoaded(cartItems: newupdated);
+      yield CartUpdated(cartItems: newupdated);
 
-        final result = await _apiService.updateCartItem(
-            event.cartItem.postId, event.increase);
-        if (result) {
-        } else {
-          CartFailure(error: "Process Unsuccessful");
-        }
+      final result = await _apiService.updateCartItem(
+          event.cartItem.postId, event.increase);
+      if (result) {
+      } else {
+        CartFailure(error: "Process Unsuccessful");
       }
     } catch (e) {
       if (e.message.toString() == 'empty') {
