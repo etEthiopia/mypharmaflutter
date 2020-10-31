@@ -130,7 +130,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       );
       if (result != null) {
         if (result == true) {
-          Cart.count += 1;
+          try {
+            Cart.count = await _apiService.countCartItems();
+          } catch (e) {
+            print(e.message);
+          }
 
           yield CartAdded();
         } else {
