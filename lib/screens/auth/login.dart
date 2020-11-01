@@ -103,7 +103,7 @@ class _LoginFormState extends State<LoginForm> {
               decoration: InputDecoration(
                   hintText:
                       AppLocalizations.of(context).translate("email_text"),
-                  hintStyle: TextStyle(color: ThemeColor.background1),
+                  hintStyle: TextStyle(color: ThemeColor.extralightText),
                   icon: Icon(
                     Icons.mail,
                     color: dark,
@@ -150,7 +150,7 @@ class _LoginFormState extends State<LoginForm> {
               decoration: InputDecoration(
                   hintText:
                       AppLocalizations.of(context).translate("password_text"),
-                  hintStyle: TextStyle(color: ThemeColor.background1),
+                  hintStyle: TextStyle(color: ThemeColor.extralightText),
                   icon: Icon(
                     Icons.lock,
                     color: dark,
@@ -190,12 +190,17 @@ class _LoginFormState extends State<LoginForm> {
             SizedBox(
               width: 5,
             ),
-            Text(
-              AppLocalizations.of(context).translate("remember_me_text"),
-              style: TextStyle(
-                  color: ThemeColor.darkText,
-                  fontSize: 16,
-                  fontFamily: defaultFont),
+            InkWell(
+              onTap: () {
+                selected();
+              },
+              child: Text(
+                AppLocalizations.of(context).translate("remember_me_text"),
+                style: TextStyle(
+                    color: ThemeColor.darkText,
+                    fontSize: 16,
+                    fontFamily: defaultFont),
+              ),
             )
           ],
         ),

@@ -158,11 +158,12 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
                               return WishlistProduct(
                                 // state.receivedList[index].toString()
                                 id: state.wishlist[index].id,
-                                image: 'xx',
+                                image: state.wishlist[index].picture,
                                 name: state.wishlist[index].name,
                                 slug: state.wishlist[index].slug,
                                 quantity: state.wishlist[index].quantity,
                                 vendor: state.wishlist[index].vendorId,
+                                vendorname: state.wishlist[index].vendorname,
                                 postid: state.wishlist[index].postId,
                                 context: this.context,
                                 isSelected: (bool value) {

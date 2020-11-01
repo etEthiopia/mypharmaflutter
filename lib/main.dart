@@ -7,10 +7,9 @@ import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_bloc.dart';
 import 'package:mypharma/screens/my_app.dart';
 import 'package:mypharma/services/services.dart';
-
 import 'blocs/cart/bloc.dart';
 
-const IP = 'http://192.168.1.3/mypharmakal/';
+const IP = 'http://192.168.1.4/mypharmakal/';
 const SERVER_IP = IP + 'api';
 const SERVER_IP_FILE = IP + 'public/storage/';
 final storage = FlutterSecureStorage();

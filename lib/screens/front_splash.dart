@@ -11,19 +11,19 @@ class FrontSplash extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Container(
-                  margin: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
-                  alignment: Alignment.topCenter,
-                  child: Image.asset(
-                    "assets/images/logo/logo100.png",
-                    width: 100.0,
-                  )),
-              SizedBox(
-                height: 50,
-              ),
+              // Container(
+              //     margin: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
+              //     alignment: Alignment.topCenter,
+              //     child: Image.asset(
+              //       "assets/images/logo/logo50.png",
+              //       width: 100.0,
+              //     )),
+              // SizedBox(
+              //   height: 50,
+              // ),
               Text(
                 "MyPharma",
-                style: TextStyle(color: dark, fontSize: 35),
+                style: TextStyle(color: dark, fontSize: 40),
               ),
               SizedBox(
                 height: 5,

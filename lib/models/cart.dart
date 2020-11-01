@@ -4,7 +4,7 @@ class Cart {
   int id;
   String name;
   int postId;
-
+  String picture;
   int quantity;
   String date;
   double price;
@@ -14,6 +14,7 @@ class Cart {
   Cart(
       {@required this.id,
       @required this.name,
+      @required this.picture,
       @required this.postId,
       @required this.quantity,
       @required this.date,
@@ -30,10 +31,12 @@ class Cart {
           id: cart['id'],
           name: cart['post_title'],
           postId: cart['post_id'],
+          picture: cart['thumbnail'],
           quantity: cart['quantity'] ?? 0,
           date: cart['updated_at'] ?? '-',
           price: double.parse(cart['price'].toString()) ?? 0.0));
     }
+
     return cartlistfetched;
   }
 
@@ -42,6 +45,7 @@ class Cart {
         id: json['id'],
         name: json['post_title'],
         postId: json['post_id'],
+        picture: json['thumbnail'],
         quantity: json['quantity'] ?? 0,
         date: json['updated_at'] ?? '-',
         price: double.parse(['price'].toString()) ?? 00);

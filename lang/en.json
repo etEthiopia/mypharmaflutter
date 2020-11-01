@@ -52,5 +52,9 @@
     "profession_text": "Profession",
     "sign_up_btn_text": "Sign Up",
     "back_to_login_text": "Back to Login",
-    "and_shorthand_text": "&"
+    "and_shorthand_text": "&",
+    "price_text": "Price",
+    "total_text": "Total",
+    "total_calculated_amount": "Your Total Calculated Amount",
+    "proceed_to_checkout_text": "Proceed to Checkout"
 }

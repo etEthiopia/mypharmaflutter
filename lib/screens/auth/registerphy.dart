@@ -191,7 +191,7 @@ class _RegisterFormState extends State<_RegisterForm> {
               decoration: InputDecoration(
                   hintText:
                       AppLocalizations.of(context).translate("full_name_text"),
-                  hintStyle: TextStyle(color: ThemeColor.background1),
+                  hintStyle: TextStyle(color: ThemeColor.extralightText),
                   icon: Icon(
                     Icons.person,
                     color: dark,
@@ -240,7 +240,7 @@ class _RegisterFormState extends State<_RegisterForm> {
               decoration: InputDecoration(
                   hintText:
                       AppLocalizations.of(context).translate("email_text"),
-                  hintStyle: TextStyle(color: ThemeColor.background1),
+                  hintStyle: TextStyle(color: ThemeColor.extralightText),
                   icon: Icon(
                     Icons.mail,
                     color: dark,
@@ -287,7 +287,7 @@ class _RegisterFormState extends State<_RegisterForm> {
               decoration: InputDecoration(
                   hintText:
                       AppLocalizations.of(context).translate("password_text"),
-                  hintStyle: TextStyle(color: ThemeColor.background1),
+                  hintStyle: TextStyle(color: ThemeColor.extralightText),
                   icon: Icon(
                     Icons.lock,
                     color: dark,
@@ -331,7 +331,7 @@ class _RegisterFormState extends State<_RegisterForm> {
               decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)
                       .translate("confirm_password_text"),
-                  hintStyle: TextStyle(color: ThemeColor.background1),
+                  hintStyle: TextStyle(color: ThemeColor.extralightText),
                   icon: Icon(
                     Icons.lock,
                     color: dark,

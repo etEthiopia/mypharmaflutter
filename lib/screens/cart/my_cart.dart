@@ -55,6 +55,93 @@ class _MyCartsListState extends State<MyCartsList> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculated Amount
+    Widget _calculatedAmount() {
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: Column(
+          children: [
+            Column(
+              children: <Widget>[
+                Text(
+                    AppLocalizations.of(context)
+                        .translate("proceed_to_checkout_text"),
+                    style: TextStyle(
+                        color: ThemeColor.primaryText,
+                        fontSize: 15,
+                        fontFamily: defaultFont)),
+                Container(
+                    width: double.infinity,
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        border: Border.all(
+                            color: ThemeColor.primaryText, width: 2)),
+                    child: Text(
+                      "${Cart.allTotal} ${AppLocalizations.of(context).translate("etb_text")}",
+                      style: TextStyle(
+                          color: ThemeColor.primaryText,
+                          fontSize: 15,
+                          fontFamily: defaultFont),
+                    )),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Material(
+                      color: ThemeColor.darkBtn,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          bottomLeft: Radius.circular(15)),
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, '/browse_products');
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate("browse_product_title"),
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: defaultFont),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Material(
+                      color: ThemeColor.primaryBtn,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          bottomRight: Radius.circular(15)), ////
+                      child: FlatButton(
+                        onPressed: () {},
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate("proceed_to_checkout_text"),
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Colors.white,
+                              fontFamily: defaultFont),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
+
     return BlocListener<CartBloc, CartState>(
       listener: (context, state) {
         if (state is CartFailure) {
@@ -90,7 +177,7 @@ class _MyCartsListState extends State<MyCartsList> {
                               return CartItem(
                                 // state.receivedList[index].toString()
                                 id: state.cartItems[index].id,
-
+                                picture: state.cartItems[index].picture,
                                 name: state.cartItems[index].name,
                                 udate: state.cartItems[index].date,
                                 amount: state.cartItems[index].quantity,
@@ -101,91 +188,7 @@ class _MyCartsListState extends State<MyCartsList> {
                             },
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
-                          child: Column(
-                            children: [
-                              Column(
-                                children: <Widget>[
-                                  Text("Your Total Calculated Amount",
-                                      style: TextStyle(
-                                          color: ThemeColor.lightText,
-                                          fontSize: 15,
-                                          fontFamily: defaultFont)),
-                                  Container(
-                                      width: double.infinity,
-                                      margin: EdgeInsets.all(10),
-                                      padding: EdgeInsets.all(10),
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          border: Border.all(
-                                              color: primary, width: 2)),
-                                      child: Text(
-                                        "${Cart.allTotal} ETB",
-                                        style: TextStyle(
-                                            color: primary,
-                                            fontSize: 15,
-                                            fontFamily: defaultFont),
-                                      )),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: Material(
-                                        color: ThemeColor.darkBtn,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            bottomLeft: Radius.circular(15)),
-                                        child: FlatButton(
-                                          onPressed: () {
-                                            Navigator.pushReplacementNamed(
-                                                context, '/browse_products');
-                                          },
-                                          child: Text(
-                                            AppLocalizations.of(context)
-                                                .translate(
-                                                    "browse_product_title"),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: defaultFont),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: Material(
-                                        color: ThemeColor.primaryBtn,
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(15),
-                                            bottomRight: Radius.circular(15)),
-                                        child: FlatButton(
-                                          onPressed: () {},
-                                          child: Text(
-                                            "Proceed to Checkout",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.white,
-                                                fontFamily: defaultFont),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
+                        _calculatedAmount()
                       ],
                     )),
               ),
@@ -205,7 +208,7 @@ class _MyCartsListState extends State<MyCartsList> {
                               return CartItem(
                                 // state.receivedList[index].toString()
                                 id: state.cartItems[index].id,
-
+                                picture: state.cartItems[index].picture,
                                 name: state.cartItems[index].name,
                                 udate: state.cartItems[index].date,
                                 amount: state.cartItems[index].quantity,
@@ -216,91 +219,7 @@ class _MyCartsListState extends State<MyCartsList> {
                             },
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
-                          child: Column(
-                            children: [
-                              Column(
-                                children: <Widget>[
-                                  Text("Your Total Calculated Amount",
-                                      style: TextStyle(
-                                          color: ThemeColor.lightText,
-                                          fontSize: 15,
-                                          fontFamily: defaultFont)),
-                                  Container(
-                                      width: double.infinity,
-                                      margin: EdgeInsets.all(10),
-                                      padding: EdgeInsets.all(10),
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          border: Border.all(
-                                              color: primary, width: 2)),
-                                      child: Text(
-                                        "${Cart.allTotal} ETB",
-                                        style: TextStyle(
-                                            color: primary,
-                                            fontSize: 15,
-                                            fontFamily: defaultFont),
-                                      )),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: Material(
-                                        color: ThemeColor.darkBtn,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            bottomLeft: Radius.circular(15)),
-                                        child: FlatButton(
-                                          onPressed: () {
-                                            Navigator.pushReplacementNamed(
-                                                context, '/browse_products');
-                                          },
-                                          child: Text(
-                                            AppLocalizations.of(context)
-                                                .translate(
-                                                    "browse_product_title"),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: defaultFont),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: Material(
-                                        color: ThemeColor.primaryBtn,
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(15),
-                                            bottomRight: Radius.circular(15)),
-                                        child: FlatButton(
-                                          onPressed: () {},
-                                          child: Text(
-                                            "Proceed to Checkout",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.white,
-                                                fontFamily: defaultFont),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
+                        _calculatedAmount()
                       ],
                     )),
               ),

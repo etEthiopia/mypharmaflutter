@@ -52,5 +52,9 @@
     "profession_text": "የስራ ሃላፊነት",
     "sign_up_btn_text": "መዝግበኝ",
     "back_to_login_text": "ወደ መለያ ቅጽ ተመለስ",
-    "and_shorthand_text": "እና"
+    "and_shorthand_text": "እና",
+    "price_text": "ዋጋ",
+    "total_text": "ድምር",
+    "total_calculated_amount": "ጠቅላላ ድምር ዋጋ",
+    "proceed_to_checkout_text": "ወደ ትዕዛዝ ይቀጥሉ"
 }

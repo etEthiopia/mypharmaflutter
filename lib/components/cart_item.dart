@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/cart/bloc.dart';
+import 'package:mypharma/main.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
@@ -12,15 +14,20 @@ class CartItem extends StatefulWidget {
       this.id,
       this.name,
       String udate,
+      this.picture,
       this.price,
       this.amount,
       this.prodId,
       this.context})
       : super(key: key) {
-    if (udate.substring(0, 4) == DateTime.now().year.toString() &&
-        udate.substring(5, 7) == DateTime.now().month.toString() &&
-        udate.substring(8, 10) == DateTime.now().day.toString()) {
-      this.date = udate.substring(11);
+    if (udate.length > 12) {
+      if (udate.substring(0, 4) == DateTime.now().year.toString() &&
+          udate.substring(5, 7) == DateTime.now().month.toString() &&
+          udate.substring(8, 10) == DateTime.now().day.toString()) {
+        this.date = udate.substring(11);
+      } else {
+        this.date = udate;
+      }
     } else {
       this.date = udate;
     }
@@ -32,6 +39,7 @@ class CartItem extends StatefulWidget {
   final int id;
   final String name;
   String date;
+  String picture;
   final double price;
   final int prodId;
   final int amount;
@@ -43,9 +51,9 @@ class _CartItemState extends State<CartItem> {
 
   @override
   void initState() {
-    // setState(() {
-    //   _cartBloc = BlocProvider.of<CartBloc>(context);
-    // });
+    setState(() {
+      _cartBloc = BlocProvider.of<CartBloc>(context);
+    });
     super.initState();
   }
 
@@ -98,7 +106,7 @@ class _CartItemState extends State<CartItem> {
                 style: TextStyle(color: ThemeColor.darkText),
               ),
               onPressed: () {
-                final _cartBloc = BlocProvider.of<CartBloc>(context);
+                //final _cartBloc = BlocProvider.of<CartBloc>(context);
                 _cartBloc.add(CartItemDelete(
                     cartItem: Cart(
                   id: widget.id,
@@ -120,16 +128,16 @@ class _CartItemState extends State<CartItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: EdgeInsets.only(top: 10),
       padding: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: Colors.grey[300],
+          color: ThemeColor.background3,
           offset: const Offset(3.0, 3.0),
           blurRadius: 5.0,
           spreadRadius: 2.0,
         ),
-      ], color: Colors.white, borderRadius: BorderRadius.circular(15)),
+      ], color: ThemeColor.card, borderRadius: BorderRadius.circular(15)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -138,19 +146,29 @@ class _CartItemState extends State<CartItem> {
             child: Column(
               children: <Widget>[
                 Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                        //color: Colors.green,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                              "assets/images/logo/logo50.png",
-                            )),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        )),
-                    child: Text("")),
+                  height: 60,
+                  width: 60,
+                  child: loadimage(widget.picture),
+                  decoration: BoxDecoration(
+                      //color: Colors.green,
+                      borderRadius: BorderRadius.all(
+                    Radius.circular(5),
+                  )),
+                ),
+                // Container(
+                //     height: 60,
+                //     width: 60,
+                //     decoration: BoxDecoration(
+                //         //color: Colors.green,
+                //         image: DecorationImage(
+                //             fit: BoxFit.cover,
+                //             image: AssetImage(
+                //               "assets/images/logo/logo50.png",
+                //             )),
+                //         borderRadius: BorderRadius.all(
+                //           Radius.circular(5),
+                //         )),
+                //     child: Text("")),
                 Container(
                   child: Text(
                     "${widget.date}",
@@ -158,7 +176,9 @@ class _CartItemState extends State<CartItem> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: dark, fontSize: 10, fontFamily: defaultFont),
+                        color: ThemeColor.darkText,
+                        fontSize: 10,
+                        fontFamily: defaultFont),
                   ),
                 ),
               ],
@@ -175,34 +195,14 @@ class _CartItemState extends State<CartItem> {
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: dark, fontSize: 17, fontFamily: defaultFont),
+                        color: ThemeColor.darksecondText,
+                        fontSize: 17,
+                        fontFamily: defaultFont),
                   ),
                   Divider(
-                    color: Colors.grey[300],
+                    color: ThemeColor.background1,
                     height: 10,
                   ),
-
-                  // SizedBox(height: 5),
-                  // widget.package == true
-                  //     ? Text(
-                  //         "${widget.packaging}",
-                  //         maxLines: 1,
-                  //         overflow: TextOverflow.ellipsis,
-                  //         style: TextStyle(
-                  //             color: dark,
-                  //             fontSize: 12,
-                  //             fontFamily: defaultFont),
-                  //       )
-                  //     : Text(
-                  //         "Item Type: Singles",
-                  //         maxLines: 1,
-                  //         overflow: TextOverflow.ellipsis,
-                  //         style: TextStyle(
-                  //             color: dark,
-                  //             fontSize: 12,
-                  //             fontFamily: defaultFont),
-                  //       ),
-
                   SizedBox(
                     height: 5,
                   ),
@@ -231,18 +231,19 @@ class _CartItemState extends State<CartItem> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Price",
+                                  AppLocalizations.of(context)
+                                      .translate("price_text"),
                                   style: TextStyle(
-                                      color: primary,
+                                      color: ThemeColor.darkText,
                                       fontSize: 10,
                                       fontFamily: defaultFont),
                                 ),
                                 Text(
-                                  "${widget.price / double.parse(widget.amount.toString())} ETB",
+                                  "${widget.price / double.parse(widget.amount.toString())} ${AppLocalizations.of(context).translate("etb_text")}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      color: dark,
+                                      color: ThemeColor.darksecondText,
                                       fontSize: 14,
                                       fontFamily: defaultFont),
                                 ),
@@ -255,18 +256,19 @@ class _CartItemState extends State<CartItem> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Total",
+                                  AppLocalizations.of(context)
+                                      .translate("total_text"),
                                   style: TextStyle(
-                                      color: primary,
+                                      color: ThemeColor.darkText,
                                       fontSize: 10,
                                       fontFamily: defaultFont),
                                 ),
                                 Text(
-                                  "${widget.price} ETB",
+                                  "${widget.price} ${AppLocalizations.of(context).translate("etb_text")}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      color: dark,
+                                      color: ThemeColor.darksecondText,
                                       fontSize: 14,
                                       fontFamily: defaultFont),
                                 ),
@@ -288,9 +290,10 @@ class _CartItemState extends State<CartItem> {
                 child: Icon(
                   Icons.arrow_drop_up,
                   size: 30,
+                  color: ThemeColor.contrastText,
                 ),
                 onTap: () {
-                  final _cartBloc = BlocProvider.of<CartBloc>(context);
+                  //final _cartBloc = BlocProvider.of<CartBloc>(context);
                   print("increase");
 
                   _cartBloc.add(CartItemUpdate(
@@ -313,7 +316,9 @@ class _CartItemState extends State<CartItem> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    color: dark, fontSize: 17, fontFamily: defaultFont),
+                    color: ThemeColor.darksecondText,
+                    fontSize: 17,
+                    fontFamily: defaultFont),
               ),
               SizedBox(
                 height: 5,
@@ -322,10 +327,11 @@ class _CartItemState extends State<CartItem> {
                 child: Icon(
                   Icons.arrow_drop_down,
                   size: 30,
+                  color: ThemeColor.contrastText,
                 ),
                 onTap: () {
                   print("decrease");
-                  final _cartBloc = BlocProvider.of<CartBloc>(context);
+                  //final _cartBloc = BlocProvider.of<CartBloc>(context);
                   _cartBloc.add(CartItemUpdate(
                       cartItem: Cart(
                         id: widget.id,
@@ -344,4 +350,22 @@ class _CartItemState extends State<CartItem> {
       ),
     );
   }
+}
+
+Widget _error(BuildContext context, String url, dynamic error) {
+  print(error);
+  return const Center(child: Icon(Icons.error));
+}
+
+Widget _progress(BuildContext context, String url, dynamic downloadProgress) {
+  return Center(
+      child: CircularProgressIndicator(value: downloadProgress.progress));
+}
+
+Widget loadimage(String image) {
+  return CachedNetworkImage(
+    imageUrl: '${SERVER_IP_FILE}news/$image',
+    progressIndicatorBuilder: _progress,
+    errorWidget: _error,
+  );
 }

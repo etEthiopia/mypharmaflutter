@@ -21,6 +21,7 @@ class WishlistProduct extends StatefulWidget {
       this.vendor,
       this.postid,
       this.context,
+      this.vendorname,
       this.isSelected})
       : super(key: key);
 
@@ -35,6 +36,7 @@ class WishlistProduct extends StatefulWidget {
   final int vendor;
   final int postid;
   final dynamic context;
+  final String vendorname;
   final ValueChanged<bool> isSelected;
 }
 
@@ -110,7 +112,7 @@ class _WishlistProductState extends State<WishlistProduct> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 90,
+      height: 80,
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(boxShadow: [
@@ -126,6 +128,7 @@ class _WishlistProductState extends State<WishlistProduct> {
         children: <Widget>[
           Container(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   height: 60,
@@ -137,17 +140,17 @@ class _WishlistProductState extends State<WishlistProduct> {
                     Radius.circular(5),
                   )),
                 ),
-                Text(
-                  AppLocalizations.of(context)
-                          .translate("quantity_short_text") +
-                      ": ${widget.quantity}",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: ThemeColor.darkText,
-                      fontSize: 15,
-                      fontFamily: defaultFont),
-                ),
+                // Text(
+                //   AppLocalizations.of(context)
+                //           .translate("quantity_short_text") +
+                //       ": ${widget.quantity}",
+                //   maxLines: 1,
+                //   overflow: TextOverflow.ellipsis,
+                //   style: TextStyle(
+                //       color: ThemeColor.darkText,
+                //       fontSize: 15,
+                //       fontFamily: defaultFont),
+                // ),
               ],
             ),
           ),
@@ -172,7 +175,7 @@ class _WishlistProductState extends State<WishlistProduct> {
                   ),
                   Text(
                     AppLocalizations.of(context).translate("from_text") +
-                        ": ${widget.vendor} Company",
+                        ": ${widget.vendorname}",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -194,18 +197,24 @@ class _WishlistProductState extends State<WishlistProduct> {
               children: <Widget>[
                 Expanded(
                   child: InkWell(
-                    child: Container(
-                        padding: const EdgeInsets.all(5.0),
-                        decoration: new BoxDecoration(
-                          border: Border.all(color: ThemeColor.darkText),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.edit,
-                          color: ThemeColor.darkText,
-                          size: 14,
-                        )),
-                  ),
+                      child: Icon(
+                    Icons.shopping_cart,
+                    color: ThemeColor.darkText,
+                    size: 19,
+                  )
+
+                      // Container(
+                      //     padding: const EdgeInsets.all(5.0),
+                      //     decoration: new BoxDecoration(
+                      //       border: Border.all(color: ThemeColor.darkText),
+                      //       shape: BoxShape.circle,
+                      //     ),
+                      //     child: Icon(
+                      //       Icons.shopping_cart,
+                      //       color: ThemeColor.darkText,
+                      //       size: 14,
+                      //     )),
+                      ),
                 ),
                 Expanded(
                     child: Container(
@@ -256,15 +265,8 @@ Widget _progress(BuildContext context, String url, dynamic downloadProgress) {
 }
 
 Widget loadimage(String image) {
-  int x = Random().nextInt(1);
-  String xls;
-  if (x == 0) {
-    xls = '2020051709054556487.jpg';
-  } else {
-    xls = '2020052114332425361.jpg';
-  }
   return CachedNetworkImage(
-    imageUrl: '${SERVER_IP_FILE}news/$xls',
+    imageUrl: '${SERVER_IP_FILE}news/$image',
     progressIndicatorBuilder: _progress,
     errorWidget: _error,
   );
