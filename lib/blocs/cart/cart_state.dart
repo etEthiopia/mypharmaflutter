@@ -38,7 +38,17 @@ class CartUpdated extends CartState {
   List<Object> get props => [cartItems];
 }
 
+class CartOnCheckout extends CartState {
+  final Address address;
+  CartOnCheckout({this.address});
+
+  @override
+  List<Object> get props => [address];
+}
+
 class CartAdded extends CartState {}
+
+class CartDoneCheckout extends CartState {}
 
 class CartNotAdded extends CartState {}
 

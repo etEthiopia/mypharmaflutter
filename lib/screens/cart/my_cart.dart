@@ -65,7 +65,7 @@ class _MyCartsListState extends State<MyCartsList> {
               children: <Widget>[
                 Text(
                     AppLocalizations.of(context)
-                        .translate("proceed_to_checkout_text"),
+                        .translate("total_calculated_amount"),
                     style: TextStyle(
                         color: ThemeColor.primaryText,
                         fontSize: 15,
@@ -122,7 +122,9 @@ class _MyCartsListState extends State<MyCartsList> {
                           topRight: Radius.circular(15),
                           bottomRight: Radius.circular(15)), ////
                       child: FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, '/checkout');
+                        },
                         child: Text(
                           AppLocalizations.of(context)
                               .translate("proceed_to_checkout_text"),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
 import 'package:mypharma/app_localizations.dart';
+import 'package:mypharma/blocs/cart/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_bloc.dart';
 import 'package:mypharma/blocs/wishlist/wishlist_event.dart';
@@ -11,6 +12,7 @@ import 'package:mypharma/components/empty.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/page_end.dart';
 import 'package:mypharma/components/show_error.dart';
+import 'package:mypharma/components/show_success.dart';
 import 'package:mypharma/components/wishlist_product.dart';
 import 'package:mypharma/screens/orders/order_detail.dart';
 import 'package:mypharma/services/services.dart';
@@ -43,7 +45,7 @@ class MyWishlistsList extends StatefulWidget {
 
 class _MyWishlistsListState extends State<MyWishlistsList> {
   var _wishlistBloc;
-  var selectedList = [];
+  List<int> selectedList = [];
 
   @override
   void initState() {
@@ -170,10 +172,10 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
                                   setState(() {
                                     if (value) {
                                       selectedList
-                                          .add(state.wishlist[index].id);
+                                          .add(state.wishlist[index].postId);
                                     } else {
                                       selectedList
-                                          .remove(state.wishlist[index].id);
+                                          .remove(state.wishlist[index].postId);
                                     }
                                   });
                                 },
@@ -196,7 +198,26 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
                                               topLeft: Radius.circular(15),
                                               bottomLeft: Radius.circular(15)),
                                           child: FlatButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              final _cartBloc =
+                                                  BlocProvider.of<CartBloc>(
+                                                      context);
+
+                                              _cartBloc.add(CartAddBatch(
+                                                  postids: selectedList));
+                                              // Navigator.of(context).pop();
+
+                                              setState(() {
+                                                selectedList = [];
+                                              });
+
+                                              showSucess(
+                                                  "Wishlist has been added to cart",
+                                                  context);
+                                              // Future.delayed(Duration(seconds: 3));
+                                              // Navigator.pushReplacementNamed(
+                                              //     context, 'my_cart');
+                                            },
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,

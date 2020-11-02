@@ -16,6 +16,11 @@ class CartAdd extends CartEvent {
   CartAdd({this.postid});
 }
 
+class CartAddBatch extends CartEvent {
+  final List<int> postids;
+  CartAddBatch({this.postids});
+}
+
 class CartCount extends CartEvent {
   CartCount();
 }
@@ -27,6 +32,29 @@ class CartItemUpdate extends CartEvent {
 }
 
 class CartFetched extends CartEvent {}
+
+class CartCheckout extends CartEvent {}
+
+class CartOrder extends CartEvent {
+  final bool addressChange;
+  final Address address;
+  final String note;
+  final String landmark;
+  final String city;
+  final String phone;
+
+  CartOrder(
+      {this.addressChange,
+      this.address,
+      this.note,
+      this.landmark,
+      this.city,
+      this.phone});
+
+  @override
+  List<Object> get props =>
+      [addressChange, address, note, landmark, city, phone];
+}
 
 class CartItemDelete extends CartEvent {
   final Cart cartItem;

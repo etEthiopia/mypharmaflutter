@@ -18,12 +18,18 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       yield* _mapCartReceivedToState(event);
     } else if (event is CartAdd) {
       yield* _mapCartistAddToState(event);
+    } else if (event is CartAddBatch) {
+      yield* _mapCartistAddBatchToState(event);
     } else if (event is CartCount) {
       yield* _mapCartCountToState(event);
     } else if (event is CartItemDelete) {
       yield* _mapCartDeleteToState(event);
     } else if (event is CartItemUpdate) {
       yield* _mapCartUpdateToState(event);
+    } else if (event is CartCheckout) {
+      yield* _mapCartCheckoutToState(event);
+    } else if (event is CartOrder) {
+      yield* _mapCartOrderToState(event);
     }
   }
 
@@ -149,6 +155,37 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
+  Stream<CartState> _mapCartistAddBatchToState(CartAddBatch event) async* {
+    List<bool> result = [];
+    try {
+      for (int pd in event.postids) {
+        print("cart batch id: " + pd.toString());
+        bool k = await _apiService.addToCart(
+          postid: pd,
+        );
+        result.add(k);
+      }
+      if (result != null) {
+        if (result.length > 0) {
+          try {
+            Cart.count = await _apiService.countCartItems();
+          } catch (e) {
+            print(e.message);
+          }
+
+          yield CartAdded();
+        } else {
+          yield CartNotAdded();
+        }
+      } else {
+        yield CartNotAdded();
+      }
+    } catch (e) {
+      yield CartFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
+    }
+  }
+
   Stream<CartState> _mapCartCountToState(CartCount event) async* {
     yield CartLoading();
     try {
@@ -165,6 +202,52 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         yield CartFailure(
             error: e.message.toString() ?? 'An unknown error occurred');
       }
+    }
+  }
+
+  Stream<CartState> _mapCartCheckoutToState(CartCheckout event) async* {
+    yield CartLoading();
+    try {
+      final result = await _apiService.toCheckOut();
+
+      if (result != null) {
+        yield CartOnCheckout(address: result);
+      } else {
+        yield CartFailure(error: 'An unknown error occurred');
+      }
+    } catch (e) {
+      if (e.message.toString() == 'empty') {
+        yield CartNothingReceived();
+      } else {
+        yield CartFailure(
+            error: e.message.toString() ?? 'An unknown error occurred');
+      }
+    }
+  }
+
+  Stream<CartState> _mapCartOrderToState(CartOrder event) async* {
+    yield CartLoading();
+    try {
+      final result = await _apiService.order(
+          addressChange: event.addressChange,
+          address: event.address,
+          note: event.note,
+          landmark: event.landmark,
+          city: event.city,
+          phone: event.phone);
+
+      if (result != null) {
+        if (result == true) {
+          yield CartDoneCheckout();
+        } else {
+          yield CartFailure(error: 'An unknown error occurred');
+        }
+      } else {
+        yield CartFailure(error: 'An unknown error occurred');
+      }
+    } catch (e) {
+      yield CartFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
     }
   }
 }

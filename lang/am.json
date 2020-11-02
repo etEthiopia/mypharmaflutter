@@ -56,5 +56,17 @@
     "price_text": "ዋጋ",
     "total_text": "ድምር",
     "total_calculated_amount": "ጠቅላላ ድምር ዋጋ",
-    "proceed_to_checkout_text": "ወደ ትዕዛዝ ይቀጥሉ"
+    "proceed_to_checkout_text": "ወደ ትዕዛዝ ይቀጥሉ",
+    "landmark_text": "ምልክት፡ ለምሳሌ ፤ ከአምባሳደር አጠቀብ",
+    "phone_text": "የስልክ ቁጥር",
+    "city_text": "ከተማ",
+    "state_text": "ክልል",
+    "spot_text": "የአድራሻ አይነት",
+    "back_to_cart_btn_text": "ወደ ቅርጫት ተመለስ",
+    "submit_order_btn_text": "ትዕዛዝ አስገባ",
+    "address_text": "አድራሻ",
+    "edit_address_text": "አድራሻ ቀይር",
+    "note_text": "የትዕዛዝ መልዕክት (ባዶ መተው ይቻላል)",
+    "checkout_text": "ትዕዛዝ ጨርስ",
+    "continue_btn_text": "ቀጥል"
 }

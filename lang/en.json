@@ -56,5 +56,17 @@
     "price_text": "Price",
     "total_text": "Total",
     "total_calculated_amount": "Your Total Calculated Amount",
-    "proceed_to_checkout_text": "Proceed to Checkout"
+    "proceed_to_checkout_text": "Proceed to Checkout",
+    "landmark_text": "Landmark Eg. near Ambassador",
+    "phone_text": "Phone Number",
+    "city_text": "City/Town",
+    "state_text": "State",
+    "spot_text": "Address Type",
+    "back_to_cart_btn_text": "Back to Cart",
+    "submit_order_btn_text": "Submit Order",
+    "address_text": "Address",
+    "edit_address_text": "Edit Address",
+    "note_text": "Order Note (Optional)",
+    "checkout_text": "Checkout",
+    "continue_btn_text": "Continue"
 }

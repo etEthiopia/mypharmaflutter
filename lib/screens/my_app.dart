@@ -19,6 +19,8 @@ import 'package:mypharma/screens/settings/settings.dart';
 import 'package:mypharma/screens/wishlist/my_wishlist.dart';
 import 'package:mypharma/theme/colors.dart';
 
+import 'cart/checkout.dart';
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -70,6 +72,7 @@ class _MyAppState extends State<MyApp> {
         '/my_wishlist': (context) => MyWishlistPage(),
         '/my_cart': (context) => MyCartPage(),
         '/settings': (context) => Settings(),
+        '/checkout': (context) => CheckOutScreen()
       },
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {

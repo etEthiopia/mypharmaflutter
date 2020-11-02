@@ -7,7 +7,7 @@ class FrontSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          padding: EdgeInsets.only(top: 100),
+          padding: EdgeInsets.only(top: 100, left: 40.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[

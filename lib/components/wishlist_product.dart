@@ -112,7 +112,7 @@ class _WishlistProductState extends State<WishlistProduct> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 90,
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(boxShadow: [
@@ -218,6 +218,7 @@ class _WishlistProductState extends State<WishlistProduct> {
                 ),
                 Expanded(
                     child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 5),
                   width: 20,
                   child: Checkbox(
                     value: this.selected,
@@ -229,21 +230,15 @@ class _WishlistProductState extends State<WishlistProduct> {
                 )),
                 Expanded(
                   child: InkWell(
-                      onTap: () {
-                        _showMyDialog();
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(5.0),
-                        decoration: new BoxDecoration(
-                          border: Border.all(color: ThemeColor.darkText),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Icon(
-                          Icons.delete,
-                          color: ThemeColor.darkText,
-                          size: 14,
-                        ),
-                      )),
+                    onTap: () {
+                      _showMyDialog();
+                    },
+                    child: Icon(
+                      Icons.delete,
+                      color: ThemeColor.darkText,
+                      size: 19,
+                    ),
+                  ),
                 ),
               ],
             ),

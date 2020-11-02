@@ -165,6 +165,107 @@ Widget ErrorMessage(context, route, text) {
             ));
 }
 
+Widget DoneMessage(context, route, text) {
+  return Container(
+      padding: EdgeInsets.only(top: 50, left: 50, right: 50, bottom: 10),
+      child: MediaQuery.of(context).orientation == Orientation.portrait
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Image.asset(
+                    'assets/images/figures/done.png',
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  color: ThemeColor.light,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: ThemeColor.darkText,
+                      fontSize: 25,
+                      fontFamily: defaultFont),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Material(
+                    color: ThemeColor.darkBtn,
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/$route');
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .translate("continue_btn_text"),
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: defaultFont),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : Column(
+              children: <Widget>[
+                Expanded(
+                  child: Image.asset('assets/images/figures/error.png'),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  color: ThemeColor.light,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: ThemeColor.darkText,
+                      fontSize: 25,
+                      fontFamily: defaultFont),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: Material(
+                    color: ThemeColor.darkBtn,
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/$route');
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .translate("retry_btn_text"),
+                        style: TextStyle(
+                            color: Colors.white, fontFamily: defaultFont),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ));
+}
+
 LoadingRegister(context) {
   return SpinKitFadingCube(
     size: MediaQuery.of(context).orientation == Orientation.portrait ? 100 : 50,
