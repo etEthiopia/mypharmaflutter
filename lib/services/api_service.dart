@@ -433,9 +433,11 @@ class APIService extends APIServiceSkel {
   }
 
   @override
-  Future<List<dynamic>> fetchReceivedOrders() async {
+  Future<List<dynamic>> fetchReceivedOrders({int page = 1}) async {
     String order = "customer-order";
-
+    if (page != 1) {
+      order += "?page=$page";
+    }
     if (APIService.token != null) {
       try {
         var res = await http.get(
@@ -448,10 +450,30 @@ class APIService extends APIServiceSkel {
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
-              List<Order> orders = Order.generateOrderReceivedList(
-                  json.decode(res.body)['0']['order']);
+              int from = json.decode(res.body)['0']['order']['current_page'];
+              int last = json.decode(res.body)['0']['order']['last_page'];
+              print("from $from : last $last");
+              if (from > last) {
+                print("End of Order");
+                List<dynamic> result = [from, last];
+                return result;
+              } else {
+                if (json.decode(res.body)['0']['order']['data'].toString() ==
+                    "[]") {
+                  throw OrderException(message: "empty");
+                }
 
-              return orders;
+                List<Order> orders = Order.generateOrderReceivedList(
+                    json.decode(res.body)['0']['order']['data']);
+
+                List<dynamic> result = [from, last, orders];
+               
+                return result;
+                // List<Order> orders = Order.generateOrderReceivedList(
+                //     json.decode(res.body)['0']['order']);
+
+                // return orders;
+              }
             } else {
               if (json
                   .decode(res.body)['message']
@@ -488,7 +510,7 @@ class APIService extends APIServiceSkel {
         } else if (e is OrderException) {
           throw OrderException(message: e.message);
         } else {
-          print('Connection Error');
+          print('Connection Error:  ${e.toString()}');
           throw OrderException(
               message: "Sorry, We couldn't get a response from our server");
         }

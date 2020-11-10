@@ -61,16 +61,15 @@ class Order {
       @required this.receiver});
 
   static List<Order> generateOrderReceivedList(List<dynamic> orderslist) {
-    // print("orderslist: " + orderslist.toString());
     List<Order> ordersfetched = List<Order>();
     for (var order in orderslist) {
       ordersfetched.add(Order.fromJsonlist(order, true));
     }
+
     return ordersfetched;
   }
 
   static List<Order> generateOrderSentList(List<dynamic> orderslist) {
-    print("orderslist: " + orderslist.toString());
     List<Order> ordersfetched = List<Order>();
     for (var order in orderslist) {
       ordersfetched.add(Order.fromJsonlist(order, false));

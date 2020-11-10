@@ -46,6 +46,8 @@ class ReceivedOrdersList extends StatefulWidget {
 
 class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   ScrollController _controller;
+  int page = 1;
+  int last = 1;
 
   List<DropdownMenuItem<dynamic>> categories = [
     DropdownMenuItem(
@@ -162,13 +164,34 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   @override
   void initState() {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
-    _orderBloc.add(OrderReceivedFetched());
+    _orderBloc.add(OrderReceivedFetched(page: page));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     _orderBloc = BlocProvider.of<OrderBloc>(context);
+
+    _scrollListener() {
+      if (_controller.offset >= _controller.position.maxScrollExtent &&
+          !_controller.position.outOfRange) {
+        setState(() {
+          page = page + 1;
+        });
+        print("reach the bottom");
+        _orderBloc.add(OrderReceivedFetched(page: page));
+        // if (page <= last) {
+        //   _feedBloc.add(NewsFetched(page: page));
+        // }
+      }
+      if (_controller.offset <= _controller.position.minScrollExtent &&
+          !_controller.position.outOfRange) {
+        print("reach the top");
+      }
+    }
+
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
 
     return BlocListener<OrderBloc, OrderState>(
       listener: (context, state) {
@@ -178,7 +201,6 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
       },
       child: BlocBuilder<OrderBloc, OrderState>(
         builder: (context, state) {
-          print("ORDER RECEIVED: " + state.toString());
           if (state is OrderAllLoaded) {
             return PageEnd(context, 'order_received');
           } else if (state is OrderLoading || state is OrderInital) {
@@ -203,14 +225,16 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                       child: Column(
                         children: [
                           _categoryPrompt(),
-                          widget.selectedCategory != 'all'
+                          page > 1
                               ? Container(
                                   padding: EdgeInsets.symmetric(vertical: 10),
                                   child: InkWell(
                                     onTap: () {
-                                      print("Selected: " +
-                                          state.receivedList[0].selected
-                                              .toString());
+                                      setState(() {
+                                        page = 1;
+                                      });
+                                      _orderBloc.add(
+                                          OrderReceivedFetched(page: page));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -244,6 +268,7 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                               child: ListView.builder(
                                 itemCount: state.receivedList.length,
                                 itemBuilder: (BuildContext context, int index) {
+                                  last = state.last;
                                   return InkWell(
                                     onTap: () {
                                       print("clicked");
@@ -263,7 +288,8 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                                                   ))).then((value) {
                                         _orderBloc =
                                             BlocProvider.of<OrderBloc>(context);
-                                        _orderBloc.add(OrderReceivedFetched());
+                                        _orderBloc.add(
+                                            OrderReceivedFetched(page: page));
                                         return true;
                                       });
                                     },

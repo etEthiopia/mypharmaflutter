@@ -7,7 +7,11 @@ abstract class OrderEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class OrderReceivedFetched extends OrderEvent {}
+class OrderReceivedFetched extends OrderEvent {
+  final int page;
+
+  OrderReceivedFetched({this.page = 1});
+}
 
 class OrderSentFetched extends OrderEvent {
   final int page;

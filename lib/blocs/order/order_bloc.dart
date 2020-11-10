@@ -28,12 +28,20 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
   Stream<OrderState> _mapOrderReceivedToState(
       OrderReceivedFetched event) async* {
+    List<Order> old = [];
+    int current = 0;
+    if (state.props.length == 3) {
+      old = state.props[2];
+      current = state.props[1];
+    }
+    print("RECEIVED PAGE: ${event.page}");
     yield OrderLoading();
     try {
-      final result = await _apiService.fetchReceivedOrders();
+      final result = await _apiService.fetchReceivedOrders(page: event.page);
       if (result != null) {
-        if (result.length > 0) {
-          yield OrderReceivedLoaded(receivedList: result);
+        if (result.length == 3) {
+          yield OrderReceivedLoaded(
+              last: result[0], current: result[1], receivedList: result[2]);
         } else {
           yield OrderNotLoaded();
         }
