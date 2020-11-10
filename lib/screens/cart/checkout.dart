@@ -615,12 +615,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 return DoneMessage(
                     context, 'order_sent', "Order successfully submitted");
               } else if (state is CartNothingReceived) {
-                return empty(context, '/checkout');
+                return empty(context, '/my_cart');
               } else if (state is CartFailure) {
                 if (state.error == 'Not Authorized') {
                   return LoggedOutLoading(context);
                 } else {
-                  return ErrorMessage(context, '/checkout', state.error);
+                  return ErrorMessage(context, '/my_cart', state.error);
                 }
               } else if (state is CartOnCheckout) {
                 Orientation orientation = MediaQuery.of(context).orientation;

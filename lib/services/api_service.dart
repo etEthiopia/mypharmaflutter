@@ -1375,7 +1375,6 @@ class APIService extends APIServiceSkel {
       String landmark,
       String city,
       String phone}) async {
-    print(addressChange.toString().toUpperCase());
     if (APIService.token != null) {
       try {
         var res = await http
