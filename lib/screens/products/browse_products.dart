@@ -12,8 +12,14 @@ import 'package:mypharma/models/models.dart';
 import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/services/api_service.dart';
 import 'package:mypharma/theme/colors.dart';
+import 'package:mypharma/theme/font.dart';
 
 class BrowseProduct extends StatefulWidget {
+  //final isSearch;
+
+  BrowseProduct({isSearch = false}) {
+    Product.isSearch = isSearch;
+  }
   @override
   _BrowseProductState createState() => _BrowseProductState();
 }
@@ -24,8 +30,8 @@ class _BrowseProductState extends State<BrowseProduct> {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
       appBar: simpleAppBar(
-          title:
-              AppLocalizations.of(context).translate("browse_product_title")),
+          title: AppLocalizations.of(context).translate(
+              Product.isSearch ? "search_title" : "browse_product_title")),
       backgroundColor: ThemeColor.background,
       drawer: UserDrawer(),
       body: BlocProvider<ProductBloc>(
@@ -42,6 +48,8 @@ class BrowseProductList extends StatefulWidget {
 }
 
 class _BrowseProductListState extends State<BrowseProductList> {
+  final TextEditingController _searchController = TextEditingController();
+
   int col = 0;
   void _colFix(bool por) {
     if (por) {
@@ -58,7 +66,11 @@ class _BrowseProductListState extends State<BrowseProductList> {
   @override
   void initState() {
     final _productBloc = BlocProvider.of<ProductBloc>(context);
-    _productBloc.add(MyProductFetched());
+    if (Product.isSearch) {
+      _productBloc.add(ProductGetReady());
+    } else {
+      _productBloc.add(MyProductFetched());
+    }
     super.initState();
   }
 
@@ -72,6 +84,58 @@ class _BrowseProductListState extends State<BrowseProductList> {
     } else {
       _colFix(false);
     }
+    Widget searchBar() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Material(
+          color: ThemeColor.background2,
+          elevation: 0.0,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      color: ThemeColor.background1,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 4.0),
+                      child: TextFormField(
+                        style: TextStyle(color: ThemeColor.contrastText),
+                        decoration: InputDecoration(
+                            hintText: AppLocalizations.of(context)
+                                .translate("search_product_text"),
+                            hintStyle:
+                                TextStyle(color: ThemeColor.extralightText),
+                            border: InputBorder.none,
+                            isDense: true),
+                        keyboardType: TextInputType.name,
+                        controller: _searchController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Please Type some hints";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  Container(
+                    color: ThemeColor.primaryBtn,
+                    child: IconButton(
+                      color: Colors.white,
+                      icon: Icon(Icons.search),
+                      onPressed: () {
+                        _productBloc.add(
+                            (ProductSearched(text: _searchController.text)));
+                      },
+                    ),
+                  )
+                ],
+              )),
+        ),
+      );
+    }
+
     return BlocListener<ProductBloc, ProductState>(listener: (context, state) {
       if (state is ProductFailure) {
         showError(state.error, context);
@@ -86,38 +150,160 @@ class _BrowseProductListState extends State<BrowseProductList> {
         if (state.error == 'Not Authorized') {
           return LoggedOutLoading(context);
         } else {
-          return ErrorMessage(context, 'browse_products', state.error);
+          return ErrorMessage(
+              context,
+              Product.isSearch ? "search_title" : "browse_product_title",
+              state.error);
         }
       }
+
       if (state is MyProductLoaded) {
         return Scaffold(
           backgroundColor: ThemeColor.background2,
           body: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 0),
-              child: GridView.builder(
-                itemCount: state.productsList.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: col),
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => ShowProduct(
-                                  id: state.productsList[index].id,
-                                )),
-                      );
-                    },
-                    child: product(
-                        id: state.productsList[index].id,
-                        name: state.productsList[index].title,
-                        image: state.productsList[index].image,
-                        org: state.productsList[index].vendor,
-                        price: state.productsList[index].price.toString(),
-                        context: this.context),
-                  );
-                },
+              child: Column(
+                children: [
+                  Product.isSearch
+                      ? searchBar()
+                      : SizedBox(
+                          height: 0,
+                        ),
+                  Expanded(
+                    child: GridView.builder(
+                      itemCount: state.productsList.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: col),
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ShowProduct(
+                                        id: state.productsList[index].id,
+                                      )),
+                            );
+                          },
+                          child: product(
+                              id: state.productsList[index].id,
+                              name: state.productsList[index].title,
+                              image: state.productsList[index].image,
+                              org: state.productsList[index].vendor,
+                              price: state.productsList[index].price.toString(),
+                              context: this.context),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      } else if (state is ProductSearchLoaded) {
+        return Scaffold(
+          backgroundColor: ThemeColor.background2,
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: Column(
+                children: [
+                  searchBar(),
+                  Expanded(
+                    child: GridView.builder(
+                      itemCount: state.productsList.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: col),
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => ShowProduct(
+                                        id: state.productsList[index].id,
+                                      )),
+                            );
+                          },
+                          child: product(
+                              id: state.productsList[index].id,
+                              name: state.productsList[index].title,
+                              image: state.productsList[index].image,
+                              org: state.productsList[index].vendor,
+                              price: state.productsList[index].price.toString(),
+                              context: this.context),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      } else if (state is ProductSearchReady) {
+        return Scaffold(
+          backgroundColor: ThemeColor.background2,
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: Column(
+                children: [
+                  searchBar(),
+                  Expanded(
+                    child: Container(
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          "assets/images/logo/logo200.png",
+                          width: 200.0,
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      } else if (state is ProductSearchEmpty) {
+        return Scaffold(
+          backgroundColor: ThemeColor.background2,
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: Column(
+                children: [
+                  searchBar(),
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        AppLocalizations.of(context)
+                            .translate("search_no_result"),
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: defaultFont),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      } else if (state is ProductSearchLoading) {
+        return Scaffold(
+          backgroundColor: ThemeColor.background2,
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 0),
+              child: Column(
+                children: [
+                  searchBar(),
+                  Expanded(
+                    child: LoadingLogin(context),
+                  ),
+                ],
               ),
             ),
           ),

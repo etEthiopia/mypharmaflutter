@@ -68,5 +68,7 @@
     "edit_address_text": "አድራሻ ቀይር",
     "note_text": "የትዕዛዝ መልዕክት (ባዶ መተው ይቻላል)",
     "checkout_text": "ትዕዛዝ ጨርስ",
-    "continue_btn_text": "ቀጥል"
+    "continue_btn_text": "ቀጥል",
+    "search_product_text": "ምርት ይፈልጉ",
+    "search_no_result": "ምንም ምርት ልናገኝ አልቻልንም ፡ እባክዎት በሌላ ስም ይሞክሩ"
 }

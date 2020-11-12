@@ -44,6 +44,21 @@ class ProductLoaded extends ProductState {
   List<Object> get props => [product];
 }
 
+class ProductSearchLoading extends ProductState {}
+
+class ProductSearchLoaded extends ProductState {
+  final List<Product> productsList;
+
+  ProductSearchLoaded({this.productsList});
+
+  @override
+  List<Object> get props => [productsList];
+}
+
+class ProductSearchEmpty extends ProductState {}
+
+class ProductSearchReady extends ProductState {}
+
 class ProductAllLoaded extends ProductState {}
 
 class ProductUpdated extends ProductState {}

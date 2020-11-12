@@ -24,6 +24,7 @@ class Product {
   String stockStatus;
   int amountInStock;
   String manufacturerCountry;
+  static bool isSearch;
 
   Product({
     @required this.id,

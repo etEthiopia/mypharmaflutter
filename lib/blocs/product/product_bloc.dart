@@ -19,6 +19,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       yield* _mapStockToState(event);
     } else if (event is ProductDetailFetched) {
       yield* _mapShowProductToState(event);
+    } else if (event is ProductSearched) {
+      yield* _mapSearchToState(event);
+    } else if (event is ProductGetReady) {
+      yield* _mapSearchReadyToState(event);
     }
   }
 
@@ -76,5 +80,29 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       yield ProductFailure(
           error: e.message.toString() ?? 'An unknown error occurred');
     }
+  }
+
+  Stream<ProductState> _mapSearchToState(ProductSearched event) async* {
+    yield ProductSearchLoading();
+    try {
+      final result = await _apiService.searchProducts(event.text);
+      if (result != null) {
+        if (result.length > 0) {
+          yield ProductSearchLoaded(productsList: result);
+        } else {
+          yield ProductSearchEmpty();
+        }
+      } else {
+        yield ProductSearchEmpty();
+      }
+    } catch (e) {
+      yield ProductFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
+    }
+  }
+
+  Stream<ProductState> _mapSearchReadyToState(ProductGetReady event) async* {
+    print("getting ready to search");
+    yield ProductSearchReady();
   }
 }
