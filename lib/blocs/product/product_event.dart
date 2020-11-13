@@ -13,8 +13,9 @@ class ProductGetReady extends ProductEvent {}
 
 class ProductSearched extends ProductEvent {
   final String text;
+  final int id;
 
-  ProductSearched({this.text});
+  ProductSearched({this.text, this.id});
 }
 
 class MyStockFetched extends ProductEvent {}

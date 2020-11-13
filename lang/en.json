@@ -70,5 +70,6 @@
     "checkout_text": "Checkout",
     "continue_btn_text": "Continue",
     "search_product_text": "Search Products",
-    "search_no_result": "We couldn't find any product based on your search. Please try again with finer details"
+    "search_no_result": "We couldn't find any product based on your search. Please try again with finer details",
+    "category_filter_text": "Filter by Category"
 }

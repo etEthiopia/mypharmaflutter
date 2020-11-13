@@ -49,6 +49,7 @@ class BrowseProductList extends StatefulWidget {
 
 class _BrowseProductListState extends State<BrowseProductList> {
   final TextEditingController _searchController = TextEditingController();
+  bool catOrNot = false;
 
   int col = 0;
   void _colFix(bool por) {
@@ -84,7 +85,18 @@ class _BrowseProductListState extends State<BrowseProductList> {
     } else {
       _colFix(false);
     }
-    Widget searchBar() {
+
+    Widget _categoryText({double size = 10}) {
+      return Text(
+        AppLocalizations.of(context).translate("category_filter_text"),
+        style: TextStyle(
+            color: ThemeColor.darkText,
+            fontSize: size,
+            fontFamily: defaultFont),
+      );
+    }
+
+    Widget _searchBar() {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Material(
@@ -125,14 +137,70 @@ class _BrowseProductListState extends State<BrowseProductList> {
                       color: Colors.white,
                       icon: Icon(Icons.search),
                       onPressed: () {
-                        _productBloc.add(
-                            (ProductSearched(text: _searchController.text)));
+                        _productBloc.add((ProductSearched(
+                            text: _searchController.text, id: 0)));
                       },
                     ),
                   )
                 ],
               )),
         ),
+      );
+    }
+
+    Widget _categoryPrompt() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _categoryText(),
+            DropdownButtonFormField(
+              dropdownColor: ThemeColor.background3,
+              style: TextStyle(color: dark, fontFamily: defaultFont),
+              items: Category.categoryDropdowns,
+              hint: _categoryText(size: 15),
+              onChanged: (value) {
+                _productBloc.add((ProductSearched(text: null, id: value)));
+              },
+              isExpanded: true,
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget _switchSearch() {
+      return Container(
+        padding: EdgeInsets.only(right: 10),
+        alignment: Alignment.centerRight,
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              catOrNot = !catOrNot;
+            });
+            //Navigator.pushReplacementNamed(context, '/login');
+          },
+          child: Text(
+            AppLocalizations.of(context).translate(
+                !catOrNot ? "category_filter_text" : "search_product_text"),
+            style: TextStyle(
+                color: ThemeColor.darkText,
+                decoration: TextDecoration.underline,
+                fontFamily: defaultFont),
+          ),
+        ),
+      );
+    }
+
+    Widget _searchItems() {
+      return Column(
+        children: [
+          catOrNot ? _categoryPrompt() : _searchBar(),
+          Category.categoryDropdowns.length != 0
+              ? _switchSearch()
+              : SizedBox(height: 0)
+        ],
       );
     }
 
@@ -152,7 +220,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
         } else {
           return ErrorMessage(
               context,
-              Product.isSearch ? "search_title" : "browse_product_title",
+              Product.isSearch ? "search_products" : "browse_products",
               state.error);
         }
       }
@@ -166,7 +234,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
               child: Column(
                 children: [
                   Product.isSearch
-                      ? searchBar()
+                      ? _searchBar()
                       : SizedBox(
                           height: 0,
                         ),
@@ -209,7 +277,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
               padding: EdgeInsets.symmetric(horizontal: 0),
               child: Column(
                 children: [
-                  searchBar(),
+                  _searchItems(),
                   Expanded(
                     child: GridView.builder(
                       itemCount: state.productsList.length,
@@ -249,7 +317,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
               padding: EdgeInsets.symmetric(horizontal: 0),
               child: Column(
                 children: [
-                  searchBar(),
+                  _searchItems(),
                   Expanded(
                     child: Container(
                         alignment: Alignment.center,
@@ -271,7 +339,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
               padding: EdgeInsets.symmetric(horizontal: 0),
               child: Column(
                 children: [
-                  searchBar(),
+                  _searchItems(),
                   Expanded(
                     child: Container(
                       margin: EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
@@ -299,7 +367,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
               padding: EdgeInsets.symmetric(horizontal: 0),
               child: Column(
                 children: [
-                  searchBar(),
+                  _searchBar(),
                   Expanded(
                     child: LoadingLogin(context),
                   ),

@@ -57,7 +57,14 @@ class ProductSearchLoaded extends ProductState {
 
 class ProductSearchEmpty extends ProductState {}
 
-class ProductSearchReady extends ProductState {}
+class ProductSearchReady extends ProductState {
+  final bool withCateogries;
+
+  ProductSearchReady({this.withCateogries});
+
+  @override
+  List<Object> get props => [withCateogries];
+}
 
 class ProductAllLoaded extends ProductState {}
 

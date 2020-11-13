@@ -187,3 +187,15 @@ Content-Type: application/json
 {
     "searchbyal": "kub"
 }
+###
+
+GET http://localhost/mypharmakal/api/categories
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1ha2FsXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1MTc5MjQ0LCJleHAiOjE2MDUyNjU2NDQsIm5iZiI6MTYwNTE3OTI0NCwianRpIjoiZEpXT2E2MDhIcDRIUDlBTyIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.LpkUtOTrQ1i7HX1B3eAPZoJ2T2UUvMhJ1lVseIfSkqw
+###
+
+
+GET http://localhost/mypharmakal/api/search_by_cat/2
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1ha2FsXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1MTc5MjQ0LCJleHAiOjE2MDUyNjU2NDQsIm5iZiI6MTYwNTE3OTI0NCwianRpIjoiZEpXT2E2MDhIcDRIUDlBTyIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.LpkUtOTrQ1i7HX1B3eAPZoJ2T2UUvMhJ1lVseIfSkqw
+###
+
+

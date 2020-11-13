@@ -32,6 +32,8 @@ abstract class APIServiceSkel {
   Future<Address> toCheckOut();
   Future<bool> order();
   Future<List<dynamic>> searchProducts(String text);
+  Future<List<dynamic>> searchProductsByCat(int id);
+  Future<List<dynamic>> fetchCategories();
 }
 
 class APIService extends APIServiceSkel {
@@ -1473,6 +1475,72 @@ class APIService extends APIServiceSkel {
   }
 
   @override
+  Future<List<dynamic>> searchProductsByCat(int id) async {
+    String product = "search_by_cat";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$product/$id",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              List<Product> products =
+                  Product.generateProductList(json.decode(res.body)['0']);
+
+              return products;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw ProductException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw ProductException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw ProductException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection ' + res.statusCode.toString());
+          throw ProductException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw ProductException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw ProductException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw ProductException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else if (e is ProductException) {
+          throw ProductException(message: e.message);
+        } else {
+          print('Connection Error');
+          throw ProductException(
+              message: "Sorry, We couldn't get a response from our server");
+        }
+      }
+    } else {
+      throw ProductException(message: 'Not Authorized');
+    }
+  }
+
+  @override
   Future<List<dynamic>> searchProducts(String text) async {
     String product = "search";
 
@@ -1489,9 +1557,74 @@ class APIService extends APIServiceSkel {
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
-              List<Product> products = Product.generateProductList(
-                  json.decode(res.body)['0']);
+              List<Product> products =
+                  Product.generateProductList(json.decode(res.body)['0']);
 
+              return products;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw ProductException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw ProductException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw ProductException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw ProductException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw ProductException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw ProductException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw ProductException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else if (e is ProductException) {
+          throw ProductException(message: e.message);
+        } else {
+          print('Connection Error');
+          throw ProductException(
+              message: "Sorry, We couldn't get a response from our server");
+        }
+      }
+    } else {
+      throw ProductException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<List<dynamic>> fetchCategories() async {
+    String product = "categories";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$product",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              List<Category> products =
+                  Category.generateCateogryList(json.decode(res.body)['0']);
               return products;
             } else {
               if (json

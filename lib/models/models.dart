@@ -5,3 +5,4 @@ export 'order.dart';
 export 'wishlist.dart';
 export 'cart.dart';
 export 'address.dart';
+export 'category.dart';

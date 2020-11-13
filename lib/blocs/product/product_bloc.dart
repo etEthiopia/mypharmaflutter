@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:mypharma/blocs/product/bloc.dart';
+import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/services.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
@@ -85,7 +86,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   Stream<ProductState> _mapSearchToState(ProductSearched event) async* {
     yield ProductSearchLoading();
     try {
-      final result = await _apiService.searchProducts(event.text);
+      var result;
+      if (event.text == null) {
+        //print("Cat: " + event.id.toString());
+        result = await _apiService.searchProductsByCat(event.id);
+      } else {
+        result = await _apiService.searchProducts(event.text);
+      }
       if (result != null) {
         if (result.length > 0) {
           yield ProductSearchLoaded(productsList: result);
@@ -102,7 +109,22 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   }
 
   Stream<ProductState> _mapSearchReadyToState(ProductGetReady event) async* {
-    print("getting ready to search");
-    yield ProductSearchReady();
+    yield ProductLoading();
+    if (Category.categories.length == 0) {
+      try {
+        final result = await _apiService.fetchCategories();
+        if (result != null) {
+          Category.categories = result;
+          Category.generateCategoryDropdowns();
+        }
+        yield ProductSearchReady();
+      } catch (e) {
+        yield ProductSearchReady();
+        // yield ProductFailure(
+        //     error: e.message.toString() ?? 'An unknown error occurred');
+      }
+    } else {
+      yield ProductSearchReady();
+    }
   }
 }
