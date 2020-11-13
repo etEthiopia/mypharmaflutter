@@ -24,6 +24,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       yield* _mapSearchToState(event);
     } else if (event is ProductGetReady) {
       yield* _mapSearchReadyToState(event);
+    } else if (event is MedsInfoFetched) {
+      yield* _mapMedsFetchedToState(event);
     }
   }
 
@@ -70,7 +72,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     yield ProductLoading();
     try {
       final result = await _apiService.showProduct(id: event.id);
-      print("RESULT: " + result.toString());
       if (result != null) {
         print("yield");
         yield ProductLoaded(product: result);
@@ -125,6 +126,21 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       }
     } else {
       yield ProductSearchReady();
+    }
+  }
+
+  Stream<ProductState> _mapMedsFetchedToState(MedsInfoFetched event) async* {
+    yield ProductLoading();
+    try {
+      final result = await _apiService.fetchMedsInfo();
+      if (result != null) {
+        yield MedsInfoLoaded(medsList: result);
+      } else {
+        yield ProductNotLoaded();
+      }
+    } catch (e) {
+      yield ProductFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
     }
   }
 }

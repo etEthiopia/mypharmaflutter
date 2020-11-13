@@ -68,6 +68,10 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/search_products');
     }
 
+    _medsinfo() {
+      Navigator.pushReplacementNamed(context, '/meds_info');
+    }
+
     _settings() {
       Navigator.pushReplacementNamed(context, '/settings');
     }
@@ -508,6 +512,31 @@ class UserDrawer extends StatelessWidget {
                 ),
               ),
             ),
+            InkWell(
+              onTap: () {
+                _medsinfo();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.info_outline,
+                      color: ThemeColor.primaryText,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      AppLocalizations.of(context).translate("meds_info_title"),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Divider(),
             InkWell(
               onTap: () {
@@ -838,6 +867,31 @@ class UserDrawer extends StatelessWidget {
                 ),
               ),
             ),
+            InkWell(
+              onTap: () {
+                _medsinfo();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.info_outline,
+                      color: ThemeColor.primaryText,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      AppLocalizations.of(context).translate("meds_info_title"),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Divider(),
             InkWell(
               onTap: () {
@@ -1056,6 +1110,31 @@ class UserDrawer extends StatelessWidget {
                 ),
               ),
             ),
+            InkWell(
+              onTap: () {
+                _medsinfo();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.info_outline,
+                      color: ThemeColor.primaryText,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      AppLocalizations.of(context).translate("meds_info_title"),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Divider(),
             InkWell(
               onTap: () {
@@ -1215,6 +1294,31 @@ class UserDrawer extends StatelessWidget {
                     ),
                     Text(
                       AppLocalizations.of(context).translate("search_title"),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                _medsinfo();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.info_outline,
+                      color: ThemeColor.primaryText,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      AppLocalizations.of(context).translate("meds_info_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),

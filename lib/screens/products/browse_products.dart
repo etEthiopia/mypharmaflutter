@@ -223,9 +223,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
               Product.isSearch ? "search_products" : "browse_products",
               state.error);
         }
-      }
-
-      if (state is MyProductLoaded) {
+      } else if (state is MyProductLoaded) {
         return Scaffold(
           backgroundColor: ThemeColor.background2,
           body: SafeArea(

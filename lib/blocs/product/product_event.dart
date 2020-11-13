@@ -18,6 +18,8 @@ class ProductSearched extends ProductEvent {
   ProductSearched({this.text, this.id});
 }
 
+class MedsInfoFetched extends ProductEvent {}
+
 class MyStockFetched extends ProductEvent {}
 
 class NewsBacked extends ProductEvent {}

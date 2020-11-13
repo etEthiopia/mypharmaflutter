@@ -7,20 +7,12 @@ class FrontSplash extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          padding: EdgeInsets.only(top: 100, left: 40.0),
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.only(top: 100),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // Container(
-              //     margin: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 0.0),
-              //     alignment: Alignment.topCenter,
-              //     child: Image.asset(
-              //       "assets/images/logo/logo50.png",
-              //       width: 100.0,
-              //     )),
-              // SizedBox(
-              //   height: 50,
-              // ),
               Text(
                 "MyPharma",
                 style: TextStyle(color: dark, fontSize: 40),

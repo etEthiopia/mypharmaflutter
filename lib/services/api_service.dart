@@ -34,6 +34,7 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> searchProducts(String text);
   Future<List<dynamic>> searchProductsByCat(int id);
   Future<List<dynamic>> fetchCategories();
+  Future<List<dynamic>> fetchMedsInfo();
 }
 
 class APIService extends APIServiceSkel {
@@ -1523,14 +1524,14 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't reach the server");
           } else {
-            print('Connection Error');
+            print('Connection Error ' + e.message);
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
-          print('Connection Error');
+          print('Connection Error ' + e.toString());
           throw ProductException(
               message: "Sorry, We couldn't get a response from our server");
         }
@@ -1663,6 +1664,71 @@ class APIService extends APIServiceSkel {
           throw ProductException(message: e.message);
         } else {
           print('Connection Error');
+          throw ProductException(
+              message: "Sorry, We couldn't get a response from our server");
+        }
+      }
+    } else {
+      throw ProductException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<List<dynamic>> fetchMedsInfo() async {
+    String product = "medsinfo";
+
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$product",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              List<Product> products =
+                  Product.generateMedsList(json.decode(res.body)['0']['info']);
+              return products;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw ProductException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw ProductException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw ProductException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw ProductException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw ProductException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw ProductException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Errorr ' + e.message);
+            throw ProductException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else if (e is ProductException) {
+          throw ProductException(message: e.message);
+        } else {
+          print('Connection Errorr ' + e.toString());
           throw ProductException(
               message: "Sorry, We couldn't get a response from our server");
         }
