@@ -35,12 +35,6 @@ class Product {
     this.description,
   });
 
-  Product.medsInfo({
-    @required this.id,
-    @required this.title,
-    @required this.description,
-  });
-
   Product.detail(
       {@required this.id,
       @required this.userid,
@@ -130,19 +124,6 @@ class Product {
           title: products['title'],
           vendor: products['vendorname'],
           image: products['thumbnail']));
-    }
-    return productsfetched;
-  }
-
-  static List<Product> generateMedsList(List<dynamic> productslist) {
-    List<Product> productsfetched = List<Product>();
-
-    for (var products in productslist) {
-      productsfetched.add(Product.medsInfo(
-        id: products['id'],
-        title: products['generic_name'],
-        description: products['description'],
-      ));
     }
     return productsfetched;
   }

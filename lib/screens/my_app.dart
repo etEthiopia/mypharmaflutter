@@ -14,6 +14,7 @@ import 'package:mypharma/screens/orders/order_sent.dart';
 import 'package:mypharma/screens/posts/feed.dart';
 import 'package:mypharma/screens/products/browse_products.dart';
 import 'package:mypharma/screens/products/meds_info.dart';
+import 'package:mypharma/screens/products/show_med_info.dart';
 import 'package:mypharma/screens/products/stock.dart';
 import 'package:mypharma/screens/orders/order_received.dart';
 import 'package:mypharma/screens/settings/settings.dart';
@@ -70,6 +71,7 @@ class _MyAppState extends State<MyApp> {
         '/browse_products': (context) => BrowseProduct(isSearch: false),
         '/search_products': (context) => BrowseProduct(isSearch: true),
         '/meds_info': (context) => MedsInfo(),
+        '/show_meds_info': (context) => ShowMedInfo(),
         '/order_received': (context) => ReceivedOrderPage(),
         '/order_sent': (context) => SentOrderPage(),
         '/my_wishlist': (context) => MyWishlistPage(),

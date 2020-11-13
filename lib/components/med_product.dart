@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mypharma/app_localizations.dart';
+import 'package:mypharma/screens/products/show_med_info.dart';
 import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,14 @@ Widget medProduct({int id, String title, String description, var context}) {
                                   color: ThemeColor.darkBtn,
                                   borderRadius: BorderRadius.circular(15.0),
                                   child: FlatButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => ShowMedInfo(
+                                                  id: id,
+                                                )),
+                                      );
+                                    },
                                     child: Text(
                                       AppLocalizations.of(context)
                                           .translate("read_more"),
