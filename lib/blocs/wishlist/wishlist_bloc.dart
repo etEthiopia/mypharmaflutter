@@ -35,10 +35,10 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         if (result.length > 0) {
           yield WishlistLoaded(wishlist: result);
         } else {
-          yield WishlistNotLoaded();
+          yield WishlistNothingReceived();
         }
       } else {
-        yield WishlistNotLoaded();
+        yield WishlistNothingReceived();
       }
     } catch (e) {
       if (e.message.toString() == 'empty') {

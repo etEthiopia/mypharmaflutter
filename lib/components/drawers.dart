@@ -1409,16 +1409,18 @@ class UserDrawer extends StatelessWidget {
                   // print("DRAWER STATE: " + state.props.toString());
                   if (state is WishlistCounted || state is WishlistAdded) {
                     return wholesellerDrawer(
-                        profile: uname,
-                        email: email,
-                        image: image,
-                        wishlist: state.props[0]);
+                      profile: uname,
+                      email: email,
+                      image: image,
+                    );
+                    // wishlist: state.props[0]
                   } else if (state is WishlistLoaded) {
                     return wholesellerDrawer(
-                        profile: uname,
-                        email: email,
-                        image: image,
-                        wishlist: state.wishlist.length);
+                      profile: uname,
+                      email: email,
+                      image: image,
+                    );
+                    // wishlist: state.wishlist.length
                   } else {
                     return wholesellerDrawer(
                         profile: uname, email: email, image: image);

@@ -100,7 +100,7 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                         style: TextStyle(
                             fontSize: 18.0,
                             fontFamily: defaultFont,
-                            color: ThemeColor.lightText,
+                            color: ThemeColor.primaryText,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(state.product.title,
@@ -109,7 +109,10 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                           style: TextStyle(
                               color: ThemeColor.darksecondText,
                               fontSize: 17,
-                              fontFamily: defaultFont))
+                              fontFamily: defaultFont)),
+                      SizedBox(
+                        height: 5,
+                      )
                     ],
                   ),
                 ),
@@ -119,14 +122,12 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                     style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: defaultFont,
-                        color: ThemeColor.lightText,
+                        color: ThemeColor.primaryText,
                         fontWeight: FontWeight.bold),
                   ),
                   children: <Widget>[
                     ListTile(
                         title: Text(state.product.description ?? '-',
-                            maxLines: 15,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
                                 fontSize: 17,
@@ -139,14 +140,12 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                     style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: defaultFont,
-                        color: ThemeColor.lightText,
+                        color: ThemeColor.primaryText,
                         fontWeight: FontWeight.bold),
                   ),
                   children: <Widget>[
                     ListTile(
                         title: Text(state.product.indications ?? '-',
-                            maxLines: 15,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
                                 fontSize: 17,
@@ -159,14 +158,12 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                     style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: defaultFont,
-                        color: ThemeColor.lightText,
+                        color: ThemeColor.primaryText,
                         fontWeight: FontWeight.bold),
                   ),
                   children: <Widget>[
                     ListTile(
                         title: Text(state.product.cautions ?? '-',
-                            maxLines: 15,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
                                 fontSize: 17,
@@ -179,14 +176,12 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                     style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: defaultFont,
-                        color: ThemeColor.lightText,
+                        color: ThemeColor.primaryText,
                         fontWeight: FontWeight.bold),
                   ),
                   children: <Widget>[
                     ListTile(
                         title: Text(state.product.drugInteractions ?? '-',
-                            maxLines: 15,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
                                 fontSize: 17,
@@ -199,14 +194,12 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                     style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: defaultFont,
-                        color: ThemeColor.lightText,
+                        color: ThemeColor.primaryText,
                         fontWeight: FontWeight.bold),
                   ),
                   children: <Widget>[
                     ListTile(
                         title: Text(state.product.contradictions ?? '-',
-                            maxLines: 15,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
                                 fontSize: 17,
@@ -219,14 +212,12 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                     style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: defaultFont,
-                        color: ThemeColor.lightText,
+                        color: ThemeColor.primaryText,
                         fontWeight: FontWeight.bold),
                   ),
                   children: <Widget>[
                     ListTile(
                         title: Text(state.product.sideEffects ?? '-',
-                            maxLines: 15,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
                                 fontSize: 17,
@@ -239,14 +230,12 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                     style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: defaultFont,
-                        color: ThemeColor.lightText,
+                        color: ThemeColor.primaryText,
                         fontWeight: FontWeight.bold),
                   ),
                   children: <Widget>[
                     ListTile(
                         title: Text(state.product.doseAdminstrations ?? '-',
-                            maxLines: 15,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
                                 fontSize: 17,
@@ -259,14 +248,12 @@ class _ShowMedInfoDetailState extends State<_ShowMedInfoDetail> {
                     style: TextStyle(
                         fontSize: 18.0,
                         fontFamily: defaultFont,
-                        color: ThemeColor.lightText,
+                        color: ThemeColor.primaryText,
                         fontWeight: FontWeight.bold),
                   ),
                   children: <Widget>[
                     ListTile(
                         title: Text(state.product.storage ?? '-',
-                            maxLines: 15,
-                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
                                 fontSize: 17,

@@ -37,15 +37,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     yield CartLoading();
     try {
       final result = await _apiService.fetchCart();
+      print("CART: " + result.toString());
 
       if (result != null) {
         if (result.length > 0) {
           yield CartLoaded(cartItems: result);
         } else {
-          yield CartNotLoaded();
+          yield CartNothingReceived();
         }
       } else {
-        yield CartNotLoaded();
+        yield CartNothingReceived();
       }
     } catch (e) {
       if (e.message.toString() == 'empty') {
