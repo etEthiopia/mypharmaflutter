@@ -9,7 +9,7 @@ import 'package:mypharma/screens/my_app.dart';
 import 'package:mypharma/services/services.dart';
 import 'blocs/cart/bloc.dart';
 
-const IP = 'http://192.168.0.115/mypharmakal/';
+const IP = 'http://192.168.1.2/mypharmakal/';
 const SERVER_IP = IP + 'api';
 const SERVER_IP_FILE = IP + 'public/storage/';
 final storage = FlutterSecureStorage();
