@@ -468,8 +468,10 @@ class APIService extends APIServiceSkel {
                   throw OrderException(message: "empty");
                 }
 
-                List<Order> orders = Order.generateOrderReceivedList(
-                    json.decode(res.body)['0']['order']['data']);
+                Map<Order, List<Order>> orders =
+                    Order.generateOrderReceivedList(
+                        json.decode(res.body)['0']['total_order'],
+                        json.decode(res.body)['0']['order']['data']);
 
                 List<dynamic> result = [from, last, orders];
 

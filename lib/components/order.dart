@@ -50,7 +50,9 @@ class _OrderCardState extends State<OrderCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  widget.o.name,
+                  widget.o.name == ""
+                      ? (widget.o.groupTotal.toString() + " Items")
+                      : widget.o.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(

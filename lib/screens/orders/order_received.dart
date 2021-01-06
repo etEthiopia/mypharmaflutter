@@ -266,7 +266,7 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                             child: Container(
                               color: Colors.grey[150],
                               child: ListView.builder(
-                                itemCount: state.receivedList.length,
+                                itemCount: state.receivedList.keys.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   last = state.last;
                                   return InkWell(
@@ -278,12 +278,15 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                                               builder: (BuildContext context) =>
                                                   OrderDetail(
                                                     postid: state
-                                                        .receivedList[index]
+                                                        .receivedList.keys
+                                                        .toList()[index]
                                                         .postid,
-                                                    id: state
-                                                        .receivedList[index].id,
+                                                    id: state.receivedList.keys
+                                                        .toList()[index]
+                                                        .id,
                                                     selectedCategory: state
-                                                        .receivedList[index]
+                                                        .receivedList.keys
+                                                        .toList()[index]
                                                         .status,
                                                   ))).then((value) {
                                         _orderBloc =
@@ -295,7 +298,8 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                                     },
                                     child: OrderCard(
                                       // state.receivedList[index].toString()
-                                      o: state.receivedList[index],
+                                      o: state.receivedList.keys
+                                          .toList()[index],
                                       received: true,
                                     ),
                                   );
