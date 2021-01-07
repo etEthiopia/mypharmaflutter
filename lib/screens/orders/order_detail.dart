@@ -65,14 +65,6 @@ class _ShowOrderState extends State<ShowOrder> {
 
   List<DropdownMenuItem<dynamic>> categories = [
     DropdownMenuItem(
-      value: 'all',
-      child: Text(
-        "All",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
       value: 'processing',
       child: Text(
         "Processing",
@@ -164,6 +156,8 @@ class _ShowOrderState extends State<ShowOrder> {
               setState(() {
                 widget.selectedCategory = value;
               });
+              _orderBloc
+                  .add(OrderStatusChangeOrdered(status: value, id: widget.id));
             },
             isExpanded: true,
           ),
@@ -424,7 +418,6 @@ class _ShowOrderState extends State<ShowOrder> {
 
   @override
   Widget build(BuildContext context) {
-    _orderBloc = BlocProvider.of<OrderBloc>(context);
     return BlocListener<OrderBloc, OrderState>(
       listener: (context, state) {
         if (state is OrderFailure) {
@@ -432,6 +425,7 @@ class _ShowOrderState extends State<ShowOrder> {
         }
       },
       child: BlocBuilder<OrderBloc, OrderState>(builder: (context, state) {
+        print("STATE: " + state.toString());
         if (state is OrderLoading || state is OrderInital) {
           return LoadingLogin(context);
         } else if (state is OrderFailure) {
@@ -441,7 +435,60 @@ class _ShowOrderState extends State<ShowOrder> {
             return ErrorMessage(context, 'order_received', state.error);
           }
         } else if (state is OrderStatusChanged) {
-          Navigator.pop(context);
+          return Container(
+              padding:
+                  EdgeInsets.only(top: 50, left: 50, right: 50, bottom: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Image.asset(
+                      'assets/images/figures/done.png',
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Divider(
+                    color: ThemeColor.light,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)
+                              .translate("status_updated"),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: ThemeColor.darkText,
+                        fontSize: 25,
+                        fontFamily: defaultFont),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Material(
+                      color: ThemeColor.darkBtn,
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context, widget.selectedCategory);
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)
+                              .translate("continue_btn_text"),
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: defaultFont),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ));
         } else if (state is OrderRShow) {
           return Scaffold(
             backgroundColor: ThemeColor.background1,

@@ -110,14 +110,14 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
 
   Stream<OrderState> _mapOrderChangeStatusToState(
       OrderStatusChangeOrdered event) async* {
-    //yield OrderLoading();
+    yield OrderLoading();
     try {
       final result = await _apiService.updateOrderStatus(
           status: event.status, id: event.id);
       print("Result " + result.toString());
       if (result != null) {
-        if (result != true) {
-          yield OrderStatusNotChanged();
+        if (result) {
+          yield OrderStatusChanged();
         }
       } else {
         yield OrderStatusNotChanged();

@@ -159,37 +159,41 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
                                 itemBuilder: (BuildContext context, int index) {
                                   last = state.last;
                                   return InkWell(
-                                    onTap: () {
-                                      print("clicked");
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  OrderDetail(
-                                                    postid: state
-                                                        .receivedList.keys
-                                                        .toList()[index]
-                                                        .postid,
-                                                    id: state.receivedList.keys
-                                                        .toList()[index]
-                                                        .id,
-                                                    selectedCategory: state
-                                                        .receivedList.keys
-                                                        .toList()[index]
-                                                        .status,
-                                                  ))).then((value) {
-                                        _orderBloc =
-                                            BlocProvider.of<OrderBloc>(context);
-                                        _orderBloc.add(
-                                            OrderReceivedFetched(page: page));
-                                        return true;
-                                      });
-                                    },
+                                    // onTap: () {
+                                    //   print("clicked");
+                                    //   Navigator.push(
+                                    //       context,
+                                    //       MaterialPageRoute(
+                                    //           builder: (BuildContext context) =>
+                                    //               OrderDetail(
+                                    //                 postid: state
+                                    //                     .receivedList.keys
+                                    //                     .toList()[index]
+                                    //                     .postid,
+                                    //                 id: state.receivedList.keys
+                                    //                     .toList()[index]
+                                    //                     .id,
+                                    //                 selectedCategory: state
+                                    //                     .receivedList.keys
+                                    //                     .toList()[index]
+                                    //                     .status,
+                                    //               ))).then((value) {
+                                    //     _orderBloc =
+                                    //         BlocProvider.of<OrderBloc>(context);
+                                    //     _orderBloc.add(
+                                    //         OrderReceivedFetched(page: page));
+                                    //     return true;
+                                    //   });
+                                    // },
                                     child: OrderCard(
                                       // state.receivedList[index].toString()
                                       o: state.receivedList.keys
                                           .toList()[index],
                                       received: true,
+                                      orders: state.receivedList[state
+                                          .receivedList.keys
+                                          .toList()[index]],
+                                      page: page,
                                     ),
                                   );
                                 },

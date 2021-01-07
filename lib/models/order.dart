@@ -163,7 +163,6 @@ class Order {
   }
 
   factory Order.showReceivedFromJson(Map<String, dynamic> json) {
-    print("order receieved show json " + json.toString());
     return Order.showReceived(
       id: json['id'],
       postid: json['post_id'],
