@@ -116,7 +116,7 @@ class Order {
           date: json['created_at'],
           status: json['order_status'],
           sender: json['name'],
-          name: json['grp_total'] == 1 ? json['productname'] : "",
+          name: json['productname'],
           selected: false);
     }
     return Order.sentlist(

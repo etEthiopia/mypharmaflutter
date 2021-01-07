@@ -17,6 +17,7 @@ class OrderCard extends StatefulWidget {
   Order o;
 
   final bool received;
+  bool expanded = false;
 }
 
 class _OrderCardState extends State<OrderCard> {
@@ -26,11 +27,41 @@ class _OrderCardState extends State<OrderCard> {
     });
   }
 
+  String generatename() {
+    bool por = false;
+    if (MediaQuery.of(context).orientation == Orientation.portrait) {
+      por = true;
+    }
+    String name;
+    int ln = 0;
+
+    if (por) {
+      ln = 15;
+    } else {
+      ln = 35;
+    }
+    if (widget.o.name.length <= ln) {
+      name = widget.o.name +
+          " & " +
+          (widget.o.groupTotal - 1).toString() +
+          " " +
+          AppLocalizations.of(context).translate("more");
+    } else {
+      name = widget.o.name.substring(0, ln - 5) +
+          "..."
+              " & " +
+          (widget.o.groupTotal - 1).toString() +
+          " " +
+          AppLocalizations.of(context).translate("more");
+    }
+
+    return name;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110,
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
           boxShadow: [
@@ -49,19 +80,33 @@ class _OrderCardState extends State<OrderCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  widget.o.name == ""
-                      ? (widget.o.groupTotal.toString() + " Items")
-                      : widget.o.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      color: ThemeColor.darkText,
-                      fontSize: 15,
-                      fontFamily: defaultFont),
-                ),
-                SizedBox(
-                  height: 5,
+                Row(
+                  children: [
+                    Text(
+                      widget.o.groupTotal > 1 ? generatename() : widget.o.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: ThemeColor.darkText,
+                          fontSize: 15,
+                          fontFamily: defaultFont),
+                    ),
+                    InkWell(
+                        child: widget.expanded
+                            ? Icon(
+                                Icons.arrow_drop_up,
+                                color: ThemeColor.darkText,
+                              )
+                            : Icon(
+                                Icons.arrow_drop_down,
+                                color: ThemeColor.darkText,
+                              ),
+                        onTap: () {
+                          setState(() {
+                            widget.expanded = !widget.expanded;
+                          });
+                        }),
+                  ],
                 ),
                 Text(
                   widget.received ? widget.o.sender : widget.o.receiver,
@@ -77,82 +122,49 @@ class _OrderCardState extends State<OrderCard> {
                   color: ThemeColor.extralightText,
                 ),
                 Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        widget.o.date,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: ThemeColor.darkText,
-                            fontSize: 12,
-                            fontFamily: defaultFont),
-                      ),
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          widget.o.date,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: ThemeColor.darkText,
+                              fontSize: 12,
+                              fontFamily: defaultFont),
+                        ),
+                        Text(
+                          widget.o.price.toString() +
+                              " " +
+                              AppLocalizations.of(context)
+                                  .translate("etb_text"),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: ThemeColor.primaryText,
+                              fontSize: 15,
+                              fontFamily: defaultFont),
+                        ),
+                      ],
                     ),
                     Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                              AppLocalizations.of(context)
-                                      .translate("quantity_text") +
-                                  ": ",
-                              style: TextStyle(
-                                  color: ThemeColor.lightText,
-                                  fontSize: 10,
-                                  fontFamily: defaultFont)),
-                          Text(
-                            widget.o.quantity.toString(),
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          child: Text(
+                            "INVOICE >>",
                             style: TextStyle(
                                 color: ThemeColor.darksecondText,
-                                fontSize: 12,
+                                decoration: TextDecoration.underline,
+                                fontWeight: FontWeight.bold,
                                 fontFamily: defaultFont),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                              AppLocalizations.of(context)
-                                  .translate("status_text"),
-                              style: TextStyle(
-                                  color: ThemeColor.lightText,
-                                  fontSize: 10,
-                                  fontFamily: defaultFont)),
-                          Text(
-                            widget.o.status,
-                            style: TextStyle(
-                                color: ThemeColor.darksecondText,
-                                fontSize: 15,
-                                fontFamily: defaultFont),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        widget.o.price.toString() +
-                            " " +
-                            AppLocalizations.of(context).translate("etb_text"),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: ThemeColor.primaryText,
-                            fontSize: 15,
-                            fontFamily: defaultFont),
-                      ),
-                    ),
+                          ),
+                        ),
+                      ],
+                    ))
                   ],
                 ),
               ],

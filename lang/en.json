@@ -73,5 +73,6 @@
     "search_no_result": "We couldn't find any product based on your search. Please try again with finer details",
     "category_filter_text": "Filter by Category",
     "meds_info_title": "Meds Info",
-    "read_more": "Read More"
+    "read_more": "Read More",
+    "more": "More"
 }

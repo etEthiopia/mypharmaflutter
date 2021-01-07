@@ -49,116 +49,6 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
   int page = 1;
   int last = 1;
 
-  List<DropdownMenuItem<dynamic>> categories = [
-    DropdownMenuItem(
-      value: 'all',
-      child: Text(
-        "All",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'processing',
-      child: Text(
-        "Processing",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'onhold',
-      child: Text(
-        "Onhold",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'shipping',
-      child: Text(
-        "Shipping",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'pending payment',
-      child: Text(
-        "Pending Payment",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'completed',
-      child: Text(
-        "Completed",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'delivered',
-      child: Text(
-        "Delivered",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'refunded',
-      child: Text(
-        "Refunded",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'failed',
-      child: Text(
-        "Failed",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-  ];
-
-  Widget _categoryPrompt() {
-    return Container(
-      color: ThemeColor.background2,
-      padding: const EdgeInsets.only(
-        top: 20,
-        left: 10,
-        right: 15,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(AppLocalizations.of(context).translate("order_status_text"),
-              style: TextStyle(
-                  color: ThemeColor.primaryText,
-                  fontSize: 10,
-                  fontFamily: defaultFont)),
-          DropdownButtonFormField(
-            dropdownColor: ThemeColor.background,
-            style:
-                TextStyle(color: ThemeColor.darkText, fontFamily: defaultFont),
-            items: categories,
-            hint: Text("Status"),
-            value: widget.selectedCategory,
-            onChanged: (value) {
-              setState(() {
-                widget.selectedCategory = value;
-              });
-            },
-            isExpanded: true,
-          ),
-        ],
-      ),
-    );
-  }
-
   var _orderBloc;
 
   @override
@@ -218,13 +108,12 @@ class _ReceivedOrdersListState extends State<ReceivedOrdersList> {
               backgroundColor: ThemeColor.background3,
               body: SafeArea(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Material(
                     color: ThemeColor.background2,
                     child: Container(
                       child: Column(
                         children: [
-                          _categoryPrompt(),
                           page > 1
                               ? Container(
                                   padding: EdgeInsets.symmetric(vertical: 10),
