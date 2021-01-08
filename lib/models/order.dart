@@ -115,7 +115,7 @@ class Order {
           groupTotal: json['grp_total'],
           date: json['created_at'],
           status: json['order_status'],
-          sender: json['name'],
+          sender: json['vendorname'],
           name: json['productname'],
           selected: false);
     }
@@ -179,7 +179,7 @@ class Order {
       quantity: json['order_quantity'],
       date: json['created_at'],
       status: json['order_status'],
-      sender: json['name'],
+      sender: json['vendorname'],
       name: json['productname'],
     );
   }

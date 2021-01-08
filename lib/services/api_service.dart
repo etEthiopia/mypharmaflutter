@@ -1077,7 +1077,6 @@ class APIService extends APIServiceSkel {
   @override
   Future<int> countCartItems() async {
     String cart = "cart/count";
-    print("about to count");
     if (APIService.token != null) {
       try {
         var res = await http.get(

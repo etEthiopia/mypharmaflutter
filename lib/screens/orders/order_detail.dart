@@ -10,6 +10,7 @@ import 'package:mypharma/models/models.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OrderDetail extends StatefulWidget {
   OrderDetail({Key key, this.postid, this.id, this.selectedCategory})
@@ -28,7 +29,7 @@ class _OrderDetailState extends State<OrderDetail> {
     final apiService = RepositoryProvider.of<APIService>(context);
 
     return Scaffold(
-        appBar: simpleAppBar(
+        appBar: cleanAppBar(
             title: AppLocalizations.of(context)
                 .translate("order_detail_screen_title")),
         backgroundColor: ThemeColor.background,
@@ -187,7 +188,7 @@ class _ShowOrderState extends State<ShowOrder> {
             style: TextStyle(
                 decoration: TextDecoration.underline,
                 color: Colors.white,
-                fontSize: 20,
+                fontSize: 16,
                 fontFamily: defaultFont)),
       ],
     );
@@ -208,27 +209,79 @@ class _ShowOrderState extends State<ShowOrder> {
             style: TextStyle(
                 decoration: TextDecoration.underline,
                 color: Colors.white,
-                fontSize: 15,
+                fontSize: 12,
                 fontFamily: defaultFont)),
       ],
     );
   }
 
   Widget _fromaddress(String address, String town) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(address,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: Colors.white, fontSize: 12, fontFamily: defaultFont)),
-        Text(town,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: Colors.white, fontSize: 12, fontFamily: defaultFont)),
-      ],
+    return Text(address + " : " + town,
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+            color: Colors.white, fontSize: 12, fontFamily: defaultFont));
+  }
+
+  Widget _invoice(String number, String date) {
+    return Container(
+      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Invoice",
+              style: TextStyle(
+                  color: ThemeColor.primaryText,
+                  fontSize: 12,
+                  fontFamily: defaultFont)),
+          Divider(
+            color: ThemeColor.extralightText,
+          ),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Invoice No.",
+                      style: TextStyle(
+                          color: ThemeColor.primaryText,
+                          fontSize: 10,
+                          fontFamily: defaultFont)),
+                  Text(number,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: ThemeColor.darksecondText,
+                          fontSize: 15,
+                          fontFamily: defaultFont)),
+                ],
+              ),
+              SizedBox(
+                width: 50,
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Invoice Date",
+                        style: TextStyle(
+                            color: ThemeColor.primaryText,
+                            fontSize: 10,
+                            fontFamily: defaultFont)),
+                    Text(date,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: ThemeColor.darksecondText,
+                            fontSize: 15,
+                            fontFamily: defaultFont)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -241,7 +294,7 @@ class _ShowOrderState extends State<ShowOrder> {
           Text("Quantity",
               style: TextStyle(
                   color: ThemeColor.primaryText,
-                  fontSize: 15,
+                  fontSize: 12,
                   fontFamily: defaultFont)),
           Divider(
             color: ThemeColor.extralightText,
@@ -261,7 +314,7 @@ class _ShowOrderState extends State<ShowOrder> {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: ThemeColor.darksecondText,
-                          fontSize: 20,
+                          fontSize: 16,
                           fontFamily: defaultFont)),
                 ],
               ),
@@ -282,7 +335,7 @@ class _ShowOrderState extends State<ShowOrder> {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: ThemeColor.darksecondText,
-                            fontSize: 20,
+                            fontSize: 16,
                             fontFamily: defaultFont)),
                   ],
                 ),
@@ -294,7 +347,33 @@ class _ShowOrderState extends State<ShowOrder> {
     );
   }
 
-  Widget _price(double sub, double tax, double tot) {
+  Widget _note(String note) {
+    return Container(
+      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Order Note",
+              style: TextStyle(
+                  color: ThemeColor.primaryText,
+                  fontSize: 12,
+                  fontFamily: defaultFont)),
+          SizedBox(
+            height: 5,
+          ),
+          Text(note,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: ThemeColor.darksecondText,
+                  fontSize: 15,
+                  fontFamily: defaultFont)),
+        ],
+      ),
+    );
+  }
+
+  Widget _price(double sub, int amount, double singleprice, double tax) {
     return Container(
       padding: EdgeInsets.only(top: 20, left: 10, right: 10),
       child: Column(
@@ -303,7 +382,7 @@ class _ShowOrderState extends State<ShowOrder> {
           Text("Price Details",
               style: TextStyle(
                   color: ThemeColor.primaryText,
-                  fontSize: 15,
+                  fontSize: 12,
                   fontFamily: defaultFont)),
           Divider(
             color: ThemeColor.extralightText,
@@ -317,16 +396,18 @@ class _ShowOrderState extends State<ShowOrder> {
                     child: Text("Subtotal",
                         style: TextStyle(
                             color: ThemeColor.primaryText,
-                            fontSize: 15,
+                            fontSize: 12,
                             fontFamily: defaultFont)),
                   ),
                   Expanded(
+                    flex: 2,
                     child: Text(
-                        "$sub " +
-                            AppLocalizations.of(context).translate("etb_text"),
+                        "${sub.toStringAsFixed(2)}" +
+                            AppLocalizations.of(context).translate("etb_text") +
+                            " ($amount * ${singleprice.toStringAsFixed(2)})",
                         style: TextStyle(
                             color: ThemeColor.darksecondText,
-                            fontSize: 15,
+                            fontSize: 12,
                             fontFamily: defaultFont)),
                   ),
                 ],
@@ -340,14 +421,15 @@ class _ShowOrderState extends State<ShowOrder> {
                     child: Text("Tax",
                         style: TextStyle(
                             color: ThemeColor.primaryText,
-                            fontSize: 15,
+                            fontSize: 12,
                             fontFamily: defaultFont)),
                   ),
                   Expanded(
-                    child: Text("0 %",
+                    flex: 2,
+                    child: Text("$tax %",
                         style: TextStyle(
                             color: ThemeColor.darksecondText,
-                            fontSize: 15,
+                            fontSize: 12,
                             fontFamily: defaultFont)),
                   ),
                 ],
@@ -361,16 +443,17 @@ class _ShowOrderState extends State<ShowOrder> {
                     child: Text("Total",
                         style: TextStyle(
                             color: ThemeColor.primaryText,
-                            fontSize: 15,
+                            fontSize: 12,
                             fontFamily: defaultFont)),
                   ),
                   Expanded(
+                    flex: 2,
                     child: Text(
-                        "$tot " +
+                        "${(sub + (sub * tax)).toStringAsFixed(2)} " +
                             AppLocalizations.of(context).translate("etb_text"),
                         style: TextStyle(
                             color: ThemeColor.darksecondText,
-                            fontSize: 15,
+                            fontSize: 12,
                             fontFamily: defaultFont)),
                   ),
                 ],
@@ -395,14 +478,33 @@ class _ShowOrderState extends State<ShowOrder> {
         Text("Phone",
             style: TextStyle(
                 color: extralight, fontSize: 10, fontFamily: defaultFont)),
-        Text(phone,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                decoration: TextDecoration.underline,
-                color: Colors.white,
-                fontSize: 15,
-                fontFamily: defaultFont)),
+        Row(
+          children: [
+            Text(phone + "      ",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: defaultFont)),
+            Expanded(
+              child: InkWell(
+                onTap: () {
+                  launch("tel://$phone");
+                },
+                child: Text(
+                  "CALL NOW",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: defaultFont),
+                ),
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -458,8 +560,7 @@ class _ShowOrderState extends State<ShowOrder> {
                     height: 10,
                   ),
                   Text(
-                    AppLocalizations.of(context)
-                              .translate("status_updated"),
+                    AppLocalizations.of(context).translate("status_updated"),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: ThemeColor.darkText,
@@ -541,13 +642,36 @@ class _ShowOrderState extends State<ShowOrder> {
                               color: ThemeColor.background,
                               child: ListView(
                                 children: [
+                                  _categoryPrompt(),
                                   _quantity(
                                       "Singles", state.receivedOrder.quantity),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  _invoice(
+                                      "MP-" +
+                                          state.receivedOrder.id.toString() +
+                                          "/" +
+                                          state.receivedOrder.date
+                                              .substring(0, 4),
+                                      state.receivedOrder.date
+                                          .substring(0, 10)),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   _price(
-                                      state.receivedOrder.net,
-                                      state.receivedOrder.tax,
-                                      state.receivedOrder.price),
-                                  _categoryPrompt(),
+                                    state.receivedOrder.net,
+                                    state.receivedOrder.quantity,
+                                    state.receivedOrder.price,
+                                    state.receivedOrder.tax,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  _note(state.receivedOrder.note),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                 ],
                               ),
                             ),
