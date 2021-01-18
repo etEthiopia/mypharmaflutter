@@ -104,6 +104,7 @@ class _StockListState extends State<StockList> {
                         MaterialPageRoute(
                             builder: (context) => ShowProduct(
                                   id: state.productsList[index].id,
+                                  isProduct: false,
                                 )),
                       );
                     },

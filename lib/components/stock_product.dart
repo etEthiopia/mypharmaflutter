@@ -105,39 +105,39 @@ class _StockProductState extends State<StockProduct> {
             width: 5,
             color: ThemeColor.extralightBtn,
           ),
-          Container(
-            padding: EdgeInsets.only(left: 10),
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: new BoxDecoration(
-                        border: Border.all(color: ThemeColor.darkText),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.edit,
-                        color: ThemeColor.darkText,
-                        size: 13,
-                      )),
-                ),
-                Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: new BoxDecoration(
-                        border: Border.all(color: ThemeColor.darkText),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.delete,
-                        color: ThemeColor.darkText,
-                        size: 13,
-                      )),
-                ),
-              ],
-            ),
-          )
+          // Container(
+          //   padding: EdgeInsets.only(left: 10),
+          //   child: Column(
+          //     children: <Widget>[
+          //       Expanded(
+          //         child: Container(
+          //             padding: const EdgeInsets.all(5.0),
+          //             decoration: new BoxDecoration(
+          //               border: Border.all(color: ThemeColor.darkText),
+          //               shape: BoxShape.circle,
+          //             ),
+          //             child: Icon(
+          //               Icons.edit,
+          //               color: ThemeColor.darkText,
+          //               size: 13,
+          //             )),
+          //       ),
+          //       Expanded(
+          //         child: Container(
+          //             padding: const EdgeInsets.all(5.0),
+          //             decoration: new BoxDecoration(
+          //               border: Border.all(color: ThemeColor.darkText),
+          //               shape: BoxShape.circle,
+          //             ),
+          //             child: Icon(
+          //               Icons.delete,
+          //               color: ThemeColor.darkText,
+          //               size: 13,
+          //             )),
+          //       ),
+          //     ],
+          //   ),
+          // )
         ],
       ),
     );

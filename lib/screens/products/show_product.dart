@@ -19,11 +19,12 @@ import 'package:mypharma/theme/font.dart';
 import '../../app_localizations.dart';
 
 class ShowProduct extends StatefulWidget {
-  ShowProduct({Key key, this.id}) : super(key: key);
+  ShowProduct({Key key, this.id, this.isProduct = true}) : super(key: key);
 
   @override
   _ShowProductState createState() => _ShowProductState();
   final int id;
+  final bool isProduct;
 }
 
 class _ShowProductState extends State<ShowProduct> {
@@ -39,17 +40,18 @@ class _ShowProductState extends State<ShowProduct> {
         backgroundColor: ThemeColor.background,
         body: BlocProvider<ProductBloc>(
             create: (context) => ProductBloc(apiService),
-            child: ShowProductDetail(
-              id: widget.id,
-            )));
+            child:
+                ShowProductDetail(id: widget.id, isProduct: widget.isProduct)));
   }
 }
 
 class ShowProductDetail extends StatefulWidget {
   final int id;
+  final bool isProduct;
   int current = 0;
 
-  ShowProductDetail({Key key, this.id}) : super(key: key);
+  ShowProductDetail({Key key, this.id, this.isProduct = true})
+      : super(key: key);
   @override
   _ShowProductDetailState createState() => _ShowProductDetailState();
 }
@@ -615,7 +617,11 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                           ? SizedBox(
                               height: 0,
                             )
-                          : _action()
+                          : widget.isProduct
+                              ? _action()
+                              : SizedBox(
+                                  height: 0,
+                                )
                     ],
                   ),
                 ),
@@ -660,7 +666,11 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                           ),
                         ),
                         _details(true),
-                        _action(),
+                        widget.isProduct
+                            ? _action()
+                            : SizedBox(
+                                height: 0,
+                              ),
                         BlocListener<WishlistBloc, WishlistState>(
                             listener: (context, cstate) {
                           if (cstate is WishlistFailure) {
