@@ -592,7 +592,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
 
     return Scaffold(
-        appBar: simpleAppBar(
+        appBar: cleanAppBar(
             title: AppLocalizations.of(context).translate("checkout_text")),
         drawer: UserDrawer(),
         backgroundColor: ThemeColor.background,

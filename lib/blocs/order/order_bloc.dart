@@ -135,7 +135,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     try {
       final result = await _apiService.showDashboard();
       if (result != null) {
-        yield DashboardLoaded();
+        yield DashboardLoaded(dashboard: result);
       } else {
         yield OrderFailure(error: 'Dashboard is Empty');
       }

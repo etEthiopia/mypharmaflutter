@@ -25,7 +25,7 @@ class _FeedState extends State<Feed> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-        appBar: simpleAppBar(
+        appBar: cleanAppBar(
             title: AppLocalizations.of(context).translate("feed_screen_title")),
         drawer: UserDrawer(),
         backgroundColor: ThemeColor.background,

@@ -3,7 +3,7 @@ POST http://localhost/mypharma/api/login
 Content-Type: application/json
 
 {
-    "email": "Kall@gmail.com",
+    "email": "Solomon@gmail.com",
     "password": "12345678"
 }
 
@@ -210,7 +210,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 
 
 GET http://localhost/mypharma/api/home/dashboard
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjEwOTYzNjE1LCJleHAiOjE2MTA5NjcyMTUsIm5iZiI6MTYxMDk2MzYxNSwianRpIjoiVlFpM3M0VE9XYWQzTUhPNiIsInN1YiI6MywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.inSYuIZbxWQ3tJ5YvwpXbMt4Vl98SfZBR-NpBLYazQI
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjEwOTgzMTQyLCJleHAiOjE2MTA5ODY3NDIsIm5iZiI6MTYxMDk4MzE0MiwianRpIjoiTWduZmVQcjF1ZFBvZTA5RiIsInN1YiI6NCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.o-lv6_mjaTd0nEQC8xcYBPADLQ4NlFKbpmwj1dMUL8A
 
 ###
 

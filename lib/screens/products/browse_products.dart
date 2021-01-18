@@ -29,7 +29,7 @@ class _BrowseProductState extends State<BrowseProduct> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-      appBar: simpleAppBar(
+      appBar: cleanAppBar(
           title: AppLocalizations.of(context).translate(
               Product.isSearch ? "search_title" : "browse_product_title")),
       backgroundColor: ThemeColor.background,

@@ -1867,8 +1867,7 @@ class APIService extends APIServiceSkel {
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
-              Datta dashboard =
-                  Datta.fromJson(json.decode(res.body)['0']);
+              Datta dashboard = Datta.fromJson(json.decode(res.body)['0']);
               return dashboard;
             } else {
               if (json
@@ -1890,6 +1889,7 @@ class APIService extends APIServiceSkel {
           throw DashboardException(message: 'Wrong Connection');
         }
       } catch (e) {
+        //throw DashboardException(message: "Error $e");
         if (e is SocketException) {
           if (e.toString().contains("Network is unreachable")) {
             print('Internet Error');

@@ -32,7 +32,7 @@ class _ShowProductState extends State<ShowProduct> {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
         //AppLocalizations.of(context).translate("browse_product_title")
-        appBar: simpleAppBar(
+        appBar: cleanAppBar(
             title:
                 AppLocalizations.of(context).translate("show_product_title")),
         drawer: UserDrawer(),

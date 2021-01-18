@@ -78,7 +78,8 @@ class _MyAppState extends State<MyApp> {
         '/my_wishlist': (context) => MyWishlistPage(),
         '/my_cart': (context) => MyCartPage(),
         '/settings': (context) => Settings(),
-        '/checkout': (context) => CheckOutScreen()
+        '/checkout': (context) => CheckOutScreen(),
+        '/home': (context) => DashBoardScreen()
       },
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
@@ -106,7 +107,7 @@ class _MyAppState extends State<MyApp> {
                   final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
                   _wishlistBloc.add(WishlistCount());
                 }
-                return DashBoardPage();
+                return DashBoardScreen();
               } else {
                 return Feed();
               }

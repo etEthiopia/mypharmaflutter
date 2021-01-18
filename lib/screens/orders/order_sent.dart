@@ -23,7 +23,7 @@ class _SentOrderPageState extends State<SentOrderPage> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-        appBar: simpleAppBar(
+        appBar: cleanAppBar(
             title: AppLocalizations.of(context)
                 .translate("order_sent_screen_title")),
         backgroundColor: ThemeColor.background,

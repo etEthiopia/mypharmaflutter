@@ -30,7 +30,7 @@ class _MyWishlistPageState extends State<MyWishlistPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: simpleAppBar(
+        appBar: cleanAppBar(
             title: AppLocalizations.of(context).translate("my_wishlist_title")),
         backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),

@@ -29,7 +29,7 @@ class _MyCartPageState extends State<MyCartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: simpleAppBar(
+        appBar: cleanAppBar(
             title: AppLocalizations.of(context).translate("cart_title")),
         backgroundColor: ThemeColor.background,
         drawer: UserDrawer(),

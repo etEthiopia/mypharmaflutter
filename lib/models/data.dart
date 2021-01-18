@@ -58,8 +58,9 @@ class Datta {
   });
 
   factory Datta.fromJson(Map<String, dynamic> json) {
+    print(json);
     if (int.parse(json['user'].toString()) == 2) {
-      Datta.Importer(
+      return Datta.Importer(
         user: json['user'],
         visits: json['ttvisit'],
         totalCustomerOrders: json['ttotal_order'].length,
@@ -70,7 +71,7 @@ class Datta {
         customerShippingOrders: json['sshipping'].length,
       );
     } else if (int.parse(json['user'].toString()) == 3) {
-      Datta.WholeSeller(
+      return Datta.WholeSeller(
         user: json['user'],
         visits: json['ttvisit'],
         totalCustomerOrders: json['ttotal_order'].length,
@@ -87,7 +88,7 @@ class Datta {
         myFailedOrders: json['oforder'].length,
       );
     } else if (int.parse(json['user'].toString()) == 4) {
-      Datta.Pharmacy(
+      return Datta.Pharmacy(
         user: json['user'],
         visits: json['ttvisit'],
         totalMyOrders: json['oorder'].length,

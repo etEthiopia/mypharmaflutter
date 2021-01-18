@@ -24,7 +24,7 @@ class _ReceivedOrderPageState extends State<ReceivedOrderPage> {
   Widget build(BuildContext context) {
     final apiService = RepositoryProvider.of<APIService>(context);
     return Scaffold(
-        appBar: simpleAppBar(
+        appBar: cleanAppBar(
             title: AppLocalizations.of(context)
                 .translate("order_received_screen_title")),
         backgroundColor: ThemeColor.background,

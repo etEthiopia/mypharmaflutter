@@ -175,7 +175,10 @@ Widget article(
 
 Widget _error(BuildContext context, String url, dynamic error) {
   print(error);
-  return const Center(child: Icon(Icons.error));
+  return const Center(
+      child: Icon(
+    Icons.error,
+  ));
 }
 
 Widget _progress(BuildContext context, String url, dynamic downloadProgress) {
