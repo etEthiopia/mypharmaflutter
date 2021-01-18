@@ -92,13 +92,6 @@ class _StockListState extends State<StockList> {
       if (state is MyStockLoaded) {
         return Scaffold(
           backgroundColor: ThemeColor.background1,
-          floatingActionButton: FloatingActionButton(
-            child: Icon(
-              Icons.add,
-              size: 30,
-            ),
-            backgroundColor: ThemeColor.accent,
-          ),
           body: SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 0),

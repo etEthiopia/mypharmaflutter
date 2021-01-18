@@ -294,6 +294,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -360,6 +362,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -425,6 +429,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -469,8 +475,10 @@ class APIService extends APIServiceSkel {
                   throw OrderException(message: "empty");
                 }
 
-                List<Order> orders = Order.generateOrderReceivedList(
-                    json.decode(res.body)['0']['order']['data']);
+                Map<Order, List<Order>> orders =
+                    Order.generateOrderReceivedList(
+                        json.decode(res.body)['0']['total_order'],
+                        json.decode(res.body)['0']['order']['data']);
 
                 List<dynamic> result = [from, last, orders];
 
@@ -513,6 +521,8 @@ class APIService extends APIServiceSkel {
             throw OrderException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw OrderException(message: 'Not Authorized');
         } else if (e is OrderException) {
           throw OrderException(message: e.message);
         } else {
@@ -594,6 +604,8 @@ class APIService extends APIServiceSkel {
             throw OrderException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw OrderException(message: 'Not Authorized');
         } else if (e is OrderException) {
           throw OrderException(message: e.message);
         } else {
@@ -661,10 +673,12 @@ class APIService extends APIServiceSkel {
             throw OrderException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw OrderException(message: 'Not Authorized');
         } else if (e is OrderException) {
           throw OrderException(message: e.message);
         } else {
-          print('Connection Error');
+          print('Connection Errror $e');
           throw OrderException(
               message: "Sorry, We couldn't get a response from our server");
         }
@@ -726,6 +740,8 @@ class APIService extends APIServiceSkel {
             throw OrderException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw OrderException(message: 'Not Authorized');
         } else if (e is OrderException) {
           throw OrderException(message: e.message);
         } else {
@@ -793,6 +809,8 @@ class APIService extends APIServiceSkel {
             throw WishlistException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw WishlistException(message: 'Not Authorized');
         } else if (e is WishlistException) {
           throw WishlistException(message: e.message);
         } else {
@@ -863,6 +881,8 @@ class APIService extends APIServiceSkel {
             print('Error from Server');
             throw WishlistException(
                 message: "Sorry, We couldn't reach the server");
+          } else if (e is FormatException) {
+            throw WishlistException(message: 'Not Authorized');
           } else if (e is WishlistException) {
             throw WishlistException(message: e.message);
           } else {
@@ -930,6 +950,8 @@ class APIService extends APIServiceSkel {
             throw WishlistException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw WishlistException(message: 'Not Authorized');
         } else if (e is WishlistException) {
           throw WishlistException(message: e.message);
         } else {
@@ -992,6 +1014,8 @@ class APIService extends APIServiceSkel {
             throw WishlistException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw WishlistException(message: 'Not Authorized');
         } else if (e is WishlistException) {
           throw WishlistException(message: e.message);
         } else {
@@ -1060,6 +1084,8 @@ class APIService extends APIServiceSkel {
             throw CartException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw CartException(message: 'Not Authorized');
         } else if (e is CartException) {
           throw CartException(message: e.message);
         } else {
@@ -1076,7 +1102,6 @@ class APIService extends APIServiceSkel {
   @override
   Future<int> countCartItems() async {
     String cart = "cart/count";
-    print("about to count");
     if (APIService.token != null) {
       try {
         var res = await http.get(
@@ -1124,6 +1149,8 @@ class APIService extends APIServiceSkel {
                 message:
                     "Sorry, We couldn't get a response from our server $e");
           }
+        } else if (e is FormatException) {
+          throw CartException(message: 'Not Authorized');
         } else if (e is CartException) {
           throw CartException(message: e.message);
         } else {
@@ -1180,6 +1207,8 @@ class APIService extends APIServiceSkel {
           } else if (e.toString().contains("Connection refused")) {
             print('Error from Server');
             throw CartException(message: "Sorry, We couldn't reach the server");
+          } else if (e is FormatException) {
+            throw CartException(message: 'Not Authorized');
           } else if (e is CartException) {
             throw CartException(message: e.message);
           } else {
@@ -1246,6 +1275,8 @@ class APIService extends APIServiceSkel {
             throw CartException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw CartException(message: 'Not Authorized');
         } else if (e is CartException) {
           throw CartException(message: e.message);
         } else {
@@ -1312,6 +1343,8 @@ class APIService extends APIServiceSkel {
             throw CartException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw CartException(message: 'Not Authorized');
         } else if (e is CartException) {
           throw CartException(message: e.message);
         } else {
@@ -1382,6 +1415,8 @@ class APIService extends APIServiceSkel {
             throw CartException(
                 message: "Sorry, We couldn't get a response from our server ");
           }
+        } else if (e is FormatException) {
+          throw CartException(message: 'Not Authorized');
         } else if (e is CartException) {
           throw CartException(message: e.message);
         } else {
@@ -1464,6 +1499,8 @@ class APIService extends APIServiceSkel {
             throw CartException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw CartException(message: 'Not Authorized');
         } else if (e is CartException) {
           throw CartException(message: e.message);
         } else {
@@ -1530,6 +1567,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -1597,6 +1636,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -1662,6 +1703,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -1727,6 +1770,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -1792,6 +1837,8 @@ class APIService extends APIServiceSkel {
             throw ProductException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {

@@ -77,5 +77,7 @@
     "dashboard": "መረጃ",
     "your_sent_orders": "አጠቃላይ የተላኩ ትዕዛዞች",
     "your_received_orders": "አጠቃላይ የመጡ ትዕዛዞች",
-    "visited_user": "አጠቃላይ ጉብኝቶች"
+    "visited_user": "አጠቃላይ ጉብኝቶች",
+    "more": "ሌሎች",
+    "status_updated": "ሁኔታው ተስተካክሏል!"
 }

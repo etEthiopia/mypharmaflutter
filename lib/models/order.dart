@@ -16,8 +16,10 @@ class Order {
   String note;
   String name;
   bool selected;
+  String orderGroup;
   String receiver;
   String sender;
+  int groupTotal;
 
   Order.showReceived(
       {@required this.id,
@@ -33,6 +35,7 @@ class Order {
       @required this.phone,
       @required this.note,
       @required this.date,
+      @required this.orderGroup,
       @required this.name,
       @required this.selected,
       @required this.sender});
@@ -45,8 +48,10 @@ class Order {
       @required this.price,
       @required this.status,
       @required this.date,
+      @required this.orderGroup,
       @required this.name,
       @required this.selected,
+      @required this.groupTotal,
       @required this.sender});
 
   Order.sentlist(
@@ -60,13 +65,34 @@ class Order {
       @required this.name,
       @required this.receiver});
 
-  static List<Order> generateOrderReceivedList(List<dynamic> orderslist) {
-    List<Order> ordersfetched = List<Order>();
+  static Map<Order, List<Order>> generateOrderReceivedList(
+      List<dynamic> orderslist, List<dynamic> mainlist) {
+    final Map<Order, List<Order>> sortedOutList = {};
+    List<Order> orders = List<Order>();
+    List<Order> bigups = List<Order>();
     for (var order in orderslist) {
-      ordersfetched.add(Order.fromJsonlist(order, true));
+      orders.add(Order.fromJsonlist(order, true));
+    }
+    //print("TOTAL_ORDERS: " + orders.toString());
+    for (var order in mainlist) {
+      bigups.add(Order.titlesFromJson(order, true));
+    }
+    //print("MAIN_ORDERS: " + bigups.toString());
+
+    for (Order bg in bigups) {
+      sortedOutList[bg] = [];
     }
 
-    return ordersfetched;
+    for (Order or in orders) {
+      for (Order main in sortedOutList.keys) {
+        if (main.orderGroup == or.orderGroup) {
+          main.price += or.price;
+          sortedOutList[main].add(or);
+        }
+      }
+    }
+
+    return sortedOutList;
   }
 
   static List<Order> generateOrderSentList(List<dynamic> orderslist) {
@@ -77,6 +103,35 @@ class Order {
     return ordersfetched;
   }
 
+  factory Order.titlesFromJson(Map<String, dynamic> json, bool received) {
+    if (received) {
+      return Order.receivedlist(
+          id: json['id'],
+          postid: json['post_id'],
+          userid: json['user_id'],
+          price: 0,
+          orderGroup: json['order_group_id'].toString(),
+          quantity: json['order_quantity'],
+          groupTotal: json['grp_total'],
+          date: json['created_at'],
+          status: json['order_status'],
+          sender: json['vendorname'],
+          name: json['productname'],
+          selected: false);
+    }
+    return Order.sentlist(
+      id: json['id'],
+      postid: json['post_id'],
+      userid: json['user_id'],
+      price: double.parse(json['net_total_price'].toString()),
+      quantity: json['order_quantity'],
+      date: json['created_at'],
+      status: json['order_status'],
+      receiver: json['vendorname'],
+      name: json['productname'],
+    );
+  }
+
   factory Order.fromJsonlist(Map<String, dynamic> json, bool received) {
     if (received) {
       return Order.receivedlist(
@@ -84,10 +139,12 @@ class Order {
           postid: json['post_id'],
           userid: json['user_id'],
           price: double.parse(json['net_total_price'].toString()),
+          orderGroup: json['order_group_id'].toString(),
           quantity: json['order_quantity'],
           date: json['created_at'],
           status: json['order_status'],
           sender: json['name'],
+          groupTotal: 0,
           name: json['productname'],
           selected: false);
     }
@@ -106,7 +163,6 @@ class Order {
   }
 
   factory Order.showReceivedFromJson(Map<String, dynamic> json) {
-    print("order receieved show json " + json.toString());
     return Order.showReceived(
       id: json['id'],
       postid: json['post_id'],
@@ -117,13 +173,34 @@ class Order {
       address: json['address'],
       town: json['town'],
       phone: json['phonenum'],
+      orderGroup: json['order_group_id'].toString(),
       tax: 0.0,
+      selected: false,
       quantity: json['order_quantity'],
       date: json['created_at'],
       status: json['order_status'],
-      sender: json['name'],
+      sender: json['vendorname'],
       name: json['productname'],
     );
+  }
+
+  static Map<Order, List<Order>> sortOutReceivedOrders(
+      List<Order> orders, List<Order> bigups) {
+    Map<Order, List<Order>> sortedOutList;
+    for (Order bg in bigups) {
+      sortedOutList[bg] = [];
+    }
+
+    for (Order or in orders) {
+      for (Order main in sortedOutList.keys) {
+        if (main.orderGroup == or.orderGroup) {
+          main.price += or.price;
+          sortedOutList[main].add(or);
+        }
+      }
+    }
+
+    return sortedOutList;
   }
 
   // static String StatustoString(Status status) {
