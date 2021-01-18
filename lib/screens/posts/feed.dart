@@ -7,9 +7,11 @@ import 'package:mypharma/components/article.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/page_end.dart';
+import 'package:mypharma/components/promotion.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/components/signinup.dart';
 import 'package:mypharma/screens/front_splash.dart';
+import 'package:mypharma/screens/posts/show_promo.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -175,6 +177,68 @@ class _FeedListState extends State<FeedList> {
                                 : SizedBox(
                                     height: 0,
                                   ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(bottom: 5, top: 10),
+                                  color: Colors.grey[400],
+                                  child: Text(
+                                    AppLocalizations.of(context)
+                                        .translate("promo_title"),
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(
+                                  left: 5, right: 5, bottom: 15),
+                              height: 200,
+                              color: Colors.grey[400],
+                              child: GridView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: state.promos.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) => ShowPromo(
+                                                  id: state.promos[index].id,
+                                                  title:
+                                                      state.promos[index].title,
+                                                  content: state.promos[index]
+                                                      .description,
+                                                  image:
+                                                      state.promos[index].image,
+                                                  author: state.promos[index]
+                                                      .authorname)),
+                                        );
+                                      },
+                                      child: promotion(
+                                        context: context,
+                                        id: state.promos[index].id,
+                                        title: state.promos[index].title,
+                                        description:
+                                            state.promos[index].description,
+                                        image: state.promos[index].image,
+                                        profileimg:
+                                            state.promos[index].profileimg,
+                                        author: state.promos[index].author,
+                                        authorname:
+                                            state.promos[index].authorname,
+                                      ));
+                                },
+                              ),
+                            ),
                             Expanded(
                               child: GridView.builder(
                                   gridDelegate:

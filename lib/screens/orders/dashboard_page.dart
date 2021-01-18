@@ -5,9 +5,11 @@ import 'package:mypharma/blocs/order/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
+import 'package:mypharma/components/promotion.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/models/models.dart';
+import 'package:mypharma/screens/posts/show_promo.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -537,12 +539,73 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                 height: 0,
                               ),
                         SizedBox(
+                          height: 25,
+                        ),
+                        Text(
+                          AppLocalizations.of(context).translate("promo_title"),
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: ThemeColor.contrastText,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          height: 150,
+                          color: Colors.grey[150],
+                          child: GridView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.dashboard.promos.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 1),
+                            itemBuilder: (BuildContext context, int index) {
+                              return InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => ShowPromo(
+                                              id: state
+                                                  .dashboard.promos[index].id,
+                                              title: state.dashboard
+                                                  .promos[index].title,
+                                              content: state.dashboard
+                                                  .promos[index].description,
+                                              image: state.dashboard
+                                                  .promos[index].image,
+                                              author: state.dashboard
+                                                  .promos[index].authorname)),
+                                    );
+                                  },
+                                  child: promotion(
+                                    context: context,
+                                    id: state.dashboard.promos[index].id,
+                                    title: state.dashboard.promos[index].title,
+                                    description: state
+                                        .dashboard.promos[index].description,
+                                    image: state.dashboard.promos[index].image,
+                                    profileimg: state
+                                        .dashboard.promos[index].profileimg,
+                                    author:
+                                        state.dashboard.promos[index].author,
+                                    authorname: state
+                                        .dashboard.promos[index].authorname,
+                                  ));
+                            },
+                          ),
+                        ),
+                        SizedBox(
                           height: 10,
                         ),
                       ],
                     ),
                   ),
                 )));
+      } else {
+        return LoadingLogin(context);
       }
     }));
   }

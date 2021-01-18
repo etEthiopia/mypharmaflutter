@@ -192,6 +192,8 @@ class APIService extends APIServiceSkel {
           if (json.decode(res.body)['sucess']) {
             int from = json.decode(res.body)['0']['news']['current_page'];
             int last = json.decode(res.body)['0']['news']['last_page'];
+            List<Promo> promos =
+                Promo.generatePromoList(json.decode(res.body)['0']['promo']);
             if (from > last) {
               print("End of Feed");
               List<dynamic> result = [from, last];
@@ -200,7 +202,7 @@ class APIService extends APIServiceSkel {
               List<News> news = News.generateNewsList(
                   json.decode(res.body)['0']['news']['data']);
 
-              List<dynamic> result = [from, last, news];
+              List<dynamic> result = [from, last, news, promos];
               return result;
             }
           } else {
@@ -1903,6 +1905,8 @@ class APIService extends APIServiceSkel {
             throw DashboardException(
                 message: "Sorry, We couldn't get a response from our server");
           }
+        } else if (e is FormatException) {
+          throw DashboardException(message: 'Not Authorized');
         } else if (e is DashboardException) {
           throw DashboardException(message: e.message);
         } else {

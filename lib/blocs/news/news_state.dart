@@ -17,11 +17,12 @@ class NewsLoaded extends NewsState {
   final int current;
   final int last;
   final List<News> newsList;
+  final List<Promo> promos;
 
-  NewsLoaded({this.last, this.current, this.newsList});
+  NewsLoaded({this.last, this.current, this.newsList, this.promos});
 
   @override
-  List<Object> get props => [current, last, newsList];
+  List<Object> get props => [current, last, newsList, promos];
 }
 
 class NewsAllLoaded extends NewsState {}

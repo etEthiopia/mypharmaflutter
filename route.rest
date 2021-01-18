@@ -3,7 +3,7 @@ POST http://localhost/mypharma/api/login
 Content-Type: application/json
 
 {
-    "email": "Solomon@gmail.com",
+    "email": "Kall@gmail.com",
     "password": "12345678"
 }
 
@@ -44,7 +44,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost/mypharma/public/api/news?page=1
+GET http://localhost/mypharma/api/news?page=1
 ###
 
 GET http://localhost/mypharmakal/api/news?page=1
@@ -79,11 +79,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 ###
 
 GET http://localhost/mypharma/api/customer-order
-<<<<<<< HEAD
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjEwOTM4OTkzLCJleHAiOjE2MTA5NDI1OTMsIm5iZiI6MTYxMDkzODk5MywianRpIjoiam5HMEg4OG5GbXowcDhYcSIsInN1YiI6MiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.vhMn-51RAKsqj-Q-vaXOOI5SEJDDIuNRivrpW3K2jRE
-=======
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjEwMTA3ODE0LCJleHAiOjE2MTAxMTE0MTQsIm5iZiI6MTYxMDEwNzgxNCwianRpIjoiWmtCREhVYTBTcUNjSk9zQSIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.qkT9UDmNHHuJ-WFv5wUrp1Es-bULZH4z_ln6oS3HP-I
->>>>>>> 6c27b23d9cccadada4f92100247fd3d4c1fa1c70
 ###
 
 GET http://localhost/mypharmakal/api/customer-order
@@ -210,7 +206,7 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 
 
 GET http://localhost/mypharma/api/home/dashboard
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjEwOTgzMTQyLCJleHAiOjE2MTA5ODY3NDIsIm5iZiI6MTYxMDk4MzE0MiwianRpIjoiTWduZmVQcjF1ZFBvZTA5RiIsInN1YiI6NCwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.o-lv6_mjaTd0nEQC8xcYBPADLQ4NlFKbpmwj1dMUL8A
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjEwOTkzOTMyLCJleHAiOjE2MTA5OTc1MzIsIm5iZiI6MTYxMDk5MzkzMiwianRpIjoibERuQjVoQmV1QjZoZmtsUyIsInN1YiI6MywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.bWhVlMBp6uIcye5hNhDyF6snp5Fqu2tG4NTrnL16sAE
 
 ###
 

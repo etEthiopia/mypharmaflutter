@@ -90,33 +90,9 @@ class _ShowOrderState extends State<ShowOrder> {
       ),
     ),
     DropdownMenuItem(
-      value: 'pending payment',
-      child: Text(
-        "Pending Payment",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'completed',
-      child: Text(
-        "Completed",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
       value: 'delivered',
       child: Text(
         "Delivered",
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-      ),
-    ),
-    DropdownMenuItem(
-      value: 'refunded',
-      child: Text(
-        "Refunded",
         style: TextStyle(
             fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
       ),
@@ -152,7 +128,13 @@ class _ShowOrderState extends State<ShowOrder> {
                 TextStyle(color: ThemeColor.darkText, fontFamily: defaultFont),
             items: categories,
             hint: Text("Status"),
-            value: widget.selectedCategory,
+            value: widget.selectedCategory == 'processing' ||
+                    widget.selectedCategory == 'onhold' ||
+                    widget.selectedCategory == 'shipping' ||
+                    widget.selectedCategory == 'delivered' ||
+                    widget.selectedCategory == 'failed'
+                ? widget.selectedCategory
+                : 'processing',
             onChanged: (value) {
               setState(() {
                 widget.selectedCategory = value;

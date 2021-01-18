@@ -72,6 +72,10 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushReplacementNamed(context, '/meds_info');
     }
 
+    _dashboard() {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+
     _settings() {
       Navigator.pushReplacementNamed(context, '/settings');
     }
@@ -424,6 +428,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _dashboard();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -759,6 +766,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _dashboard();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -1002,6 +1012,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _dashboard();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -1222,6 +1235,9 @@ class UserDrawer extends StatelessWidget {
               decoration: BoxDecoration(color: ThemeColor.primaryBtn),
             ),
             InkWell(
+              onTap: () {
+                _dashboard();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(

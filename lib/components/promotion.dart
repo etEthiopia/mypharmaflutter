@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 
 import '../main.dart';
 
-Widget product(
+Widget promotion(
     {int id,
-    String name,
+    String title,
+    String description,
     String image,
-    String org,
-    String price,
+    String profileimg,
+    String author,
+    String authorname,
     var context}) {
   return Container(
       margin: EdgeInsets.all(5),
@@ -27,26 +29,21 @@ Widget product(
         ],
       ),
       child: Hero(
-          tag: name + id.toString(),
+          tag: title + id.toString(),
           child: Material(
               borderRadius: BorderRadius.circular(15),
               child: InkWell(
                   child: GridTile(
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: ThemeColor.background1,
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    child: loadimage(image)),
-                footer: Container(
+                header: Container(
                   decoration: BoxDecoration(
                     color: ThemeColor.isDark ? Colors.black54 : Colors.white70,
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(15),
-                        bottomRight: Radius.circular(15)),
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15)),
                   ),
 
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 10, bottom: 5),
                   // child: Text(
                   //   name,
                   //   maxLines: 2,
@@ -61,45 +58,73 @@ Widget product(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       Text(
-                        name,
+                        title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                            fontSize: 15,
                             color: ThemeColor.darksecondText,
                             fontWeight: FontWeight.bold),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          org != null
+                          author == '1'
                               ? Text(
-                                  org,
-                                  maxLines: 2,
+                                  AppLocalizations.of(context)
+                                      .translate("by_admin"),
+                                  maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 10,
                                       color: ThemeColor.primaryText),
                                 )
-                              : Text(
-                                  '',
-                                  style: TextStyle(fontSize: 0),
+                              : SizedBox(
+                                  height: 0,
                                 ),
-                          Text(
-                            price +
-                                " " +
-                                AppLocalizations.of(context)
-                                    .translate("etb_text"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: ThemeColor.darksecondText),
-                          ),
                         ],
                       )
+                    ],
+                  ),
+                ),
+                child: Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: ThemeColor.background1,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: loadimage(image)),
+                footer: Container(
+                  decoration: BoxDecoration(
+                    color: ThemeColor.isDark ? Colors.black54 : Colors.white70,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(15)),
+                  ),
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 10, bottom: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Text(
+                        description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: ThemeColor.darksecondText,
+                        ),
+                      ),
+                      Text(
+                        AppLocalizations.of(context).translate("read_more"),
+                        textAlign: TextAlign.end,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: ThemeColor.primaryText,
+                            decoration: TextDecoration.underline),
+                      ),
                     ],
                   ),
                 ),

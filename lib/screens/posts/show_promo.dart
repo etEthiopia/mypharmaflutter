@@ -6,29 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mypharma/main.dart';
 
-class ShowArticle extends StatefulWidget {
+import '../../app_localizations.dart';
+
+class ShowPromo extends StatefulWidget {
   final String title;
   final String image;
   final String content;
-  final String time;
-  final String category;
+  final String author;
   final int id;
 
-  const ShowArticle(
-      {Key key,
-      this.title,
-      this.image,
-      this.content,
-      this.time,
-      this.category,
-      this.id})
+  const ShowPromo(
+      {Key key, this.title, this.image, this.author, this.content, this.id})
       : super(key: key);
 
   @override
-  _ShowArticleState createState() => _ShowArticleState();
+  _ShowPromoState createState() => _ShowPromoState();
 }
 
-class _ShowArticleState extends State<ShowArticle> {
+class _ShowPromoState extends State<ShowPromo> {
   double padd = 10;
 
   Widget _error(BuildContext context, String url, dynamic error) {
@@ -60,58 +55,6 @@ class _ShowArticleState extends State<ShowArticle> {
     );
   }
 
-  Widget _bottombar() {
-    return Container(
-      decoration: BoxDecoration(
-          color: ThemeColor.darkBtn,
-          border: Border.symmetric(
-              vertical: BorderSide(color: ThemeColor.lightBtn))),
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              // Row(
-              //   children: <Widget>[
-              //     IconButton(
-              //       icon: Icon(
-              //         Icons.thumb_up,
-              //         color: ThemeColor.extralightText,
-              //       ),
-              //       onPressed: () {},
-              //     ),
-              //     Text("15",
-              //         style: TextStyle(
-              //             color: ThemeColor.extralightText,
-              //             fontSize: 15,
-              //             fontFamily: defaultFont))
-              //   ],
-              // ),
-              _category()
-            ],
-          ),
-          Row(children: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.error,
-                color: ThemeColor.extralightText,
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.share,
-                color: ThemeColor.extralightText,
-              ),
-              onPressed: () {},
-            ),
-          ]),
-        ],
-      ),
-    );
-  }
-
   Widget _sizedBox() {
     return SizedBox(
       height: 10,
@@ -119,83 +62,45 @@ class _ShowArticleState extends State<ShowArticle> {
   }
 
   Widget _title() {
-    return Text(widget.title,
-        style: TextStyle(
-            color: ThemeColor.darksecondText,
-            fontSize: 20,
-            fontFamily: defaultFont));
-  }
-
-  Widget _category() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text("Category: ",
-            style: TextStyle(
-                color: ThemeColor.lightText,
-                fontSize: 10,
-                fontFamily: defaultFont)),
-        Text(widget.category.toString(),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: ThemeColor.primaryText,
-                fontSize: 15,
-                fontFamily: defaultFont)),
-      ],
-    );
-  }
-
-  Widget _time() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        Text(widget.time,
-            style: TextStyle(
-                color: ThemeColor.primaryText,
-                fontSize: 10,
-                fontFamily: defaultFont)),
-      ],
-    );
-  }
-
-  Widget _suggestEdit() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        InkWell(
-          child: Icon(
-            Icons.edit,
-            color: ThemeColor.darkText,
-            size: 10,
-          ),
-        ),
-        InkWell(
-          child: SizedBox(
-            width: 5,
-          ),
-        ),
-        InkWell(
-            child: Text(
-          "Contribute on the Content",
-          style: TextStyle(
-              fontSize: 10,
-              color: ThemeColor.darkText,
-              fontFamily: defaultFont),
-        )),
-      ],
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      color: ThemeColor.darksecondBtn,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(widget.title,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontFamily: defaultFont)),
+          Text(
+              AppLocalizations.of(context).translate("by_text") +
+                  " " +
+                  widget.author,
+              textAlign: TextAlign.end,
+              style: TextStyle(
+                  color: ThemeColor.extralightText,
+                  fontSize: 17,
+                  fontFamily: defaultFont)),
+        ],
+      ),
     );
   }
 
   Widget _content() {
-    return Container(
-      color: ThemeColor.background2,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Text(widget.content,
-          style: TextStyle(
-              color: ThemeColor.darksecondText,
-              fontSize: 15,
-              fontFamily: defaultFont)),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.all(20),
+          color: ThemeColor.background2,
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          child: Text(widget.content,
+              style: TextStyle(
+                  color: ThemeColor.darksecondText,
+                  fontSize: 15,
+                  fontFamily: defaultFont)),
+        ),
+      ],
     );
   }
 
@@ -207,7 +112,7 @@ class _ShowArticleState extends State<ShowArticle> {
           backgroundColor: ThemeColor.extralight,
           body: SafeArea(
               child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
                   child: Material(
                       color: ThemeColor.background2,
                       child: Container(
@@ -223,15 +128,11 @@ class _ShowArticleState extends State<ShowArticle> {
                             ),
                             Expanded(
                                 child: Container(
-                                    margin: EdgeInsets.all(20),
                                     child: ListView(children: <Widget>[
-                                      _title(),
-                                      _time(),
-                                      _sizedBox(),
-                                      _content(),
-                                      _suggestEdit()
-                                    ]))),
-                            _bottombar(),
+                              _title(),
+                              _sizedBox(),
+                              _content(),
+                            ]))),
                           ],
                         ),
                       )))));
@@ -240,7 +141,7 @@ class _ShowArticleState extends State<ShowArticle> {
           backgroundColor: ThemeColor.extralight,
           body: SafeArea(
               child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 50),
                   child: Material(
                     color: ThemeColor.background2,
                     child: Container(
@@ -268,7 +169,6 @@ class _ShowArticleState extends State<ShowArticle> {
                                               CrossAxisAlignment.stretch,
                                           children: <Widget>[
                                             _title(),
-                                            _time(),
                                           ],
                                         ),
                                       ),
@@ -276,7 +176,6 @@ class _ShowArticleState extends State<ShowArticle> {
                                   ],
                                 ),
                               ),
-                              _bottombar()
                             ],
                           )),
                           Expanded(
@@ -284,7 +183,6 @@ class _ShowArticleState extends State<ShowArticle> {
                                 margin: EdgeInsets.all(20),
                                 child: ListView(children: <Widget>[
                                   _content(),
-                                  _suggestEdit()
                                 ])),
                           )
                           // Expanded(child: _content()),

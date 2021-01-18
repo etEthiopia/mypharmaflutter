@@ -79,5 +79,8 @@
     "your_received_orders": "Total Received Orders",
     "visited_user": "Total Visits",
     "more": "More",
-    "status_updated": "Status Successfully Updated!"
+    "status_updated": "Status Successfully Updated!",
+    "by_admin": "By Admin",
+    "promo_title": "Promotions",
+    "by_text": "By"
 }

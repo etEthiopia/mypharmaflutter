@@ -354,7 +354,11 @@ class _CartItemState extends State<CartItem> {
 
 Widget _error(BuildContext context, String url, dynamic error) {
   print(error);
-  return const Center(child: Icon(Icons.error));
+  return const Center(
+      child: Icon(
+    Icons.error,
+    color: Colors.blueAccent,
+  ));
 }
 
 Widget _progress(BuildContext context, String url, dynamic downloadProgress) {

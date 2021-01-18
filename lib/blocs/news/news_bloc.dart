@@ -30,9 +30,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     try {
       final result = await _apiService.fetchNews(page: event.page);
       if (result != null) {
-        if (result.length == 3) {
+        if (result.length == 4) {
           yield NewsLoaded(
-              last: result[0], current: result[1], newsList: result[2]);
+              last: result[0],
+              current: result[1],
+              newsList: result[2],
+              promos: result[3]);
           // if (result[0] == result[1]) {}
         } else if (result.length == 2) {
           yield NewsAllLoaded();

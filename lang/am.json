@@ -3,10 +3,10 @@
     "order_detail_screen_title": "ትዕዛዝ",
     "order_received_screen_title": "የመጡ ትዕዛዛት",
     "order_sent_screen_title": "የተላኩ ትዕዛዛት",
-    "browse_product_title": "የምርቶች",
+    "browse_product_title": "የምርት ሼልፍ",
     "show_product_title": "ምርት",
     "my_wishlist_title": "የምኞት ዝርዝር",
-    "stock_title": "ክምችት",
+    "stock_title": "የኔ ክምችት",
     "cart_title": "ቅርጫት",
     "profile_title": "መረጃ",
     "settings_title": "ማስተካከያዎች",
@@ -79,5 +79,8 @@
     "your_received_orders": "አጠቃላይ የመጡ ትዕዛዞች",
     "visited_user": "አጠቃላይ ጉብኝቶች",
     "more": "ሌሎች",
-    "status_updated": "ሁኔታው ተስተካክሏል!"
+    "status_updated": "ሁኔታው ተስተካክሏል!",
+    "by_admin": "ከ አስተዳዳሪው",
+    "promo_title": "ማስታወቂያዎች",
+    "by_text": "በ"
 }
