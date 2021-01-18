@@ -39,6 +39,15 @@ class OrderSentLoaded extends OrderState {
   List<Object> get props => [sentList];
 }
 
+class DashboardLoaded extends OrderState {
+  final Datta dashboard;
+
+  DashboardLoaded({this.dashboard});
+
+  @override
+  List<Object> get props => [dashboard];
+}
+
 class OrderRShow extends OrderState {
   final Order receivedOrder;
 

@@ -73,5 +73,9 @@
     "search_no_result": "ምንም ምርት ልናገኝ አልቻልንም ፡ እባክዎት በሌላ ስም ይሞክሩ",
     "category_filter_text": "በአይነት ይፈልጉ",
     "meds_info_title": "የመድሃኒት መረጃ",
-    "read_more": "ተጨማሪ ያንብቡ"
+    "read_more": "ተጨማሪ ያንብቡ",
+    "dashboard": "መረጃ",
+    "your_sent_orders": "አጠቃላይ የተላኩ ትዕዛዞች",
+    "your_received_orders": "አጠቃላይ የመጡ ትዕዛዞች",
+    "visited_user": "አጠቃላይ ጉብኝቶች"
 }

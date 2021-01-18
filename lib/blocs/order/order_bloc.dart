@@ -23,6 +23,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       yield* _mapOrderShowRecToState(event);
     } else if (event is OrderStatusChangeOrdered) {
       yield* _mapOrderChangeStatusToState(event);
+    } else if (event is DashboardFetched) {
+      yield* _mapDashboardChangeToState(event);
     }
   }
 
@@ -121,6 +123,21 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         }
       } else {
         yield OrderStatusNotChanged();
+      }
+    } catch (e) {
+      yield OrderFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
+    }
+  }
+
+  Stream<OrderState> _mapDashboardChangeToState(DashboardFetched event) async* {
+    yield OrderLoading();
+    try {
+      final result = await _apiService.showDashboard();
+      if (result != null) {
+        yield DashboardLoaded();
+      } else {
+        yield OrderFailure(error: 'Dashboard is Empty');
       }
     } catch (e) {
       yield OrderFailure(

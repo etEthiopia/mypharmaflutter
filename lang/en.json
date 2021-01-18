@@ -73,5 +73,9 @@
     "search_no_result": "We couldn't find any product based on your search. Please try again with finer details",
     "category_filter_text": "Filter by Category",
     "meds_info_title": "Meds Info",
-    "read_more": "Read More"
+    "read_more": "Read More",
+    "dashboard": "Dashboard",
+    "your_sent_orders": "Total Submitted Orders",
+    "your_received_orders": "Total Received Orders",
+    "visited_user": "Total Visits"
 }

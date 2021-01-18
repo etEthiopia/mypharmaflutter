@@ -36,6 +36,7 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> fetchCategories();
   Future<List<dynamic>> fetchMedsInfo();
   Future<dynamic> showMedInfo({int id});
+  Future<Datta> showDashboard();
 }
 
 class APIService extends APIServiceSkel {
@@ -1801,6 +1802,70 @@ class APIService extends APIServiceSkel {
       }
     } else {
       throw ProductException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<Datta> showDashboard() async {
+    String product = "home/dashboard";
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$product",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              Datta dashboard =
+                  Datta.fromJson(json.decode(res.body)['0']);
+              return dashboard;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw DashboardException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw DashboardException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw DashboardException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection: ' + res.statusCode.toString());
+          throw DashboardException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw DashboardException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw DashboardException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw DashboardException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else if (e is DashboardException) {
+          throw DashboardException(message: e.message);
+        } else {
+          print('Connection Error ' + e.toString());
+          throw DashboardException(
+              message: "Sorry, We couldn't get a response from our server");
+        }
+      }
+    } else {
+      throw DashboardException(message: 'Not Authorized');
     }
   }
 }

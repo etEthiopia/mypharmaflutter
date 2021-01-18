@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:mypharma/models/models.dart';
 
 abstract class OrderEvent extends Equatable {
   const OrderEvent();
@@ -31,6 +32,10 @@ class OrderStatusChangeOrdered extends OrderEvent {
   final int id;
 
   OrderStatusChangeOrdered({this.status, this.id});
+}
+
+class DashboardFetched extends OrderEvent {
+  DashboardFetched();
 }
 
 class OrderBacked extends OrderEvent {}

@@ -10,6 +10,7 @@ import 'package:mypharma/screens/auth/login.dart';
 import 'package:mypharma/screens/auth/registerphy.dart';
 import 'package:mypharma/screens/cart/my_cart.dart';
 import 'package:mypharma/screens/front_splash.dart';
+import 'package:mypharma/screens/orders/dashboard_page.dart';
 import 'package:mypharma/screens/orders/order_sent.dart';
 import 'package:mypharma/screens/posts/feed.dart';
 import 'package:mypharma/screens/products/browse_products.dart';
@@ -89,12 +90,23 @@ class _MyAppState extends State<MyApp> {
             }
             if (state is AuthAuthenticated) {
               // show home page
-              if (state.user.role == Role.wholeseller) {
-                final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
-                _wishlistBloc.add(WishlistCount());
-                return Stock();
-              } else if (state.user.role == Role.importer) {
-                return ReceivedOrderPage();
+              // if (state.user.role == Role.wholeseller) {
+              //   final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
+              //   _wishlistBloc.add(WishlistCount());
+              //   return Stock();
+              // } else if (state.user.role == Role.importer) {
+              //   return ReceivedOrderPage();
+              // } else {
+              //   return Feed();
+              // }
+              if (state.user.role == Role.wholeseller ||
+                  state.user.role == Role.importer ||
+                  state.user.role == Role.pharmacist) {
+                if (state.user.role == Role.wholeseller) {
+                  final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
+                  _wishlistBloc.add(WishlistCount());
+                }
+                return DashBoardPage();
               } else {
                 return Feed();
               }

@@ -7,3 +7,4 @@ export 'cart.dart';
 export 'address.dart';
 export 'category.dart';
 export 'med_info.dart';
+export 'data.dart';
