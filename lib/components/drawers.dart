@@ -315,8 +315,7 @@ class UserDrawer extends StatelessWidget {
       );
     }
 
-    Widget pharmacyDrawer(
-        {String profile, String email, String image, int wishlist = 0}) {
+    Widget pharmacyDrawer({String profile, String email, String image}) {
       return Container(
         color: ThemeColor.background,
         child: ListView(
@@ -366,28 +365,37 @@ class UserDrawer extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-                    wishlist == 0
-                        ? Text(
-                            AppLocalizations.of(context)
-                                .translate("my_wishlist_title"),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: ThemeColor.darksecondText),
-                          )
-                        : Badge(
-                            badgeColor: dark,
-                            badgeContent: Text(
-                              wishlist.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            child: Text(
-                              AppLocalizations.of(context)
-                                      .translate("my_wishlist_title") +
-                                  "   ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: ThemeColor.darksecondText),
-                            )),
+                    Text(
+                      AppLocalizations.of(context)
+                              .translate("my_wishlist_title") +
+                          "   ",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
+                    ),
+
+                    // wishlist == 0
+                    //     ? Text(
+                    //         AppLocalizations.of(context)
+                    //             .translate("my_wishlist_title"),
+                    //         style: TextStyle(
+                    //             fontWeight: FontWeight.bold,
+                    //             color: ThemeColor.darksecondText),
+                    //       )
+                    //     : Badge(
+                    //         badgeColor: dark,
+                    //         badgeContent: Text(
+                    //           wishlist.toString(),
+                    //           style: TextStyle(color: Colors.white),
+                    //         ),
+                    //         child: Text(
+                    //           AppLocalizations.of(context)
+                    //                   .translate("my_wishlist_title") +
+                    //               "   ",
+                    //           style: TextStyle(
+                    //               fontWeight: FontWeight.bold,
+                    //               color: ThemeColor.darksecondText),
+                    //         )),
                   ],
                 ),
               ),
@@ -594,8 +602,7 @@ class UserDrawer extends StatelessWidget {
       );
     }
 
-    Widget wholesellerDrawer(
-        {String profile, String email, String image, int wishlist = 0}) {
+    Widget wholesellerDrawer({String profile, String email, String image}) {
       return Container(
         color: ThemeColor.background,
         child: ListView(
@@ -716,28 +723,37 @@ class UserDrawer extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-                    wishlist == 0
-                        ? Text(
-                            AppLocalizations.of(context)
-                                .translate("my_wishlist_title"),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: ThemeColor.darksecondText),
-                          )
-                        : Badge(
-                            badgeColor: dark,
-                            badgeContent: Text(
-                              wishlist.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            child: Text(
-                              AppLocalizations.of(context)
-                                      .translate("my_wishlist_title") +
-                                  "   ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: ThemeColor.darksecondText),
-                            )),
+
+                    Text(
+                      AppLocalizations.of(context)
+                              .translate("my_wishlist_title") +
+                          "   ",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: ThemeColor.darksecondText),
+                    ),
+                    // wishlist == 0
+                    //     ? Text(
+                    //         AppLocalizations.of(context)
+                    //             .translate("my_wishlist_title"),
+                    //         style: TextStyle(
+                    //             fontWeight: FontWeight.bold,
+                    //             color: ThemeColor.darksecondText),
+                    //       )
+                    //     : Badge(
+                    //         badgeColor: dark,
+                    //         badgeContent: Text(
+                    //           wishlist.toString(),
+                    //           style: TextStyle(color: Colors.white),
+                    //         ),
+                    //         child: Text(
+                    //           AppLocalizations.of(context)
+                    //                   .translate("my_wishlist_title") +
+                    //               "   ",
+                    //           style: TextStyle(
+                    //               fontWeight: FontWeight.bold,
+                    //               color: ThemeColor.darksecondText),
+                    //         )),
                   ],
                 ),
               ),
@@ -1402,54 +1418,12 @@ class UserDrawer extends StatelessWidget {
             drawer = importerDrawer(profile: uname, email: email, image: image);
             break;
           case Role.wholeseller:
-            drawer = BlocListener<WishlistBloc, WishlistState>(
-                listener: (context, state) {},
-                child: BlocBuilder<WishlistBloc, WishlistState>(
-                    builder: (context, state) {
-                  // print("DRAWER STATE: " + state.props.toString());
-                  if (state is WishlistCounted || state is WishlistAdded) {
-                    return wholesellerDrawer(
-                      profile: uname,
-                      email: email,
-                      image: image,
-                    );
-                    // wishlist: state.props[0]
-                  } else if (state is WishlistLoaded) {
-                    return wholesellerDrawer(
-                      profile: uname,
-                      email: email,
-                      image: image,
-                    );
-                    // wishlist: state.wishlist.length
-                  } else {
-                    return wholesellerDrawer(
-                        profile: uname, email: email, image: image);
-                  }
-                }));
+            drawer =
+                wholesellerDrawer(profile: uname, email: email, image: image);
 
             break;
           case Role.pharmacist:
-            drawer = BlocListener<WishlistBloc, WishlistState>(
-                listener: (context, state) {},
-                child: BlocBuilder<WishlistBloc, WishlistState>(
-                    builder: (context, state) {
-                  if (state is WishlistCounted || state is WishlistAdded) {
-                    return pharmacyDrawer(
-                        profile: uname,
-                        email: email,
-                        image: image,
-                        wishlist: state.props[0]);
-                  } else if (state is WishlistLoaded) {
-                    return pharmacyDrawer(
-                        profile: uname,
-                        email: email,
-                        image: image,
-                        wishlist: state.wishlist.length);
-                  } else {
-                    return wholesellerDrawer(
-                        profile: uname, email: email, image: image);
-                  }
-                }));
+            drawer = pharmacyDrawer(profile: uname, email: email, image: image);
             break;
           case Role.phyisican:
             drawer =
