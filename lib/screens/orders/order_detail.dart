@@ -7,6 +7,7 @@ import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/models/models.dart';
+import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
@@ -164,14 +165,24 @@ class _ShowOrderState extends State<ShowOrder> {
                 color: ThemeColor.extralightText,
                 fontSize: 10,
                 fontFamily: defaultFont)),
-        Text(name,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                decoration: TextDecoration.underline,
-                color: Colors.white,
-                fontSize: 16,
-                fontFamily: defaultFont)),
+        InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => ShowProduct(
+                        id: postid,
+                      )),
+            );
+          },
+          child: Text(name,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontFamily: defaultFont)),
+        ),
       ],
     );
   }
@@ -189,10 +200,7 @@ class _ShowOrderState extends State<ShowOrder> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                decoration: TextDecoration.underline,
-                color: Colors.white,
-                fontSize: 12,
-                fontFamily: defaultFont)),
+                color: Colors.white, fontSize: 12, fontFamily: defaultFont)),
       ],
     );
   }
@@ -509,12 +517,12 @@ class _ShowOrderState extends State<ShowOrder> {
         }
       },
       child: BlocBuilder<OrderBloc, OrderState>(builder: (context, state) {
-        print("STATE: " + state.toString());
         if (state is OrderLoading || state is OrderInital) {
           return LoadingLogin(context);
         } else if (state is OrderFailure) {
           if (state.error == 'Not Authorized') {
-            return LoggedOutLoading(context);
+            return ErrorMessage(context, 'order_received', state.error);
+            //return LoggedOutLoading(context);
           } else {
             return ErrorMessage(context, 'order_received', state.error);
           }

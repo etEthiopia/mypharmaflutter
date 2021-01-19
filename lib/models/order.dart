@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mypharma/models/models.dart';
 
 class Order {
   int id;
@@ -20,25 +21,28 @@ class Order {
   String receiver;
   String sender;
   int groupTotal;
+  Vendor vendor;
 
-  Order.showReceived(
-      {@required this.id,
-      @required this.userid,
-      @required this.postid,
-      @required this.quantity,
-      @required this.tax,
-      @required this.net,
-      @required this.price,
-      @required this.status,
-      @required this.address,
-      @required this.town,
-      @required this.phone,
-      @required this.note,
-      @required this.date,
-      @required this.orderGroup,
-      @required this.name,
-      @required this.selected,
-      @required this.sender});
+  Order.showReceived({
+    @required this.id,
+    @required this.userid,
+    @required this.postid,
+    @required this.quantity,
+    @required this.tax,
+    @required this.net,
+    @required this.price,
+    @required this.status,
+    @required this.address,
+    @required this.town,
+    @required this.phone,
+    @required this.note,
+    @required this.date,
+    @required this.orderGroup,
+    @required this.name,
+    @required this.selected,
+    @required this.sender,
+    @required this.vendor,
+  });
 
   Order.receivedlist(
       {@required this.id,
@@ -164,24 +168,26 @@ class Order {
 
   factory Order.showReceivedFromJson(Map<String, dynamic> json) {
     return Order.showReceived(
-      id: json['id'],
-      postid: json['post_id'],
-      userid: json['user_id'],
-      price: double.parse(json['productprice'].toString()),
-      net: double.parse(json['net_total_price'].toString()),
-      note: json['order_note'],
-      address: json['address'],
-      town: json['town'],
-      phone: json['phonenum'],
-      orderGroup: json['order_group_id'].toString(),
-      tax: 0.0,
-      selected: false,
-      quantity: json['order_quantity'],
-      date: json['created_at'],
-      status: json['order_status'],
-      sender: json['vendorname'],
-      name: json['productname'],
-    );
+        id: json['id'],
+        postid: json['post_id'],
+        userid: json['user_id'],
+        price: double.parse(json['productprice'].toString()),
+        net: double.parse(json['net_total_price'].toString()),
+        note: json['order_note'],
+        address: json['address'],
+        town: json['town'],
+        phone: json['phonenum'],
+        orderGroup: json['order_group_id'].toString(),
+        tax: json['tax_total'] != null
+            ? double.parse(json['tax_total'].toString())
+            : 0.0,
+        selected: false,
+        quantity: json['order_quantity'],
+        date: json['created_at'],
+        status: json['order_status'],
+        sender: json['vendorname'],
+        name: json['productname'],
+        vendor: json['proowner']);
   }
 
   static Map<Order, List<Order>> sortOutReceivedOrders(

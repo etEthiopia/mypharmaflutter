@@ -30,6 +30,12 @@ class ProductDetailFetched extends ProductEvent {
   ProductDetailFetched({this.id});
 }
 
+class VendorFetched extends ProductEvent {
+  final int id;
+
+  VendorFetched({this.id});
+}
+
 class MedInfoDetailFetched extends ProductEvent {
   final int id;
 

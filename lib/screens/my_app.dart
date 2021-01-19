@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
         '/my_cart': (context) => MyCartPage(),
         '/settings': (context) => Settings(),
         '/checkout': (context) => CheckOutScreen(),
-        '/home': (context) => DashBoardScreen()
+        '/home': (context) => DashBoardScreen(),
       },
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {

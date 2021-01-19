@@ -23,6 +23,7 @@ class Product {
   int packageCapacity;
   String stockStatus;
   int amountInStock;
+  int vendorId;
   String manufacturerCountry;
   static bool isSearch;
 
@@ -52,6 +53,7 @@ class Product {
       @required this.manufacturer,
       @required this.manuDate,
       @required this.expDate,
+      @required this.vendorId,
       @required this.packagePrice,
       @required this.packageCapacity,
       @required this.stockStatus,
@@ -59,7 +61,7 @@ class Product {
       @required this.manufacturerCountry});
 
   factory Product.fromJsonDetial(Map<String, dynamic> json) {
-    print("prod: " + json.toString());
+    print("PROD DETAILS: $json");
     return Product.detail(
       id: json['id'],
       title: json['title'],
@@ -74,10 +76,11 @@ class Product {
       genericName: json['generic_name'] ?? "-",
       tax: double.parse(json['taxt_rate'].toString()),
       userid: json['user_id'],
+      vendorId: json['vendor_id'],
       manufacturer: json['manufacturer_company'] ?? "-",
       manuDate: json['manufactured_date'] ?? "-",
       expDate: json['expiry_date'] ?? "-",
-      packageCapacity: json['package_price'] ?? 0,
+      packageCapacity: json['package_capacity'] ?? 0,
       packagePrice: json['package_price'] ?? 0,
       stockStatus: json['stock_status'] ?? "-",
       amountInStock: json['stock_quantity'] ?? 0,

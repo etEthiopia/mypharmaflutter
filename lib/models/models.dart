@@ -9,3 +9,4 @@ export 'category.dart';
 export 'med_info.dart';
 export 'data.dart';
 export 'promo.dart';
+export 'vendor.dart';

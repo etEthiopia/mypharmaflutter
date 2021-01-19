@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:mypharma/exceptions/exceptions.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:http/http.dart' as http;
+import 'package:mypharma/models/vendor.dart';
 import '../main.dart';
 
 abstract class APIServiceSkel {
@@ -37,6 +38,7 @@ abstract class APIServiceSkel {
   Future<List<dynamic>> fetchMedsInfo();
   Future<dynamic> showMedInfo({int id});
   Future<Datta> showDashboard();
+  Future<Vendor> showVendor({int id});
 }
 
 class APIService extends APIServiceSkel {
@@ -369,7 +371,7 @@ class APIService extends APIServiceSkel {
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
-          print('Connection Error');
+          print('Connection Error + $e');
           throw ProductException(
               message: "Sorry, We couldn't get a response from our server");
         }
@@ -624,7 +626,6 @@ class APIService extends APIServiceSkel {
   @override
   Future<dynamic> fetchShowReceivedOrder({int postid, int id}) async {
     String order = "order-detail/$postid/order-id/$id";
-
     if (APIService.token != null) {
       try {
         var res = await http.get(
@@ -640,7 +641,6 @@ class APIService extends APIServiceSkel {
             if (json.decode(res.body)['sucess']) {
               Order order = Order.showReceivedFromJson(
                   json.decode(res.body)['0']['order']);
-
               return order;
             } else {
               if (json
@@ -1917,6 +1917,71 @@ class APIService extends APIServiceSkel {
       }
     } else {
       throw DashboardException(message: 'Not Authorized');
+    }
+  }
+
+  @override
+  Future<Vendor> showVendor({int id}) async {
+    String product = "vendor-product/$id";
+    if (APIService.token != null) {
+      try {
+        var res = await http.get(
+          "$SERVER_IP/$product",
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer ${APIService.token}'
+          },
+        ).timeout(Duration(seconds: 20));
+        if (res.statusCode == 200) {
+          if (res.body != null) {
+            if (json.decode(res.body)['sucess']) {
+              Vendor vendor = Vendor.fromJson(json.decode(res.body)['0']);
+              return vendor;
+            } else {
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw ProductException(message: 'Not Authorized');
+              }
+              print('Wrong Request');
+              throw ProductException(message: 'Wrong Request');
+            }
+          } else {
+            print('Wrong Question');
+            throw ProductException(message: 'Wrong Question');
+          }
+        } else {
+          print('Wrong Connection');
+          throw ProductException(message: 'Wrong Connection');
+        }
+      } catch (e) {
+        if (e is SocketException) {
+          if (e.toString().contains("Network is unreachable")) {
+            print('Internet Error');
+            throw ProductException(message: "Check Your Connection");
+          } else if (e.toString().contains("Connection refused")) {
+            print('Error from Server');
+            throw ProductException(
+                message: "Sorry, We couldn't reach the server");
+          } else {
+            print('Connection Error');
+            throw ProductException(
+                message: "Sorry, We couldn't get a response from our server");
+          }
+        } else if (e is FormatException) {
+          throw ProductException(message: 'Not Authorized');
+        } else if (e is ProductException) {
+          throw ProductException(message: e.message);
+        } else {
+          print('Connection Error ' + e.toString());
+          throw ProductException(
+              message: "Sorry, We couldn't get a response from our server");
+        }
+      }
+    } else {
+      throw ProductException(message: 'Not Authorized');
     }
   }
 }

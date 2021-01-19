@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 import 'package:flutter/material.dart';
@@ -70,9 +71,7 @@ class _ShowPromoState extends State<ShowPromo> {
         children: [
           Text(widget.title,
               style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontFamily: defaultFont)),
+                  color: Colors.white, fontSize: 20, fontFamily: defaultFont)),
           Text(
               AppLocalizations.of(context).translate("by_text") +
                   " " +
@@ -109,6 +108,7 @@ class _ShowPromoState extends State<ShowPromo> {
     Orientation orientation = MediaQuery.of(context).orientation;
     if (orientation == Orientation.portrait) {
       return Scaffold(
+          appBar: cleanAppBar(title: widget.title),
           backgroundColor: ThemeColor.extralight,
           body: SafeArea(
               child: Padding(
@@ -138,6 +138,7 @@ class _ShowPromoState extends State<ShowPromo> {
                       )))));
     } else {
       return Scaffold(
+          appBar: cleanAppBar(title: widget.title),
           backgroundColor: ThemeColor.extralight,
           body: SafeArea(
               child: Padding(

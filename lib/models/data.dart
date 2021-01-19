@@ -58,7 +58,6 @@ class Datta {
       this.promos});
 
   factory Datta.fromJson(Map<String, dynamic> json) {
-    print(json);
     if (int.parse(json['user'].toString()) == 2) {
       return Datta.Importer(
           user: json['user'],

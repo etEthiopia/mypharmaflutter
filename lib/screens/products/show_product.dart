@@ -12,6 +12,7 @@ import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/components/show_success.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/models/models.dart';
+import 'package:mypharma/screens/vendor/vendor_page.dart';
 import 'package:mypharma/services/services.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
@@ -36,7 +37,6 @@ class _ShowProductState extends State<ShowProduct> {
         appBar: cleanAppBar(
             title:
                 AppLocalizations.of(context).translate("show_product_title")),
-        drawer: UserDrawer(),
         backgroundColor: ThemeColor.background,
         body: BlocProvider<ProductBloc>(
             create: (context) => ProductBloc(apiService),
@@ -137,16 +137,16 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                       fontFamily: defaultFont));
             }
 
-            Widget _category() {
+            Widget _company() {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Category",
+                  Text("Manufacurer Company",
                       style: TextStyle(
                           color: ThemeColor.extralightText,
                           fontSize: 10,
                           fontFamily: defaultFont)),
-                  Text(state.product.category.toString(),
+                  Text(state.product.manufacturer,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -188,13 +188,25 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                               : ThemeColor.primaryText,
                           fontSize: 10,
                           fontFamily: defaultFont)),
-                  Text(state.product.vendor,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: por ? Colors.white : ThemeColor.darksecondText,
-                          fontSize: 15,
-                          fontFamily: defaultFont))
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => VendorPage(
+                                  id: state.product.vendorId,
+                                )),
+                      );
+                    },
+                    child: Text(state.product.vendor,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color:
+                                por ? Colors.white : ThemeColor.darksecondText,
+                            fontSize: 15,
+                            decoration: TextDecoration.underline,
+                            fontFamily: defaultFont)),
+                  )
                 ],
               );
             }
@@ -211,7 +223,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                         SizedBox(
                           height: 5,
                         ),
-                        _category(),
+                        _company(),
                         _country(),
                       ],
                     ),
@@ -224,7 +236,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      _category(),
+                      _company(),
                       _country(),
                     ],
                   ),
