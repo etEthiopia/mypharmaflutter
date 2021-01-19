@@ -18,7 +18,7 @@ APIService apiService = APIService();
 void main() {
   runApp(Phoenix(
     child:
-        // Injects the Authentication serviceaaaaaaavvrrty
+        // Injects the Authentication service
         RepositoryProvider<APIService>(
             create: (context) {
               return APIService();

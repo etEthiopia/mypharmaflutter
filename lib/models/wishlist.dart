@@ -9,6 +9,7 @@ class Wishlist {
   int quantity;
   String vendorname;
   String picture;
+  static int count = 0;
 
   Wishlist(
       {@required this.id,
@@ -22,6 +23,7 @@ class Wishlist {
 
   static List<Wishlist> generateWishlistList(List<dynamic> wishlistlist) {
     List<Wishlist> wishlistfetched = List<Wishlist>();
+    Wishlist.count = wishlistfetched.length;
 
     for (var wishlist in wishlistlist) {
       wishlistfetched.add(Wishlist(

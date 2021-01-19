@@ -59,6 +59,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           final List<Wishlist> current = state.props[0];
           final updatedWishes =
               current.where((wish) => wish.id != event.id).toList();
+          Wishlist.count -= 1;
           yield WishlistLoaded(wishlist: updatedWishes);
         }
       }
@@ -90,6 +91,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
             int prcount = state.props[0];
             count = prcount + 1;
           }
+          Wishlist.count = count;
           yield WishlistAdded(count: count);
           yield WishlistCounted(count: count);
         } else {
@@ -112,6 +114,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
       try {
         final result = await _apiService.countWishList();
         if (result != null) {
+          Wishlist.count = result;
           yield WishlistCounted(count: result);
         } else {
           yield WishlistNotLoaded();

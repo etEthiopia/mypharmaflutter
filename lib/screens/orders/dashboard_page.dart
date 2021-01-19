@@ -554,7 +554,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 15),
-                          height: 150,
+                          height: 200,
                           color: Colors.grey[150],
                           child: GridView.builder(
                             scrollDirection: Axis.horizontal,
