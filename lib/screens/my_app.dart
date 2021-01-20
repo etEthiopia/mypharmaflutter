@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/auth/bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:mypharma/blocs/cart/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/models/models.dart';
 import 'package:mypharma/screens/auth/joinus.dart';
@@ -104,8 +105,15 @@ class _MyAppState extends State<MyApp> {
                   state.user.role == Role.importer ||
                   state.user.role == Role.pharmacist) {
                 if (state.user.role == Role.wholeseller) {
-                  final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
-                  _wishlistBloc.add(WishlistCount());
+                  try {
+                    final _wishlistBloc =
+                        BlocProvider.of<WishlistBloc>(context);
+                    final _cartBloc = BlocProvider.of<CartBloc>(context);
+                    _cartBloc.add(CartCount());
+                    _wishlistBloc.add(WishlistCount());
+                  } catch (e) {
+                    print(e.message);
+                  }
                 }
                 return DashBoardScreen();
               } else {

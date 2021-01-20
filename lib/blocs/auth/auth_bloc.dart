@@ -55,14 +55,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (currentUser != null) {
         APIService.token = currentUser.token;
         APIService.id = currentUser.id;
-        if (currentUser.role == Role.pharmacist ||
-            currentUser.role == Role.wholeseller) {
-          try {
-            Cart.count = await _apiService.countCartItems();
-          } catch (e) {
-            print(e.message);
-          }
-        }
+        // if (currentUser.role == Role.pharmacist ||
+        //     currentUser.role == Role.wholeseller) {
+        //   try {
+        //     Cart.count = await _apiService.countCartItems();
+        //   } catch (e) {
+        //     print(e.message);
+        //   }
+        // }
 
         yield AuthAuthenticated(user: currentUser);
       } else {
@@ -80,6 +80,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _mapUserRegisteredToState(UserRegistered event) async* {
+    APIService.token = event.user.token;
+    APIService.id = event.user.id;
     yield AuthAuthenticated(user: event.user);
   }
 

@@ -35,9 +35,10 @@ class MedicalInfo {
       productsfetched.add(MedicalInfo.medsInfo(
         id: products['id'],
         title: products['generic_name'],
-        description: products['description'],
+        description: products['discription'],
       ));
     }
+
     return productsfetched;
   }
 
@@ -54,4 +55,8 @@ class MedicalInfo {
         doseAdminstrations: json['dose_administrations'],
         storage: json['storage']);
   }
+
+  @override
+  String toString() =>
+      'Med Info {id: $id, title: $title, description: $description}';
 }

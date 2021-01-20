@@ -128,151 +128,157 @@ class _FeedListState extends State<FeedList> {
         return Scaffold(
           backgroundColor: ThemeColor.background1,
           body: SafeArea(
-              child: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: padd),
-                  child: Material(
-                    color: ThemeColor.background2,
-                    child: Container(
-                        padding: orientation == Orientation.portrait
-                            ? EdgeInsets.all(0)
-                            : EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: <Widget>[
-                            page > 1
-                                ? Container(
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          page = 1;
-                                        });
-                                        _feedBloc.add(NewsFetched(page: page));
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Icon(
-                                            Icons.timer,
-                                            color: ThemeColor.darkText,
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Go back to the latest news",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.clip,
-                                            style: TextStyle(
-                                                color: ThemeColor.darkText,
-                                                fontSize: 20,
-                                                fontFamily: defaultFont),
-                                          ),
-                                        ],
-                                      ),
-                                    ))
-                                : SizedBox(
-                                    height: 0,
+              child: Container(
+            child: Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: padd),
+                    child: Material(
+                      color: ThemeColor.background2,
+                      child: Container(
+                          padding: orientation == Orientation.portrait
+                              ? EdgeInsets.all(0)
+                              : EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            children: <Widget>[
+                              page > 1
+                                  ? Container(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            page = 1;
+                                          });
+                                          _feedBloc
+                                              .add(NewsFetched(page: page));
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.timer,
+                                              color: ThemeColor.darkText,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              "Go back to the latest news",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.clip,
+                                              style: TextStyle(
+                                                  color: ThemeColor.darkText,
+                                                  fontSize: 20,
+                                                  fontFamily: defaultFont),
+                                            ),
+                                          ],
+                                        ),
+                                      ))
+                                  : SizedBox(
+                                      height: 0,
+                                    ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Container(
+                                    padding:
+                                        EdgeInsets.only(bottom: 5, top: 10),
+                                    color: Colors.grey[400],
+                                    child: Text(
+                                      AppLocalizations.of(context)
+                                          .translate("promo_title"),
+                                      style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(bottom: 5, top: 10),
-                                  color: Colors.grey[400],
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate("promo_title"),
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(
-                                  left: 5, right: 5, bottom: 15),
-                              height: 200,
-                              color: Colors.grey[400],
-                              child: GridView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: state.promos.length,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 1),
-                                itemBuilder: (BuildContext context, int index) {
-                                  return InkWell(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) => ShowPromo(
-                                                  id: state.promos[index].id,
-                                                  title:
-                                                      state.promos[index].title,
-                                                  content: state.promos[index]
-                                                      .description,
-                                                  image:
-                                                      state.promos[index].image,
-                                                  author: state.promos[index]
-                                                      .authorname)),
-                                        );
-                                      },
-                                      child: promotion(
-                                        context: context,
-                                        id: state.promos[index].id,
-                                        title: state.promos[index].title,
-                                        description:
-                                            state.promos[index].description,
-                                        image: state.promos[index].image,
-                                        profileimg:
-                                            state.promos[index].profileimg,
-                                        author: state.promos[index].author,
-                                        authorname:
-                                            state.promos[index].authorname,
-                                      ));
-                                },
+                                ],
                               ),
-                            ),
-                            Expanded(
-                              child: GridView.builder(
+                              Container(
+                                padding: EdgeInsets.only(
+                                    left: 5, right: 5, bottom: 15),
+                                height: 150,
+                                color: Colors.grey[400],
+                                child: GridView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.promos.length,
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 1),
-                                  itemCount: state.newsList.length,
-                                  controller: _controller,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    last = state.last;
+                                    return InkWell(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) => ShowPromo(
+                                                    id: state.promos[index].id,
+                                                    title: state
+                                                        .promos[index].title,
+                                                    content: state.promos[index]
+                                                        .description,
+                                                    image: state
+                                                        .promos[index].image,
+                                                    author: state.promos[index]
+                                                        .authorname)),
+                                          );
+                                        },
+                                        child: promotion(
+                                          context: context,
+                                          id: state.promos[index].id,
+                                          title: state.promos[index].title,
+                                          description:
+                                              state.promos[index].description,
+                                          image: state.promos[index].image,
+                                          profileimg:
+                                              state.promos[index].profileimg,
+                                          author: state.promos[index].author,
+                                          authorname:
+                                              state.promos[index].authorname,
+                                        ));
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 1),
+                                    itemCount: state.newsList.length,
+                                    controller: _controller,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      last = state.last;
 
-                                    return article(
-                                        title: state.newsList[index].title
-                                            .toString(),
-                                        image: state.newsList[index].image
-                                            .toString(),
-                                        content: state
-                                            .newsList[index].description
-                                            .toString(),
-                                        time: state.newsList[index].date
-                                            .toString(),
-                                        category:
-                                            state.newsList[index].category,
-                                        context: context,
-                                        id: state.newsList[index].id);
-                                  }),
-                            ),
-                          ],
-                        )),
+                                      return article(
+                                          title: state.newsList[index].title
+                                              .toString(),
+                                          image: state.newsList[index].image
+                                              .toString(),
+                                          content: state
+                                              .newsList[index].description
+                                              .toString(),
+                                          time: state.newsList[index].date
+                                              .toString(),
+                                          category:
+                                              state.newsList[index].category,
+                                          context: context,
+                                          id: state.newsList[index].id);
+                                    }),
+                              ),
+                            ],
+                          )),
+                    ),
                   ),
                 ),
-              ),
-              SignInUp(),
-            ],
+                SignInUp(),
+              ],
+            ),
           )),
         );
       }

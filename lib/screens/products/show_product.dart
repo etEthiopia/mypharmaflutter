@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/blocs/cart/bloc.dart';
 import 'package:mypharma/blocs/product/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/components/appbars.dart';
-import 'package:mypharma/components/drawers.dart';
 import 'package:mypharma/components/loading.dart';
 import 'package:mypharma/components/show_error.dart';
 import 'package:mypharma/components/show_success.dart';
@@ -141,7 +139,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Manufacurer Company",
+                  Text(
+                      AppLocalizations.of(context)
+                          .translate("manufacturer_company"),
                       style: TextStyle(
                           color: ThemeColor.extralightText,
                           fontSize: 10,
@@ -161,7 +161,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Country",
+                  Text(AppLocalizations.of(context).translate("country_title"),
                       style: TextStyle(
                           color: ThemeColor.extralightText,
                           fontSize: 10,
@@ -181,7 +181,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Provider",
+                  Text(AppLocalizations.of(context).translate("provider_text"),
                       style: TextStyle(
                           color: por
                               ? ThemeColor.extralightText
@@ -274,7 +274,8 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                   size: 20,
                                 ),
                                 Text(
-                                  "Add to Cart",
+                                  AppLocalizations.of(context)
+                                      .translate("add_to_cart_btn_text"),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: defaultFont),
@@ -314,7 +315,8 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                   size: 20,
                                 ),
                                 Text(
-                                  "Add to Wishlist",
+                                  AppLocalizations.of(context)
+                                      .translate("add_to_wishlist_btn_text"),
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: defaultFont),
@@ -349,7 +351,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 SizedBox(
                                   height: por == true ? 0 : 10,
                                 ),
-                                Text("Product Name",
+                                Text(
+                                    AppLocalizations.of(context)
+                                        .translate("product_name"),
                                     style: TextStyle(
                                         color: ThemeColor.lightText,
                                         fontSize: 10,
@@ -367,7 +371,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text("Generic Name",
+                                Text(
+                                    AppLocalizations.of(context)
+                                        .translate("generic_name"),
                                     style: TextStyle(
                                         color: ThemeColor.lightText,
                                         fontSize: 10,
@@ -387,7 +393,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text("Batch Number",
+                                    Text(
+                                        AppLocalizations.of(context)
+                                            .translate("batch_number"),
                                         style: TextStyle(
                                             color: ThemeColor.lightText,
                                             fontSize: 10,
@@ -403,7 +411,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: <Widget>[
-                                      Text("Single's Price",
+                                      Text(
+                                          AppLocalizations.of(context)
+                                              .translate("singles_price"),
                                           style: TextStyle(
                                               color: ThemeColor.lightText,
                                               fontSize: 10,
@@ -430,7 +440,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text("Package Capacity",
+                                    Text(
+                                        AppLocalizations.of(context)
+                                            .translate("package_capacity"),
                                         style: TextStyle(
                                             color: ThemeColor.lightText,
                                             fontSize: 10,
@@ -448,7 +460,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: <Widget>[
-                                      Text("Package's Price",
+                                      Text(
+                                          AppLocalizations.of(context)
+                                              .translate("package_price"),
                                           style: TextStyle(
                                               color: ThemeColor.lightText,
                                               fontSize: 10,
@@ -475,7 +489,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text("Stock Status",
+                                    Text(
+                                        AppLocalizations.of(context)
+                                            .translate("stock_status"),
                                         style: TextStyle(
                                             color: ThemeColor.lightText,
                                             fontSize: 10,
@@ -491,7 +507,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: <Widget>[
-                                      Text("Amount in Stock",
+                                      Text(
+                                          AppLocalizations.of(context)
+                                              .translate("amount_in_stock"),
                                           style: TextStyle(
                                               color: ThemeColor.lightText,
                                               fontSize: 10,
@@ -517,7 +535,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text("Manufacured Date",
+                                    Text(
+                                        AppLocalizations.of(context)
+                                            .translate("manufactured_date"),
                                         style: TextStyle(
                                             color: ThemeColor.lightText,
                                             fontSize: 10,
@@ -535,7 +555,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text("Expire Date",
+                                    Text(
+                                        AppLocalizations.of(context)
+                                            .translate("expire_date"),
                                         style: TextStyle(
                                             color: ThemeColor.lightText,
                                             fontSize: 10,
@@ -555,7 +577,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text("Manufacurer Company",
+                                Text(
+                                    AppLocalizations.of(context)
+                                        .translate("manufacturer_company"),
                                     style: TextStyle(
                                         color: ThemeColor.lightText,
                                         fontSize: 10,
@@ -573,7 +597,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text("Description",
+                                Text(
+                                    AppLocalizations.of(context)
+                                        .translate("description_text"),
                                     style: TextStyle(
                                         color: light,
                                         fontSize: 10,
@@ -612,14 +638,6 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                     width: 5,
                                   ),
                                 ),
-                                InkWell(
-                                    child: Text(
-                                  "Contribute on the Content",
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      color: dark,
-                                      fontFamily: defaultFont),
-                                )),
                               ],
                             ),
                           ],

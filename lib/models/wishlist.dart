@@ -23,7 +23,7 @@ class Wishlist {
 
   static List<Wishlist> generateWishlistList(List<dynamic> wishlistlist) {
     List<Wishlist> wishlistfetched = List<Wishlist>();
-    Wishlist.count = wishlistfetched.length;
+    Wishlist.count = wishlistlist.length;
 
     for (var wishlist in wishlistlist) {
       wishlistfetched.add(Wishlist(

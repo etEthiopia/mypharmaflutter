@@ -18,6 +18,7 @@
     "cancel_btn_text": "ተመለስ",
     "yes_btn_text": "አዎ",
     "add_to_cart_btn_text": "ወደ ቅርጫት",
+    "add_to_wishlist_btn_text": "ወደ ምኞት ዝርዝር",
     "delete_selected_btn_text": "የተመረጡትን ይሰርዙ",
     "quantity_short_text": "ብዛት",
     "quantity_text": "ብዛት",
@@ -83,5 +84,19 @@
     "by_admin": "ከ አስተዳዳሪው",
     "promo_title": "ማስታወቂያዎች",
     "by_text": "በ",
-    "vendor_title": "ድርጅት"
+    "vendor_title": "ድርጅት",
+    "provider_text": "አቅራቢ",
+    "manufacturer_company": "አቅራቢ ድርጅት",
+    "generic_name": "አጠቃላይ ስም",
+    "batch_number": "ባች ነምበር",
+    "singles_price": "የነጠላ ዋጋ",
+    "package_capacity": "የፓኬጅ አቅም",
+    "package_price": "የፓኬጅ ዋጋ",
+    "stock_status": "የክምችት ሁኔታ",
+    "country_title": "ሃገር",
+    "amount_in_stock": "ክምችት ውስጥ ያለ ብዛት",
+    "manufactured_date": "የተመረተበት ቀን",
+    "expire_date": "የመበላሻ ቀን",
+    "description_text": "መግለጫ",
+    "brand_filter_text": "በብራንድ ይፈልጉ"
 }

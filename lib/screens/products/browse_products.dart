@@ -347,7 +347,7 @@ class _BrowseProductListState extends State<BrowseProductList> {
                             .translate("search_no_result"),
                         style: TextStyle(
                             fontSize: 20,
-                            color: Colors.white,
+                            color: ThemeColor.contrastText,
                             fontFamily: defaultFont),
                       ),
                     ),

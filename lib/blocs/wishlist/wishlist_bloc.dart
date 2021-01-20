@@ -57,8 +57,10 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         final result = await _apiService.deleteWish(event.id);
         if (result) {
           final List<Wishlist> current = state.props[0];
+          print("current wl: " + current.toString());
           final updatedWishes =
               current.where((wish) => wish.id != event.id).toList();
+          print("updated wl: " + event.id.toString());
           Wishlist.count -= 1;
           yield WishlistLoaded(wishlist: updatedWishes);
         }

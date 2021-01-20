@@ -16,7 +16,7 @@ Widget promotion(
     String authorname,
     var context}) {
   return Container(
-      margin: EdgeInsets.all(5),
+      margin: EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
@@ -36,7 +36,7 @@ Widget promotion(
                   child: GridTile(
                 header: Container(
                   decoration: BoxDecoration(
-                    color: ThemeColor.isDark ? Colors.black54 : Colors.white70,
+                    color: ThemeColor.isDark ? Colors.black : Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15)),
@@ -148,6 +148,14 @@ Widget _progress(BuildContext context, String url, dynamic downloadProgress) {
 Widget loadimage(String image) {
   return CachedNetworkImage(
     imageUrl: '${SERVER_IP_FILE}news/$image',
+    imageBuilder: (context, imageProvider) => Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
+        ),
+        image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+      ),
+    ),
     progressIndicatorBuilder: _progress,
     errorWidget: _error,
   );

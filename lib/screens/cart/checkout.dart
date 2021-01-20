@@ -27,6 +27,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   final _key = GlobalKey<FormState>();
   bool _autoValidate = false;
   String _selectedSpot = "Home";
+  String _selectedPayment = "Cash On Delivery";
   bool _editable = false;
   var _cartBloc;
 
@@ -131,7 +132,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               note: _noteController.text,
                               landmark: _landmarkController.text,
                               city: _cityController.text,
-                              phone: _phoneController.text));
+                              phone: _phoneController.text,
+                              payment: _selectedPayment));
                         },
                         child: Text(
                           AppLocalizations.of(context)
@@ -425,6 +427,69 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       );
     }
 
+    List<DropdownMenuItem<dynamic>> payments = [
+      DropdownMenuItem(
+        value: "Cash On Delivery",
+        child: Text(
+          "Cash On Delivery",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+        ),
+      ),
+      DropdownMenuItem(
+        value: "credit",
+        child: Text(
+          "Credit",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+        ),
+      ),
+      DropdownMenuItem(
+        value: "consignment",
+        child: Text(
+          "Consignment",
+          style: TextStyle(
+              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+        ),
+      ),
+    ];
+
+    Widget _paymentText() {
+      return Text(
+        AppLocalizations.of(context).translate("spot_text"),
+        style: TextStyle(
+            color: ThemeColor.darkText, fontSize: 10, fontFamily: defaultFont),
+      );
+    }
+    //
+
+    Widget _paymentPrompt() {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _spotText(),
+            DropdownButtonFormField(
+              dropdownColor: ThemeColor.background3,
+              style: TextStyle(color: dark, fontFamily: defaultFont),
+              items: payments,
+              hint: Text(
+                AppLocalizations.of(context).translate("spot_text"),
+              ),
+              value: _selectedPayment,
+              onChanged: (value) {
+                setState(() {
+                  _selectedPayment = value;
+                });
+              },
+              isExpanded: true,
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget _notePrompt() {
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -556,6 +621,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
           _editmode(),
           _smallSizedBox(),
+          _paymentPrompt(),
           _notePrompt()
         ]);
       }
@@ -639,10 +705,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             child: SingleChildScrollView(
                                 child: Column(
                           children: <Widget>[
-                            Form(
-                                key: _key,
-                                autovalidate: _autoValidate,
-                                child: _layout(por)),
+                            Form(key: _key, child: _layout(por)),
                           ],
                         ))),
                         _calculatedAmount(address: state.address)

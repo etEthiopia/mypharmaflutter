@@ -64,6 +64,10 @@ class UserDrawer extends StatelessWidget {
       Navigator.pushNamed(context, '/joinus');
     }
 
+    _register() {
+      Navigator.pushReplacementNamed(context, '/registerphy');
+    }
+
     _search() {
       Navigator.pushReplacementNamed(context, '/search_products');
     }
@@ -112,10 +116,7 @@ class UserDrawer extends StatelessWidget {
       // );
     }
 
-    Widget anonDrawer({
-      String profile,
-      String email,
-    }) {
+    Widget anonDrawer({String profile, String email}) {
       return Container(
         color: ThemeColor.background,
         child: ListView(
@@ -162,6 +163,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _register();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -203,57 +207,6 @@ class UserDrawer extends StatelessWidget {
                     Text(
                       AppLocalizations.of(context)
                           .translate("feed_screen_title"),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: ThemeColor.darksecondText),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                _browseProduct();
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.new_releases,
-                      color: ThemeColor.primaryText,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)
-                          .translate("browse_product_title"),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: ThemeColor.darksecondText),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                _search();
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.search,
-                      color: ThemeColor.primaryText,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      AppLocalizations.of(context).translate("search_title"),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: ThemeColor.darksecondText),
@@ -333,6 +286,9 @@ class UserDrawer extends StatelessWidget {
               decoration: BoxDecoration(color: ThemeColor.primaryBtn),
             ),
             InkWell(
+              onTap: () {
+                _cart();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -369,42 +325,36 @@ class UserDrawer extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-                    Text(
-                      AppLocalizations.of(context)
-                              .translate("my_wishlist_title") +
-                          "   ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: ThemeColor.darksecondText),
-                    ),
-
-                    // wishlist == 0
-                    //     ? Text(
-                    //         AppLocalizations.of(context)
-                    //             .translate("my_wishlist_title"),
-                    //         style: TextStyle(
-                    //             fontWeight: FontWeight.bold,
-                    //             color: ThemeColor.darksecondText),
-                    //       )
-                    //     : Badge(
-                    //         badgeColor: dark,
-                    //         badgeContent: Text(
-                    //           wishlist.toString(),
-                    //           style: TextStyle(color: Colors.white),
-                    //         ),
-                    //         child: Text(
-                    //           AppLocalizations.of(context)
-                    //                   .translate("my_wishlist_title") +
-                    //               "   ",
-                    //           style: TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               color: ThemeColor.darksecondText),
-                    //         )),
+                    Wishlist.count == 0
+                        ? Text(
+                            AppLocalizations.of(context)
+                                .translate("my_wishlist_title"),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: ThemeColor.darksecondText),
+                          )
+                        : Badge(
+                            badgeColor: dark,
+                            badgeContent: Text(
+                              Wishlist.count.toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)
+                                      .translate("my_wishlist_title") +
+                                  "   ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: ThemeColor.darksecondText),
+                            )),
                   ],
                 ),
               ),
             ),
             InkWell(
+              onTap: () {
+                _ordersent();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -480,6 +430,9 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             InkWell(
+              onTap: () {
+                _browseProduct();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Row(
@@ -730,37 +683,28 @@ class UserDrawer extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-
-                    Text(
-                      AppLocalizations.of(context)
-                              .translate("my_wishlist_title") +
-                          "   ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: ThemeColor.darksecondText),
-                    ),
-                    // wishlist == 0
-                    //     ? Text(
-                    //         AppLocalizations.of(context)
-                    //             .translate("my_wishlist_title"),
-                    //         style: TextStyle(
-                    //             fontWeight: FontWeight.bold,
-                    //             color: ThemeColor.darksecondText),
-                    //       )
-                    //     : Badge(
-                    //         badgeColor: dark,
-                    //         badgeContent: Text(
-                    //           wishlist.toString(),
-                    //           style: TextStyle(color: Colors.white),
-                    //         ),
-                    //         child: Text(
-                    //           AppLocalizations.of(context)
-                    //                   .translate("my_wishlist_title") +
-                    //               "   ",
-                    //           style: TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               color: ThemeColor.darksecondText),
-                    //         )),
+                    Wishlist.count == 0
+                        ? Text(
+                            AppLocalizations.of(context)
+                                .translate("my_wishlist_title"),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: ThemeColor.darksecondText),
+                          )
+                        : Badge(
+                            badgeColor: dark,
+                            badgeContent: Text(
+                              Wishlist.count.toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context)
+                                      .translate("my_wishlist_title") +
+                                  "   ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: ThemeColor.darksecondText),
+                            )),
                   ],
                 ),
               ),
@@ -1260,80 +1204,6 @@ class UserDrawer extends StatelessWidget {
               ),
             ),
             Divider(),
-            InkWell(
-              onTap: () {
-                _feed();
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.rss_feed,
-                      color: ThemeColor.primaryText,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)
-                          .translate("feed_screen_title"),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: ThemeColor.darksecondText),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            InkWell(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.new_releases,
-                      color: ThemeColor.primaryText,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)
-                          .translate("browse_product_title"),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: ThemeColor.darksecondText),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                _search();
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      Icons.search,
-                      color: ThemeColor.primaryText,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Text(
-                      AppLocalizations.of(context).translate("search_title"),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: ThemeColor.darksecondText),
-                    ),
-                  ],
-                ),
-              ),
-            ),
             InkWell(
               onTap: () {
                 _medsinfo();

@@ -42,6 +42,7 @@ class CartOrder extends CartEvent {
   final String landmark;
   final String city;
   final String phone;
+  final String payment;
 
   CartOrder(
       {this.addressChange,
@@ -49,7 +50,8 @@ class CartOrder extends CartEvent {
       this.note,
       this.landmark,
       this.city,
-      this.phone});
+      this.phone,
+      this.payment});
 
   @override
   List<Object> get props =>

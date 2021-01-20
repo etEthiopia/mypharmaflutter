@@ -18,12 +18,12 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost/mypharma/public/api/register
+POST http://localhost/mypharma/api/register
 Content-Type: application/json
 
 {
-    "email": "henokb@gmail.com",
-    "name": "Henok B",
+    "email": "dbiden@gmail.com",
+    "name": "Dagmawi Biden",
     "password": "12345678",
     "role": 5,
     "profession": 2
@@ -180,12 +180,12 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvX
 
 
 
-POST http://localhost/mypharmakal/api/search
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1ha2FsXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1MTc5MjQ0LCJleHAiOjE2MDUyNjU2NDQsIm5iZiI6MTYwNTE3OTI0NCwianRpIjoiZEpXT2E2MDhIcDRIUDlBTyIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.LpkUtOTrQ1i7HX1B3eAPZoJ2T2UUvMhJ1lVseIfSkqw
+POST http://localhost/mypharma/api/search
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjExMTc4MDA1LCJleHAiOjE2MTExODE2MDUsIm5iZiI6MTYxMTE3ODAwNSwianRpIjoiVGN5VGVXNDR3akZPYmVFVSIsInN1YiI6MywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.IoF2kAwrUYGM7nG3B4Ns6cpSa34YaSmVOf3aMzdOKX0
 Content-Type: application/json
 
 {
-    "searchbyal": "kub"
+    "searchbyal": "amox"
 }
 ###
 
@@ -198,11 +198,12 @@ GET http://localhost/mypharmakal/api/search_by_cat/2
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1ha2FsXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1MTc5MjQ0LCJleHAiOjE2MDUyNjU2NDQsIm5iZiI6MTYwNTE3OTI0NCwianRpIjoiZEpXT2E2MDhIcDRIUDlBTyIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.LpkUtOTrQ1i7HX1B3eAPZoJ2T2UUvMhJ1lVseIfSkqw
 ###
 
-GET http://localhost/mypharmakal/api/medsinfo
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1ha2FsXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1MjcxMjUxLCJleHAiOjE2MDUzNTc2NTEsIm5iZiI6MTYwNTI3MTI1MSwianRpIjoicllYYklONW1nUGw3ZGFybCIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.itzUo9X7okR2Xt69jnFkgft45fD33Ds_1GG-rFVb2J8
+GET http://localhost/mypharma/api/medsinfo
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1hXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjExMTc4MDA1LCJleHAiOjE2MTExODE2MDUsIm5iZiI6MTYxMTE3ODAwNSwianRpIjoiVGN5VGVXNDR3akZPYmVFVSIsInN1YiI6MywicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.IoF2kAwrUYGM7nG3B4Ns6cpSa34YaSmVOf3aMzdOKX0
+
 ###
 
-GET http://localhost/mypharmakal/api/medsinfo/show/1
+GET http://localhost/mypharma/api/medsinfo/show/1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL215cGhhcm1ha2FsXC9hcGlcL2xvZ2luIiwiaWF0IjoxNjA1MjcxMjUxLCJleHAiOjE2MDUzNTc2NTEsIm5iZiI6MTYwNTI3MTI1MSwianRpIjoicllYYklONW1nUGw3ZGFybCIsInN1YiI6NiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.itzUo9X7okR2Xt69jnFkgft45fD33Ds_1GG-rFVb2J8
 ###
 

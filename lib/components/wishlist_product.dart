@@ -4,7 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mypharma/app_localizations.dart';
+import 'package:mypharma/blocs/cart/bloc.dart';
 import 'package:mypharma/blocs/wishlist/bloc.dart';
+import 'package:mypharma/components/show_success.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/models/wishlist.dart';
 import 'package:mypharma/theme/colors.dart';
@@ -197,11 +199,22 @@ class _WishlistProductState extends State<WishlistProduct> {
               children: <Widget>[
                 Expanded(
                   child: InkWell(
+                      onTap: () {
+                        final _cartBloc = BlocProvider.of<CartBloc>(context);
+
+                        _cartBloc.add(CartAdd(postid: widget.postid));
+                        // Navigator.of(context).pop();
+
+                        showSucess("Wishlist has been added to cart", context);
+                        // Future.delayed(Duration(seconds: 3));
+                        // Navigator.pushReplacementNamed(
+                        //     context, 'my_cart');
+                      },
                       child: Icon(
-                    Icons.shopping_cart,
-                    color: ThemeColor.darkText,
-                    size: 19,
-                  )
+                        Icons.shopping_cart,
+                        color: ThemeColor.darkText,
+                        size: 19,
+                      )
 
                       // Container(
                       //     padding: const EdgeInsets.all(5.0),

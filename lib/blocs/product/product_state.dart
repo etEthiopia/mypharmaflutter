@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:mypharma/models/models.dart';
+import 'package:mypharma/screens/products/meds_info.dart';
 
 abstract class ProductState extends Equatable {
   const ProductState();

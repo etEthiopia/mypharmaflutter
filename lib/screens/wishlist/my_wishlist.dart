@@ -46,6 +46,7 @@ class MyWishlistsList extends StatefulWidget {
 class _MyWishlistsListState extends State<MyWishlistsList> {
   var _wishlistBloc;
   List<int> selectedList = [];
+  List<int> selectedWList = [];
 
   @override
   void initState() {
@@ -104,15 +105,15 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
               ),
               onPressed: () {
                 final _wishlistBloc = BlocProvider.of<WishlistBloc>(context);
-                for (var id in selectedList) {
+                for (var id in selectedWList) {
                   _wishlistBloc.add(WishlistDelete(id: id));
                 }
                 Navigator.of(context).pop();
-                print(selectedList);
+
                 setState(() {
+                  selectedWList = [];
                   selectedList = [];
                 });
-                print(selectedList);
               },
             ),
           ],
@@ -173,9 +174,13 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
                                     if (value) {
                                       selectedList
                                           .add(state.wishlist[index].postId);
+                                      selectedWList
+                                          .add(state.wishlist[index].id);
                                     } else {
                                       selectedList
                                           .remove(state.wishlist[index].postId);
+                                      selectedWList
+                                          .remove(state.wishlist[index].id);
                                     }
                                   });
                                 },
@@ -209,6 +214,7 @@ class _MyWishlistsListState extends State<MyWishlistsList> {
 
                                               setState(() {
                                                 selectedList = [];
+                                                selectedWList = [];
                                               });
 
                                               showSucess(

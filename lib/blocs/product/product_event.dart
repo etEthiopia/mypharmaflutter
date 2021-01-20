@@ -20,6 +20,13 @@ class ProductSearched extends ProductEvent {
 
 class MedsInfoFetched extends ProductEvent {}
 
+class MedsInfoSearched extends ProductEvent {
+  final String text;
+  final int id;
+
+  MedsInfoSearched({this.text, this.id});
+}
+
 class MyStockFetched extends ProductEvent {}
 
 class NewsBacked extends ProductEvent {}

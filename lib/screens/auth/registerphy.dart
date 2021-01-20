@@ -45,7 +45,7 @@ class _RegisterFormState extends State<_RegisterForm> {
   final TextEditingController _casswordController = TextEditingController();
   final TextEditingController _fullnameController = TextEditingController();
   bool _autoValidate = false;
-  int _selectedProfession = 0;
+  int _selectedProfession = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -65,27 +65,11 @@ class _RegisterFormState extends State<_RegisterForm> {
       }
     }
 
-    List<String> _professionList = [
-      "Doctor",
-      "Health Worker",
-      "Nurse",
-      "Pharmacist",
-      "Others",
-    ];
-
     List<DropdownMenuItem<dynamic>> professions = [
-      DropdownMenuItem(
-        value: 0,
-        child: Text(
-          "Doctor",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
-        ),
-      ),
       DropdownMenuItem(
         value: 1,
         child: Text(
-          "Health Worker",
+          "Physician",
           style: TextStyle(
               fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
@@ -93,7 +77,7 @@ class _RegisterFormState extends State<_RegisterForm> {
       DropdownMenuItem(
         value: 2,
         child: Text(
-          "Nurse",
+          "Health Officer",
           style: TextStyle(
               fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
@@ -101,7 +85,7 @@ class _RegisterFormState extends State<_RegisterForm> {
       DropdownMenuItem(
         value: 3,
         child: Text(
-          "Pharmacist",
+          "Nurse",
           style: TextStyle(
               fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
@@ -109,11 +93,52 @@ class _RegisterFormState extends State<_RegisterForm> {
       DropdownMenuItem(
         value: 4,
         child: Text(
-          "Others",
+          "Pharmacist",
           style: TextStyle(
               fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
         ),
       ),
+
+      // DropdownMenuItem(
+      //   value: 0,
+      //   child: Text(
+      //     "Doctor",
+      //     style: TextStyle(
+      //         fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      //   ),
+      // ),
+      // DropdownMenuItem(
+      //   value: 1,
+      //   child: Text(
+      //     "Health Worker",
+      //     style: TextStyle(
+      //         fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      //   ),
+      // ),
+      // DropdownMenuItem(
+      //   value: 2,
+      //   child: Text(
+      //     "Nurse",
+      //     style: TextStyle(
+      //         fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      //   ),
+      // ),
+      // DropdownMenuItem(
+      //   value: 3,
+      //   child: Text(
+      //     "Pharmacist",
+      //     style: TextStyle(
+      //         fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      //   ),
+      // ),
+      // DropdownMenuItem(
+      //   value: 4,
+      //   child: Text(
+      //     "Others",
+      //     style: TextStyle(
+      //         fontWeight: FontWeight.bold, color: ThemeColor.darksecondText),
+      //   ),
+      // ),
     ];
 
     Widget _professionText() {

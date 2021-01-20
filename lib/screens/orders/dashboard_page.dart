@@ -539,23 +539,25 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                 height: 0,
                               ),
                         SizedBox(
-                          height: 25,
-                        ),
-                        Text(
-                          AppLocalizations.of(context).translate("promo_title"),
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: ThemeColor.contrastText,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
                           height: 5,
+                        ),
+                        Container(
+                          color: ThemeColor.background2,
+                          padding: EdgeInsets.only(bottom: 10, top: 15),
+                          child: Text(
+                            AppLocalizations.of(context)
+                                .translate("promo_title"),
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: ThemeColor.contrastText,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 15),
                           height: 200,
-                          color: Colors.grey[150],
+                          color: ThemeColor.background2,
                           child: GridView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: state.dashboard.promos.length,

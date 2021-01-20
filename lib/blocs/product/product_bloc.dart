@@ -22,6 +22,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       yield* _mapShowProductToState(event);
     } else if (event is ProductSearched) {
       yield* _mapSearchToState(event);
+    } else if (event is MedsInfoSearched) {
+      yield* _mapSearchMedToState(event);
     } else if (event is ProductGetReady) {
       yield* _mapSearchReadyToState(event);
     } else if (event is MedsInfoFetched) {
@@ -112,6 +114,31 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     }
   }
 
+  Stream<ProductState> _mapSearchMedToState(MedsInfoSearched event) async* {
+    yield ProductSearchLoading();
+    try {
+      var result;
+      if (event.text == null) {
+        //print("Cat: " + event.id.toString());
+        result = await _apiService.searchMedInfoByBrand(event.id);
+      } else {
+        result = await _apiService.searchMedInfo(event.text);
+      }
+      if (result != null) {
+        if (result.length > 0) {
+          yield MedsInfoLoaded(medsList: result);
+        } else {
+          yield ProductSearchEmpty();
+        }
+      } else {
+        yield ProductSearchEmpty();
+      }
+    } catch (e) {
+      yield ProductFailure(
+          error: e.message.toString() ?? 'An unknown error occurred');
+    }
+  }
+
   Stream<ProductState> _mapSearchReadyToState(ProductGetReady event) async* {
     yield ProductLoading();
     if (Category.categories.length == 0) {
@@ -137,7 +164,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     try {
       final result = await _apiService.fetchMedsInfo();
       if (result != null) {
-        yield MedsInfoLoaded(medsList: result);
+        if (result.length == 2) {
+          Brand.brands = result[1];
+          Brand.generateBrandDropdowns();
+          yield MedsInfoLoaded(medsList: result[0]);
+        } else {
+          yield ProductNotLoaded();
+        }
       } else {
         yield ProductNotLoaded();
       }

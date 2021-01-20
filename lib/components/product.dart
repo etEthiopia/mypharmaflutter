@@ -125,5 +125,13 @@ Widget loadimage(String image) {
     imageUrl: '${SERVER_IP_FILE}news/$image',
     progressIndicatorBuilder: _progress,
     errorWidget: _error,
+    imageBuilder: (context, imageProvider) => Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(15),
+        ),
+        image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+      ),
+    ),
   );
 }
