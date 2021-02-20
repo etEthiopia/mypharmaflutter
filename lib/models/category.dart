@@ -43,7 +43,7 @@ class Category {
 
     for (var cat in productslist) {
       catsfetched.add(Category(
-        id: cat['id'],
+        id: int.parse(cat['id'].toString()),
         title: cat['title'],
         description: cat['descriptioin'],
       ));

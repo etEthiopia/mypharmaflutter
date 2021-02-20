@@ -109,7 +109,7 @@ class APIService extends APIServiceSkel {
       } else if (e is AuthException) {
         throw AuthException(message: e.message);
       } else {
-        print('Connection Error');
+        print('Connection Error $e');
         throw AuthException(
             message: "Sorry, We couldn't get a response from our server");
       }
@@ -236,12 +236,12 @@ class APIService extends APIServiceSkel {
           print('Error from Server');
           throw NewsException(message: "Sorry, We couldn't reach the server");
         } else {
-          print('Connection Error');
+          print('Connection Error $e');
           throw NewsException(
               message: "Sorry, We couldn't get a response from our server");
         }
       } else {
-        print('Connection Error');
+        print('Connection Error $e');
         throw NewsException(
             message: "Sorry, We couldn't get a response from our server");
       }
@@ -273,8 +273,8 @@ class APIService extends APIServiceSkel {
                   .decode(res.body)['message']
                   .toString()
                   .contains('oken')) {
-                print(json.decode(res.body)['message']);
-                throw ProductException(message: 'Not Authorized');
+                print("Token Expired: " + json.decode(res.body)['message']);
+                //throw ProductException(message: 'Not Authorized');
               }
               print('Wrong Request');
               throw ProductException(message: 'Wrong Request');
@@ -302,7 +302,8 @@ class APIService extends APIServiceSkel {
                 message: "Sorry, We couldn't get a response from our server");
           }
         } else if (e is FormatException) {
-          throw ProductException(message: 'Not Authorized');
+          print("Format Exception: " + e.message);
+          //throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -312,14 +313,15 @@ class APIService extends APIServiceSkel {
         }
       }
     } else {
-      throw ProductException(message: 'Not Authorized');
+      print("Token is Null");
+      // throw ProductException(message: 'Not Authorized');
     }
   }
 
   @override
   Future<List<dynamic>> fetchMyStock() async {
     String product = "stock";
-
+    print("stock: $SERVER_IP/$product/${APIService.id}");
     if (APIService.token != null) {
       try {
         var res = await http.get(
@@ -334,7 +336,6 @@ class APIService extends APIServiceSkel {
             if (json.decode(res.body)['sucess']) {
               List<Product> products = Product.generateStockList(
                   json.decode(res.body)['0']['product']);
-
               return products;
             } else {
               if (json
@@ -342,7 +343,7 @@ class APIService extends APIServiceSkel {
                   .toString()
                   .contains('oken')) {
                 print(json.decode(res.body)['message']);
-                throw ProductException(message: 'Not Authorized');
+                throw ProductException(message: 'Not AAAA');
               }
               print('Wrong Request');
               throw ProductException(message: 'Wrong Request');
@@ -370,7 +371,7 @@ class APIService extends APIServiceSkel {
                 message: "Sorry, We couldn't get a response from our server");
           }
         } else if (e is FormatException) {
-          throw ProductException(message: 'Not Authorized');
+          throw ProductException(message: '$e');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -390,7 +391,7 @@ class APIService extends APIServiceSkel {
     if (APIService.token != null) {
       try {
         var res = await http.get(
-          "$SERVER_IP/$product",
+          "http://mapps.medanit.com/api/$product",
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': 'Bearer ${APIService.token}'
@@ -398,17 +399,17 @@ class APIService extends APIServiceSkel {
         ).timeout(Duration(seconds: 20));
         if (res.statusCode == 200) {
           if (res.body != null) {
+            //print(json.decode(res.body));
             if (json.decode(res.body)['sucess']) {
               Product product =
                   Product.fromJsonDetial(json.decode(res.body)['0']);
-              print("product: " + product.toString());
               return product;
             } else {
               if (json
                   .decode(res.body)['message']
                   .toString()
                   .contains('oken')) {
-                print(json.decode(res.body)['message']);
+                //print(json.decode(res.body)['message']);
                 throw ProductException(message: 'Not Authorized');
               }
               print('Wrong Request');
@@ -437,6 +438,7 @@ class APIService extends APIServiceSkel {
                 message: "Sorry, We couldn't get a response from our server");
           }
         } else if (e is FormatException) {
+          //print('Format Exception:  ${e.message}');
           throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
@@ -579,13 +581,13 @@ class APIService extends APIServiceSkel {
                 return result;
               }
             } else {
-              if (json
-                  .decode(res.body)['message']
-                  .toString()
-                  .contains('oken')) {
-                print(json.decode(res.body)['message']);
-                throw OrderException(message: 'Not Authorized');
-              }
+              // if (json
+              //     .decode(res.body)['message']
+              //     .toString()
+              //     .contains('oken')) {
+              //   print(json.decode(res.body)['message']);
+              //   throw OrderException(message: 'Not Authorized');
+              // }
               print('Wrong Request');
               throw OrderException(message: 'Wrong Request');
             }
@@ -622,7 +624,7 @@ class APIService extends APIServiceSkel {
         }
       }
     } else {
-      throw OrderException(message: 'Not Authorized');
+      // throw OrderException(message: 'Not Authorized');
     }
   }
 
@@ -1052,9 +1054,9 @@ class APIService extends APIServiceSkel {
             if (json.decode(res.body)['sucess']) {
               //print(json.decode(res.body)['0']['cartitem']);
               List<Cart> cart = Cart.generatecartlistList(
-                  json.decode(res.body)['0']['cartitem'],
-                  json.decode(res.body)['0']['allTotal']);
-
+                      json.decode(res.body)['0']['cartitem'],
+                      double.tryParse(json.decode(res.body)['0']['allTotal'])) ??
+                  0;
               List<dynamic> result = cart;
               return result;
             } else {
@@ -1062,7 +1064,6 @@ class APIService extends APIServiceSkel {
                   .decode(res.body)['message']
                   .toString()
                   .contains('oken')) {
-                print(json.decode(res.body)['message']);
                 throw CartException(message: 'Not Authorized');
               }
               print('Wrong Request');
@@ -1085,7 +1086,7 @@ class APIService extends APIServiceSkel {
             print('Error from Server');
             throw CartException(message: "Sorry, We couldn't reach the server");
           } else {
-            print('Connection Error');
+            print('Connection Error $e');
             throw CartException(
                 message: "Sorry, We couldn't get a response from our server");
           }
@@ -1094,7 +1095,7 @@ class APIService extends APIServiceSkel {
         } else if (e is CartException) {
           throw CartException(message: e.message);
         } else {
-          print('Connection Error');
+          print('Connection Error $e');
           throw CartException(
               message: "Sorry, We couldn't get a response from our server");
         }

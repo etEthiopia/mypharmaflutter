@@ -24,7 +24,7 @@ class Vendor {
   factory Vendor.fromJson(Map<String, dynamic> json) {
     //print("VENDOR: $json");
     return Vendor(
-        id: json['ven_info']['id'],
+        id: int.parse(json['ven_info']['id'].toString()),
         name: json['ven_info']['title'],
         description: json['ven_info']['descriptioin'],
         icon: json['ven_info']['icon'] ?? '-',

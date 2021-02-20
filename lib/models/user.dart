@@ -38,13 +38,13 @@ class User {
     // Map userp = user;
     // print(userp.keys);
 
-    id = user['id'];
+    id = int.parse(user['id'].toString());
     name = user['name'];
     email = user['email'];
     //email_verified_at = user['email_verified_at'];
     // created_at = user['created_at'];
     // updated_at = user['updated_at'];
-    role = _numberToRole(user['role']);
+    role = _numberToRole(int.parse(user['role'].toString()));
     profileimg = user['profileimg'];
     // user_activation_key = user['user_activation_key'];
     // is_representative = user['is_representative'];

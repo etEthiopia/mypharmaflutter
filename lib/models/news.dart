@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class News {
@@ -21,7 +23,7 @@ class News {
 
     for (var news in newslist) {
       newsfetched.add(News(
-          id: news['id'],
+          id: int.parse(news['id']),
           title: news['title'],
           description: news['descriptioin'],
           category: news['catname'],
@@ -33,7 +35,7 @@ class News {
 
   factory News.fromJson(Map<String, dynamic> json) {
     return News(
-      id: json['id'],
+      id: int.parse(json['id']),
       title: json['title'],
       description: json['descriptioin'],
       category: json['catname'],

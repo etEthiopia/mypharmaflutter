@@ -4,6 +4,7 @@ import 'package:mypharma/app_localizations.dart';
 import 'package:mypharma/blocs/cart/bloc.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/models/models.dart';
+import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +149,18 @@ class _CartItemState extends State<CartItem> {
                 Container(
                   height: 60,
                   width: 60,
-                  child: loadimage(widget.picture),
+                  child: InkWell(
+                    child: loadimage(widget.picture),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => ShowProduct(
+                                  id: widget.prodId,
+                                  isProduct: false,
+                                )),
+                      );
+                    },
+                  ),
                   decoration: BoxDecoration(
                       //color: Colors.green,
                       borderRadius: BorderRadius.all(
@@ -190,14 +202,26 @@ class _CartItemState extends State<CartItem> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    "${widget.name}",
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: ThemeColor.darksecondText,
-                        fontSize: 17,
-                        fontFamily: defaultFont),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => ShowProduct(
+                                  id: widget.prodId,
+                                  isProduct: false,
+                                )),
+                      );
+                    },
+                    child: Text(
+                      "${widget.name}",
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: ThemeColor.darksecondText,
+                          fontSize: 17,
+                          fontFamily: defaultFont),
+                    ),
                   ),
                   Divider(
                     color: ThemeColor.background1,
@@ -239,7 +263,7 @@ class _CartItemState extends State<CartItem> {
                                       fontFamily: defaultFont),
                                 ),
                                 Text(
-                                  "${widget.price / double.parse(widget.amount.toString())} ${AppLocalizations.of(context).translate("etb_text")}",
+                                  "${(widget.price / double.parse(widget.amount.toString())).toStringAsFixed(2)} ${AppLocalizations.of(context).translate("etb_text")}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
@@ -264,7 +288,7 @@ class _CartItemState extends State<CartItem> {
                                       fontFamily: defaultFont),
                                 ),
                                 Text(
-                                  "${widget.price} ${AppLocalizations.of(context).translate("etb_text")}",
+                                  "${(widget.price).toStringAsFixed(2)} ${AppLocalizations.of(context).translate("etb_text")}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(

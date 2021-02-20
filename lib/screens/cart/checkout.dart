@@ -72,7 +72,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         border: Border.all(
                             color: ThemeColor.primaryText, width: 2)),
                     child: Text(
-                      "${Cart.allTotal} ${AppLocalizations.of(context).translate("etb_text")}",
+                      "${Cart.allTotal.toStringAsFixed(2)} ${AppLocalizations.of(context).translate("etb_text")}",
                       style: TextStyle(
                           color: ThemeColor.primaryText,
                           fontSize: 15,

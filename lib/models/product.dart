@@ -13,13 +13,13 @@ class Product {
   int category;
   String batchNo;
   String vendor;
-  int price;
+  double price;
   double tax;
   String genericName;
   String manufacturer;
   String manuDate;
   String expDate;
-  int packagePrice;
+  double packagePrice;
   int packageCapacity;
   String stockStatus;
   int amountInStock;
@@ -61,29 +61,35 @@ class Product {
       @required this.manufacturerCountry});
 
   factory Product.fromJsonDetial(Map<String, dynamic> json) {
-    print("PROD DETAILS: $json");
+    print(json);
     return Product.detail(
-      id: json['id'],
+      id: int.parse(json['id'].toString()),
       title: json['title'],
-      price: json['max_price'],
+      price: double.tryParse(json['max_price'].toString()) ?? 0.0,
       vendor: json['vendorname'],
       image: json['thumbnail'],
       date: json['updated_at'],
       description: json['descriptioin'],
-      gallery: null,
-      category: json['category_id'],
+      gallery: [],
+      category: int.tryParse(json['category_id'].toString()) ?? 0,
       batchNo: json['batch_number'],
       genericName: json['generic_name'] ?? "-",
-      tax: double.parse(json['taxt_rate'].toString()),
-      userid: json['user_id'],
-      vendorId: json['vendor_id'],
+      tax: 0,
+      userid: int.tryParse(json['user_id'].toString()) ?? 0,
+      vendorId: int.tryParse(json['vendor_id'].toString()) ?? 0,
       manufacturer: json['manufacturer_company'] ?? "-",
       manuDate: json['manufactured_date'] ?? "-",
       expDate: json['expiry_date'] ?? "-",
-      packageCapacity: json['package_capacity'] ?? 0,
-      packagePrice: json['package_price'] ?? 0,
+      packageCapacity: json['package_capacity'] != null
+          ? int.tryParse(json['package_capacity'].toString()) ?? 0
+          : 0,
+      packagePrice: json['package_price'] != null
+          ? double.tryParse(json['package_price'].toString()) ?? 0
+          : 0,
       stockStatus: json['stock_status'] ?? "-",
-      amountInStock: json['stock_quantity'] ?? 0,
+      amountInStock: json['stock_quantity'] != null
+          ? int.parse(json['stock_quantity'].toString())
+          : 0,
       manufacturerCountry: json['manufacturer_country'] ?? "-",
     );
   }
@@ -107,8 +113,8 @@ class Product {
 
     for (var products in productslist) {
       productsfetched.add(Product(
-          id: products['id'],
-          price: products['max_price'],
+          id: int.parse(products['id'].toString()),
+          price: double.parse(products['max_price'].toString()),
           title: products['title'],
           vendor: null,
           image: products['thumbnail'],
@@ -122,20 +128,21 @@ class Product {
 
     for (var products in productslist) {
       productsfetched.add(Product(
-          id: products['id'],
-          price: products['max_price'],
+          id: int.parse(products['id'].toString()),
+          price: double.tryParse(products['max_price'].toString()) ?? 0.0,
           title: products['title'],
           vendor: products['vendorname'],
           image: products['thumbnail']));
     }
+    print("Products Fetched: $productsfetched");
     return productsfetched;
   }
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
+      id: int.parse(json['id'].toString()),
       title: json['title'],
-      price: json['max_price'],
+      price: double.parse(json['max_price'].toString()),
       vendor: json['vendorname'],
       image: json['thumbnail'],
     );

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mypharma/components/appbars.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 import 'package:flutter/material.dart';
@@ -70,38 +71,16 @@ class _ShowArticleState extends State<ShowArticle> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              // Row(
-              //   children: <Widget>[
-              //     IconButton(
-              //       icon: Icon(
-              //         Icons.thumb_up,
-              //         color: ThemeColor.extralightText,
-              //       ),
-              //       onPressed: () {},
-              //     ),
-              //     Text("15",
-              //         style: TextStyle(
-              //             color: ThemeColor.extralightText,
-              //             fontSize: 15,
-              //             fontFamily: defaultFont))
-              //   ],
-              // ),
-              _category()
-            ],
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[Expanded(child: _category())],
+            ),
           ),
           Row(children: <Widget>[
             IconButton(
               icon: Icon(
                 Icons.error,
-                color: ThemeColor.extralightText,
-              ),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.share,
                 color: ThemeColor.extralightText,
               ),
               onPressed: () {},
@@ -135,7 +114,7 @@ class _ShowArticleState extends State<ShowArticle> {
                 color: ThemeColor.lightText,
                 fontSize: 10,
                 fontFamily: defaultFont)),
-        Text(widget.category.toString(),
+        Text(widget.category.toString() + "asdfasfsadfafpp",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -205,6 +184,9 @@ class _ShowArticleState extends State<ShowArticle> {
     if (orientation == Orientation.portrait) {
       return Scaffold(
           backgroundColor: ThemeColor.extralight,
+          appBar: simpleAppBar(
+            title: '',
+          ),
           body: SafeArea(
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),

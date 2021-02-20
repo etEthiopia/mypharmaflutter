@@ -110,13 +110,13 @@ class Order {
   factory Order.titlesFromJson(Map<String, dynamic> json, bool received) {
     if (received) {
       return Order.receivedlist(
-          id: json['id'],
-          postid: json['post_id'],
-          userid: json['user_id'],
+          id: int.parse(json['id'].toString()),
+          postid: int.parse(json['post_id'].toString()),
+          userid: int.parse(json['user_id'].toString()),
           price: 0,
           orderGroup: json['order_group_id'].toString(),
-          quantity: json['order_quantity'],
-          groupTotal: json['grp_total'],
+          quantity: int.parse(json['order_quantity'].toString()),
+          groupTotal: int.parse(json['grp_total'].toString()),
           date: json['created_at'],
           status: json['order_status'],
           sender: json['vendorname'],
@@ -124,11 +124,11 @@ class Order {
           selected: false);
     }
     return Order.sentlist(
-      id: json['id'],
-      postid: json['post_id'],
-      userid: json['user_id'],
+      id: int.parse(json['id'].toString()),
+      postid: int.parse(json['post_id'].toString()),
+      userid: int.parse(json['user_id'].toString()),
       price: double.parse(json['net_total_price'].toString()),
-      quantity: json['order_quantity'],
+      quantity: int.parse(json['order_quantity'].toString()),
       date: json['created_at'],
       status: json['order_status'],
       receiver: json['vendorname'],
@@ -139,12 +139,12 @@ class Order {
   factory Order.fromJsonlist(Map<String, dynamic> json, bool received) {
     if (received) {
       return Order.receivedlist(
-          id: json['id'],
-          postid: json['post_id'],
-          userid: json['user_id'],
+          id: int.parse(json['id'].toString()),
+          postid: int.parse(json['post_id'].toString()),
+          userid: int.parse(json['user_id'].toString()),
           price: double.parse(json['net_total_price'].toString()),
           orderGroup: json['order_group_id'].toString(),
-          quantity: json['order_quantity'],
+          quantity: int.parse(json['order_quantity'].toString()),
           date: json['created_at'],
           status: json['order_status'],
           sender: json['name'],
@@ -154,11 +154,11 @@ class Order {
     }
 
     return Order.sentlist(
-      id: json['id'],
-      postid: json['post_id'],
-      userid: json['user_id'],
+      id: int.parse(json['id'].toString()),
+      postid: int.parse(json['post_id'].toString()),
+      userid: int.parse(json['user_id'].toString()),
       price: double.parse(json['net_total_price'].toString()),
-      quantity: json['order_quantity'],
+      quantity: int.parse(json['order_quantity'].toString()),
       date: json['created_at'],
       status: json['order_status'],
       receiver: json['vendorname'],
@@ -168,9 +168,9 @@ class Order {
 
   factory Order.showReceivedFromJson(Map<String, dynamic> json) {
     return Order.showReceived(
-        id: json['id'],
-        postid: json['post_id'],
-        userid: json['user_id'],
+        id: int.parse(json['id'].toString()),
+        postid: int.parse(json['post_id'].toString()),
+        userid: int.parse(json['user_id'].toString()),
         price: double.parse(json['productprice'].toString()),
         net: double.parse(json['net_total_price'].toString()),
         note: json['order_note'],
@@ -182,7 +182,7 @@ class Order {
             ? double.parse(json['tax_total'].toString())
             : 0.0,
         selected: false,
-        quantity: json['order_quantity'],
+        quantity: int.parse(json['order_quantity'].toString()),
         date: json['created_at'],
         status: json['order_status'],
         sender: json['vendorname'],

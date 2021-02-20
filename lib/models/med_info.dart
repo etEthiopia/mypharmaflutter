@@ -33,7 +33,7 @@ class MedicalInfo {
 
     for (var products in productslist) {
       productsfetched.add(MedicalInfo.medsInfo(
-        id: products['id'],
+        id: int.parse(products['id'].toString()),
         title: products['generic_name'],
         description: products['discription'],
       ));

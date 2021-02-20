@@ -35,7 +35,7 @@ class Brand {
 
     for (var products in productslist) {
       productsfetched.add(Brand(
-        id: products['id'],
+        id: int.parse(products['id'].toString()),
         name: products['brand_name'],
         description: products['brand_disc'],
       ));

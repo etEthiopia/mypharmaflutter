@@ -27,28 +27,28 @@ class Wishlist {
 
     for (var wishlist in wishlistlist) {
       wishlistfetched.add(Wishlist(
-          id: wishlist['id'],
+          id: int.parse(wishlist['id'].toString()),
           name: wishlist['name'],
           slug: wishlist['slug'],
-          postId: wishlist['post_id'],
-          vendorId: wishlist['vendor_id'],
-          vendorname: wishlist['vendorname'],
+          postId: int.parse(wishlist['post_id'].toString()),
+          vendorId: int.parse(wishlist['vendor_id'].toString()),
+          vendorname: wishlist['vendorname'].toString(),
           picture: wishlist['thumbnail'],
-          quantity: wishlist['quantity']));
+          quantity: int.parse(wishlist['quantity'].toString())));
     }
     return wishlistfetched;
   }
 
   factory Wishlist.fromJson(Map<String, dynamic> json) {
     return Wishlist(
-        id: json['id'],
+        id: int.parse(json['id'].toString()),
         name: json['name'],
         slug: json['slug'],
-        postId: json['post_id'],
-        vendorId: json['vendor_id'],
+        postId: int.parse(json['post_id'].toString()),
+        vendorId: int.parse(json['vendor_id'].toString()),
         vendorname: json['vendorname'],
         picture: json['thumbnail'],
-        quantity: json['quantity']);
+        quantity: int.parse(json['quantity'].toString()));
   }
 
   @override

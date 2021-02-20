@@ -9,9 +9,9 @@ import 'package:mypharma/screens/my_app.dart';
 import 'package:mypharma/services/services.dart';
 import 'blocs/cart/bloc.dart';
 
-const IP = 'http://192.168.1.4/mypharma/';
+const IP = 'http://mapps.medanit.com/';
 const SERVER_IP = IP + 'api';
-const SERVER_IP_FILE = IP + 'public/storage/';
+const SERVER_IP_FILE = 'http://medanit.com/storage/';
 final storage = FlutterSecureStorage();
 APIService apiService = APIService();
 

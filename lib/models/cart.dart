@@ -20,33 +20,35 @@ class Cart {
       @required this.date,
       @required this.price});
 
-  static List<Cart> generatecartlistList(List<dynamic> cartlist, int total) {
+  static List<Cart> generatecartlistList(List<dynamic> cartlist, double total) {
     List<Cart> cartlistfetched = List<Cart>();
-
-    Cart.allTotal = double.parse(total.toString());
+    print('here');
+    Cart.allTotal = double.tryParse(total.toString()) ?? 0.0;
+    print("Cart All Total: ${Cart.allTotal}");
     Cart.count = cartlist.length;
 
     for (var cart in cartlist) {
       cartlistfetched.add(Cart(
-          id: cart['id'],
+          id: int.parse(cart['id'].toString()),
           name: cart['post_title'],
-          postId: cart['post_id'],
+          postId: int.parse(cart['post_id'].toString()) ?? 0,
           picture: cart['thumbnail'],
-          quantity: cart['quantity'] ?? 0,
+          quantity: int.tryParse(cart['quantity'].toString()) ?? 0,
           date: cart['updated_at'] ?? '-',
-          price: double.parse(cart['price'].toString()) ?? 0.0));
+          price: double.tryParse(cart['price'].toString()) ?? 0.0));
     }
+    print("Cart Fetched : $cartlistfetched");
 
     return cartlistfetched;
   }
 
   factory Cart.fromJson(Map<String, dynamic> json) {
     return Cart(
-        id: json['id'],
+        id: int.parse(json['id'].toString()),
         name: json['post_title'],
-        postId: json['post_id'],
+        postId: int.parse(json['post_id'].toString()),
         picture: json['thumbnail'],
-        quantity: json['quantity'] ?? 0,
+        quantity: int.parse(json['quantity'].toString()) ?? 0,
         date: json['updated_at'] ?? '-',
         price: double.parse(['price'].toString()) ?? 00);
   }

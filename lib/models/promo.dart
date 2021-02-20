@@ -25,13 +25,13 @@ class Promo {
 
     for (var news in newslist) {
       newsfetched.add(Promo(
-          id: news['id'],
+          id: int.parse(news['id'].toString()),
           title: news['title'],
           description: news['descriptioin'],
           authorname: news['name'],
           profileimg: news['profileimg'],
           author: news['author'].toString(),
-          viewer: news['viewer'],
+          viewer: int.parse(news['viewer'].toString()),
           image: news['thumb']));
     }
     return newsfetched;
@@ -39,13 +39,13 @@ class Promo {
 
   factory Promo.fromJson(Map<String, dynamic> json) {
     return Promo(
-        id: json['id'],
+        id: int.parse(json['id'].toString()),
         title: json['title'],
         description: json['descriptioin'],
         authorname: json['name'],
         profileimg: json['profileimg'],
         author: json['author'].toString(),
-        viewer: json['viewer'],
+        viewer: int.parse(json['viewer'].toString()),
         image: json['thumb']);
   }
 

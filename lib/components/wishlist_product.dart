@@ -9,6 +9,7 @@ import 'package:mypharma/blocs/wishlist/bloc.dart';
 import 'package:mypharma/components/show_success.dart';
 import 'package:mypharma/main.dart';
 import 'package:mypharma/models/wishlist.dart';
+import 'package:mypharma/screens/products/show_product.dart';
 import 'package:mypharma/theme/colors.dart';
 import 'package:mypharma/theme/font.dart';
 
@@ -135,7 +136,18 @@ class _WishlistProductState extends State<WishlistProduct> {
                 Container(
                   height: 60,
                   width: 60,
-                  child: loadimage(widget.image),
+                  child: InkWell(
+                    child: loadimage(widget.image),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => ShowProduct(
+                                  id: widget.postid,
+                                  isProduct: false,
+                                )),
+                      );
+                    },
+                  ),
                   decoration: BoxDecoration(
                       //color: Colors.green,
                       borderRadius: BorderRadius.all(
@@ -162,14 +174,26 @@ class _WishlistProductState extends State<WishlistProduct> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    "${widget.name}",
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: ThemeColor.darkText,
-                        fontSize: 17,
-                        fontFamily: defaultFont),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => ShowProduct(
+                                  id: widget.postid,
+                                  isProduct: false,
+                                )),
+                      );
+                    },
+                    child: Text(
+                      "${widget.name}",
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: ThemeColor.darkText,
+                          fontSize: 17,
+                          fontFamily: defaultFont),
+                    ),
                   ),
                   Divider(
                     color: ThemeColor.background1,

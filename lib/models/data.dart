@@ -60,8 +60,8 @@ class Datta {
   factory Datta.fromJson(Map<String, dynamic> json) {
     if (int.parse(json['user'].toString()) == 2) {
       return Datta.Importer(
-          user: json['user'],
-          visits: json['ttvisit'],
+          user: int.parse(json['user'].toString()),
+          visits: int.parse(json['ttvisit'].toString()),
           totalCustomerOrders: json['ttotal_order'].length,
           customerProcessingOrders: json['pprocessing'].length,
           customerDeliveredgOrders: json['ddelivered'].length,
@@ -71,8 +71,8 @@ class Datta {
           promos: Promo.generatePromoList(json['promo']));
     } else if (int.parse(json['user'].toString()) == 3) {
       return Datta.WholeSeller(
-          user: json['user'],
-          visits: json['ttvisit'],
+          user: int.parse(json['user'].toString()),
+          visits: int.parse(json['ttvisit'].toString()),
           totalCustomerOrders: json['ttotal_order'].length,
           customerProcessingOrders: json['pprocessing'].length,
           customerDeliveredgOrders: json['ddelivered'].length,
@@ -88,8 +88,8 @@ class Datta {
           promos: Promo.generatePromoList(json['promo']));
     } else if (int.parse(json['user'].toString()) == 4) {
       return Datta.Pharmacy(
-          user: json['user'],
-          visits: json['ttvisit'],
+          user: int.parse(json['user'].toString()),
+          visits: int.parse(json['ttvisit'].toString()),
           totalMyOrders: json['oorder'].length,
           myProcessingOrders: json['oporder'].length,
           myOnholdOrders: json['ooorder'].length,
