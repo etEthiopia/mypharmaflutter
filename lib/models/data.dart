@@ -48,7 +48,6 @@ class Datta {
 
   Datta.Pharmacy(
       {this.user,
-      this.visits,
       this.totalMyOrders,
       this.myProcessingOrders,
       this.myOnholdOrders,
@@ -89,7 +88,6 @@ class Datta {
     } else if (int.parse(json['user'].toString()) == 4) {
       return Datta.Pharmacy(
           user: int.parse(json['user'].toString()),
-          visits: int.parse(json['ttvisit'].toString()),
           totalMyOrders: json['oorder'].length,
           myProcessingOrders: json['oporder'].length,
           myOnholdOrders: json['ooorder'].length,
@@ -101,4 +99,5 @@ class Datta {
       throw DashboardException(message: 'Could not Fetch');
     }
   }
+
 }

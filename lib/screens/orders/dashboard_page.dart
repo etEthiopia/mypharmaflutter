@@ -170,7 +170,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
                             : SizedBox(
                                 height: 0,
                               ),
-                        state.dashboard.user < 4
+                        state.dashboard.user < 4 &&
+                                state.dashboard.totalCustomerOrders > 0
                             ? Container(
                                 decoration: BoxDecoration(
                                     boxShadow: [
@@ -354,7 +355,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
                             : SizedBox(
                                 height: 0,
                               ),
-                        state.dashboard.user > 2
+                        state.dashboard.user > 2 &&
+                                state.dashboard.totalMyOrders > 0
                             ? Container(
                                 decoration: BoxDecoration(
                                     boxShadow: [

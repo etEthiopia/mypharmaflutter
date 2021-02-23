@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
               if (state.user.role == Role.wholeseller ||
                   state.user.role == Role.importer ||
                   state.user.role == Role.pharmacist) {
-                if (state.user.role == Role.wholeseller) {
+                if (state.user.role == Role.wholeseller || state.user.role == Role.pharmacist) {
                   try {
                     final _wishlistBloc =
                         BlocProvider.of<WishlistBloc>(context);

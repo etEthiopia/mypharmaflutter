@@ -274,7 +274,7 @@ class APIService extends APIServiceSkel {
                   .toString()
                   .contains('oken')) {
                 print("Token Expired: " + json.decode(res.body)['message']);
-                //throw ProductException(message: 'Not Authorized');
+                throw ProductException(message: 'Not Authorized');
               }
               print('Wrong Request');
               throw ProductException(message: 'Wrong Request');
@@ -303,7 +303,7 @@ class APIService extends APIServiceSkel {
           }
         } else if (e is FormatException) {
           print("Format Exception: " + e.message);
-          //throw ProductException(message: 'Not Authorized');
+          throw ProductException(message: 'Not Authorized');
         } else if (e is ProductException) {
           throw ProductException(message: e.message);
         } else {
@@ -314,7 +314,7 @@ class APIService extends APIServiceSkel {
       }
     } else {
       print("Token is Null");
-      // throw ProductException(message: 'Not Authorized');
+      throw ProductException(message: 'Not Authorized');
     }
   }
 
@@ -581,13 +581,13 @@ class APIService extends APIServiceSkel {
                 return result;
               }
             } else {
-              // if (json
-              //     .decode(res.body)['message']
-              //     .toString()
-              //     .contains('oken')) {
-              //   print(json.decode(res.body)['message']);
-              //   throw OrderException(message: 'Not Authorized');
-              // }
+              if (json
+                  .decode(res.body)['message']
+                  .toString()
+                  .contains('oken')) {
+                print(json.decode(res.body)['message']);
+                throw OrderException(message: 'Not Authorized');
+              }
               print('Wrong Request');
               throw OrderException(message: 'Wrong Request');
             }
@@ -624,7 +624,7 @@ class APIService extends APIServiceSkel {
         }
       }
     } else {
-      // throw OrderException(message: 'Not Authorized');
+       throw OrderException(message: 'Not Authorized');
     }
   }
 
@@ -1055,7 +1055,8 @@ class APIService extends APIServiceSkel {
               //print(json.decode(res.body)['0']['cartitem']);
               List<Cart> cart = Cart.generatecartlistList(
                       json.decode(res.body)['0']['cartitem'],
-                      double.tryParse(json.decode(res.body)['0']['allTotal'])) ??
+                      double.tryParse(
+                          json.decode(res.body)['0']['allTotal'])) ??
                   0;
               List<dynamic> result = cart;
               return result;
