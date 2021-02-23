@@ -184,8 +184,8 @@ class _ShowArticleState extends State<ShowArticle> {
     if (orientation == Orientation.portrait) {
       return Scaffold(
           backgroundColor: ThemeColor.extralight,
-          appBar: simpleAppBar(
-            title: '',
+          appBar: cleanAppBar(
+            title: widget.title,
           ),
           body: SafeArea(
               child: Padding(

@@ -47,6 +47,7 @@ abstract class APIServiceSkel {
 class APIService extends APIServiceSkel {
   static String token;
   static int id;
+  static Role role;
 
   @override
   Future<User> getCurrentUser() async {
@@ -624,7 +625,7 @@ class APIService extends APIServiceSkel {
         }
       }
     } else {
-       throw OrderException(message: 'Not Authorized');
+      throw OrderException(message: 'Not Authorized');
     }
   }
 
@@ -1056,7 +1057,7 @@ class APIService extends APIServiceSkel {
               List<Cart> cart = Cart.generatecartlistList(
                       json.decode(res.body)['0']['cartitem'],
                       double.tryParse(
-                          json.decode(res.body)['0']['allTotal'])) ??
+                          json.decode(res.body)['0']['allTotal'].toString())) ??
                   0;
               List<dynamic> result = cart;
               return result;
@@ -1121,7 +1122,7 @@ class APIService extends APIServiceSkel {
         if (res.statusCode == 200) {
           if (res.body != null) {
             if (json.decode(res.body)['sucess']) {
-              Cart.count = json.decode(res.body)['count'];
+              //Cart.count = json.decode(res.body)['count'];
               return json.decode(res.body)['count'];
             } else {
               if (json

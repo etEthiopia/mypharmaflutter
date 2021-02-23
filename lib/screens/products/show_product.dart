@@ -348,7 +348,11 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 SizedBox(
                                   height: por == true ? 0 : 10,
                                 ),
-                                por == true ? Text("") : _org(por),
+                                por == true
+                                    ? Text("")
+                                    : APIService.role != Role.importer
+                                        ? _org(por)
+                                        : SizedBox(height: 0),
                                 SizedBox(
                                   height: por == true ? 0 : 10,
                                 ),
@@ -420,7 +424,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                               fontSize: 10,
                                               fontFamily: defaultFont)),
                                       Text(
-                                          "${state.product.price} " +
+                                          "${state.product.price.toStringAsFixed(2)} " +
                                               AppLocalizations.of(context)
                                                   .translate("etb_text"),
                                           style: TextStyle(
@@ -469,7 +473,7 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                               fontSize: 10,
                                               fontFamily: defaultFont)),
                                       Text(
-                                          "${state.product.packagePrice} " +
+                                          "${state.product.packagePrice.toStringAsFixed(2)} " +
                                               AppLocalizations.of(context)
                                                   .translate("etb_text"),
                                           style: TextStyle(
@@ -624,23 +628,6 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                             SizedBox(
                               height: 10,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                InkWell(
-                                  child: Icon(
-                                    Icons.edit,
-                                    color: dark,
-                                    size: 10,
-                                  ),
-                                ),
-                                InkWell(
-                                  child: SizedBox(
-                                    width: 5,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
@@ -649,10 +636,12 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                               height: 0,
                             )
                           : widget.isProduct
-                              ? _action()
-                              : SizedBox(
-                                  height: 0,
-                                )
+                              ? APIService.role != Role.importer
+                                  ? _action()
+                                  : SizedBox(
+                                      height: 0,
+                                    )
+                              : SizedBox()
                     ],
                   ),
                 ),
@@ -683,7 +672,9 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                                 ),
                               ),
                               Container(
-                                child: _org(true),
+                                child: APIService.role != Role.importer
+                                        ? _org(true)
+                                        : SizedBox(height: 0),
                                 width: double.maxFinite,
                                 decoration: BoxDecoration(
                                     color: ThemeColor.darkBtn,
@@ -698,7 +689,11 @@ class _ShowProductDetailState extends State<ShowProductDetail> {
                         ),
                         _details(true),
                         widget.isProduct
-                            ? _action()
+                            ? APIService.role != Role.importer
+                                ? _action()
+                                : SizedBox(
+                                    height: 0,
+                                  )
                             : SizedBox(
                                 height: 0,
                               ),

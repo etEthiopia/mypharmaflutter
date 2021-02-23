@@ -321,7 +321,7 @@ class _VendorPageDetailState extends State<VendorPageDetail> {
                                   image: state.vendor.products[index].image,
                                   org: state.vendor.products[index].vendor,
                                   price: state.vendor.products[index].price
-                                      .toString(),
+                                      .toStringAsFixed(2),
                                   context: this.context),
                             );
                           },

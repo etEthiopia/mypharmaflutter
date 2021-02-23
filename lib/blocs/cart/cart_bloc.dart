@@ -166,10 +166,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         );
         result.add(k);
       }
+      print("Cart Count before batch add ${Cart.count}");
       if (result != null) {
         if (result.length > 0) {
           try {
             Cart.count = await _apiService.countCartItems();
+            print("Cart Count after batch add ${Cart.count}");
           } catch (e) {
             print(e.message);
           }
@@ -193,6 +195,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       final result = await _apiService.countCartItems();
       if (result != null) {
         Cart.count = result;
+        print(" CART COUNT ${Cart.count}");
         yield CartCounted();
       } else {
         yield CartNotLoaded();

@@ -297,7 +297,8 @@ class _BrowseProductListState extends State<BrowseProductList> {
                               name: state.productsList[index].title,
                               image: state.productsList[index].image,
                               org: state.productsList[index].vendor,
-                              price: state.productsList[index].price.toString(),
+                              price: state.productsList[index].price
+                                  .toStringAsFixed(2),
                               context: this.context),
                         );
                       },
